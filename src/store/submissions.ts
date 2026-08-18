@@ -43,11 +43,17 @@ function write(list: Lead[]): void {
 }
 
 /**
- * Records written before a field existed still have to render. Rather than
- * versioning the whole payload, fill in what is missing on read — including
- * `kind`, which pre-dates the partner track and defaults to a plan.
+ * Turn raw records into Leads, filling in whatever is missing.
+ *
+ * Two callers, one job. Records written before a field existed still have to
+ * render — `kind` pre-dates the partner track and defaults to a plan. And the
+ * server stores the intake only, not the draft: a draft is derived from the
+ * answers and regenerable at any time, so persisting one would be storing a
+ * cache. Either way, a plan lead arriving without a draft gets the
+ * deterministic skeleton here, which is the same one baseDraft() would build
+ * and the same one /api/draft later replaces.
  */
-function migrate(value: unknown): Lead[] {
+export function hydrateLeads(value: unknown): Lead[] {
   if (!Array.isArray(value)) return []
   const out: Lead[] = []
   for (const raw of value) {
@@ -69,16 +75,21 @@ function migrate(value: unknown): Lead[] {
       continue
     }
 
-    if (!rec.draft) continue
     const sub = raw as Partial<Submission>
     const pains = Array.isArray(sub.pains) ? sub.pains.filter(isPainId) : []
-    const draft = { ...(sub.draft as Submission['draft']) }
+    // No draft on the record means it came from the server, which stores the
+    // intake and nothing derived. Build the skeleton; runDraft replaces it.
+    const draft = sub.draft ? { ...sub.draft } : baseDraft(pains)
     if (!Array.isArray(draft.stack) || draft.stack.length === 0) {
       draft.stack = painsOrDefault(pains).map((p) => defaultStackItem(p.id))
     }
     out.push({
       ...(sub as Submission),
       kind: 'plan',
+      createdAt: typeof sub.createdAt === 'number' ? sub.createdAt : Date.now(),
+      business: String(sub.business ?? 'Unknown business'),
+      email: String(sub.email ?? ''),
+      rate: typeof sub.rate === 'number' ? sub.rate : 60,
       pains,
       draft,
       status: (sub.status ?? 'new') as SubmissionStatus,
@@ -145,7 +156,7 @@ function sorted(list: Lead[]): Lead[] {
 
 export function loadSubmissions(): Lead[] {
   if (cache) return sorted(cache)
-  const migrated = migrate(readRaw())
+  const migrated = hydrateLeads(readRaw())
   const list = migrated.length ? migrated : seed()
   write(list)
   return sorted(list)
@@ -155,7 +166,7 @@ export function subscribe(fn: Listener): () => void {
   listeners.add(fn)
   const onStorage = (e: StorageEvent) => {
     if (e.key !== STORE_KEY) return
-    cache = migrate(readRaw())
+    cache = hydrateLeads(readRaw())
     fn(sorted(cache))
   }
   window.addEventListener('storage', onStorage)
@@ -169,9 +180,32 @@ export function addSubmission(lead: Lead): void {
   write([lead, ...loadSubmissions().filter((l) => l.id !== lead.id)])
 }
 
-/** Replace the local mirror with the server's list, keeping the change feed. */
-export function replaceAll(list: Lead[]): void {
-  write(list)
+/**
+ * Reconcile the server's list into the local mirror.
+ *
+ * The server owns the intake and the workflow — status, booked slot, who
+ * exists at all — so its version of those wins outright. The draft is the one
+ * thing it does not own: drafts are derived on the client and never persisted
+ * server-side, so a straight replace would throw away a finished draft and
+ * leave every lead looking pending again. On a 20-second poll that would mean
+ * re-running the drafting call for the whole inbox, forever.
+ *
+ * So a ready draft on the device is kept over the skeleton that arrived with
+ * the server record. Anything the server has and the device does not is added;
+ * anything the device has and the server does not is dropped, because the
+ * server is the record of who exists.
+ */
+export function mergeServerLeads(list: Lead[]): Lead[] {
+  const local = new Map(loadSubmissions().map((l) => [l.id, l]))
+  const merged = list.map((incoming) => {
+    const known = local.get(incoming.id)
+    if (!known || incoming.kind !== 'plan' || known.kind !== 'plan') return incoming
+    // Only a finished draft is worth keeping; a pending one is not progress.
+    if (known.draft.status !== 'ready') return incoming
+    return { ...incoming, draft: known.draft }
+  })
+  write(merged)
+  return merged
 }
 
 export function updateSubmission(

@@ -1,4 +1,5 @@
 import type { Lead } from '../domain/types'
+import { hydrateLeads } from '../store/submissions'
 
 /**
  * Browser side of the console's auth and lead list.
@@ -80,7 +81,11 @@ export async function fetchLeads(): Promise<LeadsResult | null> {
   try {
     const res = await fetch('/api/leads', { credentials: 'same-origin' })
     if (!res.ok) return null
-    return await json<LeadsResult>(res)
+    const payload = await json<{ leads?: unknown; storage?: LeadsResult['storage'] }>(res)
+    // The server stores the intake, not the derived draft, so every record has
+    // to be hydrated before the console can render it. Same function the
+    // on-device store uses, so both paths produce identical Leads.
+    return { leads: hydrateLeads(payload.leads), storage: payload.storage ?? 'memory' }
   } catch {
     return null
   }

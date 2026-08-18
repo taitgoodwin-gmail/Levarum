@@ -4,7 +4,7 @@ import './operator.css'
 
 import type { Lead, PainId, SubmissionStatus } from '../domain/types'
 import { isPlanSubmission } from '../domain/types'
-import { loadSubmissions, replaceAll, subscribe, updateSubmission } from '../store/submissions'
+import { loadSubmissions, mergeServerLeads, subscribe, updateSubmission } from '../store/submissions'
 import { resumeStalledDrafts, runDraft } from '../ai/drafting'
 import { fetchLeads, patchLeadStatus, readSession, signOut } from './session'
 
@@ -46,17 +46,22 @@ export function OperatorApp() {
   /**
    * Pull the server list, falling back to the device store.
    *
-   * The server is the record of truth, so its list replaces the local mirror
-   * when it answers. When it does not, the device store still has whatever this
-   * browser has seen — a console with a stale list beats a console with none.
+   * The server is the record of truth for who exists and where each lead is in
+   * the workflow, so its list is reconciled into the local mirror when it
+   * answers — see mergeServerLeads, which keeps a finished draft rather than
+   * letting a poll undo it. When the server does not answer, the device store
+   * still has whatever this browser has seen: a console with a stale list beats
+   * a console with none.
    */
   const sync = useCallback(async () => {
     const result = await fetchLeads()
     if (result) {
-      setLeads(result.leads)
-      replaceAll(result.leads)
+      const merged = mergeServerLeads(result.leads)
+      setLeads(merged)
       setStorage(result.storage)
-      resumeStalledDrafts(result.leads)
+      // Only the ones still without a finished draft, so a poll does not
+      // re-run the drafting call across the whole inbox every twenty seconds.
+      resumeStalledDrafts(merged)
       return
     }
     const local = loadSubmissions()

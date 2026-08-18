@@ -1145,14 +1145,27 @@ button.lv-card:hover,
 .lv-auto__hours {
   border-top: none;
   padding-top: 0;
+  gap: var(--lv-s-4);
+}
+
+/* The display figure sets line-height 1, which leaves its unit and the bar
+   below sitting on the numeral. Give the pair its own baseline. */
+.lv-auto__hours .lv-figure {
+  display: flex;
+  align-items: baseline;
+  gap: var(--lv-s-3);
+  line-height: 1.1;
 }
 
 /* ==========================================================================
    Home — cited figures on the dark band
    ========================================================================== */
 
+/* Four cited figures, four columns: they are one row of evidence, and a
+   three-plus-one wrap reads as one of them being an afterthought. */
 .lv-figures {
   margin-bottom: var(--lv-g-2);
+  grid-template-columns: repeat(auto-fit, minmax(min(210px, 100%), 1fr));
 }
 
 .lv-figures__item {
@@ -1838,4 +1851,75 @@ button.lv-card:hover,
   flex-wrap: wrap;
   border-top: 1px solid var(--lv-line);
   padding-top: var(--lv-s-6);
+}
+
+/* ==========================================================================
+   View transitions — the three questions as one conversation
+   --------------------------------------------------------------------------
+   Without these rules the API still works, but every change is the default
+   full-page cross-fade, which reads as a page swap. What makes the intake feel
+   like one continuous exchange is naming the elements that persist across a
+   step — the progress track, the card, the heading — so the browser matches
+   the old and new state of each and animates between them instead of fading
+   one page out and another in.
+
+   Nothing here is load-bearing: with no View Transitions support the state
+   just changes, and under prefers-reduced-motion transition() skips the API
+   entirely and the global reduced-motion block below cancels any that slipped
+   through.
+   ========================================================================== */
+
+/* The whole-page default: a short cross-fade for route changes. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--lv-dur-2);
+  animation-timing-function: var(--lv-ease);
+}
+
+/* The card is the room the conversation happens in. It resizes between steps
+   rather than being replaced, so the frame holds while the contents change. */
+::view-transition-group(lv-intake-card) {
+  animation-duration: var(--lv-dur-2);
+  animation-timing-function: var(--lv-ease);
+}
+
+::view-transition-old(lv-intake-card),
+::view-transition-new(lv-intake-card) {
+  /* Height is animated by the group; let the contents cross-fade inside it
+     without being squashed to the other step's height on the way. */
+  height: 100%;
+  object-fit: none;
+  object-position: top left;
+  animation-duration: var(--lv-dur-2);
+  animation-timing-function: var(--lv-ease);
+}
+
+/* The heading is the question being asked. It leaves the way the reader is
+   going and the next one arrives from where it is coming from. */
+::view-transition-old(lv-intake-head) {
+  animation: lv-vt-out var(--lv-dur-2) var(--lv-ease) both;
+}
+
+::view-transition-new(lv-intake-head) {
+  animation: lv-vt-in var(--lv-dur-2) var(--lv-ease) both;
+}
+
+@keyframes lv-vt-out {
+  to {
+    opacity: 0;
+    transform: translateX(-18px);
+  }
+}
+
+@keyframes lv-vt-in {
+  from {
+    opacity: 0;
+    transform: translateX(18px);
+  }
+}
+
+/* The progress track persists unchanged, so it should hold still while
+   everything around it moves. Its dots animate their own fill. */
+::view-transition-group(lv-track) {
+  animation-duration: var(--lv-dur-1);
 }
