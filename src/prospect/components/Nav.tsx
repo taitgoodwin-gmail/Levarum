@@ -1,4 +1,5 @@
 import { Link, ROUTES } from '../../router'
+import { track } from '../../analytics'
 import { NAV } from '../content/site'
 import { Mark } from './Mark'
 import { ThemeToggle } from '../../components/ThemeToggle'
@@ -41,7 +42,11 @@ export function Nav({ current, hideStart = false }: { current: string; hideStart
           <ThemeToggle />
 
           {hideStart ? null : (
-            <Link to={ROUTES.start} className="lv-btn lv-btn--sm" data-track="nav-start">
+            <Link
+              to={ROUTES.start}
+              className="lv-btn lv-btn--sm"
+              onClick={() => track('home_to_start', { from: 'nav' })}
+            >
               Start
             </Link>
           )}

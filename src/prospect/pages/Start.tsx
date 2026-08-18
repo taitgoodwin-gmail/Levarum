@@ -8,7 +8,7 @@ import { runDraft } from '../../ai/drafting'
 import { submitBooking, submitPlan } from '../../store/submit'
 import { updateSubmission } from '../../store/submissions'
 import { track } from '../../analytics'
-import { transition, useReducedMotion, useSpring, TOTAL_SPRING } from '../../motion'
+import { transition, useSpring, TOTAL_SPRING } from '../../motion'
 import { HoursBar } from '../components/HoursBar'
 import { Eyebrow } from '../components/Section'
 import { CONTACT_EMAIL } from '../content/site'
@@ -75,7 +75,6 @@ function readSaved(): Saved {
 
 export function Start() {
   const saved = useRef<Saved>(readSaved()).current
-  const reduced = useReducedMotion()
 
   const [route, setRoute] = useState<Route>(() => {
     // A saved plan route is not resumable — the submission it described was
@@ -162,6 +161,8 @@ export function Start() {
     go('gate')
   }
 
+  const assembly = usePlanAssembly(selected.length)
+
   /**
    * The gate. This is the moment the record becomes real: it is written to the
    * store, POSTed to the server, and the drafting call is started — none of
@@ -208,8 +209,6 @@ export function Start() {
       }
     })
   }
-
-  const assembly = usePlanAssembly(selected.length)
 
   const retry = () => {
     if (!submissionId) return
@@ -510,7 +509,6 @@ export function Start() {
           pains={selected}
           fixFirst={fixFirst}
           assembly={assembly}
-          reduced={reduced}
           bookedSlot={bookedSlot}
           onBook={book}
           email={email}
@@ -531,7 +529,6 @@ interface PlanProps {
   pains: ReturnType<typeof painsOrDefault>
   fixFirst: ReturnType<typeof painsOrDefault>[number]
   assembly: ReturnType<typeof usePlanAssembly>
-  reduced: boolean
   bookedSlot: string | null
   onBook: (slot: string) => void
   email: string
@@ -554,7 +551,6 @@ function Plan({
   pains,
   fixFirst,
   assembly,
-  reduced,
   bookedSlot,
   onBook,
   email,
@@ -590,7 +586,7 @@ function Plan({
 
         <div className="lv-stack">
           {visible.map((pain, i) => (
-            <div key={pain.id} className="lv-card lv-planrow" data-arrived={reduced ? '' : ''}>
+            <div key={pain.id} className="lv-card lv-planrow">
               <div className="lv-hoursrow">
                 <span className="lv-planrow__title">{pain.opp}</span>
                 <span className="lv-figure lv-figure--sm">

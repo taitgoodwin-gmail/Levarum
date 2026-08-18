@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { Link, ROUTES } from '../../router'
-import { CONTACT_EMAIL } from '../content/site'
+import { CONTACT_EMAIL, REMOTE_NOTE } from '../content/site'
 import { Eyebrow, Section } from '../components/Section'
 import { submitPartner } from '../../store/submit'
 
@@ -204,7 +204,8 @@ export function Partners() {
           ))}
         </ul>
         <p className="lv-body lv-partner__contact">
-          Questions before you sign up? <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+          {REMOTE_NOTE} Questions before you sign up?{' '}
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
         </p>
       </Section>
     </>
