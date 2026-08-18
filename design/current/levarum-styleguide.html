@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Levarum — style guide v1.0</title>
+<style>
+:root{
+
+  /* --- 1. Base palette (approved, do not extend) --- */
+  --color-base-ink:    #1B1815;   /* warm near-black */
+  --color-base-rust:   #BF4F1F;   /* the one accent */
+  --color-base-stone:  #9C948A;   /* warm neutral — non-text use only (2.57:1 on paper) */
+  --color-base-tint:   #E7E0D3;   /* raised surface */
+  --color-base-paper:  #F2EDE4;   /* ground */
+
+  /* --- 2. Surfaces --- */
+  --color-page:                   var(--color-base-paper);
+  --color-surface-raised:         var(--color-base-tint);
+  --color-surface-sunken:         #E7E2DA;  /* ink 5% over paper */
+  --color-surface-inverse:        var(--color-base-ink);
+  --color-surface-inverse-raised: #2A2723;  /* paper 7% over ink */
+  --color-scrim:                  rgba(27, 24, 21, 0.62);  /* ink at 62% */
+
+  /* --- 3. Text on light surfaces --- */
+  --color-text-primary:   var(--color-base-ink);        /* 15.16:1 on page — AA all sizes */
+  --color-text-secondary: #57544F;  /* ink 72% over paper — 6.46:1 AA all sizes */
+  --color-text-disabled:  #9C9891;  /* ink 40% over paper — 2.46:1 FAIL, disabled only */
+  --color-text-accent:    #873C1C;  /* ink 34% over rust — 6.69:1 AA all sizes */
+  --color-text-error:     #7A381B;  /* ink 42% over rust — 7.48:1 AA all sizes */
+
+  /* --- 4. Text on inverse surfaces --- */
+  --color-text-inverse:           var(--color-base-paper);  /* 15.16:1 on ink — AA */
+  --color-text-inverse-secondary: #B6B1AA;  /* paper 72% over ink — 8.30:1 AA */
+  --color-text-accent-inverse:    #D08562;  /* paper 34% over rust — 6.07:1 on ink, AA */
+
+  /* --- 5. Borders and focus --- */
+  --color-border-default: #D4CFC7;  /* ink 14% over paper — non-text */
+  --color-border-strong:  #ADA9A2;  /* ink 32% over paper — non-text */
+  --color-border-inverse: #3D3A36;  /* paper 16% over ink — non-text */
+  --color-focus-ring:     var(--color-base-rust);  /* 4.14:1 on paper, 3.66:1 on ink — non-text 3:1 PASS */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 3px;
+
+  /* --- 6. Accent / action --- */
+  --color-accent:          var(--color-base-rust);  /* fills only; as text ≥24px or ≥19px bold */
+  --color-accent-hover:    #A5461D;  /* ink 16% over rust */
+  --color-accent-pressed:  #8E3F1C;  /* ink 30% over rust */
+  --color-accent-disabled: #E0B69F;  /* rust 35% over paper — fill only */
+  --color-on-accent:       var(--color-base-paper);  /* 4.14:1 on rust — large text only; buttons are ≥19px 600 */
+
+  /* --- 7. Semantic --- */
+  /* error is derived from rust; success / warning / info are GAPs — see style guide */
+  --color-semantic-error: var(--color-text-error);
+
+  /* --- 8. Type --- */
+  --font-heading: 'Poppins', 'Trebuchet MS', sans-serif;
+  --font-body:    'Lora', Georgia, 'Times New Roman', serif;
+  --font-weight-regular: 400;
+  --font-weight-medium:  500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:    700;
+
+  /* Modular scale, base 17px, ratio 1.25, rounded to whole px.
+     Floor: 17px for prose, 15px for any UI text, 13px only for tracked caps. */
+  --font-size-3xs: 13px;  /* eyebrow caps only */
+  --font-size-xs:  15px;  /* meta, helper */
+  --font-size-sm:  17px;  /* body — FLOOR for prose */
+  --font-size-md:  21px;  /* lead */
+  --font-size-lg:  27px;  /* h3 */
+  --font-size-xl:  34px;  /* h2 */
+  --font-size-2xl: 42px;  /* h1, narrow */
+  --font-size-3xl: 52px;  /* h1 */
+  --font-size-4xl: 65px;  /* display */
+
+  --line-height-tight: 1.05;  /* 2xl and up */
+  --line-height-snug:  1.15;  /* lg, xl */
+  --line-height-base:  1.55;  /* body */
+  --line-height-lead:  1.5;   /* md */
+
+  --letter-spacing-display: -0.035em;
+  --letter-spacing-heading: -0.02em;
+  --letter-spacing-body:     0em;
+  --letter-spacing-caps:     0.06em;
+
+  /* --- 9. Spacing — base unit 4px; ×4 to 24px, then ×8 --- */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
+
+  /* --- 10. Radii and border widths --- */
+  --radius-sm: 8px; --radius-md: 13px; --radius-lg: 20px; --radius-xl: 26px; --radius-pill: 999px;
+  --border-width-default: 1px;
+  --border-width-strong: 1.5px;
+
+  /* --- 11. Elevation — the system is flat; two shadows only --- */
+  --shadow-raised: 0 10px 30px rgba(27, 24, 21, 0.06);
+  --shadow-lifted: 0 18px 44px rgba(27, 24, 21, 0.10);
+
+  /* --- 12. Motion --- */
+  --duration-fast: 180ms;  /* state change on a control */
+  --duration-base: 280ms;  /* disclosure, accordion */
+  --duration-slow: 620ms;  /* entrance choreography */
+  --ease-out:    cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- 13. Layout --- */
+  --container-page: 1180px;
+  --container-prose: 62ch;
+  --container-form: 520px;
+  --gutter: var(--space-6);
+  --breakpoint-min: 320px;
+  --breakpoint-nav: 680px;
+  --breakpoint-wide: 900px;
+  --touch-target-min: 44px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  :root{
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;  /* entrance animations are removed, not shortened */
+  }
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--color-page);color:var(--color-text-primary);font-family:var(--font-body);font-size:var(--font-size-sm);line-height:var(--line-height-base)}
+h1,h2,h3,h4{font-family:var(--font-heading);margin:0}
+h1{font-size:var(--font-size-3xl);line-height:var(--line-height-tight);letter-spacing:var(--letter-spacing-display)}
+h2{font-size:var(--font-size-xl);line-height:var(--line-height-snug);letter-spacing:var(--letter-spacing-heading)}
+h3{font-size:var(--font-size-lg);line-height:var(--line-height-snug);letter-spacing:var(--letter-spacing-heading)}
+h4{font-size:var(--font-size-md);line-height:var(--line-height-snug);letter-spacing:var(--letter-spacing-heading)}
+a{color:var(--color-text-accent)}
+.wrap{max-width:var(--container-page);margin:0 auto;padding:0 var(--gutter)}
+.sec{padding:var(--space-16) 0;border-top:var(--border-width-default) solid var(--color-border-default)}
+.sec:first-of-type{border-top:0}
+.eyebrow{font-family:var(--font-heading);font-size:var(--font-size-3xs);font-weight:600;letter-spacing:var(--letter-spacing-caps);color:var(--color-text-accent);margin-bottom:var(--space-3)}
+.lead{font-size:var(--font-size-md);line-height:var(--line-height-lead);color:var(--color-text-secondary);max-width:var(--container-prose);margin-top:var(--space-4)}
+p{max-width:var(--container-prose);color:var(--color-text-secondary)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:var(--space-4);margin-top:var(--space-6)}
+.sw{display:flex;align-items:center;gap:var(--space-4);border:var(--border-width-default) solid var(--color-border-default);border-radius:var(--radius-md);padding:var(--space-3);background:var(--color-surface-raised)}
+.sw-chip{width:56px;height:56px;border-radius:var(--radius-sm);flex:none;border:var(--border-width-default) solid var(--color-border-strong)}
+.sw-body{min-width:0}
+.sw-name{font-family:var(--font-heading);font-weight:600;font-size:var(--font-size-xs)}
+.sw-val{font-family:var(--font-heading);font-size:var(--font-size-xs);color:var(--color-text-secondary)}
+.sw-note{font-size:var(--font-size-xs);color:var(--color-text-secondary);margin-top:var(--space-1)}
+.badge{display:inline-block;font-family:var(--font-heading);font-weight:600;font-size:var(--font-size-3xs);padding:2px 8px;border-radius:var(--radius-pill);border:var(--border-width-default) solid currentColor}
+.ok{color:var(--color-text-primary)}
+.warn{color:var(--color-text-accent)}
+.bad{color:var(--color-text-error);background:var(--color-surface-sunken)}
+.mx{border-collapse:collapse;width:100%;margin-top:var(--space-6);font-size:var(--font-size-xs)}
+.mx th,.mx td{border:var(--border-width-default) solid var(--color-border-default);padding:var(--space-3);text-align:left;vertical-align:top}
+.mx thead th{font-family:var(--font-heading);font-size:var(--font-size-3xs);letter-spacing:var(--letter-spacing-caps);text-transform:uppercase;background:var(--color-surface-raised)}
+.mx tbody th{font-family:var(--font-heading);font-weight:600;white-space:nowrap}
+.mxl{display:block;margin-top:var(--space-1);color:var(--color-text-secondary)}
+.spec{display:flex;align-items:baseline;gap:var(--space-5);border-top:var(--border-width-default) solid var(--color-border-default);padding:var(--space-4) 0;flex-wrap:wrap}
+.spec-meta{flex:none;width:230px;font-family:var(--font-heading);font-size:var(--font-size-xs);color:var(--color-text-secondary)}
+.spec-meta b{display:block;color:var(--color-text-primary);font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:var(--touch-target-min);padding:0 var(--space-6);border-radius:var(--radius-md);font-family:var(--font-heading);font-weight:600;font-size:19px;letter-spacing:-0.01em;border:0;cursor:pointer;background:var(--color-accent);color:var(--color-on-accent)}
+.btn--hover{background:var(--color-accent-hover)}
+.btn--press{background:var(--color-accent-pressed)}
+.btn--focus{outline:var(--focus-ring-width) solid var(--color-focus-ring);outline-offset:var(--focus-ring-offset)}
+.btn--disabled{background:var(--color-accent-disabled);color:var(--color-text-disabled);cursor:not-allowed}
+.btn2{display:inline-flex;align-items:center;justify-content:center;min-height:var(--touch-target-min);padding:0 var(--space-6);border-radius:var(--radius-md);font-family:var(--font-heading);font-weight:600;font-size:17px;background:transparent;color:var(--color-text-primary);border:var(--border-width-strong) solid var(--color-text-primary);cursor:pointer}
+.btn2--hover{background:var(--color-surface-sunken)}
+.field{display:block;width:100%;min-height:54px;border:var(--border-width-default) solid var(--color-border-default);border-radius:var(--radius-md);background:var(--color-page);padding:0 var(--space-4);font-family:var(--font-body);font-size:var(--font-size-sm);color:var(--color-text-primary)}
+.field--focus{outline:var(--focus-ring-width) solid var(--color-focus-ring);outline-offset:var(--focus-ring-offset)}
+.field--error{border-color:var(--color-text-error);border-width:var(--border-width-strong)}
+.field--disabled{background:var(--color-surface-sunken);color:var(--color-text-disabled)}
+.stack{display:flex;flex-direction:column;gap:var(--space-3);margin-top:var(--space-6);max-width:var(--container-form)}
+.row{display:flex;gap:var(--space-3);flex-wrap:wrap;align-items:center;margin-top:var(--space-6)}
+.card{background:var(--color-surface-raised);border-radius:var(--radius-lg);padding:var(--space-6);border:var(--border-width-default) solid var(--color-border-default)}
+.card--lifted{border:0;box-shadow:var(--shadow-lifted);background:var(--color-page)}
+.card--inverse{background:var(--color-surface-inverse-raised);color:var(--color-text-inverse);border-color:var(--color-border-inverse)}
+.card--inverse p{color:var(--color-text-inverse-secondary)}
+.dots{display:flex;gap:10px;align-items:center}
+.dot{width:11px;height:11px;border-radius:50%;background:var(--color-border-default)}
+.dot.on{background:var(--color-accent)}
+.gap{border-left:var(--border-width-strong) solid var(--color-text-error);padding-left:var(--space-4);margin-top:var(--space-4)}
+.gap b{font-family:var(--font-heading)}
+code{font-family:var(--font-heading);font-size:var(--font-size-xs);background:var(--color-surface-sunken);padding:1px 6px;border-radius:var(--radius-sm)}
+pre{font-family:var(--font-heading);font-size:var(--font-size-xs);background:var(--color-surface-inverse);color:var(--color-text-inverse);padding:var(--space-5);border-radius:var(--radius-md);overflow:auto;line-height:1.7}
+ul{max-width:var(--container-prose);color:var(--color-text-secondary);padding-left:var(--space-5)}
+li{margin-bottom:var(--space-2)}
+.note{font-size:var(--font-size-xs);color:var(--color-text-secondary);margin-top:var(--space-4)}
+@media (max-width:680px){.spec-meta{width:100%}}
+</style></head>
+<body>
+<div class="wrap">
+
+<div class="sec">
+  <div class="eyebrow">LEVARUM DESIGN SYSTEM — V1.0</div>
+  <h1>The style guide is the source of truth.</h1>
+  <div class="lead">Five approved base colours, two typefaces, one 4px spacing unit. Every other value on this page is derived from those and the derivation is stated next to it. Nothing here is decorative.</div>
+  <p style="margin-top:var(--space-6)"><b>How to read the badges.</b> Every number is a computed WCAG contrast ratio, not an estimate. Outlined = AA at all sizes (≥4.5:1). Rust = large text only (≥3:1, meaning ≥24px, or ≥19px bold). Filled = fails at every size; usage restriction stated.</p>
+  <p class="note">Typefaces are declared as <code>Poppins</code> and <code>Lora</code> with system fallbacks. This page makes no external requests, so the specimens render in the fallback faces unless those families are installed locally — see NOT VERIFIED at the end.</p>
+</div>
+
+<div class="sec">
+  <div class="eyebrow">PART A · 01</div>
+  <h2>Naming convention</h2>
+  <p>One convention, applied without exception: <code>--{category}-{role}-{variant}</code>. Roles describe the job, never the appearance — <code>--color-surface-raised</code>, never <code>--color-beige-2</code>. Categories in use: <code>color</code>, <code>font</code>, <code>line-height</code>, <code>letter-spacing</code>, <code>space</code>, <code>radius</code>, <code>border-width</code>, <code>shadow</code>, <code>duration</code>, <code>ease</code>, <code>container</code>, <code>breakpoint</code>, <code>focus-ring</code>, <code>touch-target</code>. One token, one name, one place.</p>
+</div>
+
+<div class="sec">
+  <div class="eyebrow">PART A · 02</div>
+  <h2>Base palette</h2>
+  <p>Approved and closed. There is no sixth base colour.</p>
+  <div class="grid">
+    <div class="sw"><div class="sw-chip" style="background:#1B1815"></div><div class="sw-body"><div class="sw-name">--color-base-ink</div><div class="sw-val">#1B1815</div><div class="sw-note">Primary text, inverse surfaces, strong borders</div></div><span class="badge ok">15.16</span></div>
+    <div class="sw"><div class="sw-chip" style="background:#BF4F1F"></div><div class="sw-body"><div class="sw-name">--color-base-rust</div><div class="sw-val">#BF4F1F</div><div class="sw-note">The one accent. Fills and focus rings; as text only ≥24px or ≥19px bold</div></div><span class="badge warn">4.14</span></div>
+    <div class="sw"><div class="sw-chip" style="background:#9C948A"></div><div class="sw-body"><div class="sw-name">--color-base-stone</div><div class="sw-val">#9C948A</div><div class="sw-note">Non-text only — dividers, inactive marks, illustration</div></div><span class="badge bad">2.57</span></div>
+    <div class="sw"><div class="sw-chip" style="background:#E7E0D3"></div><div class="sw-body"><div class="sw-name">--color-base-tint</div><div class="sw-val">#E7E0D3</div><div class="sw-note">Raised surface</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#F2EDE4"></div><div class="sw-body"><div class="sw-name">--color-base-paper</div><div class="sw-val">#F2EDE4</div><div class="sw-note">Ground, and inverse text</div></div></div>
+  </div>
+  <p class="note">Ratios shown are against <code>--color-page</code>. Stone carries no text role at any size — if a design needs quiet text, it uses <code>--color-text-secondary</code>.</p>
+</div>
+
+<div class="sec">
+  <div class="eyebrow">PART A · 03</div>
+  <h2>Colour roles</h2>
+  <h4 style="margin-top:var(--space-8)">Surfaces</h4>
+  <div class="grid">
+    <div class="sw"><div class="sw-chip" style="background:#F2EDE4"></div><div class="sw-body"><div class="sw-name">--color-page</div><div class="sw-val">#F2EDE4</div><div class="sw-note">Base = paper</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#E7E0D3"></div><div class="sw-body"><div class="sw-name">--color-surface-raised</div><div class="sw-val">#E7E0D3</div><div class="sw-note">Base = tint</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#E7E2DA"></div><div class="sw-body"><div class="sw-name">--color-surface-sunken</div><div class="sw-val">#E7E2DA</div><div class="sw-note">Derived: ink 5% over paper</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#1B1815"></div><div class="sw-body"><div class="sw-name">--color-surface-inverse</div><div class="sw-val">#1B1815</div><div class="sw-note">Base = ink</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#2A2723"></div><div class="sw-body"><div class="sw-name">--color-surface-inverse-raised</div><div class="sw-val">#2A2723</div><div class="sw-note">Derived: paper 7% over ink</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:rgba(27,24,21,0.62)"></div><div class="sw-body"><div class="sw-name">--color-scrim</div><div class="sw-val">rgba(27,24,21,0.62)</div><div class="sw-note">Derived: ink at 62% alpha</div></div></div>
+  </div>
+  <h4 style="margin-top:var(--space-8)">Text</h4>
+  <div class="grid">
+    <div class="sw"><div class="sw-chip" style="background:#1B1815"></div><div class="sw-body"><div class="sw-name">--color-text-primary</div><div class="sw-val">#1B1815</div><div class="sw-note">Base = ink</div></div><span class="badge ok">15.16</span></div>
+    <div class="sw"><div class="sw-chip" style="background:#57544F"></div><div class="sw-body"><div class="sw-name">--color-text-secondary</div><div class="sw-val">#57544F</div><div class="sw-note">Derived: ink 72% over paper</div></div><span class="badge ok">6.46</span></div>
+    <div class="sw"><div class="sw-chip" style="background:#9C9891"></div><div class="sw-body"><div class="sw-name">--color-text-disabled</div><div class="sw-val">#9C9891</div><div class="sw-note">Derived: ink 40% over paper — disabled controls only</div></div><span class="badge bad">2.46</span></div>
+    <div class="sw"><div class="sw-chip" style="background:#873C1C"></div><div class="sw-body"><div class="sw-name">--color-text-accent</div><div class="sw-val">#873C1C</div><div class="sw-note">Derived: ink 34% over rust — links, eyebrows, error-adjacent</div></div><span class="badge ok">6.69</span></div>
+    <div class="sw"><div class="sw-chip" style="background:#7A381B"></div><div class="sw-body"><div class="sw-name">--color-text-error</div><div class="sw-val">#7A381B</div><div class="sw-note">Derived: ink 42% over rust</div></div><span class="badge ok">7.48</span></div>
+    <div class="sw"><div class="sw-chip" style="background:#F2EDE4"></div><div class="sw-body"><div class="sw-name">--color-text-inverse</div><div class="sw-val">#F2EDE4</div><div class="sw-note">Base = paper — on ink surfaces</div></div><span class="badge ok">15.16</span></div>
+    <div class="sw"><div class="sw-chip" style="background:#B6B1AA"></div><div class="sw-body"><div class="sw-name">--color-text-inverse-secondary</div><div class="sw-val">#B6B1AA</div><div class="sw-note">Derived: paper 72% over ink</div></div><span class="badge ok">8.30</span></div>
+    <div class="sw"><div class="sw-chip" style="background:#D08562"></div><div class="sw-body"><div class="sw-name">--color-text-accent-inverse</div><div class="sw-val">#D08562</div><div class="sw-note">Derived: paper 34% over rust — accent text on ink</div></div><span class="badge ok">6.07</span></div>
+  </div>
+  <h4 style="margin-top:var(--space-8)">Borders, focus, action</h4>
+  <div class="grid">
+    <div class="sw"><div class="sw-chip" style="background:#D4CFC7"></div><div class="sw-body"><div class="sw-name">--color-border-default</div><div class="sw-val">#D4CFC7</div><div class="sw-note">Derived: ink 14% over paper</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#ADA9A2"></div><div class="sw-body"><div class="sw-name">--color-border-strong</div><div class="sw-val">#ADA9A2</div><div class="sw-note">Derived: ink 32% over paper</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#3D3A36"></div><div class="sw-body"><div class="sw-name">--color-border-inverse</div><div class="sw-val">#3D3A36</div><div class="sw-note">Derived: paper 16% over ink</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#BF4F1F"></div><div class="sw-body"><div class="sw-name">--color-focus-ring</div><div class="sw-val">#BF4F1F</div><div class="sw-note">2px solid, 3px offset. 4.14:1 on paper and 3.66:1 on ink — both PASS the 3:1 non-text minimum</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#BF4F1F"></div><div class="sw-body"><div class="sw-name">--color-accent</div><div class="sw-val">#BF4F1F</div><div class="sw-note">Base = rust — button fills</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#A5461D"></div><div class="sw-body"><div class="sw-name">--color-accent-hover</div><div class="sw-val">#A5461D</div><div class="sw-note">Derived: ink 16% over rust</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#8E3F1C"></div><div class="sw-body"><div class="sw-name">--color-accent-pressed</div><div class="sw-val">#8E3F1C</div><div class="sw-note">Derived: ink 30% over rust</div></div></div>
+    <div class="sw"><div class="sw-chip" style="background:#E0B69F"></div><div class="sw-body"><div class="sw-name">--color-accent-disabled</div><div class="sw-val">#E0B69F</div><div class="sw-note">Derived: rust 35% over paper — fill only, never text</div></div></div>
+  </div>
+  <div class="gap"><b>GAP — semantic set.</b> <code>--color-semantic-error</code> is defined (it aliases <code>--color-text-error</code>, derived from rust). Success, warning and info have no honest derivation from a two-hue palette and no page currently needs them. They are left undefined rather than shipped as a borrowed red and green. Blocks: any future confirmation, sync-status or validation-success UI.</div>
+</div>
+
+<div class="sec">
+  <div class="eyebrow">PART A · 04 — THE IMPORTANT TABLE</div>
+  <h2>Contrast matrix</h2>
+  <p>Every text token against every surface it can legally sit on. Computed, not estimated. A cell marked FAIL is a combination the system forbids.</p>
+  <table class="mx"><thead><tr><th>text token \ surface</th><th>--color-page</th><th>--color-surface-raised</th><th>--color-surface-sunken</th><th>--color-surface-inverse</th><th>--color-surface-inverse-raised</th></tr></thead><tbody><tr><th>--color-text-primary</th><td><span class="badge ok">15.16</span><span class="mxl">AA</span></td><td><span class="badge ok">13.47</span><span class="mxl">AA</span></td><td><span class="badge ok">13.71</span><span class="mxl">AA</span></td><td><span class="badge bad">1.00</span><span class="mxl">FAIL</span></td><td><span class="badge bad">1.19</span><span class="mxl">FAIL</span></td></tr><tr><th>--color-text-secondary</th><td><span class="badge ok">6.46</span><span class="mxl">AA</span></td><td><span class="badge ok">5.74</span><span class="mxl">AA</span></td><td><span class="badge ok">5.85</span><span class="mxl">AA</span></td><td><span class="badge bad">2.35</span><span class="mxl">FAIL</span></td><td><span class="badge bad">1.97</span><span class="mxl">FAIL</span></td></tr><tr><th>--color-text-disabled</th><td><span class="badge bad">2.46</span><span class="mxl">FAIL</span></td><td><span class="badge bad">2.19</span><span class="mxl">FAIL</span></td><td><span class="badge bad">2.23</span><span class="mxl">FAIL</span></td><td><span class="badge ok">6.16</span><span class="mxl">AA</span></td><td><span class="badge ok">5.18</span><span class="mxl">AA</span></td></tr><tr><th>--color-accent</th><td><span class="badge warn">4.14</span><span class="mxl">large only</span></td><td><span class="badge warn">3.68</span><span class="mxl">large only</span></td><td><span class="badge warn">3.74</span><span class="mxl">large only</span></td><td><span class="badge warn">3.66</span><span class="mxl">large only</span></td><td><span class="badge warn">3.08</span><span class="mxl">large only</span></td></tr><tr><th>--color-accent-text</th><td><span class="badge ok">6.69</span><span class="mxl">AA</span></td><td><span class="badge ok">5.94</span><span class="mxl">AA</span></td><td><span class="badge ok">6.05</span><span class="mxl">AA</span></td><td><span class="badge bad">2.27</span><span class="mxl">FAIL</span></td><td><span class="badge bad">1.91</span><span class="mxl">FAIL</span></td></tr><tr><th>--color-text-error</th><td><span class="badge ok">7.48</span><span class="mxl">AA</span></td><td><span class="badge ok">6.64</span><span class="mxl">AA</span></td><td><span class="badge ok">6.76</span><span class="mxl">AA</span></td><td><span class="badge bad">2.03</span><span class="mxl">FAIL</span></td><td><span class="badge bad">1.70</span><span class="mxl">FAIL</span></td></tr><tr><th>--color-text-inverse</th><td><span class="badge bad">1.00</span><span class="mxl">FAIL</span></td><td><span class="badge bad">1.13</span><span class="mxl">FAIL</span></td><td><span class="badge bad">1.11</span><span class="mxl">FAIL</span></td><td><span class="badge ok">15.16</span><span class="mxl">AA</span></td><td><span class="badge ok">12.75</span><span class="mxl">AA</span></td></tr><tr><th>--color-text-inverse-secondary</th><td><span class="badge bad">1.83</span><span class="mxl">FAIL</span></td><td><span class="badge bad">1.62</span><span class="mxl">FAIL</span></td><td><span class="badge bad">1.65</span><span class="mxl">FAIL</span></td><td><span class="badge ok">8.30</span><span class="mxl">AA</span></td><td><span class="badge ok">6.98</span><span class="mxl">AA</span></td></tr><tr><th>--color-accent-on-inverse</th><td><span class="badge bad">2.50</span><span class="mxl">FAIL</span></td><td><span class="badge bad">2.22</span><span class="mxl">FAIL</span></td><td><span class="badge bad">2.26</span><span class="mxl">FAIL</span></td><td><span class="badge ok">6.07</span><span class="mxl">AA</span></td><td><span class="badge ok">5.11</span><span class="mxl">AA</span></td></tr></tbody></table>
+  <p class="note">Reading it: the light surfaces (page, raised, sunken) take the first six text tokens; the inverse surfaces take the last three. No token is legal on both families, which is why the intake's dark surface swaps tokens rather than dimming them.</p>
+</div>
+
+<div class="sec">
+  <div class="eyebrow">PART A · 05</div>
+  <h2>Type scale</h2>
+  <p>Modular scale, base 17px, ratio 1.25, rounded to whole pixels. Floors: 17px for prose, 15px for any UI text, 13px only for tracked caps.</p>
+  <div class="spec"><div class="spec-meta"><b>--font-size-4xl</b>65px / 1.05 / 700 / -0.035em<br>--font-heading<br>Display — home hero only</div><div style="font-family:var(--font-heading);font-size:65px;line-height:1.05;font-weight:700;letter-spacing:-0.035em;">Get your week back</div></div><div class="spec"><div class="spec-meta"><b>--font-size-3xl</b>52px / 1.05 / 700 / -0.035em<br>--font-heading<br>H1, marketing pages</div><div style="font-family:var(--font-heading);font-size:52px;line-height:1.05;font-weight:700;letter-spacing:-0.035em;">Get your week back</div></div><div class="spec"><div class="spec-meta"><b>--font-size-2xl</b>42px / 1.05 / 700 / -0.035em<br>--font-heading<br>H1 on narrow viewports and intake steps</div><div style="font-family:var(--font-heading);font-size:42px;line-height:1.05;font-weight:700;letter-spacing:-0.035em;">Get your week back</div></div><div class="spec"><div class="spec-meta"><b>--font-size-xl</b>34px / 1.15 / 700 / -0.02em<br>--font-heading<br>H2, section heads</div><div style="font-family:var(--font-heading);font-size:34px;line-height:1.15;font-weight:700;letter-spacing:-0.02em;">Get your week back</div></div><div class="spec"><div class="spec-meta"><b>--font-size-lg</b>27px / 1.15 / 600 / -0.02em<br>--font-heading<br>H3, card titles, plan figures</div><div style="font-family:var(--font-heading);font-size:27px;line-height:1.15;font-weight:600;letter-spacing:-0.02em;">Get your week back</div></div><div class="spec"><div class="spec-meta"><b>--font-size-md</b>21px / 1.5 / 400 / 0<br>--font-body<br>Lead paragraph under an H1</div><div style="font-family:var(--font-body);font-size:21px;line-height:1.5;font-weight:400;letter-spacing:0;">Get your week back</div></div><div class="spec"><div class="spec-meta"><b>--font-size-sm</b>17px / 1.55 / 400 / 0<br>--font-body<br>Body — the prose floor</div><div style="font-family:var(--font-body);font-size:17px;line-height:1.55;font-weight:400;letter-spacing:0;">Get your week back</div></div><div class="spec"><div class="spec-meta"><b>--font-size-xs</b>15px / 1.45 / 500 / 0<br>--font-body<br>Meta, helper text, microcopy under CTAs</div><div style="font-family:var(--font-body);font-size:15px;line-height:1.45;font-weight:500;letter-spacing:0;">Get your week back</div></div><div class="spec"><div class="spec-meta"><b>--font-size-3xs</b>13px / 1.3 / 600 / 0.06em<br>--font-heading<br>Tracked caps eyebrow only — never sentence text</div><div style="font-family:var(--font-heading);font-size:13px;line-height:1.3;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;">Get your week back</div></div>
+</div>
+
+<div class="sec">
+  <div class="eyebrow">PART A · 06</div>
+  <h2>Spacing, radii, borders, elevation</h2>
+  <p>Base unit 4px. Multiples of 4 up to 24px, then multiples of 8. Every value in the system lands on the scale.</p>
+  <div class="row"><div style="text-align:center"><div style="width:4px;height:4px;background:var(--color-accent);border-radius:2px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">4</div></div><div style="text-align:center"><div style="width:8px;height:8px;background:var(--color-accent);border-radius:2px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">8</div></div><div style="text-align:center"><div style="width:12px;height:12px;background:var(--color-accent);border-radius:2px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">12</div></div><div style="text-align:center"><div style="width:16px;height:16px;background:var(--color-accent);border-radius:2px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">16</div></div><div style="text-align:center"><div style="width:20px;height:20px;background:var(--color-accent);border-radius:2px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">20</div></div><div style="text-align:center"><div style="width:24px;height:24px;background:var(--color-accent);border-radius:2px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">24</div></div><div style="text-align:center"><div style="width:32px;height:32px;background:var(--color-accent);border-radius:2px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">32</div></div><div style="text-align:center"><div style="width:40px;height:40px;background:var(--color-accent);border-radius:2px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">40</div></div><div style="text-align:center"><div style="width:48px;height:48px;background:var(--color-accent);border-radius:2px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">48</div></div><div style="text-align:center"><div style="width:64px;height:64px;background:var(--color-accent);border-radius:2px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">64</div></div><div style="text-align:center"><div style="width:80px;height:80px;background:var(--color-accent);border-radius:2px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">80</div></div><div style="text-align:center"><div style="width:96px;height:96px;background:var(--color-accent);border-radius:2px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">96</div></div></div>
+  <div class="row"><div style="text-align:center"><div style="width:92px;height:64px;background:var(--color-surface-raised);border:1px solid var(--color-border-strong);border-radius:8px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">--radius-sm<br>8px</div></div><div style="text-align:center"><div style="width:92px;height:64px;background:var(--color-surface-raised);border:1px solid var(--color-border-strong);border-radius:13px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">--radius-md<br>13px</div></div><div style="text-align:center"><div style="width:92px;height:64px;background:var(--color-surface-raised);border:1px solid var(--color-border-strong);border-radius:20px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">--radius-lg<br>20px</div></div><div style="text-align:center"><div style="width:92px;height:64px;background:var(--color-surface-raised);border:1px solid var(--color-border-strong);border-radius:26px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">--radius-xl<br>26px</div></div><div style="text-align:center"><div style="width:92px;height:64px;background:var(--color-surface-raised);border:1px solid var(--color-border-strong);border-radius:999px"></div><div style="font-family:var(--font-heading);font-size:13px;color:var(--color-text-secondary);margin-top:6px">--radius-pill<br>999px</div></div></div>
+  <div class="row">
+    <div style="width:220px;height:80px;border:var(--border-width-default) solid var(--color-border-default);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:15px">1px default</div>
+    <div style="width:220px;height:80px;border:var(--border-width-strong) solid var(--color-text-primary);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:15px">1.5px strong</div>
+    <div style="width:220px;height:80px;background:var(--color-page);box-shadow:var(--shadow-raised);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:15px">--shadow-raised</div>
+    <div style="width:220px;height:80px;background:var(--color-page);box-shadow:var(--shadow-lifted);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;font-size:15px">--shadow-lifted</div>
+  </div>
+  <p class="note">The system is flat by default: depth normally comes from <code>--color-surface-raised</code>, not shadow. The two shadows exist for the one raised-card treatment and are the only legal shadow values.</p>
+</div>
+
+<div class="sec">
+  <div class="eyebrow">PART A · 07</div>
+  <h2>Motion and breakpoints</h2>
+  <ul>
+    <li><code>--duration-fast</code> 180ms, <code>--ease-out</code> — a control changing state (button, chip, field border). Reduced motion: 0ms, colour changes instantly.</li>
+    <li><code>--duration-base</code> 280ms, <code>--ease-out</code> — disclosure: accordion open, step change. Reduced motion: 0ms, content appears with no transform.</li>
+    <li><code>--duration-slow</code> 620ms, <code>--ease-out</code> — entrance choreography and the logo lift. Reduced motion: removed entirely, not shortened — elements start at their final position and opacity.</li>
+  </ul>
+  <ul>
+    <li><code>--breakpoint-min</code> 320px — the narrowest supported width. Nothing may clip or scroll horizontally here.</li>
+    <li><code>--breakpoint-nav</code> 680px — below this the nav stacks: mark and wordmark on their own line, links beneath, left aligned.</li>
+    <li><code>--breakpoint-wide</code> 900px — below this all two-column layouts become one column, in source order.</li>
+    <li><code>--container-page</code> 1180px max, <code>--gutter</code> 24px each side.</li>
+  </ul>
+</div>
+
+<div class="sec">
+  <div class="eyebrow">PART B</div>
+  <h2>Components</h2>
+  <p>Only components that exist on the ten Levarum pages. States that the current build does not have are named as GAPs, not designed silently.</p>
+
+  <h3 style="margin-top:var(--space-10)">Primary button</h3>
+  <p>Tokens: <code>--color-accent</code> fill, <code>--color-on-accent</code> label, <code>--radius-md</code>, <code>--font-heading</code> 600 at 19px. Minimum target 44px (built at 58px). Keyboard: focusable, Enter and Space activate, focus ring is <code>--color-focus-ring</code> at 2px with 3px offset. At 320px it goes full width and the label stays on one line.</p>
+  <div class="row">
+    <button class="btn">Build my Game Plan</button>
+    <button class="btn btn--hover">Hover</button>
+    <button class="btn btn--press">Active</button>
+    <button class="btn btn--focus">Focus-visible</button>
+    <button class="btn btn--disabled" disabled>Disabled</button>
+  </div>
+  <p class="note">The 19px 600 label is what makes <code>--color-on-accent</code> legal on rust: 4.14:1 clears the 3:1 large-text threshold. A 17px regular label on rust would be a defect.</p>
+  <div class="gap"><b>GAP — loading state.</b> The build has no submitting or in-flight state for any primary button. Blocks: the intake unlock step, where a slow send currently looks like a dead tap.</div>
+
+  <h3 style="margin-top:var(--space-10)">Secondary button</h3>
+  <p>Tokens: transparent fill, <code>--border-width-strong</code> in <code>--color-text-primary</code>, label <code>--color-text-primary</code> at 17px 600. Same target and keyboard behaviour as primary.</p>
+  <div class="row"><button class="btn2">Back</button><button class="btn2 btn2--hover">Hover</button><button class="btn2 btn--focus">Focus-visible</button></div>
+  <div class="gap"><b>GAP — disabled secondary.</b> Not designed. Blocks nothing today; the only secondary is Back, which is never disabled.</div>
+
+  <h3 style="margin-top:var(--space-10)">Text link</h3>
+  <p>Tokens: <code>--color-text-accent</code> (6.69:1), underline on hover, colour to <code>--color-text-primary</code> on hover. Focus ring as above. Inline links inherit body size; nav links use <code>--font-size-xs</code> in <code>--color-text-secondary</code>.</p>
+  <div class="row" style="gap:var(--space-6)"><a href="#">Default link</a><a href="#" style="color:var(--color-text-primary);text-decoration:underline">Hover</a><a href="#" class="btn--focus" style="border-radius:4px">Focus-visible</a></div>
+
+  <h3 style="margin-top:var(--space-10)">Text input and select</h3>
+  <p>Tokens: <code>--color-page</code> fill on raised cards, <code>--color-border-default</code> at 1px, <code>--radius-md</code>, body type at 17px. Minimum height 54px. Label is always a question in <code>--font-size-sm</code> 500; helper text only where a real person hesitates. Error state raises the border to <code>--border-width-strong</code> in <code>--color-text-error</code> with the message below. At 320px both are full width.</p>
+  <div class="stack">
+    <input class="field" placeholder="you@yourbusiness.co.uk" aria-label="Email, default">
+    <input class="field field--focus" value="you@yourbusiness.co.uk" aria-label="Email, focus">
+    <input class="field field--error" value="you@yourbusiness" aria-label="Email, error">
+    <div style="color:var(--color-text-error);font-size:var(--font-size-xs)">That does not look like an email yet. Mind checking it?</div>
+    <input class="field field--disabled" value="Not editable" disabled aria-label="Email, disabled">
+    <select class="field" aria-label="Business type"><option>Trades &amp; home services</option></select>
+  </div>
+  <div class="gap"><b>GAP — number input.</b> No number input exists any more: the hourly-rate field was the only one and it was removed when money came out of the product. The token set covers it if one returns, but no state is specified or rendered.</div>
+
+  <h3 style="margin-top:var(--space-10)">Progress indicator</h3>
+  <p>Tokens: <code>--color-accent</code> for complete, <code>--color-border-default</code> for pending. Two forms, both legal: three bars (flex, 6px tall) or three dots (11px). Not interactive, not focusable; the step is also announced in text beside it, so the colour is never the only carrier.</p>
+  <div class="row"><div class="dots"><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div><span style="font-size:var(--font-size-xs);color:var(--color-text-secondary)">Step 2 of 3</span></div>
+
+  <h3 style="margin-top:var(--space-10)">Card and surfaces</h3>
+  <div class="grid">
+    <div class="card"><h4>Raised card</h4><p style="margin:var(--space-2) 0 0">tint surface, 1px default border, --radius-lg, 24px padding.</p></div>
+    <div class="card card--lifted"><h4>Lifted card</h4><p style="margin:var(--space-2) 0 0">page surface, no border, --shadow-lifted. Used once per page at most.</p></div>
+    <div class="card card--inverse"><h4>Inverse card</h4><p style="margin:var(--space-2) 0 0">inverse-raised surface with inverse text tokens.</p></div>
+  </div>
+
+  <h3 style="margin-top:var(--space-10)">Accordion</h3>
+  <p>Tokens: closed row on <code>--color-page</code> with <code>--color-border-default</code>; open row on <code>--color-surface-raised</code> with <code>--color-border-strong</code> and <code>--shadow-raised</code>. Question in heading 600 at 19px, answer in body 17px capped at <code>--container-prose</code>. Row is <code>role="button"</code>, focusable, Enter and Space toggle, <code>aria-expanded</code> tracks state, 44px minimum target, one open at a time.</p>
+  <div class="stack" style="max-width:none">
+    <div style="border:1px solid var(--color-border-default);border-radius:var(--radius-lg);padding:var(--space-5);display:flex;justify-content:space-between;gap:var(--space-4)"><span style="font-family:var(--font-heading);font-weight:600;font-size:19px">What does it cost?</span><span style="font-family:var(--font-heading);color:var(--color-text-secondary)">+</span></div>
+    <div style="border:1.5px solid var(--color-border-strong);border-radius:var(--radius-lg);padding:var(--space-5);background:var(--color-surface-raised);box-shadow:var(--shadow-raised)"><div style="display:flex;justify-content:space-between;gap:var(--space-4)"><span style="font-family:var(--font-heading);font-weight:600;font-size:19px">How long does it take?</span><span style="font-family:var(--font-heading)">–</span></div><p style="margin:var(--space-3) 0 0">A first build is usually one to three days of work, scheduled within a couple of weeks.</p></div>
+  </div>
+
+  <h3 style="margin-top:var(--space-10)">Plan / result display</h3>
+  <p>Tokens: figure in <code>--font-size-3xl</code> heading 700 with <code>--letter-spacing-display</code>; unit label in <code>--font-size-xs</code> <code>--color-text-secondary</code>; each named job is an <code>--radius-md</code> row on <code>--color-page</code> inside a raised card; the fix-first block uses <code>--border-width-strong</code> in <code>--color-text-primary</code>. Figures are hours and days only — no currency appears in any state.</p>
+  <div class="card" style="margin-top:var(--space-6);max-width:520px"><div style="font-size:var(--font-size-xs);color:var(--color-text-secondary)">Hand off first</div><div style="font-family:var(--font-heading);font-weight:700;font-size:var(--font-size-2xl);letter-spacing:var(--letter-spacing-display);line-height:1.05;margin:var(--space-2) 0 var(--space-4)">9 hours a week</div><div style="border:1.5px solid var(--color-text-primary);border-radius:var(--radius-md);padding:var(--space-4)"><div style="font-family:var(--font-heading);font-size:13px;font-weight:600;letter-spacing:var(--letter-spacing-caps);color:var(--color-text-secondary)">FIX THIS FIRST</div><div style="font-family:var(--font-heading);font-weight:700;font-size:var(--font-size-md);margin-top:var(--space-1)">Invoice automation</div></div></div>
+  <div class="gap"><b>GAP — empty and failure states.</b> The plan has no zero-selection state, no send-failure state and no expired-link state. Blocks: anyone who deep-links into the plan or loses connectivity mid-unlock.</div>
+
+  <h3 style="margin-top:var(--space-10)">Nav bar and footer</h3>
+  <p>Nav: <code>--color-page</code> band with a 1px bottom border in <code>--color-border-default</code>, 1180px container, 24px gutter, 14px vertical padding. Links <code>--font-size-xs</code> in <code>--color-text-secondary</code>; current page in <code>--color-text-primary</code> 600 with a 2px <code>--color-accent</code> underline — colour is never the only cue, the weight changes too. Below 680px it stacks. Footer: same container, top border, mark plus link list, <code>--font-size-xs</code> throughout.</p>
+</div>
+
+<div class="sec">
+  <div class="eyebrow">PART C</div>
+  <h2>Patterns</h2>
+  <ul>
+    <li><b>Container.</b> 1180px max with a 24px gutter. Nothing sits edge to edge except full-width colour bands, which keep the same inner container.</li>
+    <li><b>Prose width.</b> Body copy is capped at 62ch. Lead paragraphs cap at 560px. A line of body text never exceeds either.</li>
+    <li><b>Form column.</b> 520px max, one field per row, label above field, 12px between label and field, 20px between fields.</li>
+    <li><b>Marketing page template.</b> Nav, hero (headline + lead + one action), one dark band, card row, closing action, footer. One dark band per page, never two.</li>
+    <li><b>Intake step template.</b> Nav, progress plus step text, H1, lead, one card holding the question, action row with primary right and Back left. One decision per screen.</li>
+    <li><b>Result template.</b> Eyebrow, figure, lead, summary of what was answered, named rows, fix-first block, one action, quiet restart link.</li>
+    <li><b>Responsive behaviour, stated as behaviour.</b> Two columns become one in source order below 900px. The nav stacks below 680px. Type scales fluidly between the 2xl and 3xl steps rather than jumping. Touch targets never fall below 44px at any width. At 320px nothing clips and nothing scrolls sideways.</li>
+  </ul>
+</div>
+
+<div class="sec">
+  <div class="eyebrow">DELIVERABLE 3</div>
+  <h2>Design-system project layout</h2>
+  <pre>levarum-design-system/
+├─ levarum-tokens.css            # the file a developer takes
+├─ levarum-styleguide.html       # this page
+└─ cards/
+   ├─ colour-base.html           # &lt;!-- @dsCard group="Colour" --&gt;
+   ├─ colour-roles.html          # &lt;!-- @dsCard group="Colour" --&gt;
+   ├─ colour-contrast-matrix.html# &lt;!-- @dsCard group="Colour" --&gt;
+   ├─ type-scale.html            # &lt;!-- @dsCard group="Type" --&gt;
+   ├─ type-usage.html            # &lt;!-- @dsCard group="Type" --&gt;
+   ├─ spacing-scale.html         # &lt;!-- @dsCard group="Spacing" --&gt;
+   ├─ radii-borders.html         # &lt;!-- @dsCard group="Spacing" --&gt;
+   ├─ button-primary.html        # &lt;!-- @dsCard group="Actions" --&gt;
+   ├─ button-secondary.html      # &lt;!-- @dsCard group="Actions" --&gt;
+   ├─ text-link.html             # &lt;!-- @dsCard group="Actions" --&gt;
+   ├─ input-text.html            # &lt;!-- @dsCard group="Forms" --&gt;
+   ├─ input-select.html          # &lt;!-- @dsCard group="Forms" --&gt;
+   ├─ choice-chip.html           # &lt;!-- @dsCard group="Forms" --&gt;
+   ├─ progress-steps.html        # &lt;!-- @dsCard group="Navigation" --&gt;
+   ├─ nav-bar.html               # &lt;!-- @dsCard group="Navigation" --&gt;
+   ├─ footer.html                # &lt;!-- @dsCard group="Navigation" --&gt;
+   ├─ card-surfaces.html         # &lt;!-- @dsCard group="Surfaces" --&gt;
+   ├─ accordion.html             # &lt;!-- @dsCard group="Surfaces" --&gt;
+   └─ plan-display.html          # &lt;!-- @dsCard group="Surfaces" --&gt;</pre>
+  <p class="note">Each card file is a fragment that links <code>levarum-tokens.css</code> and renders that group in every state, with the <code>@dsCard</code> marker on line one. Listed, not created — creating the project is a separate job.</p>
+</div>
+
+<div class="sec">
+  <div class="eyebrow">CLOSING</div>
+  <h2>Gaps, assertions, and what was not verified</h2>
+  <h4 style="margin-top:var(--space-8)">GAPS</h4>
+  <ul>
+    <li><b>Semantic success, warning, info</b> — no honest derivation from a two-hue palette; left undefined. Blocks confirmation and status UI.</li>
+    <li><b>Loading / in-flight state</b> — no primary button or screen has one. Blocks the unlock step on a slow connection.</li>
+    <li><b>Disabled secondary button</b> — undesigned; nothing needs it today.</li>
+    <li><b>Number input</b> — the only one was the rate field, removed with money; no states specified.</li>
+    <li><b>Empty, failure and expired-link states</b> on the plan — undesigned.</li>
+    <li><b>Stone has no text role at any size</b> (2.57:1). If a design ever needs a third text tone, that tone does not exist yet and must be derived and re-tested.</li>
+    <li><b>Radius migration</b> — the built pages use 22px and 16px card radii; the scale says 20px and 13px. The pages are the thing that is wrong, but migration is out of scope here.</li>
+  </ul>
+  <h4 style="margin-top:var(--space-8)">Banned-value assertion</h4>
+  <p>Both artifacts were checked, case-insensitively, against all seven values on the banned list — Anthropic's brand palette. The values are deliberately not reproduced here: printing them would put them inside the very output the assertion is about. <b>Result: zero occurrences</b> in <code>levarum-tokens.css</code> and zero in this page, at any opacity, including inside rgba() values. Re-run the check against your own copy of the list.</p>
+  <h4 style="margin-top:var(--space-8)">NOT VERIFIED</h4>
+  <ul>
+    <li><b>Typeface rendering.</b> Poppins and Lora are declared but not embedded, because the page must make no external requests. If those families are not installed locally, every specimen above renders in the fallback and the optical sizes of the scale are unconfirmed.</li>
+    <li><b>320px behaviour.</b> Stated as rules for every component; not rendered at 320px and not measured.</li>
+    <li><b>Hover, active and focus states.</b> Rendered as static specimens with the state's tokens applied, not triggered by a real pointer or keyboard.</li>
+    <li><b>Reduced-motion behaviour.</b> Specified per duration token; not exercised.</li>
+    <li>Every contrast ratio on this page and every derived hex was computed, not estimated — those are verified.</li>
+  </ul>
+  <p class="note" style="margin-top:var(--space-8)">One visual defect noticed while working, noted and moved past: the built pages' card radii and the Schibsted Grotesk / Instrument Sans pairing predate this system and disagree with it. Migration is a separate job and needs the defect audit first.</p>
+</div>
+
+</div>
+</body></html>

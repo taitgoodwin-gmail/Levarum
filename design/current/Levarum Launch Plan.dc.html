@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  html{ color-scheme:light; background:var(--lv-page); }
+  body{ margin:0; -webkit-font-smoothing:antialiased; background:var(--lv-page); min-height:100vh; }
+  :root{
+    --lv-page:#FBF6F2; --lv-surface:#FFFFFF; --lv-band:#E4E0DA;
+    --lv-dark:#1A1A1A; --lv-dark-surface:#242422;
+    --lv-ink:#1A1A1A; --lv-ink-hover:#333330; --lv-ink-quiet:#5C5A56; --lv-ink-placeholder:#73706C;
+    --lv-dark-ink:#EDE6D6; --lv-dark-quiet:#B9B6B1;
+    --lv-line:#E9E6E1; --lv-line-control:#8F8C88; --lv-dark-line:#3A3A38; --lv-dark-line-control:#7F7C74;
+    --lv-accent:#8F3D14; --lv-spark:#D4622A; --lv-spark-deep:#B5511F; --lv-spark-soft:#E08A5C;
+    --lv-sec:var(--lv-brand-petrol); --lv-sec-tint:color-mix(in srgb, var(--lv-brand-petrol) 20%, var(--lv-page)); --lv-sec-on-dark:color-mix(in srgb, var(--lv-brand-petrol) 45%, var(--lv-dark-ink));
+    --lv-tint:color-mix(in srgb, var(--lv-brand-petrol) 12%, var(--lv-page)); --lv-accent-tint:color-mix(in srgb, var(--lv-accent) 7%, var(--lv-page));
+    --lv-accent-hover:color-mix(in srgb, var(--lv-accent) 80%, var(--lv-ink));
+    --lv-ok-on-dark:color-mix(in srgb, var(--lv-brand-forest) 40%, var(--lv-dark-ink));
+    --lv-ok:var(--lv-brand-forest); --lv-ok-tint:color-mix(in srgb, var(--lv-brand-forest) 9%, var(--lv-page));
+    --lv-alert-surface:#2A1712; --lv-alert-line:#7A3524; --lv-alert-ink:#F3D9CF; --lv-alert-quiet:#E8C9BE; --lv-alert-detail:#B08A7E; --lv-alert-on-ink:#5A1E10; --lv-alert-btn-line:#C97A63;
+    --lv-brand-ink:#1A1A1A; --lv-brand-rust:#BF4F1F; --lv-brand-petrol:#2E5C74; --lv-brand-forest:#3E6B4A; --lv-brand-plum:#5B4B8A; --lv-brand-sand:#A67C4E; --lv-brand-slate:#4A5B7A; --lv-brand-teal:#1F5C57;
+    --lv-t-mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+    --lv-t-cap:13px; --lv-t-xs:14px; --lv-t-sm:15px; --lv-t-md:16px; --lv-t-body:17px; --lv-t-lg:19px; --lv-t-xl:22px;
+    --lv-d-hero:clamp(44px,6.2vw,84px); --lv-d-1:clamp(36px,5vw,68px); --lv-d-2:clamp(32px,4.2vw,52px); --lv-d-3:clamp(30px,3.4vw,44px); --lv-d-4:clamp(22px,2.4vw,28px); --lv-d-5:clamp(19px,2vw,22px); --lv-d-6:clamp(17px,1.5vw,20px); --lv-d-7:clamp(16px,1.4vw,18px);
+    --lv-s-1:2px; --lv-s-2:6px; --lv-s-3:10px; --lv-s-4:12px; --lv-s-5:16px; --lv-s-6:20px; --lv-s-7:26px; --lv-s-8:34px; --lv-s-9:54px;
+    --lv-g-1:clamp(22px,2.6vw,28px); --lv-g-2:clamp(22px,3vw,34px); --lv-g-3:clamp(28px,4vw,44px); --lv-g-4:clamp(32px,4.5vw,60px); --lv-g-5:clamp(50px,6vw,78px);
+    --lv-r-chip:8px; --lv-r-control:13px; --lv-r-card:20px; --lv-r-round:50%; --lv-r-pill:100px;
+    --lv-tap:56px;
+    --lv-link:var(--lv-sec); --lv-link-hover:color-mix(in srgb, var(--lv-sec) 74%, var(--lv-ink)); --lv-link-on-dark:var(--lv-sec-on-dark);
+    --lv-dark-petrol:color-mix(in srgb, var(--lv-brand-petrol) 32%, var(--lv-dark)); --lv-dark-petrol-surface:color-mix(in srgb, var(--lv-brand-petrol) 24%, var(--lv-dark-surface)); --lv-dark-petrol-line:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-dark-line));
+    --lv-rung-1:var(--lv-page); --lv-rung-2:color-mix(in srgb, var(--lv-brand-petrol) 5%, var(--lv-page)); --lv-rung-3:color-mix(in srgb, var(--lv-brand-petrol) 9%, var(--lv-page)); --lv-rung-4:color-mix(in srgb, var(--lv-brand-petrol) 14%, var(--lv-page));
+    --lv-meter-track:color-mix(in srgb, var(--lv-brand-petrol) 16%, var(--lv-page)); --lv-meter-fill:var(--lv-sec); --lv-meter-fill-quiet:color-mix(in srgb, var(--lv-brand-petrol) 85%, var(--lv-page)); --lv-meter-track-dark:color-mix(in srgb, var(--lv-brand-petrol) 30%, var(--lv-dark-surface));
+    --lv-shadow-sm:0 10px 30px rgba(26,26,26,.06); --lv-shadow-lg:0 26px 60px rgba(26,26,26,.10);
+    --lv-ease:cubic-bezier(.2,.7,.2,1); --lv-ease-lift:cubic-bezier(.2,.8,.2,1); --lv-dur-1:.18s; --lv-dur-2:.5s; --lv-dur-3:.7s;
+  }
+  [data-theme="dark"]{
+    color-scheme:dark;
+    --lv-page:color-mix(in srgb, var(--lv-brand-petrol) 22%, var(--lv-dark));
+    --lv-surface:color-mix(in srgb, var(--lv-brand-petrol) 26%, var(--lv-dark-surface));
+    --lv-band:color-mix(in srgb, var(--lv-dark-ink) 10%, var(--lv-page));
+    --lv-ink:var(--lv-dark-ink);
+    --lv-ink-hover:color-mix(in srgb, var(--lv-dark-ink) 80%, var(--lv-page));
+    --lv-ink-quiet:var(--lv-dark-quiet);
+    --lv-ink-placeholder:color-mix(in srgb, var(--lv-dark-ink) 62%, var(--lv-page));
+    --lv-line:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-dark-line));
+    --lv-line-control:var(--lv-dark-line-control);
+    --lv-accent:color-mix(in srgb, var(--lv-brand-rust) 45%, var(--lv-dark-ink));
+    --lv-accent-hover:color-mix(in srgb, var(--lv-accent) 82%, var(--lv-dark-ink));
+    --lv-accent-tint:color-mix(in srgb, var(--lv-brand-rust) 26%, var(--lv-page));
+    --lv-sec:color-mix(in srgb, var(--lv-brand-petrol) 38%, var(--lv-dark-ink));
+    --lv-sec-tint:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-page));
+    --lv-link:var(--lv-sec);
+    --lv-link-hover:color-mix(in srgb, var(--lv-brand-petrol) 22%, var(--lv-dark-ink));
+    --lv-tint:color-mix(in srgb, var(--lv-dark-ink) 8%, var(--lv-page));
+    --lv-rung-1:var(--lv-page);
+    --lv-rung-2:color-mix(in srgb, var(--lv-dark-ink) 4%, var(--lv-page));
+    --lv-rung-3:color-mix(in srgb, var(--lv-dark-ink) 8%, var(--lv-page));
+    --lv-rung-4:color-mix(in srgb, var(--lv-dark-ink) 13%, var(--lv-page));
+    --lv-dark-petrol:color-mix(in srgb, var(--lv-dark-ink) 10%, var(--lv-page));
+    --lv-dark-petrol-surface:color-mix(in srgb, var(--lv-dark-ink) 15%, var(--lv-page));
+    --lv-dark-petrol-line:color-mix(in srgb, var(--lv-dark-ink) 24%, var(--lv-page));
+    --lv-meter-track:color-mix(in srgb, var(--lv-dark-ink) 16%, var(--lv-page));
+    --lv-meter-fill:var(--lv-sec);
+    --lv-meter-fill-quiet:color-mix(in srgb, var(--lv-brand-petrol) 52%, var(--lv-dark-ink));
+    --lv-ok:color-mix(in srgb, var(--lv-brand-forest) 38%, var(--lv-dark-ink));
+    --lv-ok-tint:color-mix(in srgb, var(--lv-brand-forest) 22%, var(--lv-page));
+    --lv-spark-deep:color-mix(in srgb, var(--lv-spark) 60%, var(--lv-dark-ink));
+  }
+  [data-theme-label-dark]{ display:none; }
+  [data-theme="dark"] [data-theme-label-light]{ display:none; }
+  [data-theme="dark"] [data-theme-label-dark]{ display:inline; }
+  [data-theme="dark"] [data-theme-dot]{ background:currentColor; }
+  [data-theme="dark"] [data-btn-spark]{ color:var(--lv-dark); }
+  [data-theme-toggle]{ transition:border-color var(--lv-dur-1) ease, color var(--lv-dur-1) ease; }
+  [data-theme-toggle]:hover{ border-color:var(--lv-sec); color:var(--lv-ink); }
+  a{ color:var(--lv-link); text-decoration:none; }
+  a:hover{ color:var(--lv-link-hover); }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible{ outline:2px solid var(--lv-accent); outline-offset:3px; border-radius:var(--lv-r-chip); }
+  [data-skip-link]{ position:absolute; left:-9999px; top:0; z-index:200; background:var(--lv-ink); color:var(--lv-page); padding:var(--lv-s-3) var(--lv-s-5); border-radius:var(--lv-r-control); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-sm); text-decoration:none; }
+  [data-skip-link]:focus{ left:var(--lv-s-5); top:var(--lv-s-5); }
+  table{ border-collapse:collapse; width:100%; }
+  th{ font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); text-align:left; padding:var(--lv-s-3) var(--lv-s-5); border-bottom:1px solid var(--lv-line-control); white-space:nowrap; }
+  td{ font-size:var(--lv-t-sm); line-height:1.5; padding:var(--lv-s-4) var(--lv-s-5); border-bottom:1px solid var(--lv-line); vertical-align:top; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+<script>
+(function(){
+  var K='levarum.theme.v1', D=document.documentElement;
+  function stored(){ try{ return localStorage.getItem(K); }catch(e){ return null; } }
+  function pref(){ try{ return window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'; }catch(e){ return 'light'; } }
+  D.setAttribute('data-theme', stored() || pref());
+  if (window.__lvThemeBound) return;
+  window.__lvThemeBound = true;
+  document.addEventListener('click', function(e){
+    var n=e.target, hit=null;
+    while(n && n!==document){ if(n.getAttribute && n.getAttribute('data-theme-toggle')!==null){ hit=n; break; } n=n.parentNode; }
+    if(!hit) return;
+    var next = D.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    D.setAttribute('data-theme', next);
+    try{ localStorage.setItem(K, next); }catch(err){}
+  });
+  try{ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(ev){ if(!stored()) D.setAttribute('data-theme', ev.matches?'dark':'light'); }); }catch(e){}
+})();
+(function(){
+  if (window.__lvMeters) return;
+  window.__lvMeters = true;
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+  if (reduce || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      var el = en.target; io.unobserve(el);
+      var target = el.getAttribute('data-lv-w') || el.style.width || '100%';
+      el.style.transition = 'none'; el.style.width = '0%';
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){
+        el.style.transition = 'width 900ms cubic-bezier(.2,.7,.2,1)';
+        el.style.width = target;
+      }); });
+    });
+  }, { threshold: 0.3 });
+  function scan(){
+    var list = document.querySelectorAll('[data-meter]');
+    for (var i=0;i<list.length;i++){
+      var el = list[i];
+      if (el.getAttribute('data-lv-seen')) continue;
+      el.setAttribute('data-lv-seen','1');
+      el.setAttribute('data-lv-w', el.style.width || '100%');
+      io.observe(el);
+    }
+  }
+  scan(); setTimeout(scan, 500); setTimeout(scan, 1400); setTimeout(scan, 3000);
+})();
+</script>
+</helmet>
+
+<div style="font-family:'Instrument Sans',sans-serif; color:var(--lv-ink); background:var(--lv-page); overflow-x:hidden;">
+  <a data-skip-link href="#lv-main">Skip to content</a>
+
+  <header style="border-bottom:1px solid var(--lv-line); background:var(--lv-page);">
+    <nav aria-label="Primary" style="max-width:1180px; margin:0 auto; padding:var(--lv-s-5) var(--lv-s-7); display:flex; align-items:center; gap:var(--lv-s-6); flex-wrap:wrap;">
+      <a href="./Levarum%20Home%20v2.dc.html" style="display:flex; align-items:center; gap:var(--lv-s-3); color:var(--lv-ink);">
+        <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="display:block; flex:none; color:var(--lv-ink);"><path d="M6 44 A26 26 0 0 1 58 44 Z" fill="currentColor"/><rect x="6" y="52" width="52" height="9" fill="currentColor"/></svg>
+        <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.025em;">Levarum</span>
+      </a>
+      <span style="font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);">Internal · launch plan</span>
+      <div style="margin-left:auto; display:flex; gap:var(--lv-s-6); align-items:center; flex-wrap:wrap;">
+        <a href="./Levarum%20Journeys.dc.html" style="font-size:var(--lv-t-xs); display:inline-flex; align-items:center; min-height:44px;">Journeys</a>
+        <a href="./Levarum%20Site%20Check.dc.html" style="font-size:var(--lv-t-xs); display:inline-flex; align-items:center; min-height:44px;">Site check</a>
+        <button type="button" data-theme-toggle style="display:inline-flex; align-items:center; gap:var(--lv-s-2); min-height:44px; padding:0 var(--lv-s-4); background:transparent; border:1px solid var(--lv-line-control); border-radius:var(--lv-r-control); color:var(--lv-ink-quiet); font-family:'Instrument Sans',sans-serif; font-size:var(--lv-t-xs); cursor:pointer; white-space:nowrap;"><span aria-hidden="true" data-theme-dot style="width:11px; height:11px; border-radius:var(--lv-r-round); border:1.5px solid currentColor; background:linear-gradient(90deg, currentColor 50%, transparent 50%);"></span><span data-theme-label-light>Dark</span><span data-theme-label-dark>Light</span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="lv-main">
+
+  <!-- GOAL -->
+  <div style="background:var(--lv-dark-petrol); color:var(--lv-dark-ink);">
+    <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-4) var(--lv-s-7);">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec-on-dark); margin-bottom:var(--lv-s-5);">THE GOAL · EVERYTHING BELOW SERVES THIS</div>
+      <h1 style="margin:0 0 var(--lv-s-5); font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-2); line-height:1.02; letter-spacing:-0.035em; max-width:900px; text-wrap:balance;">A skeptical owner books the 15-minute call, and every lead is worked to a conclusion.</h1>
+      <div style="font-size:var(--lv-t-body); line-height:1.6; color:var(--lv-dark-quiet); max-width:720px; text-wrap:pretty;">Live on a real domain. Nothing fake left in the chain: a real form endpoint, real sign-in, real statuses, a real number for what happened in week one. A phase is only done when it moves that goal.</div>
+    </div>
+  </div>
+
+  <!-- PHASES -->
+  <div data-screen-label="Phases" style="background:var(--lv-rung-2); border-bottom:1px solid var(--lv-line);">
+  <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-4) var(--lv-s-7) var(--lv-g-5);">
+    <div style="display:flex; align-items:baseline; gap:var(--lv-s-5); flex-wrap:wrap; margin-bottom:var(--lv-s-4);">
+      <h2 style="margin:0; font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-3); letter-spacing:-0.03em;">Phases, in dependency order</h2>
+    </div>
+    <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); max-width:720px; margin-bottom:var(--lv-g-2); text-wrap:pretty;">Owners: <strong style="color:var(--lv-ink);">owner-decision</strong> is you, <strong style="color:var(--lv-sec);">design</strong> is this panel, <strong style="color:var(--lv-accent);">code</strong> is Claude Code in the repo. Model tiers: <strong style="color:var(--lv-ink);">strongest</strong> for judgment and divergent design, <strong style="color:var(--lv-ink);">mid</strong> for execution against a checklist, <strong style="color:var(--lv-ink);">fastest</strong> for mechanical sweeps.</div>
+
+    <div style="display:flex; flex-direction:column; gap:0;">
+
+      <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-ink); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-1); box-shadow:var(--lv-shadow-sm);">
+        <div style="display:flex; align-items:center; gap:var(--lv-s-4); flex-wrap:wrap; margin-bottom:var(--lv-s-3);">
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-t-xl); letter-spacing:-0.02em;">P0</span>
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-xl); letter-spacing:-0.025em;">Decide</span>
+          <span style="border:1.5px solid var(--lv-ink); color:var(--lv-ink); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em;">OWNER-DECISION</span>
+          <span style="border:1px solid var(--lv-line-control); color:var(--lv-ink-quiet); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em;">STRONGEST · AS SPARRING PARTNER</span>
+        </div>
+        <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); max-width:760px;">Answer the six gates below. Every one blocks a later phase; none of them is a build task.</div>
+        <div style="border-top:1px solid var(--lv-line); margin-top:var(--lv-s-5); padding-top:var(--lv-s-5); font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);"><strong style="color:var(--lv-ink);">Done when:</strong> each gate card has a written answer. A maybe is not an answer.</div>
+      </div>
+      <div style="width:2px; height:26px; background:var(--lv-line-control); margin-left:30px;"></div>
+
+      <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-sec); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-1); box-shadow:var(--lv-shadow-sm);">
+        <div style="display:flex; align-items:center; gap:var(--lv-s-4); flex-wrap:wrap; margin-bottom:var(--lv-s-3);">
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-t-xl); letter-spacing:-0.02em; color:var(--lv-sec);">P1</span>
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-xl); letter-spacing:-0.025em;">Extract the bridge</span>
+          <span style="border:1.5px solid var(--lv-sec); color:var(--lv-sec); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em;">DESIGN</span>
+          <span style="border:1px solid var(--lv-line-control); color:var(--lv-ink-quiet); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em;">STRONGEST</span>
+        </div>
+        <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); max-width:760px;">One handoff document out of this panel: the full token table with values, the component specs (buttons, cards, chips, hours meters, focus ring, tint ladder), and the usage rules that are not in any file — rust is commit-only, petrol carries links and labels, one dark band per page, bars share one scale.</div>
+        <div style="border-top:1px solid var(--lv-line); margin-top:var(--lv-s-5); padding-top:var(--lv-s-5); font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);"><strong style="color:var(--lv-ink);">Done when:</strong> a developer can restyle the repo without ever opening this panel. The ember mapping table below is part of it.</div>
+      </div>
+      <div style="width:2px; height:26px; background:var(--lv-line-control); margin-left:30px;"></div>
+
+      <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-accent); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-1); box-shadow:var(--lv-shadow-sm);">
+        <div style="display:flex; align-items:center; gap:var(--lv-s-4); flex-wrap:wrap; margin-bottom:var(--lv-s-3);">
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-t-xl); letter-spacing:-0.02em; color:var(--lv-accent);">P2</span>
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-xl); letter-spacing:-0.025em;">Reconcile the repo</span>
+          <span style="border:1.5px solid var(--lv-accent); color:var(--lv-accent); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em;">CODE</span>
+          <span style="border:1px solid var(--lv-line-control); color:var(--lv-ink-quiet); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em;">MID · CHECKLIST WORK</span>
+        </div>
+        <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); max-width:760px;">Apply the bridge to <span style="font-family:var(--lv-t-mono); font-size:var(--lv-t-sm);">src/styles/tokens.css</span>, port the public pages into the React app in visit order — Home, How it works, What we automate, Questions, Start — re-skin the operator console, and delete the stale <span style="font-family:var(--lv-t-mono); font-size:var(--lv-t-sm);">design/project/MindLever*.dc.html</span> copies from the repo. Those four files are this panel's own past, frozen at the wrong moment; keeping them is how someone restores the orange by accident.</div>
+        <div style="border-top:1px solid var(--lv-line); margin-top:var(--lv-s-5); padding-top:var(--lv-s-5); font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);"><strong style="color:var(--lv-ink);">Done when:</strong> the deployed preview renders every page in rust/petrol, <span style="font-family:var(--lv-t-mono);">grep -r "--ember" src</span> returns nothing, and <span style="font-family:var(--lv-t-mono);">check:boundary</span> still passes.</div>
+      </div>
+      <div style="width:2px; height:26px; background:var(--lv-line-control); margin-left:30px;"></div>
+
+      <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-accent); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-1); box-shadow:var(--lv-shadow-sm);">
+        <div style="display:flex; align-items:center; gap:var(--lv-s-4); flex-wrap:wrap; margin-bottom:var(--lv-s-3);">
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-t-xl); letter-spacing:-0.02em; color:var(--lv-accent);">P3</span>
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-xl); letter-spacing:-0.025em;">Nothing fake in the chain</span>
+          <span style="border:1.5px solid var(--lv-accent); color:var(--lv-accent); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em;">CODE</span>
+          <span style="border:1px solid var(--lv-line-control); color:var(--lv-ink-quiet); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em;">MID</span>
+        </div>
+        <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); max-width:760px;">A real <span style="font-family:var(--lv-t-mono); font-size:var(--lv-t-sm);">/api/submissions</span> beside <span style="font-family:var(--lv-t-mono); font-size:var(--lv-t-sm);">/api/draft</span>, server-side operator auth, both client-side gates deleted, the localStorage store demoted to an offline cache, and Parked / Not-a-fit statuses added so the console can reach a real conclusion on every lead.</div>
+        <div style="border-top:1px solid var(--lv-line); margin-top:var(--lv-s-5); padding-top:var(--lv-s-5); font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);"><strong style="color:var(--lv-ink);">Done when:</strong> a submission made on the production domain appears in the console behind real sign-in, and the only labelled fallback left anywhere is the offline Claude draft — which is honest, so it stays.</div>
+      </div>
+      <div style="width:2px; height:26px; background:var(--lv-line-control); margin-left:30px;"></div>
+
+      <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-ink); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-1); box-shadow:var(--lv-shadow-sm);">
+        <div style="display:flex; align-items:center; gap:var(--lv-s-4); flex-wrap:wrap; margin-bottom:var(--lv-s-3);">
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-t-xl); letter-spacing:-0.02em;">P4</span>
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-xl); letter-spacing:-0.025em;">Launch and week one</span>
+          <span style="border:1.5px solid var(--lv-ink); color:var(--lv-ink); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em;">OWNER + CODE</span>
+          <span style="border:1px solid var(--lv-line-control); color:var(--lv-ink-quiet); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em;">FASTEST · SWEEPS</span>
+        </div>
+        <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); max-width:760px;">Domain live, the five instrumentation events wired, a real-device pass at 390px, and the content sweeps (naming, credentials, copy) done at the fastest tier. Launch does not wait for motion.</div>
+        <div style="border-top:1px solid var(--lv-line); margin-top:var(--lv-s-5); padding-top:var(--lv-s-5); font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);"><strong style="color:var(--lv-ink);">Done when:</strong> the five numbers below are flowing from real traffic.</div>
+      </div>
+      <div style="width:2px; height:26px; background:var(--lv-line-control); margin-left:30px;"></div>
+
+      <div style="border:1.5px dashed var(--lv-line-control); background:transparent; border-radius:var(--lv-r-card); padding:var(--lv-g-1);">
+        <div style="display:flex; align-items:center; gap:var(--lv-s-4); flex-wrap:wrap; margin-bottom:var(--lv-s-3);">
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-t-xl); letter-spacing:-0.02em; color:var(--lv-ink-quiet);">P5</span>
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-xl); letter-spacing:-0.025em;">Motion layer — deliberately last</span>
+          <span style="border:1.5px solid var(--lv-accent); color:var(--lv-accent); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em;">CODE</span>
+          <span style="border:1px solid var(--lv-line-control); color:var(--lv-ink-quiet); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em;">MID</span>
+        </div>
+        <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); max-width:760px;">Pushing back on the implied order: motion is in the launch plan but must not gate the launch. Scroll-driven reveals, spring physics on the hours bars, view transitions between intake steps — all behind <span style="font-family:var(--lv-t-mono); font-size:var(--lv-t-sm);">prefers-reduced-motion</span>. It sharpens a working funnel; it cannot rescue a gated one. Ship P4, then land this.</div>
+        <div style="border-top:1px solid var(--lv-line); margin-top:var(--lv-s-5); padding-top:var(--lv-s-5); font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);"><strong style="color:var(--lv-ink);">Done when:</strong> motion runs at 60fps on a mid-range phone, and with reduced motion set the site is simply still — nothing missing, nothing broken.</div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- RECONCILIATION -->
+  <div data-screen-label="Reconciliation" style="background:var(--lv-rung-3); border-bottom:1px solid var(--lv-line);">
+  <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-4) var(--lv-s-7) var(--lv-g-5);">
+    <h2 style="margin:0 0 var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-3); letter-spacing:-0.03em;">Which artifact is the product?</h2>
+    <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); max-width:760px; margin-bottom:var(--lv-g-2); text-wrap:pretty;">Two half-products. The repo has the deployment vehicle, the real backend and the console workflow, wearing last season's clothes. This panel has the design truth and the richer public site, with no way to run a server. Neither is the product alone.</div>
+
+    <div style="border:1.5px solid var(--lv-ink); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-1); margin-bottom:var(--lv-s-6);">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-3);">POSITION · RECOMMENDED</div>
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-xl); letter-spacing:-0.025em; margin-bottom:var(--lv-s-4);">The repo is the product. This panel is where the product gets designed.</div>
+      <div style="font-size:var(--lv-t-md); line-height:1.6; color:var(--lv-ink-quiet); max-width:800px; text-wrap:pretty;">The repo is the deployment vehicle and backend of record — it is the only one of the two that can hold a domain, a serverless function and real auth. This panel is the design system and page source of record — layout, colour, copy and flow decisions happen here first, get proven on the rendered pages, and travel to the repo through one extracted bridge document. The alternative — treating this panel as the product and the repo as a renderer — fails on the goal: "nothing fake in the chain" is unreachable in an environment with no server. The alternative in the other direction — designing directly in the repo — throws away a working design-review loop (Site Check, Journeys, the tint ladder work) for no gain. Split the custody; never the editing.</div>
+      <div style="border-top:1px solid var(--lv-line); margin-top:var(--lv-s-5); padding-top:var(--lv-s-5); font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet);"><strong style="color:var(--lv-ink);">The anti-drift rule:</strong> a file is edited in exactly one place. When a page has been ported, its <span style="font-family:var(--lv-t-mono);">.dc.html</span> here becomes a design sketchpad for the next change — and every accepted change re-crosses the bridge by hand. Dual-editing is how the repo grew MindLever fossils in the first place.</div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr)); gap:var(--lv-s-6); margin-bottom:var(--lv-s-6);">
+      <div style="border:1px solid var(--lv-line); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-1);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec); margin-bottom:var(--lv-s-4);">TOKEN MAPPING · EMBER UNDER RUST/PETROL</div>
+        <table>
+          <thead><tr><th>Repo token</th><th>Becomes</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td style="font-family:var(--lv-t-mono);">--ember #D4622A</td><td style="font-family:var(--lv-t-mono);">retired</td><td>It survives only as <span style="font-family:var(--lv-t-mono);">--lv-spark</span>, decoration-on-dark. Commit actions move to rust <span style="font-family:var(--lv-t-mono);">--lv-accent #8F3D14</span>.</td></tr>
+            <tr><td style="font-family:var(--lv-t-mono);">--ember-deep #B5511F</td><td style="font-family:var(--lv-t-mono);">retired</td><td>Its old jobs split: labels and eyebrows go petrol <span style="font-family:var(--lv-t-mono);">--lv-sec</span>, links go <span style="font-family:var(--lv-t-mono);">--lv-link</span>.</td></tr>
+            <tr><td style="font-family:var(--lv-t-mono);">--charcoal #1A1A1A</td><td style="font-family:var(--lv-t-mono);">--lv-ink</td><td>Same hex; dark bands become <span style="font-family:var(--lv-t-mono);">--lv-dark-petrol</span>, not flat charcoal.</td></tr>
+            <tr><td style="font-family:var(--lv-t-mono);">--warm #FBF6F2</td><td style="font-family:var(--lv-t-mono);">--lv-page</td><td>Same hex — the ground never changed.</td></tr>
+            <tr><td style="font-family:var(--lv-t-mono);">--ink / --muted / --warm-offwhite</td><td style="font-family:var(--lv-t-mono);">--lv-ink-quiet / --lv-dark-quiet / --lv-dark-ink</td><td>Same hexes, new role names.</td></tr>
+            <tr><td style="font-family:var(--lv-t-mono);">--hairline / --dark-field*</td><td style="font-family:var(--lv-t-mono);">--lv-line / --lv-dark-petrol-surface</td><td>Dark surfaces pick up the petrol cast.</td></tr>
+            <tr><td style="font-family:var(--lv-t-mono);">--canvas #E4E0DA</td><td style="font-family:var(--lv-t-mono);">tint ladder</td><td>The single flat band becomes <span style="font-family:var(--lv-t-mono);">--lv-rung-1…4</span>.</td></tr>
+            <tr><td style="font-family:var(--lv-t-mono);">--go / --wait sets</td><td style="font-family:var(--lv-t-mono);">kept, console-only</td><td>Status colours the public site never uses. Re-derive as <span style="font-family:var(--lv-t-mono);">color-mix()</span> off forest and sand so even the console stays in the family.</td></tr>
+            <tr><td style="font-family:var(--lv-t-mono);">--tap 44px</td><td style="font-family:var(--lv-t-mono);">--lv-tap 56px</td><td>Ours is stricter; keep 56 for commit controls, 44 stays the floor.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="border:1px solid var(--lv-line); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-1);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec); margin-bottom:var(--lv-s-4);">SOURCE OF TRUTH · PER FILE TYPE, AFTER THE MERGE</div>
+        <table>
+          <thead><tr><th>What</th><th>Lives in</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>Tokens + component specs</td><td><strong>This panel</strong> → bridge doc</td><td>Applied to <span style="font-family:var(--lv-t-mono);">tokens.css</span>; repo never invents a colour.</td></tr>
+            <tr><td>Public page design + copy</td><td><strong>This panel</strong></td><td>Designed and reviewed here, ported deliberately. Repo TSX is the built artifact.</td></tr>
+            <tr><td>Public pages, running</td><td><strong>Repo</strong> — port, not static export</td><td>Arguing against the export option: two runtimes on one domain is the drift machine again. Port Home, How it works, What we automate, Questions into React; Start is already there as the prospect flow — re-skin it, do not rebuild it.</td></tr>
+            <tr><td>Console, API, auth, store</td><td><strong>Repo only</strong></td><td>This panel's Admin page retires after P3 — its inbox was a stand-in for the real console.</td></tr>
+            <tr><td>Internal tooling (Journeys, Site Check, this plan)</td><td><strong>This panel only</strong></td><td>Never ported. The repo's <span style="font-family:var(--lv-t-mono);">design/project/</span> folder is deleted, not updated.</td></tr>
+            <tr><td>Brand strings</td><td><strong>Repo</strong> <span style="font-family:var(--lv-t-mono);">src/brand.ts</span></td><td>Already built for exactly this; the naming gate below feeds it.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- DECISION GATES -->
+  <div data-screen-label="Decision gates" style="background:var(--lv-rung-2); border-bottom:1px solid var(--lv-line);">
+  <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-4) var(--lv-s-7) var(--lv-g-5);">
+    <h2 style="margin:0 0 var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-3); letter-spacing:-0.03em;">The six gates</h2>
+    <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); max-width:720px; margin-bottom:var(--lv-g-2);">Each is a choice, not a task. Recommendations attached; overrule any of them, but in writing.</div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr)); gap:var(--lv-s-6);">
+
+      <div style="border:1.5px solid var(--lv-sec); background:var(--lv-rung-4); border-radius:var(--lv-r-card); padding:var(--lv-g-1);">
+        <div style="display:flex; align-items:center; gap:var(--lv-s-3); margin-bottom:var(--lv-s-3);"><span style="width:11px; height:11px; background:var(--lv-sec); transform:rotate(45deg); display:block; flex:none;"></span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec);">GATE 1 · LOGO MARK</span></div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em; margin-bottom:var(--lv-s-3);">Mark A or mark B?</div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet);"><strong style="color:var(--lv-ink);">Recommend B</strong> — the dome-on-plate already on every live page, consistent in Site Check, and it survives the 16px favicon squint. Switching now buys nothing and costs a seven-file sweep plus the repo favicon.</div>
+      </div>
+
+      <div style="border:1.5px solid var(--lv-sec); background:var(--lv-rung-4); border-radius:var(--lv-r-card); padding:var(--lv-g-1);">
+        <div style="display:flex; align-items:center; gap:var(--lv-s-3); margin-bottom:var(--lv-s-3);"><span style="width:11px; height:11px; background:var(--lv-sec); transform:rotate(45deg); display:block; flex:none;"></span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec);">GATE 2 · PRICING</span></div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em; margin-bottom:var(--lv-s-3);">What does the cost FAQ actually say?</div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet);"><strong style="color:var(--lv-ink);">Recommend publishing a floor and a typical range</strong> — "first builds usually land between $X and $Y, agreed in writing before any work." The current answer ("agreed on the call") is what expensive sounds like to a tradesman; he quotes jobs for a living and respects anyone who will name a number. Only you can set X and Y. Dollars — this is a US national site.</div>
+      </div>
+
+      <div style="border:1.5px solid var(--lv-sec); background:var(--lv-rung-4); border-radius:var(--lv-r-card); padding:var(--lv-g-1);">
+        <div style="display:flex; align-items:center; gap:var(--lv-s-3); margin-bottom:var(--lv-s-3);"><span style="width:11px; height:11px; background:var(--lv-sec); transform:rotate(45deg); display:block; flex:none;"></span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec);">GATE 3 · LEAVE-HOME RECOVERY</span></div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em; margin-bottom:var(--lv-s-3);">Capture him before he leaves, or let him go?</div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet);"><strong style="color:var(--lv-ink);">Recommend letting him go at launch</strong> — no exit popup, no early email ask; both would spend the trust the whole design is built to earn. Instead measure the drop-off (metric 1) for two weeks. If Home loses more than ~2 in 3, add the softest recovery there is: a phone number. Which is Gate 6's cousin — a number in the header recovers people no form ever will.</div>
+      </div>
+
+      <div style="border:1.5px solid var(--lv-sec); background:var(--lv-rung-4); border-radius:var(--lv-r-card); padding:var(--lv-g-1);">
+        <div style="display:flex; align-items:center; gap:var(--lv-s-3); margin-bottom:var(--lv-s-3);"><span style="width:11px; height:11px; background:var(--lv-sec); transform:rotate(45deg); display:block; flex:none;"></span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec);">GATE 4 · GONE QUIET</span></div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em; margin-bottom:var(--lv-s-3);">Three tries, no answer — then what?</div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet);"><strong style="color:var(--lv-ink);">Recommend: Park it, one revival note at 90 days, then Not a fit.</strong> Needs the two new console statuses from P3 so "parked" stops masquerading as "done". Every lead reaches a named conclusion — which is half the goal sentence.</div>
+      </div>
+
+      <div style="border:1.5px solid var(--lv-sec); background:var(--lv-rung-4); border-radius:var(--lv-r-card); padding:var(--lv-g-1);">
+        <div style="display:flex; align-items:center; gap:var(--lv-s-3); margin-bottom:var(--lv-s-3);"><span style="width:11px; height:11px; background:var(--lv-sec); transform:rotate(45deg); display:block; flex:none;"></span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec);">GATE 5 · DUAL RUST ON HOME</span></div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em; margin-bottom:var(--lv-s-3);">Nav Start and hero CTA share the first viewport.</div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet);"><strong style="color:var(--lv-ink);">Recommend keeping both.</strong> The 10% rule is about meaning, not census: both buttons mean the same verb, pointed at the same place — reinforcement, not competition. What the rule forbids is rust meaning two different things, which is what we actually fixed. Demoting nav Start would weaken every other page to tidy one viewport.</div>
+      </div>
+
+      <div style="border:1.5px solid var(--lv-sec); background:var(--lv-rung-4); border-radius:var(--lv-r-card); padding:var(--lv-g-1);">
+        <div style="display:flex; align-items:center; gap:var(--lv-s-3); margin-bottom:var(--lv-s-3);"><span style="width:11px; height:11px; background:var(--lv-sec); transform:rotate(45deg); display:block; flex:none;"></span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec);">GATE 6 · ONE NAME AT THE DOOR</span></div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em; margin-bottom:var(--lv-s-3);">operator@levarum.co or owner / levarum?</div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet);"><strong style="color:var(--lv-ink);">Recommend operator@levarum.co, everywhere, once.</strong> It is already the repo's identity in <span style="font-family:var(--lv-t-mono);">brand.ts</span>, it is a real mailbox shape that server auth can verify, and the console user is an operator whoever owns the company. The owner/levarum demo credential dies with the client gate in P3 — same decision, one hat.</div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- CLAUDE CODE WORKSTREAM -->
+  <div data-screen-label="Claude Code workstream" style="background:var(--lv-rung-3); border-bottom:1px solid var(--lv-line);">
+  <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-4) var(--lv-s-7) var(--lv-g-5);">
+    <div style="display:flex; align-items:baseline; gap:var(--lv-s-5); flex-wrap:wrap; margin-bottom:var(--lv-g-2);">
+      <span style="width:16px; height:16px; border-radius:var(--lv-r-round); background:var(--lv-accent); display:block; flex:none;"></span>
+      <h2 style="margin:0; font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-3); letter-spacing:-0.03em;">Claude Code workstream</h2>
+      <span style="font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);">In the repo, against the bridge doc. Ticket order = dependency order.</span>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:var(--lv-s-4);">
+      <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-accent); background:var(--lv-surface); border-radius:var(--lv-r-control); padding:var(--lv-s-5) var(--lv-s-6); display:grid; grid-template-columns:1fr auto; gap:var(--lv-s-5); align-items:center;">
+        <div><div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.01em;">1 · Token swap</div><div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-1);">Rewrite <span style="font-family:var(--lv-t-mono);">src/styles/tokens.css</span> from the mapping table; sweep <span style="font-family:var(--lv-t-mono);">prospect.css</span> and <span style="font-family:var(--lv-t-mono);">operator.css</span>; delete <span style="font-family:var(--lv-t-mono);">design/project/</span>.</div></div>
+        <span style="border:1px solid var(--lv-line-control); color:var(--lv-ink-quiet); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; white-space:nowrap;">MID</span>
+      </div>
+      <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-accent); background:var(--lv-surface); border-radius:var(--lv-r-control); padding:var(--lv-s-5) var(--lv-s-6); display:grid; grid-template-columns:1fr auto; gap:var(--lv-s-5); align-items:center;">
+        <div><div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.01em;">2 · Port the public pages, home-first</div><div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-1);">Home, How it works, What we automate, Questions as prospect-side routes; re-skin the existing Intake → Gate → Reveal → Booking flow as Start. Landmarks, skip link, 390px behaviour and reduced-motion carry over as requirements, not suggestions.</div></div>
+        <span style="border:1px solid var(--lv-line-control); color:var(--lv-ink-quiet); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; white-space:nowrap;">MID</span>
+      </div>
+      <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-accent); background:var(--lv-surface); border-radius:var(--lv-r-control); padding:var(--lv-s-5) var(--lv-s-6); display:grid; grid-template-columns:1fr auto; gap:var(--lv-s-5); align-items:center;">
+        <div><div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.01em;">3 · Real endpoint</div><div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-1);"><span style="font-family:var(--lv-t-mono);">/api/submissions</span> (POST from the gate, GET for the console) with real persistence — Vercel KV or Postgres, Claude Code's call. The localStorage store becomes an offline cache with its change feed intact; the seeds move behind a dev flag.</div></div>
+        <span style="border:1px solid var(--lv-line-control); color:var(--lv-ink-quiet); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; white-space:nowrap;">MID</span>
+      </div>
+      <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-accent); background:var(--lv-surface); border-radius:var(--lv-r-control); padding:var(--lv-s-5) var(--lv-s-6); display:grid; grid-template-columns:1fr auto; gap:var(--lv-s-5); align-items:center;">
+        <div><div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.01em;">4 · Server-side auth</div><div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-1);">One operator account (Gate 6), session cookie, console routes and <span style="font-family:var(--lv-t-mono);">/api/submissions</span> GET behind it. Both client-side gates deleted the same day — half-real auth is worse than none because it looks done.</div></div>
+        <span style="border:1px solid var(--lv-line-control); color:var(--lv-ink-quiet); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; white-space:nowrap;">MID</span>
+      </div>
+      <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-accent); background:var(--lv-surface); border-radius:var(--lv-r-control); padding:var(--lv-s-5) var(--lv-s-6); display:grid; grid-template-columns:1fr auto; gap:var(--lv-s-5); align-items:center;">
+        <div><div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.01em;">5 · Motion layer</div><div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-1);">Scroll-driven reveals on section entry, spring physics on the hours bars (they animate to width once, on first view), View Transitions between intake steps. Every effect inside <span style="font-family:var(--lv-t-mono);">prefers-reduced-motion: no-preference</span>. Non-blocking for launch.</div></div>
+        <span style="border:1px solid var(--lv-line-control); color:var(--lv-ink-quiet); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; white-space:nowrap;">MID</span>
+      </div>
+      <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-accent); background:var(--lv-surface); border-radius:var(--lv-r-control); padding:var(--lv-s-5) var(--lv-s-6); display:grid; grid-template-columns:1fr auto; gap:var(--lv-s-5); align-items:center;">
+        <div><div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.01em;">6 · Sweeps</div><div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-1);">Name/credential unification from Gate 6, dead-token grep, favicon from the chosen mark, event wiring from the instrumentation table.</div></div>
+        <span style="border:1px solid var(--lv-line-control); color:var(--lv-ink-quiet); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; white-space:nowrap;">FASTEST</span>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- STRESS TEST -->
+  <div data-screen-label="Funnel stress test" style="background:var(--lv-rung-2); border-bottom:1px solid var(--lv-line);">
+  <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-4) var(--lv-s-7) var(--lv-g-5);">
+    <h2 style="margin:0 0 var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-3); letter-spacing:-0.03em;">Why he doesn't book</h2>
+    <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); max-width:740px; margin-bottom:var(--lv-g-2); text-wrap:pretty;">The 55-year-old plumber, in the van, on his phone, between jobs. Arguing against our own site, hardest objection first. Each card names the page that fails him and the change.</div>
+
+    <div style="display:flex; flex-direction:column; gap:var(--lv-s-5);">
+      <div style="border:1.5px dashed var(--lv-line-control); border-radius:var(--lv-r-card); padding:var(--lv-g-1); background:var(--lv-surface);">
+        <div style="display:flex; align-items:baseline; gap:var(--lv-s-4); flex-wrap:wrap; margin-bottom:var(--lv-s-3);"><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-t-xl); color:var(--lv-accent);">1</span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">"I'm not typing my email into a website I found an hour ago."</span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet);">FAILS ON · START, THE GATE</span></div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.6; color:var(--lv-ink-quiet); max-width:800px;">The gate is the funnel's single biggest wall, and he is exactly who bounces off it: email means salesmen. <strong style="color:var(--lv-ink);">Change:</strong> soft-gate the plan — show the top job and its hours free, gate the remaining jobs and the fix-first pick behind the email. He gets proof before the ask; we still get the lead when he wants the rest. Metric 3 exists to prove or kill this.</div>
+      </div>
+
+      <div style="border:1.5px dashed var(--lv-line-control); border-radius:var(--lv-r-card); padding:var(--lv-g-1); background:var(--lv-surface);">
+        <div style="display:flex; align-items:baseline; gap:var(--lv-s-4); flex-wrap:wrap; margin-bottom:var(--lv-s-3);"><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-t-xl); color:var(--lv-accent);">2</span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">"There's no phone number. What are they hiding?"</span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet);">FAILS ON · EVERY PAGE</span></div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.6; color:var(--lv-ink-quiet); max-width:800px;">His whole trade runs on phone calls; a business with no number reads as a business that hides. <strong style="color:var(--lv-ink);">Change:</strong> a real number in the footer of all five pages and "or just call" beside the booking slots on Start. It doubles as the Gate 3 recovery. Needs the number to exist — owner input.</div>
+      </div>
+
+      <div style="border:1.5px dashed var(--lv-line-control); border-radius:var(--lv-r-card); padding:var(--lv-g-1); background:var(--lv-surface);">
+        <div style="display:flex; align-items:baseline; gap:var(--lv-s-4); flex-wrap:wrap; margin-bottom:var(--lv-s-3);"><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-t-xl); color:var(--lv-accent);">3</span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">"Zapier? Claude? HubSpot? This is for computer people."</span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet);">FAILS ON · WHAT WE AUTOMATE</span></div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.6; color:var(--lv-ink-quiet); max-width:800px;">QuickBooks he knows. The rest of the tool chips are software-world names that mark the page as not-for-him — the exact "software, not workwear" failure the palette was rebuilt to avoid, re-imported through copy. <strong style="color:var(--lv-ink);">Change:</strong> lead with the outcome ("runs on tools you already have — nothing new to learn"), demote tool names to the card's small print.</div>
+      </div>
+
+      <div style="border:1.5px dashed var(--lv-line-control); border-radius:var(--lv-r-card); padding:var(--lv-g-1); background:var(--lv-surface);">
+        <div style="display:flex; align-items:baseline; gap:var(--lv-s-4); flex-wrap:wrap; margin-bottom:var(--lv-s-3);"><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-t-xl); color:var(--lv-accent);">4</span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">"Show me one guy like me this worked for."</span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet);">FAILS ON · HOME</span></div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.6; color:var(--lv-ink-quiet); max-width:800px;">The example plan card is hypothetical and the dark band only names his pain — Journeys already flagged it as resolving no objection. There is no person, no trade, no town anywhere on the site. <strong style="color:var(--lv-ink);">Change:</strong> replace the dark band's three abstractions with one named story — "Two vans, Toledo. Invoices chased themselves within a week" — the moment a real first client exists. Until then, say so plainly ("early days — you'd be among the first, which is why the plan is free"); honesty beats a fabricated case study with this audience every time.</div>
+      </div>
+
+      <div style="border:1.5px dashed var(--lv-line-control); border-radius:var(--lv-r-card); padding:var(--lv-g-1); background:var(--lv-surface);">
+        <div style="display:flex; align-items:baseline; gap:var(--lv-s-4); flex-wrap:wrap; margin-bottom:var(--lv-s-3);"><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-t-xl); color:var(--lv-accent);">5</span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">"'Agreed on the call' means it costs too much to print."</span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet);">FAILS ON · QUESTIONS</span></div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.6; color:var(--lv-ink-quiet); max-width:800px;">He quotes jobs for a living; a dodge on price is disqualifying, not intriguing. <strong style="color:var(--lv-ink);">Change:</strong> Gate 2's published range, plus the comparison he actually runs in his head: what the hours cost him at his own call-out rate versus the build price. The Start plan already computes his hours — Questions should use them.</div>
+      </div>
+
+      <div style="border:1.5px dashed var(--lv-line-control); border-radius:var(--lv-r-card); padding:var(--lv-g-1); background:var(--lv-surface);">
+        <div style="display:flex; align-items:baseline; gap:var(--lv-s-4); flex-wrap:wrap; margin-bottom:var(--lv-s-3);"><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-t-xl); color:var(--lv-accent);">6</span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">"What's an intake?"</span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet);">FAILS ON · COPY, SITE-WIDE</span></div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.6; color:var(--lv-ink-quiet); max-width:800px;">"Game Plan" earns its keep — it sounds like something a tradesman would want. "Intake", "automation stack", "back office" are our words, not his. <strong style="color:var(--lv-ink);">Change:</strong> a fastest-tier copy sweep with one rule — every noun must survive being said aloud across a counter. "The three questions", "paperwork", "the jobs you shouldn't be doing".</div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- INSTRUMENTATION -->
+  <div data-screen-label="Instrumentation" style="background:var(--lv-rung-3);">
+  <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-4) var(--lv-s-7) var(--lv-g-5);">
+    <h2 style="margin:0 0 var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-3); letter-spacing:-0.03em;">Five numbers for week one</h2>
+    <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); max-width:740px; margin-bottom:var(--lv-g-2); text-wrap:pretty;">Vercel Analytics custom events for launch week — zero build, good enough. A five-line <span style="font-family:var(--lv-t-mono); font-size:var(--lv-t-sm);">/api/event</span> replaces it only if we outgrow it. Each number answers one question; together they locate the leak.</div>
+
+    <div style="display:flex; flex-direction:column; gap:var(--lv-s-4);">
+      <div style="border:1px solid var(--lv-line); background:var(--lv-surface); border-radius:var(--lv-r-control); padding:var(--lv-s-5) var(--lv-s-6); display:grid; grid-template-columns:auto 1fr; gap:var(--lv-s-6); align-items:start;">
+        <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-4); letter-spacing:-0.03em; line-height:1; color:var(--lv-sec);">1</span>
+        <div><div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body);">Start rate — does Home earn the click?</div><div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-1);">Sessions reaching Start step 1 ÷ Home sessions. Hooks: hero CTA and nav Start clicks. Under ~1 in 3, Home is the leak and Gate 3 reopens.</div></div>
+      </div>
+      <div style="border:1px solid var(--lv-line); background:var(--lv-surface); border-radius:var(--lv-r-control); padding:var(--lv-s-5) var(--lv-s-6); display:grid; grid-template-columns:auto 1fr; gap:var(--lv-s-6); align-items:start;">
+        <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-4); letter-spacing:-0.03em; line-height:1; color:var(--lv-sec);">2</span>
+        <div><div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body);">Completion — do the three questions hold him?</div><div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-1);">Step 1 started → plan revealed. Hook: step-transition events in the prospect flow. This should be the strongest number on the board; if it isn't, the form is lying about taking 90 seconds.</div></div>
+      </div>
+      <div style="border:1.5px solid var(--lv-sec); background:var(--lv-sec-tint); border-radius:var(--lv-r-control); padding:var(--lv-s-5) var(--lv-s-6); display:grid; grid-template-columns:auto 1fr; gap:var(--lv-s-6); align-items:start;">
+        <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-4); letter-spacing:-0.03em; line-height:1; color:var(--lv-sec);">3</span>
+        <div><div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body);">Gate conversion — the number that decides the soft-gate argument</div><div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-1);">Plan built → email given. Hook: the unlock event, which in P3 is the <span style="font-family:var(--lv-t-mono);">/api/submissions</span> POST itself — the one metric measured server-side, so it is also the one we trust most.</div></div>
+      </div>
+      <div style="border:1px solid var(--lv-line); background:var(--lv-surface); border-radius:var(--lv-r-control); padding:var(--lv-s-5) var(--lv-s-6); display:grid; grid-template-columns:auto 1fr; gap:var(--lv-s-6); align-items:start;">
+        <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-4); letter-spacing:-0.03em; line-height:1; color:var(--lv-sec);">4</span>
+        <div><div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body);">Booking rate — the goal, literally</div><div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-1);">Submissions with a slot ÷ all submissions, read straight off the store (<span style="font-family:var(--lv-t-mono);">slot</span> non-null). No client hook needed once the endpoint is real.</div></div>
+      </div>
+      <div style="border:1px solid var(--lv-line); background:var(--lv-surface); border-radius:var(--lv-r-control); padding:var(--lv-s-5) var(--lv-s-6); display:grid; grid-template-columns:auto 1fr; gap:var(--lv-s-6); align-items:start;">
+        <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-4); letter-spacing:-0.03em; line-height:1; color:var(--lv-accent);">5</span>
+        <div><div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body);">Speed to contact — the operator's number, not the site's</div><div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-1);">Median hours from New → Contacted. Hook: status changes get a timestamp in <span style="font-family:var(--lv-t-mono);">updateSubmission</span> (one-line change). The site can convert perfectly and still lose every lead here; this is the number that keeps the second half of the goal honest.</div></div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  </main>
+
+  <footer style="background:var(--lv-rung-2); border-top:1px solid var(--lv-line);">
+  <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-3) var(--lv-s-7) var(--lv-s-9); display:flex; align-items:center; gap:var(--lv-s-6); flex-wrap:wrap;">
+    <div style="display:flex; align-items:center; gap:var(--lv-s-3);">
+      <svg width="26" height="26" viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="display:block; flex:none; color:var(--lv-ink);"><path d="M6 44 A26 26 0 0 1 58 44 Z" fill="currentColor"/><rect x="6" y="52" width="52" height="9" fill="currentColor"/></svg>
+      <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-md); letter-spacing:-0.025em;">Levarum</span>
+    </div>
+    <span style="font-size:var(--lv-t-xs); color:var(--lv-ink-quiet);">Internal tooling. Grounded in taitgoodwin-ctrl/Levarum @ main.</span>
+    <div style="margin-left:auto; display:flex; gap:var(--lv-s-6); align-items:center; flex-wrap:wrap;">
+      <a href="./Levarum%20Home%20v2.dc.html" style="font-size:var(--lv-t-xs); display:inline-flex; align-items:center; min-height:44px;">Home</a>
+      <a href="./Levarum%20Journeys.dc.html" style="font-size:var(--lv-t-xs); display:inline-flex; align-items:center; min-height:44px;">Journeys</a>
+      <a href="./Levarum%20Admin.dc.html" style="font-size:var(--lv-t-xs); display:inline-flex; align-items:center; min-height:44px;">Admin</a>
+    </div>
+  </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280}}"></script>
+</body>
+</html>

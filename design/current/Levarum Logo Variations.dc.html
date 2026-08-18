@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:#F2EDE4; -webkit-font-smoothing:antialiased; }
+  a{ color:#873C1C; text-decoration:none; }
+  a:hover{ color:#1B1815; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; } }
+</style>
+</helmet>
+
+<div style="font-family:'Instrument Sans',sans-serif; color:#1B1815; background:#F2EDE4; padding:clamp(28px,4vw,56px) clamp(20px,3vw,40px);">
+  <div style="max-width:1400px; margin:0 auto;">
+    <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.06em; color:#873C1C; margin-bottom:12px;">LEVARUM · LOGO VARIATIONS</div>
+    <h1 style="margin:0 0 14px; font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:clamp(32px,4vw,52px); line-height:1.05; letter-spacing:-0.035em;">Three marks, seven lockups, eight brand colours.</h1>
+    <div style="font-size:19px; line-height:1.5; color:#57544F; max-width:64ch; margin-bottom:clamp(26px,3vw,40px);">Candidates <span style="color:#1B1815;">A</span>, <span style="color:#1B1815;">B</span> and <span style="color:#1B1815;">C</span> get the same treatment in every block on this page: same sizes, same lockups, same surfaces. Nothing here is weighted toward a favourite.</div>
+
+    <section style="border:1px solid #D4CFC7; border-radius:20px; background:#E7E0D3; padding:clamp(18px,2.2vw,26px); margin-bottom:22px;">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:21px; letter-spacing:-0.02em; margin-bottom:8px;">1 · The three marks at size</div>
+      <div style="font-size:17px; line-height:1.55; color:#57544F; max-width:64ch; margin-bottom:20px;">Favicon, nav, and hero. The small end is where a mark either survives or does not.</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px;">
+        <sc-for list="{{ candidates }}" as="m" hint-placeholder-count="3">
+          <div style="background:#F2EDE4; border:1px solid #D4CFC7; border-radius:14px; padding:20px 18px; display:flex; flex-direction:column; gap:16px;">
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+              <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:12px; letter-spacing:0.08em; color:#F2EDE4; background:#1B1815; border-radius:5px; padding:3px 7px;">{{ m.tag }}</span>
+              <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:17px; letter-spacing:-0.02em;">{{ m.name }}</span>
+              <sc-if value="{{ m.isLive }}" hint-placeholder-val="{{ false }}">
+                <span style="font-family:'Schibsted Grotesk',sans-serif; font-size:12px; letter-spacing:0.06em; color:#873C1C;">LIVE TODAY</span>
+              </sc-if>
+            </div>
+            <div style="display:flex; align-items:flex-end; gap:20px; min-height:80px;">{{ m.sizes }}</div>
+            <div style="font-size:15px; line-height:1.5; color:#57544F; margin-top:auto;">{{ m.note }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="border:1px solid #D4CFC7; border-radius:20px; background:#E7E0D3; padding:clamp(18px,2.2vw,26px); margin-bottom:22px;">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:21px; letter-spacing:-0.02em; margin-bottom:8px;">2 · Every lockup, all three marks</div>
+      <div style="font-size:17px; line-height:1.55; color:#57544F; max-width:64ch; margin-bottom:20px;">Each row is one lockup. Each row holds A, B and C once — this is the fair comparison.</div>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <sc-for list="{{ matrix }}" as="row" hint-placeholder-count="7">
+          <div>
+            <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:10px; flex-wrap:wrap;">
+              <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:17px; letter-spacing:-0.02em;">{{ row.name }}</span>
+              <span style="font-size:15px; color:#57544F;">{{ row.note }}</span>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
+              <sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="3">
+                <div style="background:#F2EDE4; border-radius:13px; padding:18px 16px; display:flex; flex-direction:column; gap:14px; min-height:106px;">
+                  <a href="#" style="{{ c.linkStyle }}">
+                    <sc-if value="{{ c.hasGlyph }}" hint-placeholder-val="{{ true }}">
+                      <span style="{{ c.wrapStyle }}">{{ c.glyph }}</span>
+                    </sc-if>
+                    <span style="{{ c.wordStyle }}">Levarum</span>
+                  </a>
+                  <span style="margin-top:auto; font-family:'Schibsted Grotesk',sans-serif; font-size:13px; letter-spacing:0.05em; color:#57544F;">{{ c.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="border:1px solid #D4CFC7; border-radius:20px; background:#E7E0D3; padding:clamp(18px,2.2vw,26px); margin-bottom:22px;">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:21px; letter-spacing:-0.02em; margin-bottom:8px;">3 · Eight brand colours, all three marks</div>
+      <div style="font-size:17px; line-height:1.55; color:#57544F; max-width:64ch; margin-bottom:20px;">The default lockup across the full palette, run three times so no candidate gets a colour the others do not. C is a two-colour mark, so the brand hue lands on its released bar and the stack holds in ink.</div>
+      <div style="display:flex; flex-direction:column; gap:16px;">
+        <sc-for list="{{ palette }}" as="row" hint-placeholder-count="3">
+          <div>
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+              <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:12px; letter-spacing:0.08em; color:#F2EDE4; background:#1B1815; border-radius:5px; padding:3px 7px;">{{ row.tag }}</span>
+              <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:17px; letter-spacing:-0.02em;">{{ row.name }}</span>
+              <span style="font-size:15px; color:#57544F;">{{ row.note }}</span>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px;">
+              <sc-for list="{{ row.cells }}" as="c" hint-placeholder-count="8">
+                <div style="background:#F2EDE4; border-radius:13px; padding:18px 16px; display:flex; flex-direction:column; gap:14px; min-height:112px;">
+                  <a href="#" style="{{ c.linkStyle }}">
+                    <span style="{{ c.wrapStyle }}">{{ c.glyph }}</span>
+                    <span style="{{ c.wordStyle }}">Levarum</span>
+                  </a>
+                  <span style="margin-top:auto; font-family:'Schibsted Grotesk',sans-serif; font-size:13px; letter-spacing:0.05em; color:#57544F;">{{ c.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="border:1px solid #D4CFC7; border-radius:20px; padding:clamp(18px,2.2vw,26px);">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:21px; letter-spacing:-0.02em; margin-bottom:8px;">4 · Two-tone, and the dark surface</div>
+      <div style="font-size:17px; line-height:1.55; color:#57544F; max-width:64ch; margin-bottom:18px;">Top row: each mark in the brand colour with the wordmark left in ink. Bottom rows: each mark on the dark surface, first with a hue that sinks into the page, then auto-lifted to the accent.</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-bottom:18px;">
+        <sc-for list="{{ twoTone }}" as="c" hint-placeholder-count="3">
+          <div style="{{ c.cellStyle }}">
+            <a href="#" style="{{ c.linkStyle }}">
+              <span style="{{ c.wrapStyle }}">{{ c.glyph }}</span>
+              <span style="{{ c.wordStyle }}">Levarum</span>
+            </a>
+            <span style="{{ c.labelStyle }}">{{ c.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px;">
+        <sc-for list="{{ darkCells }}" as="c" hint-placeholder-count="6">
+          <div style="{{ c.cellStyle }}">
+            <a href="#" style="{{ c.linkStyle }}">
+              <span style="{{ c.wrapStyle }}">{{ c.glyph }}</span>
+              <span style="{{ c.wordStyle }}">Levarum</span>
+            </a>
+            <span style="{{ c.labelStyle }}">{{ c.label }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <div style="font-size:15px; color:#57544F; margin-top:24px;">Tally: A, B and C each appear <span style="color:#1B1815;">{{ tally }}</span> times on this page. Swatch values match the intake's Brand colour control one for one. <a href="./Levarum%20Start.dc.html">Open the intake</a> to try them on the real page.</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1400 }
+}">
+class Component extends DCLogic {
+  BRAND = { ink: '#1B1815', rust: '#BF4F1F', petrol: '#2E5C74', forest: '#3E6B4A', plum: '#5B4B8A', sand: '#A67C4E', slate: '#4A5B7A', teal: '#1F5C57' };
+  LABELS = { ink: 'INK', rust: 'CLAY RUST', petrol: 'PETROL', forest: 'FOREST', plum: 'PLUM', sand: 'WARM SAND', slate: 'SLATE BLUE', teal: 'DEEP TEAL' };
+  MARKS = [
+    { key: 'lifted', tag: 'A', name: 'Lifted ground', note: 'Plate I, drawn faithfully. The mass is cut free and the ground sits below the gap it left. Holds at 24px because it is one silhouette, not a scene.' },
+    { key: 'dome', tag: 'B', name: 'Dome on plate', isLive: true, note: 'What is on the five pages right now. Reads as weight bearing down on a base — the opposite of the promise. Keep only if you want the load, not the lift.' },
+    { key: 'released', tag: 'C', name: 'Released unit', note: 'The specimen language from the plate, reduced to one bar released off a stack. Says "work taken off you" literally, and the accent bar gives the brand a second colour.' },
+  ];
+  SHAPES = [
+    ['lift', 'mark left, wordmark right — the default'],
+    ['tile', 'mark knocked out of a rounded tile'],
+    ['badge', 'mark knocked out of a circle'],
+    ['stack', 'mark centred above the wordmark'],
+    ['rule', 'the base element alone, wordmark in caps'],
+    ['word', 'wordmark alone, heavier and tighter'],
+    ['plate', 'Plate I lockup — mark above a wide-tracked wordmark'],
+  ];
+  ACCENT = '#BF4F1F';
+
+  glyph(markKey, ruleOnly, color, accent, size) {
+    const p = (d, fill) => React.createElement('path', { key: d, d, fill });
+    const r = (x, y, w, h, fill) => React.createElement('rect', { key: x + '-' + y, x, y, width: w, height: h, fill });
+    let kids;
+    if (markKey === 'lifted') {
+      // cut sits low with a wide gap so the top still reads as a full disc at 24px
+      const cut = p('M15 52 A26 26 0 0 0 49 52 Z', color);
+      kids = ruleOnly ? [cut] : [p('M9 44 A26 26 0 1 1 55 44 Z', color), cut];
+    } else if (markKey === 'dome') {
+      const plate = r(6, 52, 52, 9, color);
+      kids = ruleOnly ? [plate] : [p('M6 44 A26 26 0 0 1 58 44 Z', color), plate];
+    } else {
+      const freed = r(10, 6, 44, 8, accent);
+      kids = ruleOnly ? [freed] : [freed, r(10, 26, 44, 8, color), r(10, 38, 44, 8, color), r(10, 50, 44, 8, color)];
+    }
+    return React.createElement('svg', {
+      width: size, height: size, viewBox: '0 0 64 64',
+      'aria-hidden': 'true', focusable: 'false',
+      style: { display: 'block', flex: 'none' },
+    }, kids);
+  }
+
+  lockup(shape, markKey, markColor, wordColor, pageColor, accentColor) {
+    const plate = shape === 'plate';
+    const stacked = shape === 'stack' || plate;
+    const tile = shape === 'tile';
+    const badge = shape === 'badge';
+    const knocked = tile || badge;
+    const inkColor = knocked ? pageColor : markColor;
+    const accent = knocked ? pageColor : (accentColor || this.ACCENT);
+    const size = badge ? 20 : tile ? 22 : 30;
+
+    const wrapStyle = knocked
+      ? { width: '32px', height: '32px', borderRadius: badge ? '50%' : '10px', background: markColor, display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }
+      : { display: 'flex', flex: 'none' };
+
+    return {
+      hasGlyph: shape !== 'word',
+      glyph: this.glyph(markKey, shape === 'rule', inkColor, accent, size),
+      wrapStyle,
+      linkStyle: {
+        display: 'flex', flexDirection: stacked ? 'column' : 'row',
+        alignItems: plate ? 'center' : stacked ? 'flex-start' : 'center',
+        gap: shape === 'word' ? '0' : plate ? '12px' : stacked ? '6px' : '11px',
+        textDecoration: 'none',
+      },
+      wordStyle: plate ? {
+        fontFamily: "'Schibsted Grotesk',sans-serif", fontWeight: 400, fontSize: '15px',
+        letterSpacing: '0.36em', textIndent: '0.36em', textTransform: 'uppercase', color: wordColor,
+      } : {
+        fontFamily: "'Schibsted Grotesk',sans-serif",
+        fontWeight: shape === 'word' ? 800 : 700,
+        fontSize: shape === 'word' ? '21px' : '19px',
+        letterSpacing: shape === 'word' ? '-0.04em' : '-0.025em',
+        textTransform: shape === 'rule' ? 'uppercase' : 'none',
+        color: wordColor,
+      },
+    };
+  }
+
+  renderVals() {
+    const PAGE = '#F2EDE4', INK = '#1B1815', DARK = '#1B1815';
+
+    const candidates = this.MARKS.map(m => ({
+      tag: m.tag, name: m.name, note: m.note, isLive: !!m.isLive,
+      sizes: [24, 40, 72].map(s => React.createElement(
+        'span', { key: s, style: { display: 'flex' } }, this.glyph(m.key, false, INK, this.ACCENT, s)
+      )),
+    }));
+
+    const matrix = this.SHAPES.map(([shape, note]) => ({
+      name: shape, note,
+      cells: this.MARKS.map(m => Object.assign(
+        this.lockup(shape, m.key, INK, INK, PAGE),
+        { label: m.tag + ' · ' + m.name.toUpperCase() }
+      )),
+    }));
+
+    const keys = Object.keys(this.BRAND);
+    // C is a two-colour mark: the released bar takes the brand hue, the stack stays ink,
+    // so every swatch reads on C the same way it does on A and B (including CLAY RUST).
+    const palette = this.MARKS.map(m => {
+      const two = m.key === 'released';
+      return {
+        tag: m.tag, name: m.name,
+        note: two ? 'brand hue on the released bar, stack in ink' : 'brand hue on the whole mark',
+        cells: keys.map(k => Object.assign(
+          this.lockup('lift', m.key, two ? INK : this.BRAND[k], this.BRAND[k], PAGE, this.BRAND[k]),
+          { label: this.LABELS[k] }
+        )),
+      };
+    });
+
+    const cell = (bg) => ({
+      background: bg, borderRadius: '13px', padding: '18px 16px',
+      display: 'flex', flexDirection: 'column', gap: '14px', minHeight: '106px',
+      border: bg === PAGE ? '1px solid #D4CFC7' : 'none',
+    });
+    const lab = (c) => ({ marginTop: 'auto', fontFamily: "'Schibsted Grotesk',sans-serif", fontSize: '13px', letterSpacing: '0.05em', color: c });
+
+    const twoTone = this.MARKS.map(m => Object.assign(
+      this.lockup('lift', m.key, this.BRAND.petrol, INK, PAGE, this.BRAND.petrol),
+      { label: m.tag + ' · TWO-TONE, PETROL MARK', cellStyle: cell(PAGE), labelStyle: lab('#57544F') }
+    ));
+
+    const darkCells = [];
+    this.MARKS.forEach(m => {
+      const sunk = this.lockup('lift', m.key, INK, '#EDE6D6', DARK, INK);
+      // hairline so the reader can tell "deliberately invisible" from "broken"
+      sunk.wrapStyle = Object.assign({}, sunk.wrapStyle, { outline: '1px dashed #3D3A36', outlineOffset: '2px' });
+      darkCells.push(Object.assign(sunk, { label: m.tag + ' · INK ON INK, SINKS (OUTLINED)', cellStyle: cell(DARK), labelStyle: lab('#B6B1AA') }));
+    });
+    this.MARKS.forEach(m => {
+      darkCells.push(Object.assign(
+        this.lockup('lift', m.key, '#D08562', '#EDE6D6', DARK, '#D08562'),
+        { label: m.tag + ' · AUTO-LIFTED TO THE ACCENT', cellStyle: cell(DARK), labelStyle: lab('#B6B1AA') }
+      ));
+    });
+
+    const tally = 3 + this.SHAPES.length + keys.length + 1 + 2;
+    return { candidates, matrix, palette, twoTone, darkCells, tally };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  html{ color-scheme:light; background:var(--lv-page); }
+  body{ margin:0; -webkit-font-smoothing:antialiased; background:var(--lv-page); min-height:100vh; }
+  :root{
+    --lv-page:#FBF6F2; --lv-surface:#FFFFFF; --lv-band:#E4E0DA;
+    --lv-dark:#1A1A1A; --lv-dark-surface:#242422;
+    --lv-ink:#1A1A1A; --lv-ink-hover:#333330; --lv-ink-quiet:#5C5A56; --lv-ink-placeholder:#73706C;
+    --lv-dark-ink:#EDE6D6; --lv-dark-quiet:#B9B6B1;
+    --lv-line:#E9E6E1; --lv-line-control:#8F8C88; --lv-dark-line:#3A3A38; --lv-dark-line-control:#7F7C74;
+    --lv-accent:#8F3D14; --lv-spark:#D4622A; --lv-spark-deep:#B5511F; --lv-spark-soft:#E08A5C;
+    --lv-sec:var(--lv-brand-petrol); --lv-sec-tint:color-mix(in srgb, var(--lv-brand-petrol) 20%, var(--lv-page)); --lv-sec-on-dark:color-mix(in srgb, var(--lv-brand-petrol) 45%, var(--lv-dark-ink));
+    --lv-tint:color-mix(in srgb, var(--lv-brand-petrol) 12%, var(--lv-page)); --lv-accent-tint:color-mix(in srgb, var(--lv-accent) 7%, var(--lv-page));
+    --lv-accent-hover:color-mix(in srgb, var(--lv-accent) 80%, var(--lv-ink));
+    --lv-ok-on-dark:color-mix(in srgb, var(--lv-brand-forest) 40%, var(--lv-dark-ink));
+    --lv-ok:var(--lv-brand-forest); --lv-ok-tint:color-mix(in srgb, var(--lv-brand-forest) 9%, var(--lv-page));
+    --lv-alert-surface:#2A1712; --lv-alert-line:#7A3524; --lv-alert-ink:#F3D9CF; --lv-alert-quiet:#E8C9BE; --lv-alert-detail:#B08A7E; --lv-alert-on-ink:#5A1E10; --lv-alert-btn-line:#C97A63;
+    --lv-brand-ink:#1A1A1A; --lv-brand-rust:#BF4F1F; --lv-brand-petrol:#2E5C74; --lv-brand-forest:#3E6B4A; --lv-brand-plum:#5B4B8A; --lv-brand-sand:#A67C4E; --lv-brand-slate:#4A5B7A; --lv-brand-teal:#1F5C57;
+    --lv-t-mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+    --lv-t-cap:13px; --lv-t-xs:14px; --lv-t-sm:15px; --lv-t-md:16px; --lv-t-body:17px; --lv-t-lg:19px; --lv-t-xl:22px;
+    --lv-d-hero:clamp(44px,6.2vw,84px); --lv-d-1:clamp(36px,5vw,68px); --lv-d-2:clamp(32px,4.2vw,52px); --lv-d-3:clamp(30px,3.4vw,44px); --lv-d-4:clamp(22px,2.4vw,28px); --lv-d-5:clamp(19px,2vw,22px); --lv-d-6:clamp(17px,1.5vw,20px); --lv-d-7:clamp(16px,1.4vw,18px);
+    --lv-s-1:2px; --lv-s-2:6px; --lv-s-3:10px; --lv-s-4:12px; --lv-s-5:16px; --lv-s-6:20px; --lv-s-7:26px; --lv-s-8:34px; --lv-s-9:54px;
+    --lv-g-1:clamp(22px,2.6vw,28px); --lv-g-2:clamp(22px,3vw,34px); --lv-g-3:clamp(28px,4vw,44px); --lv-g-4:clamp(32px,4.5vw,60px); --lv-g-5:clamp(50px,6vw,78px);
+    --lv-r-chip:8px; --lv-r-control:13px; --lv-r-card:20px; --lv-r-round:50%; --lv-r-pill:100px;
+    --lv-tap:56px;
+    --lv-link:var(--lv-sec); --lv-link-hover:color-mix(in srgb, var(--lv-sec) 74%, var(--lv-ink)); --lv-link-on-dark:var(--lv-sec-on-dark);
+    --lv-dark-petrol:color-mix(in srgb, var(--lv-brand-petrol) 32%, var(--lv-dark)); --lv-dark-petrol-surface:color-mix(in srgb, var(--lv-brand-petrol) 24%, var(--lv-dark-surface)); --lv-dark-petrol-line:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-dark-line));
+    --lv-rung-1:var(--lv-page); --lv-rung-2:color-mix(in srgb, var(--lv-brand-petrol) 5%, var(--lv-page)); --lv-rung-3:color-mix(in srgb, var(--lv-brand-petrol) 9%, var(--lv-page)); --lv-rung-4:color-mix(in srgb, var(--lv-brand-petrol) 14%, var(--lv-page));
+    --lv-meter-track:color-mix(in srgb, var(--lv-brand-petrol) 16%, var(--lv-page)); --lv-meter-fill:var(--lv-sec); --lv-meter-fill-quiet:color-mix(in srgb, var(--lv-brand-petrol) 85%, var(--lv-page)); --lv-meter-track-dark:color-mix(in srgb, var(--lv-brand-petrol) 30%, var(--lv-dark-surface));
+    --lv-shadow-sm:0 10px 30px rgba(26,26,26,.06); --lv-shadow-lg:0 26px 60px rgba(26,26,26,.10);
+    --lv-ease:cubic-bezier(.2,.7,.2,1); --lv-ease-lift:cubic-bezier(.2,.8,.2,1); --lv-dur-1:.18s; --lv-dur-2:.5s; --lv-dur-3:.7s;
+  }
+  [data-theme="dark"]{
+    color-scheme:dark;
+    --lv-page:color-mix(in srgb, var(--lv-brand-petrol) 22%, var(--lv-dark));
+    --lv-surface:color-mix(in srgb, var(--lv-brand-petrol) 26%, var(--lv-dark-surface));
+    --lv-band:color-mix(in srgb, var(--lv-dark-ink) 10%, var(--lv-page));
+    --lv-ink:var(--lv-dark-ink);
+    --lv-ink-hover:color-mix(in srgb, var(--lv-dark-ink) 80%, var(--lv-page));
+    --lv-ink-quiet:var(--lv-dark-quiet);
+    --lv-ink-placeholder:color-mix(in srgb, var(--lv-dark-ink) 62%, var(--lv-page));
+    --lv-line:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-dark-line));
+    --lv-line-control:var(--lv-dark-line-control);
+    --lv-accent:color-mix(in srgb, var(--lv-brand-rust) 45%, var(--lv-dark-ink));
+    --lv-accent-hover:color-mix(in srgb, var(--lv-accent) 82%, var(--lv-dark-ink));
+    --lv-accent-tint:color-mix(in srgb, var(--lv-brand-rust) 26%, var(--lv-page));
+    --lv-sec:color-mix(in srgb, var(--lv-brand-petrol) 38%, var(--lv-dark-ink));
+    --lv-sec-tint:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-page));
+    --lv-link:var(--lv-sec);
+    --lv-link-hover:color-mix(in srgb, var(--lv-brand-petrol) 22%, var(--lv-dark-ink));
+    --lv-tint:color-mix(in srgb, var(--lv-dark-ink) 8%, var(--lv-page));
+    --lv-rung-1:var(--lv-page);
+    --lv-rung-2:color-mix(in srgb, var(--lv-dark-ink) 4%, var(--lv-page));
+    --lv-rung-3:color-mix(in srgb, var(--lv-dark-ink) 8%, var(--lv-page));
+    --lv-rung-4:color-mix(in srgb, var(--lv-dark-ink) 13%, var(--lv-page));
+    --lv-dark-petrol:color-mix(in srgb, var(--lv-dark-ink) 10%, var(--lv-page));
+    --lv-dark-petrol-surface:color-mix(in srgb, var(--lv-dark-ink) 15%, var(--lv-page));
+    --lv-dark-petrol-line:color-mix(in srgb, var(--lv-dark-ink) 24%, var(--lv-page));
+    --lv-meter-track:color-mix(in srgb, var(--lv-dark-ink) 16%, var(--lv-page));
+    --lv-meter-fill:var(--lv-sec);
+    --lv-meter-fill-quiet:color-mix(in srgb, var(--lv-brand-petrol) 52%, var(--lv-dark-ink));
+    --lv-ok:color-mix(in srgb, var(--lv-brand-forest) 38%, var(--lv-dark-ink));
+    --lv-ok-tint:color-mix(in srgb, var(--lv-brand-forest) 22%, var(--lv-page));
+    --lv-spark-deep:color-mix(in srgb, var(--lv-spark) 60%, var(--lv-dark-ink));
+  }
+  [data-theme-label-dark]{ display:none; }
+  [data-theme="dark"] [data-theme-label-light]{ display:none; }
+  [data-theme="dark"] [data-theme-label-dark]{ display:inline; }
+  [data-theme="dark"] [data-theme-dot]{ background:currentColor; }
+  [data-theme="dark"] [data-btn-spark]{ color:var(--lv-dark); }
+  [data-theme-toggle]{ transition:border-color var(--lv-dur-1) ease, color var(--lv-dur-1) ease; }
+  [data-theme-toggle]:hover{ border-color:var(--lv-sec); color:var(--lv-ink); }
+  a{ color:var(--lv-link); text-decoration:none; }
+  a:hover{ color:var(--lv-link-hover); }
+  a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible, [tabindex]:focus-visible{ outline:2px solid var(--lv-accent); outline-offset:3px; border-radius:var(--lv-r-chip); }
+  [data-skip-link]{ position:absolute; left:-9999px; top:0; z-index:200; background:var(--lv-ink); color:var(--lv-page); padding:var(--lv-s-3) var(--lv-s-5); border-radius:var(--lv-r-control); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-sm); text-decoration:none; }
+  [data-skip-link]:focus{ left:var(--lv-s-5); top:var(--lv-s-5); }
+  [data-field]{ transition:border-color var(--lv-dur-1) ease; }
+  [data-field]:hover{ border-color:var(--lv-sec); }
+  [data-quiet-link]{ transition:color var(--lv-dur-1) ease; }
+  [data-quiet-link]:hover{ color:var(--lv-sec); }
+  @keyframes lvRise{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:none; } }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+<script>
+(function(){
+  var K='levarum.theme.v1', D=document.documentElement;
+  function stored(){ try{ return localStorage.getItem(K); }catch(e){ return null; } }
+  function pref(){ try{ return window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'; }catch(e){ return 'light'; } }
+  D.setAttribute('data-theme', stored() || pref());
+  if (window.__lvThemeBound) return;
+  window.__lvThemeBound = true;
+  document.addEventListener('click', function(e){
+    var n=e.target, hit=null;
+    while(n && n!==document){ if(n.getAttribute && n.getAttribute('data-theme-toggle')!==null){ hit=n; break; } n=n.parentNode; }
+    if(!hit) return;
+    var next = D.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    D.setAttribute('data-theme', next);
+    try{ localStorage.setItem(K, next); }catch(err){}
+  });
+  try{ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(ev){ if(!stored()) D.setAttribute('data-theme', ev.matches?'dark':'light'); }); }catch(e){}
+})();
+(function(){
+  if (window.__lvMeters) return;
+  window.__lvMeters = true;
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+  if (reduce || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      var el = en.target; io.unobserve(el);
+      var target = el.getAttribute('data-lv-w') || el.style.width || '100%';
+      el.style.transition = 'none'; el.style.width = '0%';
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){
+        el.style.transition = 'width 900ms cubic-bezier(.2,.7,.2,1)';
+        el.style.width = target;
+      }); });
+    });
+  }, { threshold: 0.3 });
+  function scan(){
+    var list = document.querySelectorAll('[data-meter]');
+    for (var i=0;i<list.length;i++){
+      var el = list[i];
+      if (el.getAttribute('data-lv-seen')) continue;
+      el.setAttribute('data-lv-seen','1');
+      el.setAttribute('data-lv-w', el.style.width || '100%');
+      io.observe(el);
+    }
+  }
+  scan(); setTimeout(scan, 500); setTimeout(scan, 1400); setTimeout(scan, 3000);
+})();
+</script>
+</helmet>
+
+<div style="font-family:'Instrument Sans',sans-serif; color:var(--lv-ink); background:var(--lv-page); overflow-x:hidden;">
+  <a data-skip-link href="#lv-main">Skip to content</a>
+
+  <header style="border-bottom:1px solid var(--lv-line); background:var(--lv-page);">
+    <nav aria-label="Primary" style="max-width:1180px; margin:0 auto; padding:var(--lv-s-5) var(--lv-s-7); display:flex; align-items:center; gap:var(--lv-s-6); flex-wrap:wrap;" data-nav>
+      <a href="./Levarum%20Home%20v2.dc.html" style="display:flex; align-items:center; gap:var(--lv-s-3); color:var(--lv-ink);">
+        <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="display:block; flex:none; color:var(--lv-ink);"><path d="M6 44 A26 26 0 0 1 58 44 Z" fill="currentColor"/><rect x="6" y="52" width="52" height="9" fill="currentColor"/></svg>
+        <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.025em;">Levarum</span>
+      </a>
+      <span style="border:1px solid var(--lv-sec); background:var(--lv-sec-tint); color:var(--lv-sec); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; white-space:nowrap;">FOR PARTNERS</span>
+      <div style="margin-left:auto; display:flex; gap:var(--lv-s-6); align-items:center; flex-wrap:wrap;" data-navlinks>
+        <a data-quiet-link href="./Levarum%20Home%20v2.dc.html" style="font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);">Back to site</a>
+        <a data-quiet-link href="./Levarum%20What%20We%20Automate.dc.html" style="font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);">What we build</a>
+        <button type="button" data-theme-toggle style="display:inline-flex; align-items:center; gap:var(--lv-s-2); min-height:44px; padding:0 var(--lv-s-4); background:transparent; border:1px solid var(--lv-line-control); border-radius:var(--lv-r-control); color:var(--lv-ink-quiet); font-family:'Instrument Sans',sans-serif; font-size:var(--lv-t-xs); cursor:pointer; white-space:nowrap;"><span aria-hidden="true" data-theme-dot style="width:11px; height:11px; border-radius:var(--lv-r-round); border:1.5px solid currentColor; background:linear-gradient(90deg, currentColor 50%, transparent 50%);"></span><span data-theme-label-light>Dark</span><span data-theme-label-dark>Light</span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="lv-main">
+  <div style="max-width:760px; margin:0 auto; padding:var(--lv-g-4) var(--lv-s-7) var(--lv-g-5);">
+    <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec); margin-bottom:var(--lv-s-5); animation:lvRise .6s var(--lv-ease) both;">IMPLEMENTATION PARTNERS</div>
+    <h1 style="margin:0 0 var(--lv-s-6); font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-1); line-height:.98; letter-spacing:-0.04em; text-wrap:balance; animation:lvRise .7s var(--lv-ease) .07s both;">Help build these, and help decide how they work.</h1>
+    <div style="font-size:var(--lv-d-6); line-height:1.55; color:var(--lv-ink-quiet); text-wrap:pretty; margin-bottom:var(--lv-g-2); animation:lvRise .7s var(--lv-ease) .14s both;">There is more work here than one person can deliver, and plenty that is still undecided. If you build automations for small service businesses — or you run a shop that already does — put your name down and let us think it through together. Remote, wherever you are.</div>
+
+    <sc-if value="{{ isSent }}" hint-placeholder-val="{{ false }}">
+      <div style="border:1.5px solid var(--lv-sec); background:var(--lv-sec-tint); border-radius:var(--lv-r-card); padding:var(--lv-g-2);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-sec); margin-bottom:var(--lv-s-3);">ON THE LIST</div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-d-4); letter-spacing:-0.03em; line-height:1.1; margin-bottom:var(--lv-s-4);">{{ sentHead }}</div>
+        <div style="font-size:var(--lv-t-body); line-height:1.6; color:var(--lv-ink-quiet); max-width:56ch;">It has landed in the same inbox the customer requests land in, marked as a partner lead. You will hear from a person, not a sequence, and it will be a conversation rather than a pitch.</div>
+        <div style="border-top:1px solid var(--lv-sec); margin-top:var(--lv-s-6); padding-top:var(--lv-s-5); display:flex; gap:var(--lv-s-5); flex-wrap:wrap;">
+          <a data-quiet-link href="./Levarum%20Home%20v2.dc.html" style="display:inline-flex; align-items:center; min-height:44px; font-size:var(--lv-t-md); font-weight:600; color:var(--lv-link);">Back to the site →</a>
+          <span onClick="{{ again }}" onKeyDown="{{ kAgain }}" role="button" tabindex="0" style="display:inline-flex; align-items:center; min-height:44px; font-size:var(--lv-t-md); color:var(--lv-ink-quiet); cursor:pointer;">Add another</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isForm }}" hint-placeholder-val="{{ true }}">
+      <div style="border:1px solid var(--lv-line); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-2); box-shadow:var(--lv-shadow-sm); animation:lvRise .7s var(--lv-ease) .21s both;">
+        <label for="lvp-name" style="display:block; font-size:var(--lv-t-md); font-weight:500; margin-bottom:var(--lv-s-3);">Your name</label>
+        <input id="lvp-name" data-field type="text" value="{{ name }}" onInput="{{ setName }}" placeholder="First and last" style="{{ fieldStyle }}" />
+
+        <label for="lvp-craft" style="display:block; font-size:var(--lv-t-md); font-weight:500; margin-bottom:var(--lv-s-3);">What do you do?</label>
+        <input id="lvp-craft" data-field type="text" value="{{ craft }}" onInput="{{ setCraft }}" placeholder="Automation build, integrations, front-desk ops, sales — in your words" style="{{ fieldStyle }}" />
+
+        <div style="font-size:var(--lv-t-md); font-weight:500; margin-bottom:var(--lv-s-3);">Where would you plug in?</div>
+        <div role="radiogroup" aria-label="Where would you plug in?" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(220px,100%),1fr)); gap:var(--lv-s-3); margin-bottom:var(--lv-s-7);">
+          <sc-for list="{{ plugOpts }}" as="p" hint-placeholder-count="4">
+            <div onClick="{{ p.onClick }}" onKeyDown="{{ p.onKeyDown }}" role="radio" aria-checked="{{ p.selected }}" tabindex="0" style="{{ p.style }}">{{ p.label }}</div>
+          </sc-for>
+        </div>
+
+        <label for="lvp-email" style="display:block; font-size:var(--lv-t-md); font-weight:500; margin-bottom:var(--lv-s-3);">Email</label>
+        <input id="lvp-email" data-field type="email" value="{{ email }}" onInput="{{ setEmail }}" placeholder="you@yourbusiness.com" aria-label="Your email address" style="{{ fieldStyle }}" />
+
+        <sc-if value="{{ hasError }}" hint-placeholder-val="{{ false }}">
+          <div role="alert" style="border:1px solid var(--lv-sec); background:var(--lv-sec-tint); color:var(--lv-sec); border-radius:var(--lv-r-control); padding:var(--lv-s-4) var(--lv-s-5); font-size:var(--lv-t-sm); margin-bottom:var(--lv-s-5);">{{ errorText }}</div>
+        </sc-if>
+
+        <div onClick="{{ submit }}" onKeyDown="{{ kSubmit }}" role="button" tabindex="0" style="{{ ctaStyle }}">{{ ctaLabel }}</div>
+        <div style="font-size:var(--lv-t-xs); color:var(--lv-ink-quiet); margin-top:var(--lv-s-4);">Four fields, no pitch deck. Nothing is shared with anyone else.</div>
+      </div>
+    </sc-if>
+
+    <div style="border-top:1px solid var(--lv-line); margin-top:var(--lv-g-3); padding-top:var(--lv-g-2);">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-5);">WHAT THIS IS, PLAINLY</div>
+      <div style="display:flex; flex-direction:column; gap:var(--lv-s-5);">
+        <div style="display:flex; gap:var(--lv-s-4); font-size:var(--lv-t-md); line-height:1.55;"><span style="color:var(--lv-sec); font-weight:700;">→</span><span>Paid delivery work on builds that are already sold, not unpaid pilots.</span></div>
+        <div style="display:flex; gap:var(--lv-s-4); font-size:var(--lv-t-md); line-height:1.55;"><span style="color:var(--lv-sec); font-weight:700;">→</span><span>A say in how the standard builds work, while there is still time for your opinion to change them.</span></div>
+        <div style="display:flex; gap:var(--lv-s-4); font-size:var(--lv-t-md); line-height:1.55;"><span style="color:var(--lv-sec); font-weight:700;">→</span><span>No exclusivity, no non-compete, no quota. Keep your own clients.</span></div>
+        <div style="display:flex; gap:var(--lv-s-4); font-size:var(--lv-t-md); line-height:1.55;"><span style="color:var(--lv-sec); font-weight:700;">→</span><span>Honest state of play: early, few clients, terms not finalised. If that is a dealbreaker, better to know now.</span></div>
+      </div>
+    </div>
+  </div>
+  </main>
+
+  <footer style="background:var(--lv-rung-3); border-top:1px solid var(--lv-line);">
+  <div style="max-width:1180px; margin:0 auto; padding:var(--lv-s-8) var(--lv-s-7) var(--lv-s-9); display:flex; align-items:center; gap:var(--lv-s-6); flex-wrap:wrap;">
+    <div style="display:flex; align-items:center; gap:var(--lv-s-3);">
+      <svg width="26" height="26" viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="display:block; flex:none; color:var(--lv-ink);"><path d="M6 44 A26 26 0 0 1 58 44 Z" fill="currentColor"/><rect x="6" y="52" width="52" height="9" fill="currentColor"/></svg>
+      <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-md); letter-spacing:-0.025em;">Levarum</span>
+    </div>
+    <span style="font-size:var(--lv-t-xs); color:var(--lv-ink-quiet);">Remote delivery, nationwide.</span>
+    <div data-foot style="margin-left:auto; display:flex; gap:var(--lv-s-6); align-items:center; flex-wrap:wrap;">
+      <a data-quiet-link href="./Levarum%20Home%20v2.dc.html" style="font-size:var(--lv-t-xs); color:var(--lv-ink-quiet);">Home</a>
+      <a data-quiet-link href="./Levarum%20Questions.dc.html" style="font-size:var(--lv-t-xs); color:var(--lv-ink-quiet);">Questions</a>
+      <a data-quiet-link href="mailto:hello@levarum.co" style="font-size:var(--lv-t-xs); color:var(--lv-ink-quiet);">hello@levarum.co</a>
+    </div>
+  </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180}}">
+class Component extends DCLogic {
+  SUB_KEY = 'levarum.submissions.v1';
+  PLUGS = ['Building the automations', 'Front-desk and ops setup', 'Finding the businesses', 'Not sure yet'];
+
+  state = { name: '', craft: '', plugIn: null, email: '', error: '', sent: false, sentName: '' };
+
+  valid() {
+    const s = this.state;
+    if (!s.name.trim()) return 'A name would help.';
+    if (!s.craft.trim()) return 'Tell me what you do, even roughly.';
+    if (!s.plugIn) return 'Pick where you would plug in.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s.email.trim())) return 'That does not look like an email yet.';
+    return '';
+  }
+
+  submit = () => {
+    const error = this.valid();
+    if (error) { this.setState({ error }); return; }
+    const s = this.state;
+    const rec = {
+      id: 'LVP-' + Date.now().toString(36).toUpperCase(),
+      kind: 'partner',
+      status: 'New',
+      statusAt: new Date().toISOString(),
+      submittedAt: new Date().toISOString(),
+      name: s.name.trim(),
+      craft: s.craft.trim(),
+      plugIn: s.plugIn,
+      email: s.email.trim(),
+    };
+    try {
+      const list = JSON.parse(localStorage.getItem(this.SUB_KEY) || '[]');
+      list.unshift(rec);
+      localStorage.setItem(this.SUB_KEY, JSON.stringify(list.slice(0, 60)));
+    } catch (e) {}
+    this.setState({ sent: true, sentName: rec.name, error: '' });
+  };
+
+  again = () => this.setState({ sent: false, name: '', craft: '', plugIn: null, email: '', error: '' });
+  key(fn) { return (e) => { if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); fn(); } }; }
+
+  renderVals() {
+    const s = this.state;
+    const field = {
+      width: '100%', minHeight: 'var(--lv-tap)', border: '1px solid var(--lv-line-control)',
+      borderRadius: 'var(--lv-r-control)', background: 'var(--lv-page)', padding: '0 var(--lv-s-5)',
+      fontFamily: "'Instrument Sans',sans-serif", fontSize: 'var(--lv-t-md)', color: 'var(--lv-ink)',
+      marginBottom: 'var(--lv-s-7)',
+    };
+    return {
+      isSent: s.sent, isForm: !s.sent,
+      sentHead: (s.sentName || 'You') + ', you are on the list.',
+      name: s.name, craft: s.craft, email: s.email,
+      setName: (e) => this.setState({ name: e.target.value, error: '' }),
+      setCraft: (e) => this.setState({ craft: e.target.value, error: '' }),
+      setEmail: (e) => this.setState({ email: e.target.value, error: '' }),
+      hasError: !!s.error, errorText: s.error,
+      fieldStyle: field,
+      plugOpts: this.PLUGS.map(label => {
+        const on = s.plugIn === label;
+        const pick = () => this.setState({ plugIn: label, error: '' });
+        return {
+          label, selected: on ? 'true' : 'false', onClick: pick, onKeyDown: this.key(pick),
+          style: {
+            minHeight: 'var(--lv-tap)', display: 'flex', alignItems: 'center', padding: '0 var(--lv-s-5)',
+            border: on ? '1.5px solid var(--lv-sec)' : '1px solid var(--lv-line-control)',
+            background: on ? 'var(--lv-sec-tint)' : 'var(--lv-surface)',
+            color: on ? 'var(--lv-sec)' : 'var(--lv-ink)',
+            borderRadius: 'var(--lv-r-control)', fontSize: 'var(--lv-t-sm)', cursor: 'pointer',
+            fontWeight: on ? 600 : 400,
+          },
+        };
+      }),
+      submit: this.submit, kSubmit: this.key(this.submit),
+      again: this.again, kAgain: this.key(this.again),
+      ctaLabel: 'Put my name down',
+      ctaStyle: {
+        display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 'var(--lv-tap)',
+        border: '1.5px solid var(--lv-sec)', color: 'var(--lv-sec)', background: 'transparent',
+        borderRadius: 'var(--lv-r-control)', fontFamily: "'Schibsted Grotesk',sans-serif",
+        fontWeight: 600, fontSize: 'var(--lv-t-body)', cursor: 'pointer',
+      },
+    };
+  }
+}
+(function(){
+  if (window.__lvMeters) return;
+  window.__lvMeters = true;
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+  if (reduce || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      var el = en.target; io.unobserve(el);
+      var target = el.getAttribute('data-lv-w') || el.style.width || '100%';
+      el.style.transition = 'none'; el.style.width = '0%';
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){
+        el.style.transition = 'width 900ms cubic-bezier(.2,.7,.2,1)';
+        el.style.width = target;
+      }); });
+    });
+  }, { threshold: 0.3 });
+  function scan(){
+    var list = document.querySelectorAll('[data-meter]');
+    for (var i=0;i<list.length;i++){
+      var el = list[i];
+      if (el.getAttribute('data-lv-seen')) continue;
+      el.setAttribute('data-lv-seen','1');
+      el.setAttribute('data-lv-w', el.style.width || '100%');
+      io.observe(el);
+    }
+  }
+  scan(); setTimeout(scan, 500); setTimeout(scan, 1400); setTimeout(scan, 3000);
+})();
+</script>
+</body>
+</html>

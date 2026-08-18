@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  html{ color-scheme:light; background:var(--lv-page); }
+  body{ margin:0; -webkit-font-smoothing:antialiased; background:var(--lv-page); min-height:100vh; }
+  :root{
+    --lv-page:#FBF6F2; --lv-surface:#FFFFFF; --lv-band:#E4E0DA;
+    --lv-dark:#1A1A1A; --lv-dark-surface:#242422;
+    --lv-ink:#1A1A1A; --lv-ink-hover:#333330; --lv-ink-quiet:#5C5A56; --lv-ink-placeholder:#73706C;
+    --lv-dark-ink:#EDE6D6; --lv-dark-quiet:#B9B6B1;
+    --lv-line:#E9E6E1; --lv-line-control:#8F8C88; --lv-dark-line:#3A3A38; --lv-dark-line-control:#7F7C74;
+    --lv-accent:#8F3D14; --lv-spark:#D4622A; --lv-spark-deep:#B5511F; --lv-spark-soft:#E08A5C;
+    --lv-sec:var(--lv-brand-petrol); --lv-sec-tint:color-mix(in srgb, var(--lv-brand-petrol) 20%, var(--lv-page)); --lv-sec-on-dark:color-mix(in srgb, var(--lv-brand-petrol) 45%, var(--lv-dark-ink));
+    --lv-tint:color-mix(in srgb, var(--lv-brand-petrol) 12%, var(--lv-page)); --lv-accent-tint:color-mix(in srgb, var(--lv-accent) 7%, var(--lv-page));
+    --lv-accent-hover:color-mix(in srgb, var(--lv-accent) 80%, var(--lv-ink));
+    --lv-ok-on-dark:color-mix(in srgb, var(--lv-brand-forest) 40%, var(--lv-dark-ink));
+    --lv-ok:var(--lv-brand-forest); --lv-ok-tint:color-mix(in srgb, var(--lv-brand-forest) 9%, var(--lv-page));
+    --lv-alert-surface:#2A1712; --lv-alert-line:#7A3524; --lv-alert-ink:#F3D9CF; --lv-alert-quiet:#E8C9BE; --lv-alert-detail:#B08A7E; --lv-alert-on-ink:#5A1E10; --lv-alert-btn-line:#C97A63;
+    --lv-brand-ink:#1A1A1A; --lv-brand-rust:#BF4F1F; --lv-brand-petrol:#2E5C74; --lv-brand-forest:#3E6B4A; --lv-brand-plum:#5B4B8A; --lv-brand-sand:#A67C4E; --lv-brand-slate:#4A5B7A; --lv-brand-teal:#1F5C57;
+    --lv-t-mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+    --lv-t-cap:13px; --lv-t-xs:14px; --lv-t-sm:15px; --lv-t-md:16px; --lv-t-body:17px; --lv-t-lg:19px; --lv-t-xl:22px;
+    --lv-d-hero:clamp(44px,6.2vw,84px); --lv-d-1:clamp(36px,5vw,68px); --lv-d-2:clamp(32px,4.2vw,52px); --lv-d-3:clamp(30px,3.4vw,44px); --lv-d-4:clamp(22px,2.4vw,28px); --lv-d-5:clamp(19px,2vw,22px); --lv-d-6:clamp(17px,1.5vw,20px); --lv-d-7:clamp(16px,1.4vw,18px);
+    --lv-s-1:2px; --lv-s-2:6px; --lv-s-3:10px; --lv-s-4:12px; --lv-s-5:16px; --lv-s-6:20px; --lv-s-7:26px; --lv-s-8:34px; --lv-s-9:54px;
+    --lv-g-1:clamp(22px,2.6vw,28px); --lv-g-2:clamp(22px,3vw,34px); --lv-g-3:clamp(28px,4vw,44px); --lv-g-4:clamp(32px,4.5vw,60px); --lv-g-5:clamp(50px,6vw,78px);
+    --lv-r-chip:8px; --lv-r-control:13px; --lv-r-card:20px; --lv-r-round:50%; --lv-r-pill:100px;
+    --lv-tap:56px;
+    --lv-link:var(--lv-sec); --lv-link-hover:color-mix(in srgb, var(--lv-sec) 74%, var(--lv-ink)); --lv-link-on-dark:var(--lv-sec-on-dark);
+    --lv-dark-petrol:color-mix(in srgb, var(--lv-brand-petrol) 32%, var(--lv-dark)); --lv-dark-petrol-surface:color-mix(in srgb, var(--lv-brand-petrol) 24%, var(--lv-dark-surface)); --lv-dark-petrol-line:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-dark-line));
+    --lv-rung-1:var(--lv-page); --lv-rung-2:color-mix(in srgb, var(--lv-brand-petrol) 5%, var(--lv-page)); --lv-rung-3:color-mix(in srgb, var(--lv-brand-petrol) 9%, var(--lv-page)); --lv-rung-4:color-mix(in srgb, var(--lv-brand-petrol) 14%, var(--lv-page));
+    --lv-meter-track:color-mix(in srgb, var(--lv-brand-petrol) 16%, var(--lv-page)); --lv-meter-fill:var(--lv-sec); --lv-meter-fill-quiet:color-mix(in srgb, var(--lv-brand-petrol) 85%, var(--lv-page)); --lv-meter-track-dark:color-mix(in srgb, var(--lv-brand-petrol) 30%, var(--lv-dark-surface));
+    --lv-shadow-sm:0 10px 30px rgba(26,26,26,.06); --lv-shadow-lg:0 26px 60px rgba(26,26,26,.10);
+    --lv-ease:cubic-bezier(.2,.7,.2,1); --lv-ease-lift:cubic-bezier(.2,.8,.2,1); --lv-dur-1:.18s; --lv-dur-2:.5s; --lv-dur-3:.7s;
+  }
+  [data-theme="dark"]{
+    color-scheme:dark;
+    --lv-page:color-mix(in srgb, var(--lv-brand-petrol) 22%, var(--lv-dark));
+    --lv-surface:color-mix(in srgb, var(--lv-brand-petrol) 26%, var(--lv-dark-surface));
+    --lv-band:color-mix(in srgb, var(--lv-dark-ink) 10%, var(--lv-page));
+    --lv-ink:var(--lv-dark-ink);
+    --lv-ink-hover:color-mix(in srgb, var(--lv-dark-ink) 80%, var(--lv-page));
+    --lv-ink-quiet:var(--lv-dark-quiet);
+    --lv-ink-placeholder:color-mix(in srgb, var(--lv-dark-ink) 62%, var(--lv-page));
+    --lv-line:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-dark-line));
+    --lv-line-control:var(--lv-dark-line-control);
+    --lv-accent:color-mix(in srgb, var(--lv-brand-rust) 45%, var(--lv-dark-ink));
+    --lv-accent-hover:color-mix(in srgb, var(--lv-accent) 82%, var(--lv-dark-ink));
+    --lv-accent-tint:color-mix(in srgb, var(--lv-brand-rust) 26%, var(--lv-page));
+    --lv-sec:color-mix(in srgb, var(--lv-brand-petrol) 38%, var(--lv-dark-ink));
+    --lv-sec-tint:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-page));
+    --lv-link:var(--lv-sec);
+    --lv-link-hover:color-mix(in srgb, var(--lv-brand-petrol) 22%, var(--lv-dark-ink));
+    --lv-tint:color-mix(in srgb, var(--lv-dark-ink) 8%, var(--lv-page));
+    --lv-rung-1:var(--lv-page);
+    --lv-rung-2:color-mix(in srgb, var(--lv-dark-ink) 4%, var(--lv-page));
+    --lv-rung-3:color-mix(in srgb, var(--lv-dark-ink) 8%, var(--lv-page));
+    --lv-rung-4:color-mix(in srgb, var(--lv-dark-ink) 13%, var(--lv-page));
+    --lv-dark-petrol:color-mix(in srgb, var(--lv-dark-ink) 10%, var(--lv-page));
+    --lv-dark-petrol-surface:color-mix(in srgb, var(--lv-dark-ink) 15%, var(--lv-page));
+    --lv-dark-petrol-line:color-mix(in srgb, var(--lv-dark-ink) 24%, var(--lv-page));
+    --lv-meter-track:color-mix(in srgb, var(--lv-dark-ink) 16%, var(--lv-page));
+    --lv-meter-fill:var(--lv-sec);
+    --lv-meter-fill-quiet:color-mix(in srgb, var(--lv-brand-petrol) 52%, var(--lv-dark-ink));
+    --lv-ok:color-mix(in srgb, var(--lv-brand-forest) 38%, var(--lv-dark-ink));
+    --lv-ok-tint:color-mix(in srgb, var(--lv-brand-forest) 22%, var(--lv-page));
+    --lv-spark-deep:color-mix(in srgb, var(--lv-spark) 60%, var(--lv-dark-ink));
+  }
+  [data-theme-label-dark]{ display:none; }
+  [data-theme="dark"] [data-theme-label-light]{ display:none; }
+  [data-theme="dark"] [data-theme-label-dark]{ display:inline; }
+  [data-theme="dark"] [data-theme-dot]{ background:currentColor; }
+  [data-theme="dark"] [data-btn-spark]{ color:var(--lv-dark); }
+  [data-theme-toggle]{ transition:border-color var(--lv-dur-1) ease, color var(--lv-dur-1) ease; }
+  [data-theme-toggle]:hover{ border-color:var(--lv-sec); color:var(--lv-ink); }
+  a{ color:var(--lv-link); text-decoration:none; }
+  a:hover{ color:var(--lv-link-hover); }
+  a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, [tabindex]:focus-visible{ outline:2px solid var(--lv-accent); outline-offset:3px; border-radius:var(--lv-r-chip); }
+  [data-skip-link]{ position:absolute; left:-9999px; top:0; z-index:200; background:var(--lv-ink); color:var(--lv-page); padding:var(--lv-s-3) var(--lv-s-5); border-radius:var(--lv-r-control); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-sm); text-decoration:none; }
+  [data-skip-link]:focus{ left:var(--lv-s-5); top:var(--lv-s-5); }
+  [data-btn]{ transition:background var(--lv-dur-1) ease, box-shadow var(--lv-dur-1) ease, transform var(--lv-dur-1) ease; }
+  [data-btn]:hover{ background:var(--lv-accent-hover); box-shadow:var(--lv-shadow-sm); }
+  [data-btn]:active{ transform:translateY(1px); box-shadow:none; }
+  [data-btn][aria-disabled="true"]{ opacity:.45; pointer-events:none; }
+  [data-card]{ transition:border-color var(--lv-dur-1) ease, box-shadow var(--lv-dur-1) ease, transform var(--lv-dur-1) ease; }
+  [data-card]:hover{ border-color:var(--lv-sec); box-shadow:var(--lv-shadow-sm); transform:translateY(-2px); }
+  [data-card]:active{ transform:none; box-shadow:none; }
+  [data-field]{ transition:border-color var(--lv-dur-1) ease, box-shadow var(--lv-dur-1) ease; }
+  [data-field]:hover{ border-color:var(--lv-sec); }
+  [data-field]:active{ border-color:var(--lv-accent); }
+  [data-field]:disabled, [data-field][aria-disabled="true"]{ opacity:.45; pointer-events:none; }
+  [data-quiet-link]{ transition:color var(--lv-dur-1) ease; }
+  [data-quiet-link]:hover{ color:var(--lv-sec); }
+  [data-quiet-link]:active{ color:var(--lv-link-hover); }
+  [data-status]{ transition:background var(--lv-dur-1) ease, color var(--lv-dur-1) ease, border-color var(--lv-dur-1) ease; }
+  [data-status]:hover{ border-color:var(--lv-sec); color:var(--lv-sec); }
+  [data-status]:active{ transform:translateY(1px); }
+  [data-status][aria-disabled="true"]{ opacity:.45; pointer-events:none; }
+[data-nav]{ align-items:center; }
+  @media (max-width:680px){
+    [data-nav]{ flex-direction:column; align-items:flex-start; gap:var(--lv-s-4); }
+    [data-navlinks]{ margin-left:0 !important; width:100%; justify-content:flex-start; row-gap:var(--lv-s-3); }
+    [data-quiet-link], [data-navlinks] a, [data-foot] a{ min-height:44px; display:inline-flex; align-items:center; }
+    [data-subrow]{ grid-template-columns:1fr !important; }
+  }
+  @keyframes lvLift{ from{ opacity:.35; transform:translateY(9px); } to{ opacity:1; transform:none; } }
+  @keyframes lvRise{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:none; } }
+  @keyframes lvFade{ from{ opacity:0; } to{ opacity:1; } }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+<script>
+(function(){
+  var K='levarum.theme.v1', D=document.documentElement;
+  function stored(){ try{ return localStorage.getItem(K); }catch(e){ return null; } }
+  function pref(){ try{ return window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'; }catch(e){ return 'light'; } }
+  D.setAttribute('data-theme', stored() || pref());
+  if (window.__lvThemeBound) return;
+  window.__lvThemeBound = true;
+  document.addEventListener('click', function(e){
+    var n=e.target, hit=null;
+    while(n && n!==document){ if(n.getAttribute && n.getAttribute('data-theme-toggle')!==null){ hit=n; break; } n=n.parentNode; }
+    if(!hit) return;
+    var next = D.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    D.setAttribute('data-theme', next);
+    try{ localStorage.setItem(K, next); }catch(err){}
+  });
+  try{ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(ev){ if(!stored()) D.setAttribute('data-theme', ev.matches?'dark':'light'); }); }catch(e){}
+})();
+(function(){
+  if (window.__lvMeters) return;
+  window.__lvMeters = true;
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+  if (reduce || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      var el = en.target; io.unobserve(el);
+      var target = el.getAttribute('data-lv-w') || el.style.width || '100%';
+      el.style.transition = 'none'; el.style.width = '0%';
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){
+        el.style.transition = 'width 900ms cubic-bezier(.2,.7,.2,1)';
+        el.style.width = target;
+      }); });
+    });
+  }, { threshold: 0.3 });
+  function scan(){
+    var list = document.querySelectorAll('[data-meter]');
+    for (var i=0;i<list.length;i++){
+      var el = list[i];
+      if (el.getAttribute('data-lv-seen')) continue;
+      el.setAttribute('data-lv-seen','1');
+      el.setAttribute('data-lv-w', el.style.width || '100%');
+      io.observe(el);
+    }
+  }
+  scan(); setTimeout(scan, 500); setTimeout(scan, 1400); setTimeout(scan, 3000);
+})();
+</script>
+</helmet>
+
+<div style="font-family:'Instrument Sans',sans-serif; color:var(--lv-ink); background:var(--lv-page); min-height:100vh;">
+  <a data-skip-link href="#lv-main">Skip to content</a>
+
+  <header style="border-bottom:1px solid var(--lv-line); background:var(--lv-page); animation:lvFade .5s ease-out both;">
+    <nav aria-label="Primary" style="max-width:1180px; margin:0 auto; padding:var(--lv-s-5) var(--lv-s-7); display:flex; align-items:center; gap:var(--lv-s-6); flex-wrap:wrap;" data-nav>
+      <a href="./Levarum%20Home%20v2.dc.html" style="display:flex; align-items:center; gap:var(--lv-s-3); color:var(--lv-ink);">
+        <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="display:block; flex:none; color:var(--lv-ink);"><path d="M6 44 A26 26 0 0 1 58 44 Z" fill="currentColor" style="animation:lvLift .62s var(--lv-ease-lift) both; transform-origin:center;"/><rect x="6" y="52" width="52" height="9" fill="currentColor"/></svg>
+        <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.025em;">Levarum</span>
+      </a>
+      <span style="border:1px solid var(--lv-sec); background:var(--lv-sec-tint); color:var(--lv-sec); border-radius:var(--lv-r-pill); padding:var(--lv-s-1) var(--lv-s-4); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em;">ADMIN</span>
+      <div style="display:flex; gap:var(--lv-s-6); margin-left:auto; align-items:center; flex-wrap:wrap;" data-navlinks>
+        <a data-quiet-link href="./Levarum%20Home%20v2.dc.html" style="font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);">Back to site</a>
+        <a data-quiet-link href="./Levarum%20Start.dc.html" style="font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);">Intake form</a>
+        <button type="button" data-theme-toggle style="display:inline-flex; align-items:center; gap:var(--lv-s-2); min-height:44px; padding:0 var(--lv-s-4); background:transparent; border:1px solid var(--lv-line-control); border-radius:var(--lv-r-control); color:var(--lv-ink-quiet); font-family:'Instrument Sans',sans-serif; font-size:var(--lv-t-xs); cursor:pointer; white-space:nowrap;"><span aria-hidden="true" data-theme-dot style="width:11px; height:11px; border-radius:var(--lv-r-round); border:1.5px solid currentColor; background:linear-gradient(90deg, currentColor 50%, transparent 50%);"></span><span data-theme-label-light>Dark</span><span data-theme-label-dark>Light</span></button>
+        <sc-if value="{{ authed }}" hint-placeholder-val="{{ false }}">
+          <button type="button" data-status onClick="{{ signOut }}" style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-sm); color:var(--lv-ink); background:transparent; border:1px solid var(--lv-line-control); border-radius:var(--lv-r-control); padding:var(--lv-s-3) var(--lv-s-5); min-height:44px; cursor:pointer; white-space:nowrap;">Sign out</button>
+        </sc-if>
+      </div>
+    </nav>
+  </header>
+
+  <main id="lv-main">
+  <sc-if value="{{ locked }}" hint-placeholder-val="{{ true }}">
+    <div style="max-width:520px; margin:0 auto; padding:var(--lv-g-5) var(--lv-s-7);">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec); margin-bottom:var(--lv-s-5);">SUBMISSIONS INBOX</div>
+      <h1 style="margin:0 0 var(--lv-s-5); font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-2); line-height:1.02; letter-spacing:-0.035em;">Sign in.</h1>
+      <div style="font-size:var(--lv-d-7); line-height:1.55; color:var(--lv-ink-quiet); margin-bottom:var(--lv-g-2); text-wrap:pretty;">This is where Game Plan requests land, and where you move each one through to a booked call.</div>
+
+      <div style="border:1px solid var(--lv-line); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-1); box-shadow:var(--lv-shadow-sm);">
+        <label for="lv-user" style="display:block; font-size:var(--lv-t-md); font-weight:500; margin-bottom:var(--lv-s-3);">User</label>
+        <input id="lv-user" data-field type="text" autocomplete="username" value="{{ user }}" onChange="{{ setUser }}" onKeyDown="{{ keySubmit }}" style="width:100%; min-height:var(--lv-tap); border:1px solid var(--lv-line-control); border-radius:var(--lv-r-control); background:var(--lv-page); padding:0 var(--lv-s-5); font-family:'Instrument Sans',sans-serif; font-size:var(--lv-t-md); color:var(--lv-ink); margin-bottom:var(--lv-s-5);">
+
+        <label for="lv-pass" style="display:block; font-size:var(--lv-t-md); font-weight:500; margin-bottom:var(--lv-s-3);">Password</label>
+        <input id="lv-pass" data-field type="password" autocomplete="current-password" value="{{ pass }}" onChange="{{ setPass }}" onKeyDown="{{ keySubmit }}" style="width:100%; min-height:var(--lv-tap); border:1px solid var(--lv-line-control); border-radius:var(--lv-r-control); background:var(--lv-page); padding:0 var(--lv-s-5); font-family:'Instrument Sans',sans-serif; font-size:var(--lv-t-md); color:var(--lv-ink); margin-bottom:var(--lv-s-5);">
+
+        <sc-if value="{{ loginError }}" hint-placeholder-val="{{ false }}">
+          <div role="alert" style="border:1px solid var(--lv-accent); background:var(--lv-accent-tint); color:var(--lv-accent); border-radius:var(--lv-r-control); padding:var(--lv-s-4) var(--lv-s-5); font-size:var(--lv-t-sm); margin-bottom:var(--lv-s-5);">{{ loginErrorText }}</div>
+        </sc-if>
+
+        <button type="button" data-btn onClick="{{ signIn }}" style="width:100%; min-height:var(--lv-tap); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-lg); color:var(--lv-surface); background:var(--lv-accent); border:none; border-radius:var(--lv-r-control); cursor:pointer;">Sign in</button>
+      </div>
+
+      <div style="border:1px solid var(--lv-sec); background:var(--lv-sec-tint); border-radius:var(--lv-r-card); padding:var(--lv-g-1); margin-top:var(--lv-s-6);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-sec); margin-bottom:var(--lv-s-3);">PROTOTYPE AUTH — NOT SECURE</div>
+        <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-3);">These credentials are checked in the browser, in front-end code anyone can read. It gates the demo, nothing more. A live deployment needs server-side auth: a session or token issued by a backend, submissions fetched from that backend rather than from this device, and this page refusing to render without a valid session.</div>
+        <div style="font-family:var(--lv-t-mono); font-size:var(--lv-t-sm); color:var(--lv-ink);">{{ demoUser }} / {{ demoPass }}</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <button type="button" data-theme-toggle style="display:inline-flex; align-items:center; gap:var(--lv-s-2); min-height:44px; padding:0 var(--lv-s-4); background:transparent; border:1px solid var(--lv-line-control); border-radius:var(--lv-r-control); color:var(--lv-ink-quiet); font-family:'Instrument Sans',sans-serif; font-size:var(--lv-t-xs); cursor:pointer; white-space:nowrap;"><span aria-hidden="true" data-theme-dot style="width:11px; height:11px; border-radius:var(--lv-r-round); border:1.5px solid currentColor; background:linear-gradient(90deg, currentColor 50%, transparent 50%);"></span><span data-theme-label-light>Dark</span><span data-theme-label-dark>Light</span></button>
+        <sc-if value="{{ authed }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-3) var(--lv-s-7) var(--lv-s-8);">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec); margin-bottom:var(--lv-s-5);">SUBMISSIONS INBOX</div>
+      <h1 style="margin:0 0 var(--lv-s-5); font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-2); line-height:1.02; letter-spacing:-0.035em;">{{ headline }}</h1>
+      <div style="font-size:var(--lv-d-7); line-height:1.55; color:var(--lv-ink-quiet); max-width:60ch; text-wrap:pretty;">{{ subhead }}</div>
+    </div>
+
+    <div style="background:var(--lv-rung-2); border-top:1px solid var(--lv-line); border-bottom:1px solid var(--lv-line);">
+      <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-2) var(--lv-s-7);">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--lv-s-5);">
+          <sc-for list="{{ counts }}" as="c" hint-placeholder-count="4">
+            <div style="{{ c.style }}">
+              <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-4); letter-spacing:-0.03em; line-height:1;">{{ c.n }}</div>
+              <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; margin-top:var(--lv-s-3);">{{ c.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-2) var(--lv-s-7) var(--lv-g-3);">
+      <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+        <div style="border:1px solid var(--lv-line); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-2); text-align:center;">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-d-4); letter-spacing:-0.025em; margin-bottom:var(--lv-s-4);">Nothing has come in yet.</div>
+          <div style="font-size:var(--lv-t-body); line-height:1.55; color:var(--lv-ink-quiet); max-width:52ch; margin:0 auto var(--lv-s-6); text-wrap:pretty;">In prototype mode the inbox reads the same on-device store the intake writes to. Complete the intake and unlock a plan, then come back — the request will be here.</div>
+          <a data-btn href="./Levarum%20Start.dc.html" style="display:inline-flex; align-items:center; justify-content:center; min-height:var(--lv-tap); padding:0 var(--lv-s-7); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-body); color:var(--lv-surface); background:var(--lv-accent); border-radius:var(--lv-r-control); white-space:nowrap;">Open the intake form</a>
+        </div>
+      </sc-if>
+
+      <div style="display:flex; flex-direction:column; gap:var(--lv-s-5);">
+        <sc-for list="{{ rows }}" as="r" hint-placeholder-count="3">
+          <div style="{{ r.cardStyle }}">
+            <div data-subrow style="display:grid; grid-template-columns:1fr auto; gap:var(--lv-s-5); align-items:start;">
+              <div style="min-width:0;">
+                <div style="display:flex; align-items:center; gap:var(--lv-s-4); flex-wrap:wrap; margin-bottom:var(--lv-s-3);">
+                  <span style="{{ r.pillStyle }}">{{ r.status }}</span>
+                  <span style="font-family:var(--lv-t-mono); font-size:var(--lv-t-cap); color:var(--lv-ink-quiet);">{{ r.id }}</span>
+                  <span style="font-size:var(--lv-t-cap); color:var(--lv-ink-quiet);">{{ r.when }}</span>
+                </div>
+                <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-d-5); letter-spacing:-0.025em; margin-bottom:var(--lv-s-3);">{{ r.business }}</div>
+                <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet);">{{ r.summary }}</div>
+                <div style="display:flex; flex-wrap:wrap; gap:var(--lv-s-2); margin-top:var(--lv-s-4);">
+                  <sc-for list="{{ r.chips }}" as="c" hint-placeholder-count="2">
+                    <span style="border:1px solid var(--lv-sec); background:var(--lv-sec-tint); color:var(--lv-sec); border-radius:var(--lv-r-chip); padding:var(--lv-s-2) var(--lv-s-3); font-size:var(--lv-t-cap); white-space:nowrap;">{{ c.label }}</span>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:var(--lv-s-3); min-width:210px;">
+                <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet);">MOVE TO</div>
+                <div style="display:flex; flex-wrap:wrap; gap:var(--lv-s-2);">
+                  <sc-for list="{{ r.steps }}" as="s" hint-placeholder-count="4">
+                    <button type="button" data-status aria-disabled="{{ s.disabled }}" onClick="{{ s.onClick }}" style="{{ s.style }}">{{ s.label }}</button>
+                  </sc-for>
+                </div>
+                <div style="font-size:var(--lv-t-cap); color:var(--lv-ink-quiet);">{{ r.contact }}</div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="max-width:1180px; margin:0 auto; padding:0 var(--lv-s-7) var(--lv-g-3);">
+      <div style="border:1.5px solid var(--lv-sec); background:var(--lv-sec-tint); border-radius:var(--lv-r-card); padding:var(--lv-g-1);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-sec); margin-bottom:var(--lv-s-4);">WHERE THESE COME FROM</div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:var(--lv-g-1);">
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.02em; margin-bottom:var(--lv-s-3);">Prototype mode — where you are now</div>
+            <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet);">The intake writes each unlocked plan to <span style="font-family:var(--lv-t-mono); font-size:var(--lv-t-sm);">{{ subKey }}</span> on this device. This page reads that same store, so a submission shows up here immediately. Status changes are written back to it. Nothing leaves the browser, and another device sees none of it.</div>
+          </div>
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.02em; margin-bottom:var(--lv-s-3);">Live mode — once an endpoint exists</div>
+            <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet);">Setting the intake's <span style="font-family:var(--lv-t-mono); font-size:var(--lv-t-sm);">formEndpoint</span> makes it POST the same JSON shape to your server, which stores it and returns the list to an authenticated request from this page. The row layout and the status workflow do not change — only where the list is read from, and the fact that auth becomes real.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  </main>
+
+  <footer style="background:var(--lv-rung-3); border-top:1px solid var(--lv-line);">
+    <div style="max-width:1180px; margin:0 auto; padding:var(--lv-s-8) var(--lv-s-7) var(--lv-s-9);">
+      <div style="display:flex; align-items:center; gap:var(--lv-s-6); flex-wrap:wrap;">
+        <div style="display:flex; align-items:center; gap:var(--lv-s-3);">
+          <svg width="26" height="26" viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="display:block; flex:none; color:var(--lv-ink);"><path d="M6 44 A26 26 0 0 1 58 44 Z" fill="currentColor"/><rect x="6" y="52" width="52" height="9" fill="currentColor"/></svg>
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-md); letter-spacing:-0.025em;">Levarum</span>
+        </div>
+        <span style="font-size:var(--lv-t-xs); color:var(--lv-ink-quiet);">Internal — not linked from the public navigation.</span>
+        <div data-foot style="margin-left:auto; display:flex; gap:var(--lv-s-6); align-items:center; flex-wrap:wrap;">
+          <a data-quiet-link href="./Levarum%20Home%20v2.dc.html" style="font-size:var(--lv-t-xs); color:var(--lv-ink-quiet);">Home</a>
+          <a data-quiet-link href="./Levarum%20Start.dc.html" style="font-size:var(--lv-t-xs); color:var(--lv-ink-quiet);">Intake form</a>
+          <a data-quiet-link href="./Levarum%20Flow%20Map.dc.html" style="font-size:var(--lv-t-xs); color:var(--lv-ink-quiet);">Flow map</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1180 }
+}">
+class Component extends DCLogic {
+  SUB_KEY = 'levarum.submissions.v1';
+  AUTH_KEY = 'levarum.admin.session.v1';
+  FLOW = ['New', 'Contacted', 'Booked', 'Done'];
+
+  PAIN_LABELS = {
+    invoices: 'Invoicing and chasing',
+    booking: 'Booking and reminders',
+    leads: 'Lead follow-up',
+    questions: 'Repeat questions',
+    copying: 'Copying between tools',
+    reporting: 'Reporting',
+  };
+
+  state = { authed: false, user: '', pass: '', loginError: false, list: [], ready: false };
+
+  componentDidMount() {
+    let authed = false;
+    try { authed = localStorage.getItem(this.AUTH_KEY) === 'ok'; } catch (e) {}
+    this.setState({ authed, ready: true, list: this.read() });
+  }
+
+  read() {
+    try {
+      const raw = localStorage.getItem(this.SUB_KEY);
+      const list = raw ? JSON.parse(raw) : [];
+      return Array.isArray(list) ? list : [];
+    } catch (e) { return []; }
+  }
+
+  write(list) {
+    try { localStorage.setItem(this.SUB_KEY, JSON.stringify(list)); } catch (e) {}
+    this.setState({ list });
+  }
+
+  demoUser = 'owner';
+  demoPass = 'levarum';
+
+  signIn = () => {
+    const ok = this.state.user.trim().toLowerCase() === this.demoUser && this.state.pass === this.demoPass;
+    if (!ok) { this.setState({ loginError: true }); return; }
+    try { localStorage.setItem(this.AUTH_KEY, 'ok'); } catch (e) {}
+    this.setState({ authed: true, loginError: false, pass: '', list: this.read() });
+  };
+
+  signOut = () => {
+    try { localStorage.removeItem(this.AUTH_KEY); } catch (e) {}
+    this.setState({ authed: false, user: '', pass: '', loginError: false });
+  };
+
+  setStatus(id, status) {
+    const list = this.read().map(r => r.id === id ? Object.assign({}, r, { status, statusAt: new Date().toISOString() }) : r);
+    this.write(list);
+  }
+
+  when(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (isNaN(d)) return '';
+    const mins = Math.round((Date.now() - d.getTime()) / 60000);
+    if (mins < 1) return 'just now';
+    if (mins < 60) return mins + (mins === 1 ? ' minute ago' : ' minutes ago');
+    const hrs = Math.round(mins / 60);
+    if (hrs < 24) return hrs + (hrs === 1 ? ' hour ago' : ' hours ago');
+    return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short' });
+  }
+
+  pillFor(status) {
+    const map = {
+      New: { fg: 'var(--lv-accent)', bg: 'var(--lv-accent-tint)', bd: 'var(--lv-accent)' },
+      Contacted: { fg: 'var(--lv-sec)', bg: 'var(--lv-sec-tint)', bd: 'var(--lv-sec)' },
+      Booked: { fg: 'var(--lv-ok)', bg: 'var(--lv-ok-tint)', bd: 'var(--lv-ok)' },
+      Done: { fg: 'var(--lv-ink-quiet)', bg: 'var(--lv-page)', bd: 'var(--lv-line-control)' },
+    };
+    return map[status] || map.New;
+  }
+
+  renderVals() {
+    const s = this.state;
+    const list = s.list;
+    const counts = this.FLOW.map(f => {
+      const n = list.filter(r => (r.status || 'New') === f).length;
+      const p = this.pillFor(f);
+      return {
+        n: String(n), label: f.toUpperCase(),
+        style: { background: p.bg, border: '1px solid ' + p.bd, borderRadius: 'var(--lv-r-card)', padding: 'var(--lv-s-6)', color: p.fg },
+      };
+    });
+
+    const partnerCount = list.filter(r => r.kind === 'partner').length;
+    counts.push({
+      n: String(partnerCount), label: 'PARTNER LEADS',
+      style: { background: 'var(--lv-sec-tint)', border: '1px solid var(--lv-sec)', borderRadius: 'var(--lv-r-card)', padding: 'var(--lv-s-6)', color: 'var(--lv-sec)' },
+    });
+
+    const rows = list.map(r => {
+      const status = r.status || 'New';
+      const p = this.pillFor(status);
+      const partner = r.kind === 'partner';
+      const chips = partner
+        ? [{ label: 'Implementation partner' }].concat(r.plugIn ? [{ label: r.plugIn }] : [])
+        : (r.painPoints || []).map(id => ({ label: this.PAIN_LABELS[id] || id }));
+      const lo = r.hoursBackLow, hi = r.hoursBackHigh;
+      const hours = (lo != null && hi != null) ? (lo === hi ? lo + ' hours' : lo + ' to ' + hi + ' hours') : 'hours not recorded';
+      return {
+        id: r.id || '—',
+        status,
+        when: this.when(r.submittedAt),
+        business: partner ? 'PARTNER · ' + (r.name || 'Name not recorded') : (r.business || 'Business not recorded'),
+        summary: partner
+          ? (r.craft || 'What they do not recorded') + ' · plugs in at ' + (r.plugIn || 'not stated')
+          : hours + ' a week back · ' + (r.backOfficeHours || '—') + ' hours a week on back office' + (r.slot ? ' · asked for ' + r.slot : ' · no slot picked'),
+        contact: r.email ? r.email : 'No email given',
+        chips,
+        cardStyle: {
+          border: '1px solid ' + (status === 'New' ? 'var(--lv-accent)' : 'var(--lv-line)'),
+          background: 'var(--lv-surface)', borderRadius: 'var(--lv-r-card)',
+          padding: 'var(--lv-g-1)', boxShadow: status === 'New' ? 'var(--lv-shadow-sm)' : 'none',
+        },
+        pillStyle: {
+          border: '1px solid ' + p.bd, background: p.bg, color: p.fg, borderRadius: 'var(--lv-r-pill)',
+          padding: 'var(--lv-s-1) var(--lv-s-4)', fontFamily: "'Schibsted Grotesk',sans-serif",
+          fontWeight: 600, fontSize: 'var(--lv-t-cap)', letterSpacing: '0.06em',
+        },
+        steps: this.FLOW.map(f => {
+          const current = f === status;
+          return {
+            label: f, disabled: current ? 'true' : 'false',
+            onClick: () => this.setStatus(r.id, f),
+            style: {
+              minHeight: '44px', padding: '0 var(--lv-s-5)', cursor: 'pointer',
+              borderRadius: 'var(--lv-r-control)',
+              border: '1px solid ' + (current ? this.pillFor(f).bd : 'var(--lv-line-control)'),
+              background: current ? this.pillFor(f).bg : 'transparent',
+              color: current ? this.pillFor(f).fg : 'var(--lv-ink)',
+              fontFamily: "'Schibsted Grotesk',sans-serif", fontWeight: 600, fontSize: 'var(--lv-t-sm)',
+            },
+          };
+        }),
+      };
+    });
+
+    const newCount = list.filter(r => (r.status || 'New') === 'New').length;
+
+    return {
+      authed: s.authed,
+      locked: s.ready && !s.authed,
+      empty: s.authed && list.length === 0,
+      user: s.user, pass: s.pass,
+      setUser: (e) => this.setState({ user: e.target.value, loginError: false }),
+      setPass: (e) => this.setState({ pass: e.target.value, loginError: false }),
+      keySubmit: (e) => { if (e.key === 'Enter') { e.preventDefault(); this.signIn(); } },
+      signIn: this.signIn,
+      signOut: this.signOut,
+      loginError: s.loginError,
+      loginErrorText: 'That is not the demo user or password.',
+      demoUser: this.demoUser,
+      demoPass: this.demoPass,
+      subKey: this.SUB_KEY,
+      counts, rows,
+      headline: list.length === 0 ? 'The inbox is empty.'
+        : newCount > 0 ? (newCount === 1 ? 'One request waiting on you.' : newCount + ' requests waiting on you.')
+        : 'Everything here has been picked up.',
+      subhead: 'Each row is one unlocked Game Plan. Move it through New, Contacted, Booked and Done — the status is written straight back to the store, so it survives a refresh.',
+    };
+  }
+}
+(function(){
+  if (window.__lvMeters) return;
+  window.__lvMeters = true;
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+  if (reduce || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      var el = en.target; io.unobserve(el);
+      var target = el.getAttribute('data-lv-w') || el.style.width || '100%';
+      el.style.transition = 'none'; el.style.width = '0%';
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){
+        el.style.transition = 'width 900ms cubic-bezier(.2,.7,.2,1)';
+        el.style.width = target;
+      }); });
+    });
+  }, { threshold: 0.3 });
+  function scan(){
+    var list = document.querySelectorAll('[data-meter]');
+    for (var i=0;i<list.length;i++){
+      var el = list[i];
+      if (el.getAttribute('data-lv-seen')) continue;
+      el.setAttribute('data-lv-seen','1');
+      el.setAttribute('data-lv-w', el.style.width || '100%');
+      io.observe(el);
+    }
+  }
+  scan(); setTimeout(scan, 500); setTimeout(scan, 1400); setTimeout(scan, 3000);
+})();
+</script>
+</body>
+</html>

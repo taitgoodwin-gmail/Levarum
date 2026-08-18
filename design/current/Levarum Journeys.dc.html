@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  html{ color-scheme:light; background:var(--lv-page); }
+  body{ margin:0; -webkit-font-smoothing:antialiased; background:var(--lv-page); min-height:100vh; }
+  :root{
+    --lv-page:#FBF6F2; --lv-surface:#FFFFFF; --lv-band:#E4E0DA;
+    --lv-dark:#1A1A1A; --lv-dark-surface:#242422;
+    --lv-ink:#1A1A1A; --lv-ink-hover:#333330; --lv-ink-quiet:#5C5A56; --lv-ink-placeholder:#73706C;
+    --lv-dark-ink:#EDE6D6; --lv-dark-quiet:#B9B6B1;
+    --lv-line:#E9E6E1; --lv-line-control:#8F8C88; --lv-dark-line:#3A3A38; --lv-dark-line-control:#7F7C74;
+    --lv-accent:#8F3D14; --lv-spark:#D4622A; --lv-spark-deep:#B5511F; --lv-spark-soft:#E08A5C;
+    --lv-sec:var(--lv-brand-petrol); --lv-sec-tint:color-mix(in srgb, var(--lv-brand-petrol) 20%, var(--lv-page)); --lv-sec-on-dark:color-mix(in srgb, var(--lv-brand-petrol) 45%, var(--lv-dark-ink));
+    --lv-tint:color-mix(in srgb, var(--lv-brand-petrol) 12%, var(--lv-page)); --lv-accent-tint:color-mix(in srgb, var(--lv-accent) 7%, var(--lv-page));
+    --lv-accent-hover:color-mix(in srgb, var(--lv-accent) 80%, var(--lv-ink));
+    --lv-ok-on-dark:color-mix(in srgb, var(--lv-brand-forest) 40%, var(--lv-dark-ink));
+    --lv-ok:var(--lv-brand-forest); --lv-ok-tint:color-mix(in srgb, var(--lv-brand-forest) 9%, var(--lv-page));
+    --lv-alert-surface:#2A1712; --lv-alert-line:#7A3524; --lv-alert-ink:#F3D9CF; --lv-alert-quiet:#E8C9BE; --lv-alert-detail:#B08A7E; --lv-alert-on-ink:#5A1E10; --lv-alert-btn-line:#C97A63;
+    --lv-brand-ink:#1A1A1A; --lv-brand-rust:#BF4F1F; --lv-brand-petrol:#2E5C74; --lv-brand-forest:#3E6B4A; --lv-brand-plum:#5B4B8A; --lv-brand-sand:#A67C4E; --lv-brand-slate:#4A5B7A; --lv-brand-teal:#1F5C57;
+    --lv-t-mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+    --lv-t-cap:13px; --lv-t-xs:14px; --lv-t-sm:15px; --lv-t-md:16px; --lv-t-body:17px; --lv-t-lg:19px; --lv-t-xl:22px;
+    --lv-d-hero:clamp(44px,6.2vw,84px); --lv-d-1:clamp(36px,5vw,68px); --lv-d-2:clamp(32px,4.2vw,52px); --lv-d-3:clamp(30px,3.4vw,44px); --lv-d-4:clamp(22px,2.4vw,28px); --lv-d-5:clamp(19px,2vw,22px); --lv-d-6:clamp(17px,1.5vw,20px); --lv-d-7:clamp(16px,1.4vw,18px);
+    --lv-s-1:2px; --lv-s-2:6px; --lv-s-3:10px; --lv-s-4:12px; --lv-s-5:16px; --lv-s-6:20px; --lv-s-7:26px; --lv-s-8:34px; --lv-s-9:54px;
+    --lv-g-1:clamp(22px,2.6vw,28px); --lv-g-2:clamp(22px,3vw,34px); --lv-g-3:clamp(28px,4vw,44px); --lv-g-4:clamp(32px,4.5vw,60px); --lv-g-5:clamp(50px,6vw,78px);
+    --lv-r-chip:8px; --lv-r-control:13px; --lv-r-card:20px; --lv-r-round:50%; --lv-r-pill:100px;
+    --lv-tap:56px;
+    --lv-link:var(--lv-sec); --lv-link-hover:color-mix(in srgb, var(--lv-sec) 74%, var(--lv-ink)); --lv-link-on-dark:var(--lv-sec-on-dark);
+    --lv-dark-petrol:color-mix(in srgb, var(--lv-brand-petrol) 32%, var(--lv-dark)); --lv-dark-petrol-surface:color-mix(in srgb, var(--lv-brand-petrol) 24%, var(--lv-dark-surface)); --lv-dark-petrol-line:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-dark-line));
+    --lv-rung-1:var(--lv-page); --lv-rung-2:color-mix(in srgb, var(--lv-brand-petrol) 5%, var(--lv-page)); --lv-rung-3:color-mix(in srgb, var(--lv-brand-petrol) 9%, var(--lv-page)); --lv-rung-4:color-mix(in srgb, var(--lv-brand-petrol) 14%, var(--lv-page));
+    --lv-meter-track:color-mix(in srgb, var(--lv-brand-petrol) 16%, var(--lv-page)); --lv-meter-fill:var(--lv-sec); --lv-meter-fill-quiet:color-mix(in srgb, var(--lv-brand-petrol) 85%, var(--lv-page)); --lv-meter-track-dark:color-mix(in srgb, var(--lv-brand-petrol) 30%, var(--lv-dark-surface));
+    --lv-shadow-sm:0 10px 30px rgba(26,26,26,.06); --lv-shadow-lg:0 26px 60px rgba(26,26,26,.10);
+    --lv-ease:cubic-bezier(.2,.7,.2,1); --lv-ease-lift:cubic-bezier(.2,.8,.2,1); --lv-dur-1:.18s; --lv-dur-2:.5s; --lv-dur-3:.7s;
+  }
+  [data-theme="dark"]{
+    color-scheme:dark;
+    --lv-page:color-mix(in srgb, var(--lv-brand-petrol) 22%, var(--lv-dark));
+    --lv-surface:color-mix(in srgb, var(--lv-brand-petrol) 26%, var(--lv-dark-surface));
+    --lv-band:color-mix(in srgb, var(--lv-dark-ink) 10%, var(--lv-page));
+    --lv-ink:var(--lv-dark-ink);
+    --lv-ink-hover:color-mix(in srgb, var(--lv-dark-ink) 80%, var(--lv-page));
+    --lv-ink-quiet:var(--lv-dark-quiet);
+    --lv-ink-placeholder:color-mix(in srgb, var(--lv-dark-ink) 62%, var(--lv-page));
+    --lv-line:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-dark-line));
+    --lv-line-control:var(--lv-dark-line-control);
+    --lv-accent:color-mix(in srgb, var(--lv-brand-rust) 45%, var(--lv-dark-ink));
+    --lv-accent-hover:color-mix(in srgb, var(--lv-accent) 82%, var(--lv-dark-ink));
+    --lv-accent-tint:color-mix(in srgb, var(--lv-brand-rust) 26%, var(--lv-page));
+    --lv-sec:color-mix(in srgb, var(--lv-brand-petrol) 38%, var(--lv-dark-ink));
+    --lv-sec-tint:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-page));
+    --lv-link:var(--lv-sec);
+    --lv-link-hover:color-mix(in srgb, var(--lv-brand-petrol) 22%, var(--lv-dark-ink));
+    --lv-tint:color-mix(in srgb, var(--lv-dark-ink) 8%, var(--lv-page));
+    --lv-rung-1:var(--lv-page);
+    --lv-rung-2:color-mix(in srgb, var(--lv-dark-ink) 4%, var(--lv-page));
+    --lv-rung-3:color-mix(in srgb, var(--lv-dark-ink) 8%, var(--lv-page));
+    --lv-rung-4:color-mix(in srgb, var(--lv-dark-ink) 13%, var(--lv-page));
+    --lv-dark-petrol:color-mix(in srgb, var(--lv-dark-ink) 10%, var(--lv-page));
+    --lv-dark-petrol-surface:color-mix(in srgb, var(--lv-dark-ink) 15%, var(--lv-page));
+    --lv-dark-petrol-line:color-mix(in srgb, var(--lv-dark-ink) 24%, var(--lv-page));
+    --lv-meter-track:color-mix(in srgb, var(--lv-dark-ink) 16%, var(--lv-page));
+    --lv-meter-fill:var(--lv-sec);
+    --lv-meter-fill-quiet:color-mix(in srgb, var(--lv-brand-petrol) 52%, var(--lv-dark-ink));
+    --lv-ok:color-mix(in srgb, var(--lv-brand-forest) 38%, var(--lv-dark-ink));
+    --lv-ok-tint:color-mix(in srgb, var(--lv-brand-forest) 22%, var(--lv-page));
+    --lv-spark-deep:color-mix(in srgb, var(--lv-spark) 60%, var(--lv-dark-ink));
+  }
+  [data-theme-label-dark]{ display:none; }
+  [data-theme="dark"] [data-theme-label-light]{ display:none; }
+  [data-theme="dark"] [data-theme-label-dark]{ display:inline; }
+  [data-theme="dark"] [data-theme-dot]{ background:currentColor; }
+  [data-theme="dark"] [data-btn-spark]{ color:var(--lv-dark); }
+  [data-theme-toggle]{ transition:border-color var(--lv-dur-1) ease, color var(--lv-dur-1) ease; }
+  [data-theme-toggle]:hover{ border-color:var(--lv-sec); color:var(--lv-ink); }
+  a{ color:var(--lv-link); text-decoration:none; }
+  a:hover{ color:var(--lv-link-hover); }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible{ outline:2px solid var(--lv-accent); outline-offset:3px; border-radius:var(--lv-r-chip); }
+  [data-skip-link]{ position:absolute; left:-9999px; top:0; z-index:200; background:var(--lv-ink); color:var(--lv-page); padding:var(--lv-s-3) var(--lv-s-5); border-radius:var(--lv-r-control); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-sm); text-decoration:none; }
+  [data-skip-link]:focus{ left:var(--lv-s-5); top:var(--lv-s-5); }
+  @keyframes lvRise{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:none; } }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+<script>
+(function(){
+  var K='levarum.theme.v1', D=document.documentElement;
+  function stored(){ try{ return localStorage.getItem(K); }catch(e){ return null; } }
+  function pref(){ try{ return window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'; }catch(e){ return 'light'; } }
+  D.setAttribute('data-theme', stored() || pref());
+  if (window.__lvThemeBound) return;
+  window.__lvThemeBound = true;
+  document.addEventListener('click', function(e){
+    var n=e.target, hit=null;
+    while(n && n!==document){ if(n.getAttribute && n.getAttribute('data-theme-toggle')!==null){ hit=n; break; } n=n.parentNode; }
+    if(!hit) return;
+    var next = D.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    D.setAttribute('data-theme', next);
+    try{ localStorage.setItem(K, next); }catch(err){}
+  });
+  try{ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(ev){ if(!stored()) D.setAttribute('data-theme', ev.matches?'dark':'light'); }); }catch(e){}
+})();
+(function(){
+  if (window.__lvMeters) return;
+  window.__lvMeters = true;
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+  if (reduce || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      var el = en.target; io.unobserve(el);
+      var target = el.getAttribute('data-lv-w') || el.style.width || '100%';
+      el.style.transition = 'none'; el.style.width = '0%';
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){
+        el.style.transition = 'width 900ms cubic-bezier(.2,.7,.2,1)';
+        el.style.width = target;
+      }); });
+    });
+  }, { threshold: 0.3 });
+  function scan(){
+    var list = document.querySelectorAll('[data-meter]');
+    for (var i=0;i<list.length;i++){
+      var el = list[i];
+      if (el.getAttribute('data-lv-seen')) continue;
+      el.setAttribute('data-lv-seen','1');
+      el.setAttribute('data-lv-w', el.style.width || '100%');
+      io.observe(el);
+    }
+  }
+  scan(); setTimeout(scan, 500); setTimeout(scan, 1400); setTimeout(scan, 3000);
+})();
+</script>
+</helmet>
+
+<div style="font-family:'Instrument Sans',sans-serif; color:var(--lv-ink); background:var(--lv-page); overflow-x:hidden;">
+  <a data-skip-link href="#lv-main">Skip to content</a>
+
+  <header style="border-bottom:1px solid var(--lv-line); background:var(--lv-page);">
+    <nav aria-label="Primary" style="max-width:1180px; margin:0 auto; padding:var(--lv-s-5) var(--lv-s-7); display:flex; align-items:center; gap:var(--lv-s-6); flex-wrap:wrap;">
+      <a href="./Levarum%20Home%20v2.dc.html" style="display:flex; align-items:center; gap:var(--lv-s-3); color:var(--lv-ink);">
+        <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="display:block; flex:none; color:var(--lv-ink);"><path d="M6 44 A26 26 0 0 1 58 44 Z" fill="currentColor"/><rect x="6" y="52" width="52" height="9" fill="currentColor"/></svg>
+        <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.025em;">Levarum</span>
+      </a>
+      <span style="font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);">Internal · journey map · three tracks</span>
+      <div style="margin-left:auto; display:flex; gap:var(--lv-s-6); align-items:center; flex-wrap:wrap;">
+        <a href="./Levarum%20Flow%20Map.dc.html" style="font-size:var(--lv-t-xs); display:inline-flex; align-items:center; min-height:44px;">Flow map</a>
+        <a href="./Levarum%20Site%20Check.dc.html" style="font-size:var(--lv-t-xs); display:inline-flex; align-items:center; min-height:44px;">Site check</a>
+        <button type="button" data-theme-toggle style="display:inline-flex; align-items:center; gap:var(--lv-s-2); min-height:44px; padding:0 var(--lv-s-4); background:transparent; border:1px solid var(--lv-line-control); border-radius:var(--lv-r-control); color:var(--lv-ink-quiet); font-family:'Instrument Sans',sans-serif; font-size:var(--lv-t-xs); cursor:pointer; white-space:nowrap;"><span aria-hidden="true" data-theme-dot style="width:11px; height:11px; border-radius:var(--lv-r-round); border:1.5px solid currentColor; background:linear-gradient(90deg, currentColor 50%, transparent 50%);"></span><span data-theme-label-light>Dark</span><span data-theme-label-dark>Light</span></button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="lv-main">
+  <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-4) var(--lv-s-7) var(--lv-g-3);">
+    <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec); margin-bottom:var(--lv-s-5);">WORKFLOW AND DECISION TREE</div>
+    <h1 style="margin:0 0 var(--lv-s-6); font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-1); line-height:.98; letter-spacing:-0.04em; max-width:820px; text-wrap:balance;">Two tracks, one handoff.</h1>
+    <div style="font-size:var(--lv-d-6); line-height:1.55; color:var(--lv-ink-quiet); max-width:660px; text-wrap:pretty;">Everything starts at the home page. The customer track runs in petrol, the admin track in rust, and the two shared states where one hands to the other are neutral. Every decision, terminal state and drop-off is marked.</div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:var(--lv-s-4); margin-top:var(--lv-g-2);">
+      <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-sec); background:var(--lv-surface); border-radius:var(--lv-r-control); padding:var(--lv-s-4) var(--lv-s-5);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-sec); margin-bottom:var(--lv-s-1);">STEP</div>
+        <div style="font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);">Something happens. Solid card, coloured left rail.</div>
+      </div>
+      <div style="border:1.5px solid var(--lv-sec); background:var(--lv-rung-3); border-radius:var(--lv-r-control); padding:var(--lv-s-4) var(--lv-s-5);">
+        <div style="display:flex; align-items:center; gap:var(--lv-s-3); margin-bottom:var(--lv-s-1);">
+          <span style="width:11px; height:11px; background:var(--lv-sec); transform:rotate(45deg); display:block; flex:none;"></span>
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-sec);">DECISION</span>
+        </div>
+        <div style="font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);">A fork. Diamond glyph, tinted ground, branches named.</div>
+      </div>
+      <div style="border:1px solid var(--lv-ink); background:var(--lv-dark-petrol); border-radius:var(--lv-r-control); padding:var(--lv-s-4) var(--lv-s-5); color:var(--lv-dark-ink);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-dark-quiet); margin-bottom:var(--lv-s-1);">TERMINAL</div>
+        <div style="font-size:var(--lv-t-sm); color:var(--lv-dark-quiet);">The track ends here, on purpose. Filled dark.</div>
+      </div>
+      <div style="border:1.5px dashed var(--lv-line-control); background:var(--lv-page); border-radius:var(--lv-r-control); padding:var(--lv-s-4) var(--lv-s-5);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-1);">DROP-OFF</div>
+        <div style="font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);">He leaves. Dashed. Each one names its recovery.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= CUSTOMER TRACK ================= -->
+  <div data-screen-label="Customer track" style="background:var(--lv-rung-2); border-top:1px solid var(--lv-line); border-bottom:1px solid var(--lv-line);">
+  <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-4) var(--lv-s-7) var(--lv-g-5);">
+
+    <div style="display:flex; align-items:baseline; gap:var(--lv-s-5); flex-wrap:wrap; margin-bottom:var(--lv-g-2);">
+      <span style="width:16px; height:16px; border-radius:var(--lv-r-round); background:var(--lv-sec); display:block; flex:none;"></span>
+      <h2 style="margin:0; font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-3); line-height:1.06; letter-spacing:-0.03em;">Customer track</h2>
+      <span style="font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);">Starts on Home. 4 decisions · 3 terminals · 4 drop-offs.</span>
+    </div>
+
+    <!-- 1 ENTRY -->
+    <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-sec); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-1); box-shadow:var(--lv-shadow-sm);">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec); margin-bottom:var(--lv-s-2);">ENTRY · HOME</div>
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-xl); letter-spacing:-0.025em;">Lands on the home page</div>
+      <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); margin-top:var(--lv-s-3); max-width:720px;">Van sign, word of mouth or a search. He reads one line, one promise and sees a business-type picker sitting in the hero. Two ways out: the picker, or Start in the nav.</div>
+      <div style="display:flex; flex-wrap:wrap; gap:var(--lv-s-2); margin-top:var(--lv-s-5);">
+        <span style="border:1px solid var(--lv-sec); background:var(--lv-sec-tint); color:var(--lv-sec); border-radius:var(--lv-r-chip); padding:var(--lv-s-2) var(--lv-s-3); font-size:var(--lv-t-cap);">Hero picker → Start</span>
+        <span style="border:1px solid var(--lv-sec); background:var(--lv-sec-tint); color:var(--lv-sec); border-radius:var(--lv-r-chip); padding:var(--lv-s-2) var(--lv-s-3); font-size:var(--lv-t-cap);">Nav Start</span>
+        <span style="border:1px solid var(--lv-sec); background:var(--lv-sec-tint); color:var(--lv-sec); border-radius:var(--lv-r-chip); padding:var(--lv-s-2) var(--lv-s-3); font-size:var(--lv-t-cap);">Three proof cards</span>
+      </div>
+    </div>
+    <div style="width:2px; height:28px; background:var(--lv-sec); margin-left:30px;"></div>
+
+    <!-- 2 DECISION: trust -->
+    <div style="border:1.5px solid var(--lv-sec); background:var(--lv-rung-4); border-radius:var(--lv-r-card); padding:var(--lv-g-1);">
+      <div style="display:flex; align-items:center; gap:var(--lv-s-3); margin-bottom:var(--lv-s-3);">
+        <span style="width:13px; height:13px; background:var(--lv-sec); transform:rotate(45deg); display:block; flex:none;"></span>
+        <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec);">DECISION 1</span>
+      </div>
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-d-4); letter-spacing:-0.025em; line-height:1.15; max-width:720px;">Does he trust it enough to answer three questions, or does he need proof first?</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:var(--lv-s-5); margin-top:var(--lv-s-6);">
+        <div style="border:1px solid var(--lv-sec); background:var(--lv-surface); border-radius:var(--lv-r-control); padding:var(--lv-s-5);">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-sec); margin-bottom:var(--lv-s-2);">BRANCH A · TRUSTS IT</div>
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">Straight to Start</div>
+          <div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-2);">Skips every other page. This is the path the hero is built for.</div>
+        </div>
+        <div style="border:1px solid var(--lv-sec); background:var(--lv-surface); border-radius:var(--lv-r-control); padding:var(--lv-s-5);">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-sec); margin-bottom:var(--lv-s-2);">BRANCH B · NEEDS PROOF</div>
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">Detours, then must return</div>
+          <div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-2);">One or more of the three pages below. Each must hand him back to Start.</div>
+        </div>
+        <div style="border:1.5px dashed var(--lv-line-control); border-radius:var(--lv-r-control); padding:var(--lv-s-5);">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">DROP-OFF 1 · LEAVES HOME</div>
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">Reads and goes</div>
+          <div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-2);">Recovery today: none. Nothing on Home captures him and nothing follows up. The single biggest hole in this map.</div>
+        </div>
+      </div>
+    </div>
+    <div style="width:2px; height:28px; background:var(--lv-sec); margin-left:30px;"></div>
+
+    <!-- 3 BRANCH B: objection ledger -->
+    <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-sec); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-1); box-shadow:var(--lv-shadow-sm);">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec); margin-bottom:var(--lv-s-2);">BRANCH B · THE PROOF DETOUR</div>
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-xl); letter-spacing:-0.025em;">One objection per page, or the page is dead weight</div>
+      <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); margin-top:var(--lv-s-3); max-width:720px;">Each page has one job: kill one objection and hand him back. Where a page resolves nothing, it is flagged.</div>
+
+      <div style="display:flex; flex-direction:column; gap:var(--lv-s-4); margin-top:var(--lv-s-7);">
+        <div style="border:1px solid var(--lv-line); border-radius:var(--lv-r-control); background:var(--lv-rung-2); padding:var(--lv-s-5); display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:var(--lv-s-5); align-items:start;">
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-sec); margin-bottom:var(--lv-s-2);">PAGE</div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.02em;">What we automate</div>
+          </div>
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">OBJECTION IT KILLS</div>
+            <div style="font-size:var(--lv-t-sm); line-height:1.5;">&ldquo;Would this even work for a business like mine?&rdquo;</div>
+          </div>
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">HOW</div>
+            <div style="font-size:var(--lv-t-sm); line-height:1.5;">Five named jobs, the hours each gives back, the tools, the build time.</div>
+          </div>
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">RETURNS TO START</div>
+            <div style="display:inline-flex; align-items:center; gap:var(--lv-s-2); border:1px solid var(--lv-sec); background:var(--lv-sec-tint); color:var(--lv-sec); border-radius:var(--lv-r-chip); padding:var(--lv-s-2) var(--lv-s-3); font-size:var(--lv-t-cap); font-weight:600;">YES · nav + tail CTA</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--lv-line); border-radius:var(--lv-r-control); background:var(--lv-rung-2); padding:var(--lv-s-5); display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:var(--lv-s-5); align-items:start;">
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-sec); margin-bottom:var(--lv-s-2);">PAGE</div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.02em;">How it works</div>
+          </div>
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">OBJECTION IT KILLS</div>
+            <div style="font-size:var(--lv-t-sm); line-height:1.5;">&ldquo;What am I actually signing up for here?&rdquo;</div>
+          </div>
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">HOW</div>
+            <div style="font-size:var(--lv-t-sm); line-height:1.5;">Three questions, a plan, fifteen minutes. Nothing else happens without him.</div>
+          </div>
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">RETURNS TO START</div>
+            <div style="display:inline-flex; align-items:center; gap:var(--lv-s-2); border:1px solid var(--lv-sec); background:var(--lv-sec-tint); color:var(--lv-sec); border-radius:var(--lv-r-chip); padding:var(--lv-s-2) var(--lv-s-3); font-size:var(--lv-t-cap); font-weight:600;">YES · nav + tail CTA</div>
+          </div>
+        </div>
+
+        <div style="border:1px solid var(--lv-line); border-radius:var(--lv-r-control); background:var(--lv-rung-2); padding:var(--lv-s-5); display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:var(--lv-s-5); align-items:start;">
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-sec); margin-bottom:var(--lv-s-2);">PAGE</div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.02em;">Questions</div>
+          </div>
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">OBJECTION IT KILLS</div>
+            <div style="font-size:var(--lv-t-sm); line-height:1.5;">&ldquo;What does it cost, is it safe, what about my staff?&rdquo;</div>
+          </div>
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">HOW</div>
+            <div style="font-size:var(--lv-t-sm); line-height:1.5;">Seven plain answers. The cost answer is still a policy gap, not a copy gap.</div>
+          </div>
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">RETURNS TO START</div>
+            <div style="display:inline-flex; align-items:center; gap:var(--lv-s-2); border:1px solid var(--lv-sec); background:var(--lv-sec-tint); color:var(--lv-sec); border-radius:var(--lv-r-chip); padding:var(--lv-s-2) var(--lv-s-3); font-size:var(--lv-t-cap); font-weight:600;">YES · nav + tail CTA</div>
+          </div>
+        </div>
+
+        <div style="border:1.5px dashed var(--lv-line-control); border-radius:var(--lv-r-control); padding:var(--lv-s-5); display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:var(--lv-s-5); align-items:start;">
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">SECTION · FLAGGED</div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.02em;">Home, dark band</div>
+          </div>
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">OBJECTION IT KILLS</div>
+            <div style="font-size:var(--lv-t-sm); line-height:1.5;">None. It names the pain he already lives with.</div>
+          </div>
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">HOW</div>
+            <div style="font-size:var(--lv-t-sm); line-height:1.5;">Earns its place as recognition, not proof. Keep it short or cut it — it moves nobody forward.</div>
+          </div>
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">RETURNS TO START</div>
+            <div style="display:inline-flex; align-items:center; gap:var(--lv-s-2); border:1px dashed var(--lv-line-control); color:var(--lv-ink-quiet); border-radius:var(--lv-r-chip); padding:var(--lv-s-2) var(--lv-s-3); font-size:var(--lv-t-cap); font-weight:600;">NO CTA IN SECTION</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="width:2px; height:28px; background:var(--lv-sec); margin-left:30px;"></div>
+
+    <!-- 4 START: three questions -->
+    <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-sec); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-1); box-shadow:var(--lv-shadow-sm);">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec); margin-bottom:var(--lv-s-2);">STEP · START</div>
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-xl); letter-spacing:-0.025em;">Three questions</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:var(--lv-s-4); margin-top:var(--lv-s-5);">
+        <div style="border:1px solid var(--lv-line); border-radius:var(--lv-r-control); background:var(--lv-rung-2); padding:var(--lv-s-4) var(--lv-s-5);">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-cap); color:var(--lv-sec); margin-bottom:var(--lv-s-1);">1</div>
+          <div style="font-size:var(--lv-t-sm); line-height:1.5;">What kind of business is this? <span style="color:var(--lv-ink-quiet);">Pre-filled from Home.</span></div>
+        </div>
+        <div style="border:1px solid var(--lv-line); border-radius:var(--lv-r-control); background:var(--lv-rung-2); padding:var(--lv-s-4) var(--lv-s-5);">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-cap); color:var(--lv-sec); margin-bottom:var(--lv-s-1);">2</div>
+          <div style="font-size:var(--lv-t-sm); line-height:1.5;">Hours a week on back office? <span style="color:var(--lv-ink-quiet);">Four bands.</span></div>
+        </div>
+        <div style="border:1px solid var(--lv-line); border-radius:var(--lv-r-control); background:var(--lv-rung-2); padding:var(--lv-s-4) var(--lv-s-5);">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-cap); color:var(--lv-sec); margin-bottom:var(--lv-s-1);">3</div>
+          <div style="font-size:var(--lv-t-sm); line-height:1.5;">Which of these sound like you? <span style="color:var(--lv-ink-quiet);">Multi-pick pains.</span></div>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--lv-line); margin-top:var(--lv-s-6); padding-top:var(--lv-s-5); font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);">Answers persist on the device as he goes. Nothing has been sent anywhere yet.</div>
+    </div>
+    <div style="width:2px; height:28px; background:var(--lv-sec); margin-left:30px;"></div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:var(--lv-s-5);">
+      <div style="border:1.5px dashed var(--lv-line-control); border-radius:var(--lv-r-card); padding:var(--lv-s-6);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">DROP-OFF 2 · ABANDONS MID-FORM</div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet);">Recovery today: the answers are still on his device, so returning restores them. Nothing prompts the return.</div>
+      </div>
+      <div style="border:1.5px dashed var(--lv-line-control); border-radius:var(--lv-r-card); padding:var(--lv-s-6);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">DROP-OFF 3 · WILL NOT GIVE AN EMAIL</div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet);">Recovery today: none. The gate is hard. Option worth testing: show the first job free, gate the rest.</div>
+      </div>
+    </div>
+    <div style="width:2px; height:28px; background:var(--lv-sec); margin-left:30px;"></div>
+
+    <!-- 5 GATE -->
+    <div style="border:1.5px solid var(--lv-sec); background:var(--lv-rung-4); border-radius:var(--lv-r-card); padding:var(--lv-g-1);">
+      <div style="display:flex; align-items:center; gap:var(--lv-s-3); margin-bottom:var(--lv-s-3);">
+        <span style="width:13px; height:13px; background:var(--lv-sec); transform:rotate(45deg); display:block; flex:none;"></span>
+        <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec);">DECISION 2 · THE GATE</span>
+      </div>
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-d-4); letter-spacing:-0.025em; line-height:1.15; max-width:720px;">Give an email to unlock the plan?</div>
+      <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); margin-top:var(--lv-s-3); max-width:720px;">This is the only place the site asks for anything. It is also the exact moment the two tracks meet.</div>
+    </div>
+    <div style="width:2px; height:28px; background:var(--lv-sec); margin-left:30px;"></div>
+
+    <!-- 6 PLAN -->
+    <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-sec); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-1); box-shadow:var(--lv-shadow-sm);">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec); margin-bottom:var(--lv-s-2);">STEP · THE PLAN</div>
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-xl); letter-spacing:-0.025em;">Named jobs, hours back, one thing to fix first</div>
+      <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); margin-top:var(--lv-s-3); max-width:720px;">His to keep whether or not anyone ever speaks to him. The hours are the whole promise, so they carry the visual weight on the page.</div>
+    </div>
+    <div style="width:2px; height:28px; background:var(--lv-sec); margin-left:30px;"></div>
+
+    <!-- 7 DECISION: what next -->
+    <div style="border:1.5px solid var(--lv-sec); background:var(--lv-rung-4); border-radius:var(--lv-r-card); padding:var(--lv-g-1);">
+      <div style="display:flex; align-items:center; gap:var(--lv-s-3); margin-bottom:var(--lv-s-3);">
+        <span style="width:13px; height:13px; background:var(--lv-sec); transform:rotate(45deg); display:block; flex:none;"></span>
+        <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-sec);">DECISION 3</span>
+      </div>
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-d-4); letter-spacing:-0.025em; line-height:1.15; max-width:720px;">Book the call, keep the plan, or leave?</div>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:var(--lv-s-5); margin-top:var(--lv-s-6);">
+        <div id="cust-book" style="border:1px solid var(--lv-ink); background:var(--lv-dark-petrol); color:var(--lv-dark-ink); border-radius:var(--lv-r-control); padding:var(--lv-s-5);">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-dark-quiet); margin-bottom:var(--lv-s-2);">TERMINAL 1 · BOOKED</div>
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">Picks a slot</div>
+          <div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-dark-quiet); margin-top:var(--lv-s-2);">The customer track ends. The next thing that happens to him comes from the admin side: the call.</div>
+        </div>
+        <div style="border:1px solid var(--lv-ink); background:var(--lv-dark-petrol); color:var(--lv-dark-ink); border-radius:var(--lv-r-control); padding:var(--lv-s-5);">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-dark-quiet); margin-bottom:var(--lv-s-2);">TERMINAL 2 · KEEPS THE PLAN</div>
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">No slot, plan saved</div>
+          <div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-dark-quiet); margin-top:var(--lv-s-2);">Still a win: the submission is already in the inbox, so the admin track can pick him up.</div>
+        </div>
+        <div style="border:1.5px dashed var(--lv-line-control); border-radius:var(--lv-r-control); padding:var(--lv-s-5);">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">DROP-OFF 4 · READS AND GOES</div>
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">Closes the tab</div>
+          <div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-2);">Recovery: he gave an email at the gate, so this is recoverable — but only by the admin track, by hand.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- ================= HANDOFF ================= -->
+  <div data-screen-label="Handoff" style="background:var(--lv-band); border-bottom:1px solid var(--lv-line);">
+  <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-3) var(--lv-s-7);">
+    <div style="display:flex; align-items:center; gap:var(--lv-s-4); flex-wrap:wrap; margin-bottom:var(--lv-s-6);">
+      <span style="width:16px; height:16px; background:var(--lv-ink); display:block; flex:none;"></span>
+      <h2 style="margin:0; font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-4); letter-spacing:-0.03em;">The handoff — shared states</h2>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:var(--lv-s-5);">
+      <div style="border:1.5px solid var(--lv-ink); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-s-6);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">CUSTOMER → ADMIN</div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">Submit writes the record</div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet); margin-top:var(--lv-s-3);">The email at the gate is the trigger. One record — business, hours band, pains, hours back, slot if picked — lands in the store and shows in the inbox as <strong style="color:var(--lv-ink);">New</strong> straight away.</div>
+        <div style="font-family:var(--lv-t-mono); font-size:var(--lv-t-xs); color:var(--lv-ink-quiet); border-top:1px solid var(--lv-line); margin-top:var(--lv-s-5); padding-top:var(--lv-s-4);">Prototype: device store. Live: formEndpoint POST → same shape.</div>
+      </div>
+      <div style="border:1.5px solid var(--lv-ink); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-s-6);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">ADMIN → CUSTOMER</div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">The call is the only thing he feels</div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet); margin-top:var(--lv-s-3);">Nothing in the admin track is visible to him except this. Moving a card to <strong style="color:var(--lv-ink);">Booked</strong> is what turns into a phone ringing — see <a href="#cust-book">Terminal 1</a> on the customer track.</div>
+        <div style="font-family:var(--lv-t-mono); font-size:var(--lv-t-xs); color:var(--lv-ink-quiet); border-top:1px solid var(--lv-line); margin-top:var(--lv-s-5); padding-top:var(--lv-s-4);">Gap: no automatic confirmation to him when status changes.</div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- ================= ADMIN TRACK ================= -->
+  <div data-screen-label="Admin track" style="background:var(--lv-rung-3); border-bottom:1px solid var(--lv-line);">
+  <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-4) var(--lv-s-7) var(--lv-g-5);">
+
+    <div style="display:flex; align-items:baseline; gap:var(--lv-s-5); flex-wrap:wrap; margin-bottom:var(--lv-g-2);">
+      <span style="width:16px; height:16px; border-radius:var(--lv-r-round); background:var(--lv-accent); display:block; flex:none;"></span>
+      <h2 style="margin:0; font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-3); line-height:1.06; letter-spacing:-0.03em;">Admin track</h2>
+      <span style="font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);">2 decisions · 2 terminals · 1 drop-off.</span>
+    </div>
+
+    <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-accent); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-1); box-shadow:var(--lv-shadow-sm);">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-accent); margin-bottom:var(--lv-s-2);">ENTRY · SIGN IN</div>
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-xl); letter-spacing:-0.025em;">Signs in from the footer link</div>
+      <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); margin-top:var(--lv-s-3); max-width:720px;">Not in the public nav. Prototype credentials only — this gate is a demo, not security.</div>
+    </div>
+    <div style="width:2px; height:28px; background:var(--lv-accent); margin-left:30px;"></div>
+
+    <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-accent); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-1); box-shadow:var(--lv-shadow-sm);">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-accent); margin-bottom:var(--lv-s-2);">STEP · INBOX</div>
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-xl); letter-spacing:-0.025em;">Newest submission first</div>
+      <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); margin-top:var(--lv-s-3); max-width:720px;">Each card carries the whole intake: business, hours band, pains picked, hours back, slot asked for, email. Enough to make one call without opening anything else.</div>
+    </div>
+    <div style="width:2px; height:28px; background:var(--lv-accent); margin-left:30px;"></div>
+
+    <div style="border:1.5px solid var(--lv-accent); background:var(--lv-accent-tint); border-radius:var(--lv-r-card); padding:var(--lv-g-1);">
+      <div style="display:flex; align-items:center; gap:var(--lv-s-3); margin-bottom:var(--lv-s-3);">
+        <span style="width:13px; height:13px; background:var(--lv-accent); transform:rotate(45deg); display:block; flex:none;"></span>
+        <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-accent);">DECISION 1</span>
+      </div>
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-d-4); letter-spacing:-0.025em; line-height:1.15; max-width:720px;">Is this one qualified?</div>
+      <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-ink-quiet); margin-top:var(--lv-s-3); max-width:720px;">Owner-run, five or more hours a week on back office, and at least one pain from the five. Two of three is a judgement call; one of three is not.</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:var(--lv-s-5); margin-top:var(--lv-s-6);">
+        <div style="border:1px solid var(--lv-accent); background:var(--lv-surface); border-radius:var(--lv-r-control); padding:var(--lv-s-5);">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-accent); margin-bottom:var(--lv-s-2);">YES</div>
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">Into the status chain</div>
+          <div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-2);">Contact within one working day, or the plan goes cold.</div>
+        </div>
+        <div style="border:1px solid var(--lv-ink); background:var(--lv-dark-petrol); color:var(--lv-dark-ink); border-radius:var(--lv-r-control); padding:var(--lv-s-5);">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-dark-quiet); margin-bottom:var(--lv-s-2);">TERMINAL 1 · NOT A FIT</div>
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">Marked Done, no call</div>
+          <div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-dark-quiet); margin-top:var(--lv-s-2);">He keeps the plan. Nobody wastes a call. Gap: no &ldquo;not a fit&rdquo; status — it looks the same as finished work.</div>
+        </div>
+      </div>
+    </div>
+    <div style="width:2px; height:28px; background:var(--lv-accent); margin-left:30px;"></div>
+
+    <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-accent); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-g-1); box-shadow:var(--lv-shadow-sm);">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-accent); margin-bottom:var(--lv-s-5);">STEP · STATUS CHAIN</div>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:var(--lv-s-4);">
+        <span style="border:1.5px solid var(--lv-accent); color:var(--lv-accent); background:var(--lv-accent-tint); border-radius:var(--lv-r-pill); padding:var(--lv-s-3) var(--lv-s-5); font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-sm); letter-spacing:0.04em;">NEW</span>
+        <span style="color:var(--lv-accent); font-weight:700;">→</span>
+        <span style="border:1.5px solid var(--lv-accent); color:var(--lv-accent); background:var(--lv-accent-tint); border-radius:var(--lv-r-pill); padding:var(--lv-s-3) var(--lv-s-5); font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-sm); letter-spacing:0.04em;">CONTACTED</span>
+        <span style="color:var(--lv-accent); font-weight:700;">→</span>
+        <span style="border:1.5px solid var(--lv-accent); color:var(--lv-accent); background:var(--lv-accent-tint); border-radius:var(--lv-r-pill); padding:var(--lv-s-3) var(--lv-s-5); font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-sm); letter-spacing:0.04em;">BOOKED</span>
+        <span style="color:var(--lv-accent); font-weight:700;">→</span>
+        <span style="border:1.5px solid var(--lv-accent); color:var(--lv-accent); background:var(--lv-accent-tint); border-radius:var(--lv-r-pill); padding:var(--lv-s-3) var(--lv-s-5); font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-sm); letter-spacing:0.04em;">DONE</span>
+      </div>
+      <div style="font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet); margin-top:var(--lv-s-5);">Four states, one direction, and one legal reverse: Booked back to Contacted when a call falls through. The status persists on the device between sessions.</div>
+    </div>
+    <div style="width:2px; height:28px; background:var(--lv-accent); margin-left:30px;"></div>
+
+    <div style="border:1.5px solid var(--lv-accent); background:var(--lv-accent-tint); border-radius:var(--lv-r-card); padding:var(--lv-g-1);">
+      <div style="display:flex; align-items:center; gap:var(--lv-s-3); margin-bottom:var(--lv-s-3);">
+        <span style="width:13px; height:13px; background:var(--lv-accent); transform:rotate(45deg); display:block; flex:none;"></span>
+        <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-accent);">DECISION 2</span>
+      </div>
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-d-4); letter-spacing:-0.025em; line-height:1.15; max-width:720px;">Did he respond?</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:var(--lv-s-5); margin-top:var(--lv-s-6);">
+        <div style="border:1px solid var(--lv-accent); background:var(--lv-surface); border-radius:var(--lv-r-control); padding:var(--lv-s-5);">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-accent); margin-bottom:var(--lv-s-2);">YES</div>
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">Booked → the call</div>
+          <div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-2);">The one moment the admin track becomes visible to him.</div>
+        </div>
+        <div style="border:1px solid var(--lv-accent); background:var(--lv-surface); border-radius:var(--lv-r-control); padding:var(--lv-s-5);">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-accent); margin-bottom:var(--lv-s-2);">NO · LOOP</div>
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">Stays Contacted</div>
+          <div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-2);">Two more attempts, spaced. The card does not move, which is the point — it keeps showing up.</div>
+        </div>
+        <div style="border:1.5px dashed var(--lv-line-control); border-radius:var(--lv-r-control); padding:var(--lv-s-5);">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">DROP-OFF · GONE QUIET</div>
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em;">Three tries, nothing</div>
+          <div style="font-size:var(--lv-t-sm); line-height:1.5; color:var(--lv-ink-quiet); margin-top:var(--lv-s-2);">Recovery today: none. Needs a decision — park it, or one note in ninety days.</div>
+        </div>
+      </div>
+    </div>
+    <div style="width:2px; height:28px; background:var(--lv-accent); margin-left:30px;"></div>
+
+    <div style="border:1px solid var(--lv-ink); background:var(--lv-dark-petrol); color:var(--lv-dark-ink); border-radius:var(--lv-r-card); padding:var(--lv-g-1);">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.08em; color:var(--lv-dark-quiet); margin-bottom:var(--lv-s-2);">TERMINAL 2 · DONE</div>
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-xl); letter-spacing:-0.025em;">Call held, build agreed or not</div>
+      <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-dark-quiet); margin-top:var(--lv-s-3); max-width:720px;">Both tracks end here. Everything after this — the build, the handover, the two weeks of fixes — is work, not website, and belongs on a different map.</div>
+    </div>
+  </div>
+  </div>
+
+  <div data-screen-label="Partner track" style="background:var(--lv-rung-2); border-top:1px solid var(--lv-line);">
+  <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-4) var(--lv-s-7) var(--lv-g-4);">
+    <div style="display:flex; align-items:baseline; gap:var(--lv-s-5); flex-wrap:wrap; margin-bottom:var(--lv-g-2);">
+      <span style="width:16px; height:16px; border-radius:var(--lv-r-round); background:var(--lv-ok); display:block; flex:none;"></span>
+      <h2 style="margin:0; font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-4); letter-spacing:-0.03em;">Partner track</h2>
+      <span style="font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);">Slim by design. Never crosses the customer path — footer entry only, petrol not rust, no competing CTA.</span>
+    </div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr)); gap:var(--lv-s-5);">
+      <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-ok); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-s-6);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ok); margin-bottom:var(--lv-s-2);">ENTRY · FOOTER STRIP</div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.02em; margin-bottom:var(--lv-s-2);">Sees the partner line</div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet);">Low on Home, inside the footer band. A business owner scrolling past it loses nothing.</div>
+      </div>
+      <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-ok); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-s-6);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ok); margin-bottom:var(--lv-s-2);">STEP · PARTNER INTAKE</div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.02em; margin-bottom:var(--lv-s-2);">Four fields</div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet);">Name, what they do, where they plug in, email. No deck, no call booking — the ask is smaller than the customer ask on purpose.</div>
+      </div>
+      <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-ok); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-s-6);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ok); margin-bottom:var(--lv-s-2);">HANDOFF · SHARED</div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.02em; margin-bottom:var(--lv-s-2);">Lands in the same inbox</div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet);">Written to the same store with kind: partner, so it shows as PARTNER · New and counts in its own tile.</div>
+      </div>
+      <div style="border:1px solid var(--lv-line); border-left:3px solid var(--lv-ok); background:var(--lv-surface); border-radius:var(--lv-r-card); padding:var(--lv-s-6);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ok); margin-bottom:var(--lv-s-2);">STEP · SAME CHAIN</div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.02em; margin-bottom:var(--lv-s-2);">New → Contacted → Booked → Done</div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet);">Deliberately the same four states. A second workflow would be a second thing to forget.</div>
+      </div>
+      <div style="border:1.5px dashed var(--lv-line-control);  border-radius:var(--lv-r-card); padding:var(--lv-s-6);">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-cap); letter-spacing:0.06em; color:var(--lv-ink-quiet); margin-bottom:var(--lv-s-2);">DROP-OFF · NOT NOW</div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-body); letter-spacing:-0.02em; margin-bottom:var(--lv-s-2);">Terms not ready</div>
+        <div style="font-size:var(--lv-t-sm); line-height:1.55; color:var(--lv-ink-quiet);">Recovery today: none, and honestly stated on the page — early, few clients, terms open.</div>
+      </div></div>
+  </div>
+  </div>
+
+  </main>
+
+  <footer style="background:var(--lv-rung-2);">
+  <div style="max-width:1180px; margin:0 auto; padding:var(--lv-g-3) var(--lv-s-7) var(--lv-s-9); display:flex; align-items:center; gap:var(--lv-s-6); flex-wrap:wrap;">
+    <div style="display:flex; align-items:center; gap:var(--lv-s-3);">
+      <svg width="26" height="26" viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="display:block; flex:none; color:var(--lv-ink);"><path d="M6 44 A26 26 0 0 1 58 44 Z" fill="currentColor"/><rect x="6" y="52" width="52" height="9" fill="currentColor"/></svg>
+      <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-md); letter-spacing:-0.025em;">Levarum</span>
+    </div>
+    <span style="font-size:var(--lv-t-xs); color:var(--lv-ink-quiet);">Internal tooling. Not linked from the public site.</span>
+    <div style="margin-left:auto; display:flex; gap:var(--lv-s-6); align-items:center; flex-wrap:wrap;">
+      <a href="./Levarum%20Home%20v2.dc.html" style="font-size:var(--lv-t-xs); display:inline-flex; align-items:center; min-height:44px;">Home</a>
+      <a href="./Levarum%20Flow%20Map.dc.html" style="font-size:var(--lv-t-xs); display:inline-flex; align-items:center; min-height:44px;">Flow map</a>
+      <a href="./Levarum%20Admin.dc.html" style="font-size:var(--lv-t-xs); display:inline-flex; align-items:center; min-height:44px;">Admin</a>
+    </div>
+  </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280}}"></script>
+</body>
+</html>

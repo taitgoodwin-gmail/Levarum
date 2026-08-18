@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Levarum — Site Flow Map (PROPOSED)</title>
+<style>
+  :root{
+    --ink:#1c1917; --ink-2:#57534e; --ink-3:#8a8078;
+    --page:#faf7f2; --card:#fffdfa; --line:#e0d9cf;
+    --rust:#b4501f; --rust-soft:#f5e6dd;
+    --gap:#a16207; --gap-soft:#fdf3d7;
+    --miss:#9f1239; --miss-soft:#fce7ec;
+    --ok:#3f6212; --ok-soft:#eaf2dc;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --ink:#f5f0e8; --ink-2:#c4bcb2; --ink-3:#8a8078;
+      --page:#17150f; --card:#211e17; --line:#3a352c;
+      --rust:#e07a45; --rust-soft:#3a2318;
+      --gap:#d9a521; --gap-soft:#332a10;
+      --miss:#f0728f; --miss-soft:#361420;
+      --ok:#9ac44a; --ok-soft:#222a14;
+    }
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:2.5rem 1.5rem 5rem; background:var(--page); color:var(--ink);
+    font:16px/1.55 "Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
+  }
+  .wrap{max-width:1180px;margin:0 auto}
+  h1{font-size:1.9rem;letter-spacing:-.02em;margin:0 0 .3rem}
+  .sub{color:var(--ink-2);margin:0 0 .2rem;font-size:.95rem}
+  .stamp{
+    display:inline-block;margin:.9rem 0 0;padding:.3rem .7rem;border:1px solid var(--rust);
+    color:var(--rust);border-radius:2px;font:600 .7rem/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+    letter-spacing:.12em;text-transform:uppercase;
+  }
+  .legend{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.6rem 0 2.4rem;padding-top:1.4rem;border-top:1px solid var(--line)}
+  .key{font:600 .68rem/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;padding:.35rem .6rem;border-radius:2px}
+  .k-ok{background:var(--ok-soft);color:var(--ok)}
+  .k-gap{background:var(--gap-soft);color:var(--gap)}
+  .k-miss{background:var(--miss-soft);color:var(--miss)}
+  .stage{margin:0 0 .9rem;font:600 .7rem/1 ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+  .row{display:grid;gap:1rem;margin-bottom:.5rem}
+  .r1{grid-template-columns:1fr}
+  .r3{grid-template-columns:repeat(3,1fr)}
+  @media(max-width:820px){.r3{grid-template-columns:1fr}}
+  .node{
+    background:var(--card);border:1px solid var(--line);border-left:3px solid var(--rust);
+    border-radius:3px;padding:1rem 1.1rem;
+  }
+  .node.gap{border-left-color:var(--gap)}
+  .node.miss{border-left-color:var(--miss);background:var(--miss-soft)}
+  .node h3{margin:0 0 .15rem;font-size:1.05rem;letter-spacing:-.01em}
+  .file{font:.68rem/1.4 ui-monospace,Menlo,monospace;color:var(--ink-3);word-break:break-all;display:block;margin-bottom:.6rem}
+  .node dl{margin:0;font-size:.83rem}
+  .node dt{font:600 .63rem/1 ui-monospace,Menlo,monospace;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-top:.55rem}
+  .node dd{margin:.2rem 0 0;color:var(--ink-2)}
+  .tag{display:inline-block;font:600 .6rem/1 ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .45rem;border-radius:2px;margin:0 .25rem .25rem 0}
+  .t-gap{background:var(--gap-soft);color:var(--gap)}
+  .t-miss{background:var(--miss-soft);color:var(--miss)}
+  .arrow{text-align:center;color:var(--rust);font-size:1.3rem;line-height:1;margin:.15rem 0 .9rem;opacity:.75}
+  .note{
+    margin:2.6rem 0 0;padding:1.2rem 1.3rem;background:var(--gap-soft);
+    border:1px solid var(--gap);border-radius:3px;
+  }
+  .note h2{margin:0 0 .5rem;font-size:1.05rem;color:var(--gap)}
+  .note p{margin:0 0 .7rem;font-size:.9rem;color:var(--ink-2)}
+  .note p:last-child{margin-bottom:0}
+  .qs{margin:2rem 0 0;border-top:1px solid var(--line);padding-top:1.6rem}
+  .qs h2{font-size:1.1rem;margin:0 0 .8rem}
+  .qs ol{margin:0;padding-left:1.2rem;font-size:.9rem;color:var(--ink-2)}
+  .qs li{margin-bottom:.5rem}
+  code{font:.82em ui-monospace,Menlo,monospace;background:var(--rust-soft);color:var(--rust);padding:.1em .35em;border-radius:2px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Levarum — Site Flow Map</h1>
+  <p class="sub">What a visitor does, in order. Inputs, outputs, and exits per page.</p>
+  <span class="stamp">Proposed · built without file access · 18 Aug 2026</span>
+
+  <div class="legend">
+    <span class="key k-ok">Confirmed — stated in the project</span>
+    <span class="key k-gap">Gap — unknown, needs the files or your answer</span>
+    <span class="key k-miss">Missing — probably does not exist</span>
+  </div>
+
+  <p class="stage">Stage 1 — Entry</p>
+  <div class="row r1">
+    <div class="node gap">
+      <h3>Home v2</h3>
+      <span class="file">Levarum Home v2.dc.html</span>
+      <dl>
+        <dt>Job</dt><dd>Land the pitch: get your week back. Hours-first, no dollar figures.</dd>
+        <dt>Inputs</dt><dd>Direct traffic, search, referral. <span class="tag t-gap">Gap — no analytics, so entry source is unmeasured</span></dd>
+        <dt>Outputs</dt><dd><span class="tag t-gap">Gap — are there CTAs to Start, and how many?</span></dd>
+        <dt>Exits</dt><dd><span class="tag t-gap">Gap — is nav persistent across all five pages?</span></dd>
+      </dl>
+    </div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <p class="stage">Stage 2 — Consideration · order unknown, probably visitor-chosen</p>
+  <div class="row r3">
+    <div class="node gap">
+      <h3>How It Works</h3>
+      <span class="file">Levarum How It Works.dc.html</span>
+      <dl>
+        <dt>Job</dt><dd>Explain the mechanics without hedging.</dd>
+        <dt>Answers</dt><dd>"What actually happens after I sign up?"</dd>
+        <dt>Exits</dt><dd><span class="tag t-gap">Gap — does it end in a CTA or dead-end?</span></dd>
+      </dl>
+    </div>
+    <div class="node gap">
+      <h3>What We Automate</h3>
+      <span class="file">Levarum What We Automate.dc.html</span>
+      <dl>
+        <dt>Job</dt><dd>Scope. Which of my jobs does this cover?</dd>
+        <dt>Answers</dt><dd>"Is my kind of work on this list?"</dd>
+        <dt>Exits</dt><dd><span class="tag t-gap">Gap — self-qualification path unknown</span></dd>
+      </dl>
+    </div>
+    <div class="node gap">
+      <h3>Questions</h3>
+      <span class="file">Levarum Questions.dc.html</span>
+      <dl>
+        <dt>Job</dt><dd>Kill objections. Keyboard-accessible FAQ rows.</dd>
+        <dt>Blocked on</dt><dd><span class="tag t-gap">Cost FAQ has no real pricing policy behind it</span></dd>
+        <dt>Exits</dt><dd><span class="tag t-gap">Gap — likely the biggest dead-end on the site</span></dd>
+      </dl>
+    </div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <p class="stage">Stage 3 — Convert · the only page with a job</p>
+  <div class="row r1">
+    <div class="node">
+      <h3>Start — canonical intake</h3>
+      <span class="file">Levarum Start.dc.html · all tweak controls wired</span>
+      <dl>
+        <dt>Job</dt><dd>Capture an inbound lead. Confirmed canonical; the phone Prototype v2 was archived as backend-demo-only precisely to remove the second intake.</dd>
+        <dt>Inputs</dt><dd><span class="tag t-gap">Gap — field list unknown. Name, phone, trade, biggest time sink?</span></dd>
+        <dt>Processing</dt><dd><span class="tag t-miss">Missing — no backend. Form posts nowhere.</span></dd>
+        <dt>Outputs</dt><dd>Intended: record in Airtable + notification to <code>info@levarum.com</code> <span class="tag t-gap">domain not owned yet</span></dd>
+        <dt>Exits</dt><dd><span class="tag t-miss">Missing — no confirmation state</span></dd>
+      </dl>
+    </div>
+  </div>
+  <div class="arrow">↓</div>
+
+  <p class="stage">Stage 4 — Post-submit · the hole</p>
+  <div class="row r3">
+    <div class="node miss">
+      <h3>Confirmation</h3>
+      <span class="file">does not exist</span>
+      <dl>
+        <dt>Should say</dt><dd>What happens next and when. This is where the call-availability promise lives.</dd>
+        <dt>Blocked on</dt><dd>Your real availability window.</dd>
+      </dl>
+    </div>
+    <div class="node miss">
+      <h3>Failure state</h3>
+      <span class="file">does not exist</span>
+      <dl>
+        <dt>Should say</dt><dd>Submission failed — here is another way to reach us.</dd>
+        <dt>Why it matters</dt><dd>A silent failure on your only conversion point loses the lead permanently.</dd>
+      </dl>
+    </div>
+    <div class="node miss">
+      <h3>Your follow-up</h3>
+      <span class="file">does not exist</span>
+      <dl>
+        <dt>Should be</dt><dd>Notification reaches you; you call back inside the promised window.</dd>
+        <dt>Note</dt><dd>Outbound tracking deliberately not built yet — no volume to lose track of.</dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="note">
+    <h2>The hypothesis this map suggests</h2>
+    <p>You said your workflow "doesn't seem to start at the home page — it starts at the intake." This map offers a reason: <strong>Start is the only page with a defined job, and it has no exit.</strong> The other four inform; only Start converts, and the moment a visitor submits, the site stops existing. Nothing tells them what happens next.</p>
+    <p>If that is right, the fix is not a new home page. It is giving the four upper pages an exit that points at Start, and giving Start an exit that points at you. Confidence: moderate. It rests on the project summary, not on reading the files.</p>
+  </div>
+
+  <div class="qs">
+    <h2>What this map needs to become real</h2>
+    <ol>
+      <li>The eight project files, so every Gap above resolves to an actual answer instead of a guess.</li>
+      <li>Your call-availability window — the confirmation page cannot be written without it.</li>
+      <li>The intake field list, which determines the Airtable schema.</li>
+      <li>A decision on whether the editor tweak controls ship to production. My read: strip all of them.</li>
+    </ol>
+  </div>
+
+</div>
+</body>
+</html>

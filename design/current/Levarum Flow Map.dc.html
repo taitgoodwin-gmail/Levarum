@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:#FBF6F2; -webkit-font-smoothing:antialiased; }
+  a{ color:#8F3D14; text-decoration:none; }
+  a:hover{ color:#1A1A1A; }
+</style>
+</helmet>
+
+<div style="font-family:'Instrument Sans',sans-serif; color:#1A1A1A; padding:clamp(26px,4vw,56px) clamp(18px,3vw,36px) clamp(60px,7vw,90px);">
+  <div style="max-width:1180px; margin:0 auto;">
+
+    <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.06em; color:#8F3D14; margin-bottom:12px;">LEVARUM · FLOW MAP</div>
+    <h1 style="margin:0 0 14px; font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:clamp(30px,3.8vw,50px); line-height:1.04; letter-spacing:-0.035em;">Visitor in, booked call out.</h1>
+    <div style="font-size:18px; line-height:1.55; color:#5C5A56; max-width:66ch; margin-bottom:22px; text-wrap:pretty;">Every exit count below was read out of the files, not guessed. The loop now closes: a visitor lands, fills the intake, and the request arrives in an admin inbox you move through to a booked call. What is left needs a decision from you, not code.</div>
+
+    <div style="display:flex; gap:9px; flex-wrap:wrap; margin-bottom:clamp(30px,4vw,44px);">
+      <sc-for list="{{ keys }}" as="k" hint-placeholder-count="3">
+        <span style="{{ k.style }}">{{ k.label }}</span>
+      </sc-for>
+    </div>
+
+    <sc-for list="{{ stages }}" as="st" hint-placeholder-count="4">
+      <div style="margin-bottom:6px;">
+        <div style="display:flex; align-items:baseline; gap:12px; margin-bottom:12px; flex-wrap:wrap;">
+          <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.12em; color:#8F3D14;">{{ st.stage }}</span>
+          <span style="font-size:16px; color:#5C5A56;">{{ st.note }}</span>
+        </div>
+        <div style="{{ st.gridStyle }}">
+          <sc-for list="{{ st.nodes }}" as="n" hint-placeholder-count="1">
+            <div style="{{ n.cardStyle }}">
+              <div style="display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:4px;">
+                <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:20px; letter-spacing:-0.025em;">{{ n.title }}</span>
+                <span style="{{ n.badgeStyle }}">{{ n.badge }}</span>
+              </div>
+              <a href="{{ n.href }}" style="{{ n.fileStyle }}">{{ n.file }}</a>
+              <div style="display:flex; flex-direction:column; gap:11px; margin-top:14px;">
+                <sc-for list="{{ n.rows }}" as="r" hint-placeholder-count="3">
+                  <div>
+                    <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.1em; color:#6E6862; margin-bottom:3px;">{{ r.k }}</div>
+                    <div style="font-size:15px; line-height:1.5; color:#43413D;">{{ r.v }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <sc-if value="{{ st.hasArrow }}" hint-placeholder-val="{{ true }}">
+          <div style="text-align:center; color:#C08A6A; font-size:22px; line-height:1; margin:14px 0 18px;">{{ st.arrow }}</div>
+        </sc-if>
+      </div>
+    </sc-for>
+
+    <div style="border:1px solid #1A1A1A; border-radius:20px; padding:clamp(22px,3vw,30px); margin-top:16px;">
+      <h2 style="margin:0 0 12px; font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:clamp(20px,2.2vw,26px); letter-spacing:-0.028em;">The proposed map guessed the wrong hole</h2>
+      <div style="font-size:17px; line-height:1.6; color:#43413D; max-width:70ch; margin-bottom:14px; text-wrap:pretty;">It predicted that Questions would be the biggest dead end and that the four upper pages needed exits pointing at Start. Reading the files says otherwise: <span style="color:#1A1A1A; font-weight:500;">every page already routes to Start at least twice</span>, and every page routes home. The upper funnel was never the problem.</div>
+      <div style="font-size:17px; line-height:1.6; color:#43413D; max-width:70ch; text-wrap:pretty;">The hole was where it said it was second: <span style="color:#1A1A1A; font-weight:500;">after submit</span>. There was no confirmation, no failure state, no fallback contact, and a refresh wiped the visitor's answers. All four are now built.</div>
+    </div>
+
+    <div style="border-top:1px solid #E9E6E1; margin-top:clamp(30px,4vw,44px); padding-top:clamp(24px,3vw,32px);">
+      <h2 style="margin:0 0 6px; font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:clamp(20px,2.2vw,26px); letter-spacing:-0.028em;">Two decisions, then this ships</h2>
+      <div style="font-size:17px; line-height:1.55; color:#5C5A56; margin-bottom:20px; max-width:64ch;">Neither is a build task. Both are things only you can answer.</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px;">
+        <sc-for list="{{ decisions }}" as="d" hint-placeholder-count="2">
+          <div style="border:1px solid #E0D9CF; background:#fff; border-radius:16px; padding:22px;">
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:18px; letter-spacing:-0.02em; margin-bottom:8px;">{{ d.title }}</div>
+            <div style="font-size:15px; line-height:1.55; color:#5C5A56; margin-bottom:12px;">{{ d.body }}</div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.08em; color:#8F3D14;">{{ d.unblocks }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="font-size:15px; color:#5C5A56; margin-top:26px;">Verify any claim here against <a href="./Levarum%20Site%20Check.dc.html">the site check</a>, which re-reads every file on load.</div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1180 }
+}">
+class Component extends DCLogic {
+  STAGES = [
+    {
+      stage: 'STAGE 1 — ENTRY', note: 'one page, four ways out', arrow: '↓', cols: 1,
+      nodes: [{
+        title: 'Home', badge: 'built', file: 'Levarum Home v2.dc.html', href: './Levarum%20Home%20v2.dc.html',
+        rows: [
+          ['JOB', 'Land the pitch — get your week back. Hours only, no dollar figures anywhere.'],
+          ['EXITS', '2 routes to Start (nav button, hero CTA) · 3 each to How it works, What we automate, Questions'],
+          ['UNMEASURED', 'No analytics, so entry source is still unknown. Deliberate for now.'],
+        ],
+      }],
+    },
+    {
+      stage: 'STAGE 2 — CONSIDERATION', note: 'visitor-chosen order; none of these is a dead end', arrow: '↓', cols: 3,
+      nodes: [
+        {
+          title: 'How it works', badge: 'built', file: 'Levarum How It Works.dc.html', href: './Levarum%20How%20It%20Works.dc.html',
+          rows: [
+            ['ANSWERS', '"What actually happens after I sign up?"'],
+            ['EXITS', '3 routes to Start — the strongest converter on the site'],
+          ],
+        },
+        {
+          title: 'What we automate', badge: 'built', file: 'Levarum What We Automate.dc.html', href: './Levarum%20What%20We%20Automate.dc.html',
+          rows: [
+            ['ANSWERS', '"Is my kind of work on this list?"'],
+            ['EXITS', '2 routes to Start · self-qualification is by reading, not by a filter'],
+          ],
+        },
+        {
+          title: 'Questions', badge: 'blocked', file: 'Levarum Questions.dc.html', href: './Levarum%20Questions.dc.html',
+          rows: [
+            ['ANSWERS', 'Cost, time, safety, staff. Keyboard-accessible rows.'],
+            ['EXITS', '2 routes to Start — not the dead end the proposal predicted'],
+            ['BLOCKED', 'The cost answer still has no real pricing policy behind it'],
+          ],
+        },
+      ],
+    },
+    {
+      stage: 'STAGE 3 — CONVERT', note: 'the only page with a job; five addressable steps', arrow: '↓', cols: 1,
+      nodes: [{
+        title: 'Start — the one intake', badge: 'sim', file: 'Levarum Start.dc.html', href: './Levarum%20Start.dc.html',
+        rows: [
+          ['STEPS', 'step1 business + hours · step2 time sinks · step3 what you get · gate email · plan. Each is a #hash you can link straight to.'],
+          ['CAPTURES', 'Business type, back-office hours band, time sinks, email, chosen call slot'],
+          ['SURVIVES', 'Every answer is saved on the device and restored on refresh. "Start again" clears it.'],
+          ['VALIDATES', 'Pick at least one time sink · email must look like an email'],
+          ['SENDS', 'Prototype mode holds everything locally. Set an endpoint and the same payload POSTs as JSON.'],
+        ],
+      }],
+    },
+    {
+      stage: 'STAGE 4 — POST-SUBMIT', note: 'this is what was missing; it is built now', arrow: '↓', cols: 3,
+      nodes: [
+        {
+          title: 'Confirmation', badge: 'built', file: 'inside the plan screen', href: './Levarum%20Start.dc.html#plan',
+          rows: [
+            ['SAYS', 'Booked for the slot, then three numbered lines: we read your answers first, the invite lands in your inbox, the call decides whether to build.'],
+            ['TIMING', 'The reply window is a tweak — change it without touching code.'],
+          ],
+        },
+        {
+          title: 'Failure', badge: 'built', file: 'inside the plan screen', href: './Levarum%20Start.dc.html#plan',
+          rows: [
+            ['SAYS', '"That did not go through." The plan stays on screen, answers stay saved.'],
+            ['OFFERS', 'Try again, or a mailto that carries the whole answer set in the body so nothing is retyped.'],
+          ],
+        },
+        {
+          title: 'Your follow-up', badge: 'blocked', file: 'Levarum Admin.dc.html', href: './Levarum%20Admin.dc.html',
+          rows: [
+            ['NOW EXISTS', 'The request lands in the Admin inbox as New, and you move it through to Booked from there.'],
+            ['BLOCKED', 'Still needs a real endpoint so it reaches you rather than sitting on the visitor\u2019s device, and your real availability behind the slots.'],
+          ],
+        },
+      ],
+    },
+    {
+      stage: 'STAGE 5 — HANDOFF TO YOU', note: 'where the visitor stops and you start', arrow: '', cols: 3,
+      nodes: [
+        {
+          title: 'Submission store', badge: 'sim', file: 'levarum.submissions.v1', href: './Levarum%20Start.dc.html#plan',
+          rows: [
+            ['WRITES', 'Unlocking a plan appends one record — id, business, hours band, time sinks, hours back, email, chosen slot, timestamp, and a status of New.'],
+            ['WHERE', 'Prototype mode writes it to this device and nowhere else. Live mode POSTs the same JSON shape to your endpoint instead, and the store becomes your server.'],
+          ],
+        },
+        {
+          title: 'Admin login', badge: 'sim', file: 'Levarum Admin.dc.html', href: './Levarum%20Admin.dc.html',
+          rows: [
+            ['GATES', 'A user and password checked in the browser. Enough to gate a demo, not enough for the internet — the page says so itself.'],
+            ['NOT IN NAV', 'Reachable from one small footer link. It is never in the public navigation.'],
+          ],
+        },
+        {
+          title: 'Inbox and status', badge: 'built', file: 'Levarum Admin.dc.html', href: './Levarum%20Admin.dc.html',
+          rows: [
+            ['SHOWS', 'One row per request — status pill, reference, age, business, hours back a week, time-sink chips, and the email to reply to.'],
+            ['WORKFLOW', 'New → Contacted → Booked → Done. Every change writes straight back to the store, so it survives a refresh.'],
+            ['BLOCKED', 'Real server-side auth and a server-held list, once an endpoint exists.'],
+          ],
+        },
+      ],
+    },
+  ];
+
+  DECISIONS = [
+    { title: 'Prototype or live?', body: 'Start ships with a mode switch. Prototype keeps everything on the device and shows a line saying so. Live posts the answers as JSON to whatever endpoint you paste in — a form service, a webhook, your own handler. Nothing else changes.', unblocks: 'UNBLOCKS THE WHOLE POST-SUBMIT CHAIN' },
+    { title: 'When do you call back?', body: 'The confirmation currently promises "within one working day" because it needed to promise something. Give me the real window and the three fake call slots become your real availability.', unblocks: 'UNBLOCKS THE BOOKING SCREEN' },
+  ];
+
+  renderVals() {
+    const BADGE = {
+      built: { fg: '#3F6212', bg: '#EAF2DC', label: 'BUILT' },
+      sim: { fg: '#8A5A16', bg: '#FDF3D7', label: 'SCREENS BUILT, SEND SIMULATED' },
+      blocked: { fg: '#9F1239', bg: '#FCE7EC', label: 'BLOCKED ON YOU' },
+    };
+    const pill = (k) => ({
+      fontFamily: "'Schibsted Grotesk',sans-serif", fontWeight: 600, fontSize: '11px',
+      letterSpacing: '0.09em', padding: '4px 8px', borderRadius: '4px',
+      color: BADGE[k].fg, background: BADGE[k].bg, whiteSpace: 'nowrap',
+    });
+
+    const stages = this.STAGES.map(st => ({
+      stage: st.stage, note: st.note, arrow: st.arrow, hasArrow: !!st.arrow,
+      gridStyle: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(' + (st.cols === 1 ? '320px' : '270px') + ',1fr))', gap: '14px' },
+      nodes: st.nodes.map(n => ({
+        title: n.title, file: n.file, href: n.href,
+        badge: BADGE[n.badge].label, badgeStyle: pill(n.badge),
+        cardStyle: {
+          background: '#fff', border: '1px solid #E0D9CF',
+          borderLeft: '3px solid ' + BADGE[n.badge].fg,
+          borderRadius: '4px', padding: '20px 22px',
+        },
+        fileStyle: { fontFamily: 'ui-monospace,SFMono-Regular,Menlo,monospace', fontSize: '12px', color: '#5C5A56', wordBreak: 'break-all' },
+        rows: n.rows.map(([k, v]) => ({ k, v })),
+      })),
+    }));
+
+    const keys = ['built', 'sim', 'blocked'].map(k => ({
+      label: BADGE[k].label + (k === 'built' ? ' — read out of the files' : k === 'sim' ? ' — every screen works, the submission stays on the device' : ' — needs your answer, not code'),
+      style: pill(k),
+    }));
+
+    return { stages, keys, decisions: this.DECISIONS };
+  }
+}
+</script>
+</body>
+</html>

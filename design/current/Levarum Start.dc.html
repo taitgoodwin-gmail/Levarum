@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  html{ color-scheme:light; background:var(--lv-page); }
+  body{ margin:0; -webkit-font-smoothing:antialiased; background:var(--lv-page); min-height:100vh; }
+  :root{
+    --lv-page:#FBF6F2; --lv-surface:#FFFFFF; --lv-band:#E4E0DA;
+    --lv-dark:#1A1A1A; --lv-dark-surface:#242422;
+    --lv-ink:#1A1A1A; --lv-ink-hover:#333330; --lv-ink-quiet:#5C5A56; --lv-ink-placeholder:#73706C;
+    --lv-dark-ink:#EDE6D6; --lv-dark-quiet:#B9B6B1;
+    --lv-line:#E9E6E1; --lv-line-control:#8F8C88; --lv-dark-line:#3A3A38; --lv-dark-line-control:#7F7C74;
+    --lv-accent:#8F3D14; --lv-spark:#D4622A; --lv-spark-deep:#B5511F; --lv-spark-soft:#E08A5C;
+    --lv-sec:var(--lv-brand-petrol); --lv-sec-tint:color-mix(in srgb, var(--lv-brand-petrol) 20%, var(--lv-page)); --lv-sec-on-dark:color-mix(in srgb, var(--lv-brand-petrol) 45%, var(--lv-dark-ink));
+    --lv-tint:color-mix(in srgb, var(--lv-brand-petrol) 12%, var(--lv-page)); --lv-accent-tint:color-mix(in srgb, var(--lv-accent) 7%, var(--lv-page));
+    --lv-accent-hover:color-mix(in srgb, var(--lv-accent) 80%, var(--lv-ink));
+    --lv-ok-on-dark:color-mix(in srgb, var(--lv-brand-forest) 40%, var(--lv-dark-ink));
+    --lv-ok:var(--lv-brand-forest); --lv-ok-tint:color-mix(in srgb, var(--lv-brand-forest) 9%, var(--lv-page));
+    --lv-alert-surface:#2A1712; --lv-alert-line:#7A3524; --lv-alert-ink:#F3D9CF; --lv-alert-quiet:#E8C9BE; --lv-alert-detail:#B08A7E; --lv-alert-on-ink:#5A1E10; --lv-alert-btn-line:#C97A63;
+    --lv-brand-ink:#1A1A1A; --lv-brand-rust:#BF4F1F; --lv-brand-petrol:#2E5C74; --lv-brand-forest:#3E6B4A; --lv-brand-plum:#5B4B8A; --lv-brand-sand:#A67C4E; --lv-brand-slate:#4A5B7A; --lv-brand-teal:#1F5C57;
+    --lv-t-mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+    --lv-t-cap:13px; --lv-t-xs:14px; --lv-t-sm:15px; --lv-t-md:16px; --lv-t-body:17px; --lv-t-lg:19px; --lv-t-xl:22px;
+    --lv-d-hero:clamp(44px,6.2vw,84px); --lv-d-1:clamp(36px,5vw,68px); --lv-d-2:clamp(32px,4.2vw,52px); --lv-d-3:clamp(30px,3.4vw,44px); --lv-d-4:clamp(22px,2.4vw,28px); --lv-d-5:clamp(19px,2vw,22px); --lv-d-6:clamp(17px,1.5vw,20px); --lv-d-7:clamp(16px,1.4vw,18px);
+    --lv-s-1:2px; --lv-s-2:6px; --lv-s-3:10px; --lv-s-4:12px; --lv-s-5:16px; --lv-s-6:20px; --lv-s-7:26px; --lv-s-8:34px; --lv-s-9:54px;
+    --lv-g-1:clamp(22px,2.6vw,28px); --lv-g-2:clamp(22px,3vw,34px); --lv-g-3:clamp(28px,4vw,44px); --lv-g-4:clamp(32px,4.5vw,60px); --lv-g-5:clamp(50px,6vw,78px);
+    --lv-r-chip:8px; --lv-r-control:13px; --lv-r-card:20px; --lv-r-round:50%; --lv-r-pill:100px;
+    --lv-tap:56px;
+    --lv-link:var(--lv-sec); --lv-link-hover:color-mix(in srgb, var(--lv-sec) 74%, var(--lv-ink)); --lv-link-on-dark:var(--lv-sec-on-dark);
+    --lv-dark-petrol:color-mix(in srgb, var(--lv-brand-petrol) 32%, var(--lv-dark)); --lv-dark-petrol-surface:color-mix(in srgb, var(--lv-brand-petrol) 24%, var(--lv-dark-surface)); --lv-dark-petrol-line:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-dark-line));
+    --lv-rung-1:var(--lv-page); --lv-rung-2:color-mix(in srgb, var(--lv-brand-petrol) 5%, var(--lv-page)); --lv-rung-3:color-mix(in srgb, var(--lv-brand-petrol) 9%, var(--lv-page)); --lv-rung-4:color-mix(in srgb, var(--lv-brand-petrol) 14%, var(--lv-page));
+    --lv-meter-track:color-mix(in srgb, var(--lv-brand-petrol) 16%, var(--lv-page)); --lv-meter-fill:var(--lv-sec); --lv-meter-fill-quiet:color-mix(in srgb, var(--lv-brand-petrol) 85%, var(--lv-page)); --lv-meter-track-dark:color-mix(in srgb, var(--lv-brand-petrol) 30%, var(--lv-dark-surface));
+    --lv-shadow-sm:0 10px 30px rgba(26,26,26,.06); --lv-shadow-lg:0 26px 60px rgba(26,26,26,.10);
+    --lv-ease:cubic-bezier(.2,.7,.2,1); --lv-ease-lift:cubic-bezier(.2,.8,.2,1); --lv-dur-1:.18s; --lv-dur-2:.5s; --lv-dur-3:.7s;
+  }
+  [data-theme="dark"]{
+    color-scheme:dark;
+    --lv-page:color-mix(in srgb, var(--lv-brand-petrol) 22%, var(--lv-dark));
+    --lv-surface:color-mix(in srgb, var(--lv-brand-petrol) 26%, var(--lv-dark-surface));
+    --lv-band:color-mix(in srgb, var(--lv-dark-ink) 10%, var(--lv-page));
+    --lv-ink:var(--lv-dark-ink);
+    --lv-ink-hover:color-mix(in srgb, var(--lv-dark-ink) 80%, var(--lv-page));
+    --lv-ink-quiet:var(--lv-dark-quiet);
+    --lv-ink-placeholder:color-mix(in srgb, var(--lv-dark-ink) 62%, var(--lv-page));
+    --lv-line:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-dark-line));
+    --lv-line-control:var(--lv-dark-line-control);
+    --lv-accent:color-mix(in srgb, var(--lv-brand-rust) 45%, var(--lv-dark-ink));
+    --lv-accent-hover:color-mix(in srgb, var(--lv-accent) 82%, var(--lv-dark-ink));
+    --lv-accent-tint:color-mix(in srgb, var(--lv-brand-rust) 26%, var(--lv-page));
+    --lv-sec:color-mix(in srgb, var(--lv-brand-petrol) 38%, var(--lv-dark-ink));
+    --lv-sec-tint:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-page));
+    --lv-link:var(--lv-sec);
+    --lv-link-hover:color-mix(in srgb, var(--lv-brand-petrol) 22%, var(--lv-dark-ink));
+    --lv-tint:color-mix(in srgb, var(--lv-dark-ink) 8%, var(--lv-page));
+    --lv-rung-1:var(--lv-page);
+    --lv-rung-2:color-mix(in srgb, var(--lv-dark-ink) 4%, var(--lv-page));
+    --lv-rung-3:color-mix(in srgb, var(--lv-dark-ink) 8%, var(--lv-page));
+    --lv-rung-4:color-mix(in srgb, var(--lv-dark-ink) 13%, var(--lv-page));
+    --lv-dark-petrol:color-mix(in srgb, var(--lv-dark-ink) 10%, var(--lv-page));
+    --lv-dark-petrol-surface:color-mix(in srgb, var(--lv-dark-ink) 15%, var(--lv-page));
+    --lv-dark-petrol-line:color-mix(in srgb, var(--lv-dark-ink) 24%, var(--lv-page));
+    --lv-meter-track:color-mix(in srgb, var(--lv-dark-ink) 16%, var(--lv-page));
+    --lv-meter-fill:var(--lv-sec);
+    --lv-meter-fill-quiet:color-mix(in srgb, var(--lv-brand-petrol) 52%, var(--lv-dark-ink));
+    --lv-ok:color-mix(in srgb, var(--lv-brand-forest) 38%, var(--lv-dark-ink));
+    --lv-ok-tint:color-mix(in srgb, var(--lv-brand-forest) 22%, var(--lv-page));
+    --lv-spark-deep:color-mix(in srgb, var(--lv-spark) 60%, var(--lv-dark-ink));
+  }
+  [data-theme-label-dark]{ display:none; }
+  [data-theme="dark"] [data-theme-label-light]{ display:none; }
+  [data-theme="dark"] [data-theme-label-dark]{ display:inline; }
+  [data-theme="dark"] [data-theme-dot]{ background:currentColor; }
+  [data-theme="dark"] [data-btn-spark]{ color:var(--lv-dark); }
+  [data-theme-toggle]{ transition:border-color var(--lv-dur-1) ease, color var(--lv-dur-1) ease; }
+  [data-theme-toggle]:hover{ border-color:var(--lv-sec); color:var(--lv-ink); }
+  a{ color:var(--lv-link); text-decoration:none; }
+  a:hover{ color:var(--lv-link-hover); }
+  a:focus-visible, button:focus-visible, select:focus-visible, input:focus-visible, [tabindex]:focus-visible{ outline:2px solid var(--lv-accent); outline-offset:3px; border-radius:var(--lv-r-chip); }
+  [data-skip-link]{ position:absolute; left:-9999px; top:0; z-index:200; background:var(--lv-ink); color:var(--lv-page); padding:var(--lv-s-3) var(--lv-s-5); border-radius:var(--lv-r-control); font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-sm); text-decoration:none; }
+  [data-skip-link]:focus{ left:var(--lv-s-5); top:var(--lv-s-5); }
+  [data-btn]{ transition:background var(--lv-dur-1) ease, box-shadow var(--lv-dur-1) ease, transform var(--lv-dur-1) ease; }
+  [data-btn]:hover{ box-shadow:var(--lv-shadow-sm), inset 0 0 0 999px rgba(255,255,255,.11); }
+  [data-btn]:active{ transform:translateY(1px); box-shadow:inset 0 0 0 999px rgba(0,0,0,.06); }
+  [data-btn][aria-disabled="true"]{ opacity:.45; pointer-events:none; }
+  [data-card]{ transition:border-color var(--lv-dur-1) ease, box-shadow var(--lv-dur-1) ease, transform var(--lv-dur-1) ease; }
+  [data-card]:hover{ border-color:var(--lv-sec); box-shadow:var(--lv-shadow-sm); transform:translateY(-2px); }
+  [data-card]:active{ transform:none; box-shadow:none; }
+  [data-field]{ transition:border-color var(--lv-dur-1) ease, box-shadow var(--lv-dur-1) ease; }
+  [data-field]:hover{ border-color:var(--lv-sec); }
+  [data-field]:active{ border-color:var(--lv-accent); }
+  [data-field]:disabled, [data-field][aria-disabled="true"]{ opacity:.45; pointer-events:none; }
+  [data-quiet-link]{ transition:color var(--lv-dur-1) ease; }
+  [data-quiet-link]:hover{ color:var(--lv-sec); }
+  [data-quiet-link]:active{ color:var(--lv-link-hover); }
+  [data-choice]{ transition:border-color var(--lv-dur-1) ease, background var(--lv-dur-1) ease; }
+  [data-choice]:hover{ border-color:var(--lv-ink-quiet); }
+  [data-choice]:active{ transform:translateY(1px); }
+  input{ font-family:'Instrument Sans',sans-serif; }
+  input::placeholder{ color:var(--lv-ink-placeholder); }
+  [data-nav]{ align-items:center; }
+  @media (max-width:680px){
+    [data-nav]{ flex-direction:column; align-items:flex-start; gap:var(--lv-s-4); }
+    [data-navlinks]{ margin-left:0 !important; width:100%; justify-content:flex-start; row-gap:var(--lv-s-3); }
+    [data-quiet-link], [data-navlinks] a, [data-foot] a{ min-height:44px; display:inline-flex; align-items:center; }
+  }
+  @keyframes lvLift{ from{ opacity:.35; transform:translateY(9px); } to{ opacity:1; transform:none; } }
+  @keyframes lvRise{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:none; } }
+  @keyframes lvPulse{ 0%,100%{ opacity:.3; } 50%{ opacity:1; } }
+  @keyframes lvFade{ from{ opacity:0; } to{ opacity:1; } }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+<script>
+(function(){
+  var K='levarum.theme.v1', D=document.documentElement;
+  function stored(){ try{ return localStorage.getItem(K); }catch(e){ return null; } }
+  function pref(){ try{ return window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'; }catch(e){ return 'light'; } }
+  D.setAttribute('data-theme', stored() || pref());
+  if (window.__lvThemeBound) return;
+  window.__lvThemeBound = true;
+  document.addEventListener('click', function(e){
+    var n=e.target, hit=null;
+    while(n && n!==document){ if(n.getAttribute && n.getAttribute('data-theme-toggle')!==null){ hit=n; break; } n=n.parentNode; }
+    if(!hit) return;
+    var next = D.getAttribute('data-theme')==='dark' ? 'light' : 'dark';
+    D.setAttribute('data-theme', next);
+    try{ localStorage.setItem(K, next); }catch(err){}
+  });
+  try{ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(ev){ if(!stored()) D.setAttribute('data-theme', ev.matches?'dark':'light'); }); }catch(e){}
+})();
+(function(){
+  if (window.__lvMeters) return;
+  window.__lvMeters = true;
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+  if (reduce || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      var el = en.target; io.unobserve(el);
+      var target = el.getAttribute('data-lv-w') || el.style.width || '100%';
+      el.style.transition = 'none'; el.style.width = '0%';
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){
+        el.style.transition = 'width 900ms cubic-bezier(.2,.7,.2,1)';
+        el.style.width = target;
+      }); });
+    });
+  }, { threshold: 0.3 });
+  function scan(){
+    var list = document.querySelectorAll('[data-meter]');
+    for (var i=0;i<list.length;i++){
+      var el = list[i];
+      if (el.getAttribute('data-lv-seen')) continue;
+      el.setAttribute('data-lv-seen','1');
+      el.setAttribute('data-lv-w', el.style.width || '100%');
+      io.observe(el);
+    }
+  }
+  scan(); setTimeout(scan, 500); setTimeout(scan, 1400); setTimeout(scan, 3000);
+})();
+</script>
+</helmet>
+
+<div style="{{ pageStyle }}">
+  <a data-skip-link href="#lv-main">Skip to content</a>
+
+  <header style="{{ bandStyle }}">
+    <nav aria-label="Primary" style="max-width:1180px; margin:0 auto; padding:var(--lv-s-5) var(--lv-s-7); display:flex; align-items:center; gap:var(--lv-s-6); flex-wrap:wrap;" data-nav>
+      <a href="./Levarum%20Home%20v2.dc.html" style="{{ logoLinkStyle }}">
+        <sc-if value="{{ logoIsTile }}" hint-placeholder-val="{{ false }}">
+          <span style="{{ logoTileStyle }}"><svg width="22" height="22" viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="{{ logoKnockStyle }}"><path d="M6 44 A26 26 0 0 1 58 44 Z" fill="currentColor" style="{{ logoDomeAnim }}"></path><rect x="6" y="52" width="52" height="9" fill="currentColor"></rect></svg></span>
+        </sc-if>
+        <sc-if value="{{ logoIsBadge }}" hint-placeholder-val="{{ false }}">
+          <span style="{{ logoBadgeStyle }}"><svg width="20" height="20" viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="{{ logoKnockStyle }}"><path d="M6 44 A26 26 0 0 1 58 44 Z" fill="currentColor" style="{{ logoDomeAnim }}"></path><rect x="6" y="52" width="52" height="9" fill="currentColor"></rect></svg></span>
+        </sc-if>
+        <sc-if value="{{ logoIsPlain }}" hint-placeholder-val="{{ true }}">
+          <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="{{ markStyle }}"><path d="M6 44 A26 26 0 0 1 58 44 Z" fill="currentColor" style="{{ logoDomeAnim }}"></path><rect x="6" y="52" width="52" height="9" fill="currentColor"></rect></svg>
+        </sc-if>
+        <sc-if value="{{ logoIsRule }}" hint-placeholder-val="{{ false }}">
+          <svg width="30" height="30" viewBox="0 0 64 64" aria-hidden="true" focusable="false" style="{{ markStyle }}"><rect x="6" y="52" width="52" height="9" fill="currentColor"></rect></svg>
+        </sc-if>
+        <span style="{{ wordStyle }}">Levarum</span>
+      </a>
+      <div style="display:flex; gap:var(--lv-s-6); margin-left:auto; align-items:center; flex-wrap:wrap;" data-navlinks>
+        <a href="./Levarum%20How%20It%20Works.dc.html" data-quiet-link style="{{ navLinkStyle }}">How it works</a>
+        <a href="./Levarum%20What%20We%20Automate.dc.html" data-quiet-link style="{{ navLinkStyle }}">What we automate</a>
+        <a href="./Levarum%20Questions.dc.html" data-quiet-link style="{{ navLinkStyle }}">Questions</a>
+        <button type="button" data-theme-toggle style="display:inline-flex; align-items:center; gap:var(--lv-s-2); min-height:44px; padding:0 var(--lv-s-4); background:transparent; border:1px solid var(--lv-line-control); border-radius:var(--lv-r-control); color:var(--lv-ink-quiet); font-family:'Instrument Sans',sans-serif; font-size:var(--lv-t-xs); cursor:pointer; white-space:nowrap;"><span aria-hidden="true" data-theme-dot style="width:11px; height:11px; border-radius:var(--lv-r-round); border:1.5px solid currentColor; background:linear-gradient(90deg, currentColor 50%, transparent 50%);"></span><span data-theme-label-light>Dark</span><span data-theme-label-dark>Light</span></button>
+        <a href="./Levarum%20Start.dc.html" aria-current="page" style="{{ navCurrentStyle }}">Start</a>
+      </div>
+    </nav>
+    <sc-if value="{{ isPrototype }}" hint-placeholder-val="{{ true }}">
+      <div style="{{ protoBarStyle }}">Prototype — answers stay on this device and nothing is sent anywhere.</div>
+    </sc-if>
+  </header>
+
+  <main id="lv-main">
+  <div style="max-width:760px; margin:0 auto; padding:var(--lv-g-4) var(--lv-s-7) var(--lv-g-5);">
+
+    <!-- progress -->
+    <sc-if value="{{ showProgress }}" hint-placeholder-val="{{ true }}">
+      <div style="margin-bottom:var(--lv-g-2); animation:lvFade .4s ease-out both;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:var(--lv-s-5); margin-bottom:var(--lv-s-4);">
+          <span style="{{ metaStyle }}">{{ stepLabel }}</span>
+          <span style="{{ metaStyle }}">About 90 seconds in total</span>
+        </div>
+        <div style="{{ trackStyle }}">
+          <span style="{{ bar1 }}"></span>
+          <span style="{{ bar2 }}"></span>
+          <span style="{{ bar3 }}"></span>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- STEP 1 -->
+    <sc-if value="{{ isStep1 }}" hint-placeholder-val="{{ true }}">
+      <div data-step="step1" data-screen-label="Start · step 1" style="animation:lvRise .5s var(--lv-ease) both;">
+        <h1 style="margin:0 0 var(--lv-s-5); font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-2); line-height:1.02; letter-spacing:-0.035em; text-wrap:balance;">{{ cS1Head }}</h1>
+        <div style="{{ leadStyle }}">{{ cS1Sub }}</div>
+
+        <div style="{{ cardStyle }}">
+          <div style="{{ fieldLabelStyle }}">What kind of business is this?</div>
+          <select data-field value="{{ business }}" onChange="{{ setBusiness }}" aria-label="What kind of business is this?" style="{{ selectStyle }}">
+            <option value="Trades &amp; home services">Trades &amp; home services</option>
+            <option value="Medical, dental or vet practice">Medical, dental or vet practice</option>
+            <option value="Salon, barber or studio">Salon, barber or studio</option>
+            <option value="Agency or consultancy">Agency or consultancy</option>
+            <option value="Online shop">Online shop</option>
+            <option value="Restaurant, cafe or bar">Restaurant, cafe or bar</option>
+            <option value="Property management">Property management</option>
+            <option value="Something else">Something else</option>
+          </select>
+
+          <div style="{{ fieldLabelStyle }}">About how many hours a week go to back-office work?</div>
+          <div role="radiogroup" aria-label="Hours a week on back-office work" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:var(--lv-s-3);">
+            <sc-for list="{{ hourOpts }}" as="h" hint-placeholder-count="4">
+              <div onClick="{{ h.onClick }}" onKeyDown="{{ h.onKeyDown }}" role="radio" aria-checked="{{ h.selected }}" tabindex="0" data-choice style="{{ h.style }}">{{ h.label }}</div>
+            </sc-for>
+          </div>
+        </div>
+
+        <div onClick="{{ goStep2 }}" onKeyDown="{{ kGoStep2 }}" role="button" tabindex="0" data-btn style="{{ ctaTopStyle }}">{{ cNext }}</div>
+        <div style="{{ microStyle }}">{{ cMicro }}</div>
+      </div>
+    </sc-if>
+
+    <!-- STEP 2 -->
+    <sc-if value="{{ isStep2 }}" hint-placeholder-val="{{ false }}">
+      <div data-step="step2" data-screen-label="Start · step 2" style="animation:lvRise .5s var(--lv-ease) both;">
+        <h1 style="margin:0 0 var(--lv-s-5); font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-2); line-height:1.02; letter-spacing:-0.035em; text-wrap:balance;">{{ cS2Head }}</h1>
+        <div style="{{ leadStyle }}">{{ cS2Sub }}</div>
+        <div style="display:flex; flex-direction:column; gap:var(--lv-s-3);">
+          <sc-for list="{{ painRows }}" as="p" hint-placeholder-count="5">
+            <div onClick="{{ p.onClick }}" onKeyDown="{{ p.onKeyDown }}" role="checkbox" aria-checked="{{ p.checked }}" tabindex="0" data-choice style="{{ p.rowStyle }}">
+              <span style="{{ p.boxStyle }}">{{ p.tick }}</span>
+              <span style="{{ rowTextStyle }}">{{ p.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex; gap:var(--lv-s-4); margin-top:var(--lv-s-6); flex-wrap:wrap;">
+          <div onClick="{{ goStep1 }}" onKeyDown="{{ kGoStep1 }}" role="button" tabindex="0" data-btn style="{{ ctaGhostStyle }}">Back</div>
+          <div onClick="{{ goStep3 }}" onKeyDown="{{ kGoStep3 }}" role="button" tabindex="0" data-btn style="{{ ctaFlexStyle }}">{{ cNext }}</div>
+        </div>
+        <sc-if value="{{ painError }}" hint-placeholder-val="{{ false }}">
+          <div style="{{ errorStyle }}">Pick at least one, even if none of them is perfect.</div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <!-- STEP 3 -->
+    <sc-if value="{{ isStep3 }}" hint-placeholder-val="{{ false }}">
+      <div data-step="step3" data-screen-label="Start · step 3" style="animation:lvRise .5s var(--lv-ease) both;">
+        <h1 style="margin:0 0 var(--lv-s-5); font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-2); line-height:1.02; letter-spacing:-0.035em; text-wrap:balance;">{{ cS3Head }}</h1>
+        <div style="{{ leadStyle }}">{{ cS3Sub }}</div>
+        <div style="{{ cardListStyle }}">
+          <div style="display:flex; gap:var(--lv-s-5);"><span style="{{ numStyle }}">1</span><span style="{{ listTextStyle }}">The handful of jobs worth handing off first</span></div>
+          <div style="display:flex; gap:var(--lv-s-5);"><span style="{{ numStyle }}">2</span><span style="{{ listTextStyle }}">Roughly how many hours that gives you back each week</span></div>
+          <div style="display:flex; gap:var(--lv-s-5);"><span style="{{ numStyle }}">3</span><span style="{{ listTextStyle }}">The one thing I would fix before anything else</span></div>
+        </div>
+        <div style="display:flex; gap:var(--lv-s-4); margin-top:var(--lv-s-6); flex-wrap:wrap;">
+          <div onClick="{{ goStep2 }}" onKeyDown="{{ kGoStep2 }}" role="button" tabindex="0" data-btn style="{{ ctaGhostStyle }}">Back</div>
+          <div onClick="{{ goGate }}" onKeyDown="{{ kGoGate }}" role="button" tabindex="0" data-btn style="{{ ctaFlexStyle }}">{{ cBuild }}</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- GATE -->
+    <sc-if value="{{ isGate }}" hint-placeholder-val="{{ false }}">
+      <div data-step="gate" data-screen-label="Start · gate" style="animation:lvRise .5s var(--lv-ease) both;">
+        <div style="{{ eyebrowStyle }}">{{ cGateEyebrow }}</div>
+        <h1 style="margin:0 0 var(--lv-s-7); font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-3); line-height:1.04; letter-spacing:-0.035em; text-wrap:balance;">{{ gateHeadline }}</h1>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:var(--lv-s-5); margin-bottom:var(--lv-s-5);">
+          <div style="{{ statCardStyle }}">
+            <div style="{{ statLabelStyle }}">Hours back, every week</div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-3); letter-spacing:-0.03em; line-height:1;">{{ hoursLabel }}</div>
+          </div>
+          <div style="{{ statCardStyle }}">
+            <div style="{{ statLabelStyle }}">Jobs worth handing off</div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-3); letter-spacing:-0.03em; line-height:1;">{{ jobCount }}</div>
+          </div>
+        </div>
+
+        <div style="{{ summaryStyle }}">
+          <div style="{{ smallCapStyle }}">WHAT YOU TOLD ME</div>
+          <div style="display:flex; justify-content:space-between; gap:var(--lv-s-5); margin-bottom:var(--lv-s-3);"><span style="{{ summaryKeyStyle }}">Business</span><span style="font-size:var(--lv-t-sm); font-weight:500; text-align:right;">{{ business }}</span></div>
+          <div style="display:flex; justify-content:space-between; gap:var(--lv-s-5); margin-bottom:var(--lv-s-4);"><span style="{{ summaryKeyStyle }}">Back-office</span><span style="font-size:var(--lv-t-sm); font-weight:500;">{{ hoursBand }} hrs / week</span></div>
+          <div style="display:flex; flex-wrap:wrap; gap:var(--lv-s-2);">
+            <sc-for list="{{ pickedLabels }}" as="p" hint-placeholder-count="3">
+              <span style="{{ pillStyle }}">{{ p.label }}</span>
+            </sc-for>
+          </div>
+        </div>
+
+        <div style="{{ dividerBlockStyle }}">
+          <h2 style="{{ askHeadStyle }}">{{ cGateAsk }}</h2>
+          <div style="{{ askSubStyle }}">You will see it on screen straight away — the email is so you can keep it.</div>
+          <div style="display:flex; gap:var(--lv-s-4); flex-wrap:wrap;">
+            <input data-field type="email" value="{{ email }}" onInput="{{ setEmail }}" placeholder="you@yourbusiness.com" aria-label="Your email address" style="{{ emailStyle }}" />
+            <div onClick="{{ tryUnlock }}" onKeyDown="{{ kUnlock }}" role="button" tabindex="0" data-btn style="{{ ctaUnlockStyle }}">{{ cUnlock }}</div>
+          </div>
+          <sc-if value="{{ emailError }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ errorStyle }}">That does not look like an email yet. Mind checking it?</div>
+          </sc-if>
+          <div onClick="{{ goStep3 }}" onKeyDown="{{ kGoStep3 }}" role="button" tabindex="0" style="{{ backLinkStyle }}">← Back a step</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- PLAN -->
+    <sc-if value="{{ isPlan }}" hint-placeholder-val="{{ false }}">
+      <div data-step="plan" data-screen-label="Start · plan" style="animation:lvRise .5s var(--lv-ease) both;">
+        <div style="{{ eyebrowStyle }}">{{ cPlanEyebrow }}</div>
+        <h1 style="margin:0 0 var(--lv-s-5); font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-2); line-height:1; letter-spacing:-0.038em; text-wrap:balance;">{{ hoursLabel }} a week, back in your hands.</h1>
+        <div style="{{ leadStyle }}">That is about {{ hoursYear }} hours a year — roughly {{ hoursWeeks }} working weeks handed back. An estimate from your answers, not a promise.</div>
+
+        <div style="{{ sectionCapStyle }}">WHERE IT COMES FROM</div>
+        <sc-if value="{{ planWorking }}" hint-placeholder-val="{{ false }}">
+          <div aria-live="polite" style="display:flex; align-items:center; gap:var(--lv-s-3); margin-bottom:var(--lv-s-4); font-size:var(--lv-t-sm); color:var(--lv-sec);">
+            <span aria-hidden="true" style="width:9px; height:9px; border-radius:var(--lv-r-round); background:var(--lv-sec); animation:lvPulse 1.1s ease-in-out infinite;"></span>
+            <span>{{ planWorkingText }}…</span>
+          </div>
+        </sc-if>
+        <div style="display:flex; flex-direction:column; gap:var(--lv-s-3); margin-bottom:var(--lv-s-7);">
+          <sc-for list="{{ opportunities }}" as="o" hint-placeholder-count="3">
+            <div style="{{ oppRowStyle }}">
+              <div style="min-width:0;">
+                <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:var(--lv-t-lg); letter-spacing:-0.02em; line-height:1.3;">{{ o.title }}</span>
+                <div style="height:var(--lv-s-2); border-radius:var(--lv-r-pill); background:var(--lv-meter-track); overflow:hidden; margin:var(--lv-s-3) 0 var(--lv-s-2);">
+                  <div data-meter style="{{ o.barStyle }}"></div>
+                </div>
+                <span style="{{ oppMetaStyle }}">{{ o.hoursText }}</span>
+              </div>
+              <div style="display:flex; align-items:baseline; gap:var(--lv-s-1);">
+                <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:var(--lv-d-4); letter-spacing:-0.035em; line-height:.9;">{{ o.figure }}</span>
+                <span style="{{ oppMetaStyle }}">h</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="{{ fixCardStyle }}">
+          <div style="{{ smallCapStyle }}">FIX THIS FIRST</div>
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-d-5); letter-spacing:-0.025em; line-height:1.2; margin-bottom:var(--lv-s-2);">{{ fixFirst }}</div>
+          <div style="{{ fixWhyStyle }}">{{ fixFirstWhy }}</div>
+        </div>
+
+        <div style="background:var(--lv-dark-petrol); color:var(--lv-dark-ink); border-radius:var(--lv-r-card); padding:var(--lv-g-2);">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-d-4); letter-spacing:-0.03em; line-height:1.1; margin-bottom:var(--lv-s-3);">{{ cBookHead }}</div>
+          <div style="font-size:var(--lv-t-body); line-height:1.55; color:var(--lv-dark-quiet); margin-bottom:var(--lv-s-6); max-width:52ch;">Fifteen minutes, no pitch. I will have your plan open in front of me and we decide whether it is worth building at all.</div>
+          <div style="display:flex; flex-direction:column; gap:var(--lv-s-3); margin-bottom:var(--lv-s-2);">
+            <sc-for list="{{ slots }}" as="s" hint-placeholder-count="3">
+              <div onClick="{{ s.onClick }}" onKeyDown="{{ s.onKeyDown }}" role="button" tabindex="0" data-choice style="{{ s.style }}">
+                <span style="font-size:var(--lv-t-body); font-weight:500;">{{ s.label }}</span>
+                <span style="{{ s.actionStyle }}">{{ s.action }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <sc-if value="{{ sending }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ sendNoteStyle }}">Sending your details…</div>
+          </sc-if>
+
+          <sc-if value="{{ sendFailed }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ failCardStyle }}">
+              <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em; margin-bottom:var(--lv-s-2);">That did not go through.</div>
+              <div style="font-size:var(--lv-t-md); line-height:1.55; color:var(--lv-alert-quiet); margin-bottom:var(--lv-s-5);">Your plan is still on screen and your answers are saved on this device. Try again, or email us and we will pick it up from there.</div>
+              <div style="display:flex; gap:var(--lv-s-4); flex-wrap:wrap;">
+                <div onClick="{{ retrySubmit }}" onKeyDown="{{ kRetry }}" role="button" tabindex="0" data-btn style="{{ retryStyle }}">Try again</div>
+                <a data-btn href="{{ mailtoHref }}" style="{{ mailtoStyle }}">Email us instead</a>
+              </div>
+              <div style="font-size:var(--lv-t-xs); color:var(--lv-alert-detail); margin-top:var(--lv-s-4);">{{ sendError }}</div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ booked }}" hint-placeholder-val="{{ false }}">
+            <div style="margin-top:var(--lv-s-5); border-top:1px solid var(--lv-dark-petrol-line); padding-top:var(--lv-s-5);">
+              <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:var(--lv-t-lg); letter-spacing:-0.02em; margin-bottom:var(--lv-s-4); color:var(--lv-dark-ink);">You are booked for {{ bookedSlot }}.</div>
+              <div style="display:flex; flex-direction:column; gap:var(--lv-s-3); margin-bottom:var(--lv-s-5);">
+                <sc-for list="{{ nextSteps }}" as="n" hint-placeholder-count="3">
+                  <div style="display:flex; gap:var(--lv-s-4); align-items:baseline;">
+                    <span style="{{ n.numStyle }}">{{ n.n }}</span>
+                    <span style="font-size:var(--lv-t-md); line-height:1.5; color:var(--lv-dark-quiet);">{{ n.text }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="font-size:var(--lv-t-sm); color:var(--lv-ink-quiet);">Nothing arrived? <a href="{{ mailtoHref }}" style="{{ mailtoInlineStyle }}">{{ contactEmail }}</a></div>
+            </div>
+          </sc-if>
+        </div>
+
+        <div style="display:flex; gap:var(--lv-s-5); align-items:center; flex-wrap:wrap; margin-top:var(--lv-s-7);">
+          <a data-quiet-link href="./Levarum%20What%20We%20Automate.dc.html" style="font-size:var(--lv-t-md); font-weight:600;">See how each one is built →</a>
+          <a data-quiet-link href="./Levarum%20Questions.dc.html" style="font-size:var(--lv-t-md); font-weight:600;">Still have questions →</a>
+          <a data-quiet-link href="./Levarum%20Home%20v2.dc.html" style="font-size:var(--lv-t-md); font-weight:600;">Back to home →</a>
+          <span onClick="{{ restart }}" onKeyDown="{{ kRestart }}" role="button" tabindex="0" style="{{ restartStyle }}">Start again</span>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+  </main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1280 },
+  &quot;mode&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;prototype&quot;, &quot;options&quot;: [&quot;prototype&quot;, &quot;live&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Delivery&quot; },
+  &quot;formEndpoint&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Delivery&quot; },
+  &quot;contactEmail&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;hello@levarum.co&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Delivery&quot; },
+  &quot;replyWindow&quot;: { &quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;within one working day&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Delivery&quot; },
+  &quot;logoBrand&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;ink&quot;, &quot;options&quot;: [&quot;ink&quot;, &quot;rust&quot;, &quot;petrol&quot;, &quot;forest&quot;, &quot;plum&quot;, &quot;sand&quot;, &quot;slate&quot;, &quot;teal&quot;, &quot;action&quot;, &quot;two-tone&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Logo&quot; },
+  &quot;logoStyle&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;lift&quot;, &quot;options&quot;: [&quot;lift&quot;, &quot;tile&quot;, &quot;rule&quot;, &quot;word&quot;, &quot;stack&quot;, &quot;badge&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Logo&quot; },
+  &quot;logoColor&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;rust&quot;, &quot;options&quot;: [&quot;ink&quot;, &quot;rust&quot;, &quot;petrol&quot;, &quot;forest&quot;, &quot;plum&quot;, &quot;sand&quot;, &quot;slate&quot;, &quot;teal&quot;, &quot;action&quot;, &quot;accent&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Logo&quot; },
+  &quot;actionColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#8F3D14&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;#8F3D14&quot;, &quot;#1A1A1A&quot;, &quot;#BF4F1F&quot;, &quot;#2E5C74&quot;, &quot;#3E6B4A&quot;, &quot;#5B4B8A&quot;, &quot;#A67C4E&quot;, &quot;#4A5B7A&quot;, &quot;#1F5C57&quot;], &quot;section&quot;: &quot;Feel&quot; },
+  &quot;voice&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;plain&quot;, &quot;options&quot;: [&quot;plain&quot;, &quot;punchy&quot;, &quot;warm&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Feel&quot; },
+  &quot;surface&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;paper&quot;, &quot;options&quot;: [&quot;paper&quot;, &quot;raised&quot;, &quot;ink&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Feel&quot; },
+  &quot;progress&quot;: { &quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;dots&quot;, &quot;options&quot;: [&quot;bars&quot;, &quot;dots&quot;, &quot;none&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Feel&quot; }
+}">
+class Component extends DCLogic {
+  PAINS = [
+    { id: 'questions', label: 'Answering the same questions over and over', short: 'Repeat questions', opp: 'Stop re-answering the same customer questions', block: 'Shared answer library', lo: 2, hi: 3,
+      why: 'It is the quickest thing to lift off you, and it makes every other flow easier to write.' },
+    { id: 'invoices', label: 'Chasing invoices and payments', short: 'Invoice chasing', opp: 'Get invoices out and followed up without you', block: 'Invoice automation', lo: 3, hi: 5,
+      why: 'It pays for itself first and nothing else depends on it, so it is the safest place to start.' },
+    { id: 'copying', label: 'Copying details between tools by hand', short: 'Manual copying', opp: 'Stop copying the same details between tools', block: 'Field sync between tools', lo: 2, hi: 4,
+      why: 'Every other automation gets more reliable once the same detail stops being typed twice.' },
+    { id: 'booking', label: 'Booking people in and sending reminders', short: 'Booking and reminders', opp: 'Hand off booking and reminders', block: 'Booking and reminders', lo: 2, hi: 4,
+      why: 'It removes the back-and-forth and the no-shows in one go, and customers notice immediately.' },
+    { id: 'leads', label: 'Following up with new leads', short: 'Lead follow-up', opp: 'Follow up with new leads automatically', block: 'Lead follow-up flow', lo: 2, hi: 4,
+      why: 'A first reply in minutes rather than days changes how many enquiries turn into work.' },
+  ];
+
+  HOURS = ['Under 5', '5 to 15', '15 to 30', '30 plus'];
+
+  BUSINESS_TYPES = ['Trades & home services', 'Medical, dental or vet practice', 'Salon, barber or studio', 'Agency or consultancy', 'Online shop', 'Restaurant, cafe or bar', 'Property management', 'Something else'];
+
+  state = { route: 'step1', business: null, hoursBand: '5 to 15', pains: ['invoices', 'booking'], painError: false, email: '', emailError: false, bookedSlot: null, send: 'idle', sendError: '', planStage: 99, planWorking: '' };
+
+  KEY = 'levarum.start.v1';
+  ROUTES = ['step1', 'step2', 'step3', 'gate', 'plan'];
+  SAVED = ['route', 'business', 'hoursBand', 'pains', 'email', 'bookedSlot'];
+
+  componentDidMount() {
+    const patch = {};
+    try {
+      const raw = localStorage.getItem(this.KEY);
+      const prev = raw ? JSON.parse(raw) : null;
+      if (prev && typeof prev === 'object') {
+        this.SAVED.forEach(k => { if (prev[k] !== undefined && prev[k] !== null) patch[k] = prev[k]; });
+        if (patch.route && this.ROUTES.indexOf(patch.route) === -1) delete patch.route;
+      }
+    } catch (e) {}
+    try {
+      const b = new URLSearchParams(location.search).get('business');
+      if (b && this.BUSINESS_TYPES.includes(b)) patch.business = b;
+      const h = String(location.hash || '').replace('#', '');
+      if (this.ROUTES.indexOf(h) !== -1) patch.route = h;
+    } catch (e) {}
+    if (Object.keys(patch).length) this.setState(patch);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    this.save();
+    if (this.state.route === 'plan' && prevState && prevState.route !== 'plan') this.beginPlanReveal();
+  }
+
+  componentWillUnmount() { (this.planTimers || []).forEach(clearTimeout); }
+
+  // The plan is assembled in front of you rather than appearing whole: honest
+  // working states, one job at a time. Reduced motion gets the finished plan.
+  beginPlanReveal() {
+    let reduce = false;
+    try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+    if (reduce) { this.setState({ planStage: 99, planWorking: '' }); return; }
+    (this.planTimers || []).forEach(clearTimeout);
+    this.planTimers = [];
+    const rows = Math.max(1, this.picked().length);
+    this.setState({ planStage: 0, planWorking: 'Reading your answers' });
+    const at = (ms, patch) => this.planTimers.push(setTimeout(() => this.setState(patch), ms));
+    at(480, { planWorking: 'Sizing the biggest leaks' });
+    for (let i = 1; i <= rows; i++) {
+      at(600 + i * 420, { planStage: i, planWorking: i < rows ? 'Sizing the biggest leaks' : 'Putting them in order' });
+    }
+    at(700 + (rows + 1) * 420, { planStage: 99, planWorking: '' });
+  }
+
+  save() {
+    const s = this.state, out = {};
+    this.SAVED.forEach(k => { out[k] = s[k]; });
+    try { localStorage.setItem(this.KEY, JSON.stringify(out)); } catch (e) {}
+    try {
+      if (String(location.hash).replace('#', '') !== s.route) history.replaceState(null, '', '#' + s.route);
+    } catch (e) {}
+  }
+
+  clearSaved() { try { localStorage.removeItem(this.KEY); } catch (e) {} }
+
+  payload() {
+    const s = this.state, hr = this.hoursRange();
+    return {
+      business: s.business || 'Trades & home services',
+      backOfficeHours: s.hoursBand,
+      painPoints: this.picked().map(p => p.id),
+      hoursBackLow: hr.lo, hoursBackHigh: hr.hi,
+      email: String(s.email).trim(),
+      slot: s.bookedSlot || null,
+      submittedAt: new Date().toISOString(),
+    };
+  }
+
+  SUB_KEY = 'levarum.submissions.v1';
+
+  recordSubmission() {
+    try {
+      const list = JSON.parse(localStorage.getItem(this.SUB_KEY) || '[]');
+      const p = this.payload();
+      const id = 'LV-' + Date.now().toString(36).toUpperCase();
+      list.unshift(Object.assign({ id: id, status: 'New', statusAt: new Date().toISOString() }, p));
+      localStorage.setItem(this.SUB_KEY, JSON.stringify(list.slice(0, 60)));
+    } catch (e) {}
+  }
+
+  submit = async () => {
+    this.setState({ send: 'sending', sendError: '' });
+    const url = this.props.formEndpoint || '';
+    if (!url) {
+      // prototype: no endpoint wired, so acknowledge locally rather than pretend
+      setTimeout(() => { this.recordSubmission(); this.setState({ send: 'sent', sendError: '' }); }, 650);
+      return;
+    }
+    try {
+      const res = await fetch(url, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(this.payload()),
+      });
+      if (!res.ok) throw new Error('The server replied ' + res.status + '.');
+      this.recordSubmission();
+      this.setState({ send: 'sent', sendError: '' });
+    } catch (e) {
+      this.setState({ send: 'failed', sendError: String((e && e.message) || e) });
+    }
+  };
+
+  picked() { return this.PAINS.filter(p => this.state.pains.includes(p.id)); }
+
+  COPY = {
+    plain: {
+      s1Head: 'First, the basics.', s1Sub: 'Two quick facts and we can already tell where most of the week is going.',
+      s2Head: 'Where does the week actually go?', s2Sub: 'Pick the ones that sound like you. More than one is normal.',
+      s3Head: 'Here is what we will put together.', s3Sub: 'A short plan, built from your answers, written in plain language.',
+      next: 'Next', build: 'Build my Game Plan', unlock: 'Unlock my plan',
+      micro: 'No account, no card. Your answers stay on this device.',
+      gateEyebrow: 'YOUR GAME PLAN IS READY', gateAsk: 'Where should we send the full plan?',
+      planEyebrow: 'YOUR GAME PLAN', bookHead: 'Want to walk through it together?',
+    },
+    punchy: {
+      s1Head: 'Two quick facts.', s1Sub: 'Tell us the shape of the business and we will find the leaks.',
+      s2Head: "What's eating your week?", s2Sub: 'Tick everything that stings. Most owners tick three.',
+      s3Head: "Here's what you get.", s3Sub: 'Named jobs, hours back, and the one thing to fix first.',
+      next: 'Keep going', build: 'Show me the hours', unlock: 'Show me the plan',
+      micro: 'No account. No card. Nothing leaves this device yet.',
+      gateEyebrow: 'PLAN READY', gateAsk: 'Where do we send it?',
+      planEyebrow: 'THE PLAN', bookHead: 'Fifteen minutes, no pitch?',
+    },
+    warm: {
+      s1Head: 'Let us start with the basics.', s1Sub: 'Two quick facts, and we can already see where the week is going.',
+      s2Head: 'Where does your week go?', s2Sub: 'Pick whatever sounds familiar. Most people pick a few.',
+      s3Head: 'Here is what we will send you.', s3Sub: 'A short, plain-language plan built from what you tell us.',
+      next: 'Next', build: 'Put my plan together', unlock: 'Send me my plan',
+      micro: 'No account, no card, and your answers stay on this device.',
+      gateEyebrow: 'YOUR PLAN IS READY', gateAsk: 'Where should we send it?',
+      planEyebrow: 'YOUR PLAN', bookHead: 'Shall we walk through it together?',
+    },
+  };
+
+  SURFACES = {
+    paper: { page: '#FBF6F2', card: '#FFFFFF', ink: '#1A1A1A', sub: '#5C5A56', line: '#E9E6E1', control: '#8F8C88', field: '#FBF6F2', chipOff: '#FBF6F2', border: true, shadow: 'none' },
+    raised: { page: '#E4E0DA', card: '#FFFFFF', ink: '#1A1A1A', sub: '#5C5A56', line: '#E4E0DA', control: '#8F8C88', field: '#FBF6F2', chipOff: '#FBF6F2', border: false, shadow: 'var(--lv-shadow-lg)' },
+    ink: { page: '#1A1A1A', card: '#242422', ink: '#EDE6D6', sub: '#B9B6B1', line: '#3A3A38', control: '#7F7C74', field: '#1A1A1A', chipOff: '#242422', border: true, shadow: 'none' },
+  };
+
+  theme() {
+    const key = this.props.surface || 'paper';
+    const S = this.SURFACES[key] || this.SURFACES.paper;
+    const action = this.props.actionColor || '#8F3D14';
+    const dark = key === 'ink';
+    // on a near-black page an ink action button would vanish: lift it to the accent
+    const safeAction = (dark && this.contrast(action, S.page) < 1.6) ? '#D4622A' : action;
+    return Object.assign({}, S, {
+      key, dark, action: safeAction, onAction: this.readable(safeAction),
+      accent: dark ? '#E08A5C' : '#8F3D14',
+      select: dark ? '#97A8AA' : '#2E5C74',
+      onSelect: dark ? '#1A1A1A' : '#FFFFFF',
+      ok: dark ? '#A7B59E' : '#3E6B4A',
+      outline: dark ? S.sub : '#1A1A1A',
+    });
+  }
+
+  BRAND = {
+    ink: '#1A1A1A', rust: '#BF4F1F', petrol: '#2E5C74', forest: '#3E6B4A',
+    plum: '#5B4B8A', sand: '#A67C4E', slate: '#4A5B7A', teal: '#1F5C57',
+  };
+
+  logo(T) {
+    const shape = this.props.logoStyle || 'lift';
+    const mode = this.props.logoBrand || 'ink';
+    const swatch = this.props.logoColor || 'rust';
+    const pick = (k) => k === 'action' ? T.action : k === 'accent' ? T.accent : (this.BRAND[k] || T.ink);
+    // a brand hue that would sink into the surface lifts to the accent
+    const safe = (c) => (T.dark && this.contrast(c, T.page) < 1.7) ? T.accent : c;
+    let mark, word;
+    if (mode === 'action') { mark = T.action; word = T.action; }
+    else if (mode === 'two-tone') { mark = pick(swatch); word = T.ink; }
+    else { mark = pick(mode); word = pick(mode); }
+    mark = safe(mark); word = safe(word);
+    const stacked = shape === 'stack';
+    return {
+      shape, mark, word,
+      linkStyle: {
+        display: 'flex', flexDirection: stacked ? 'column' : 'row',
+        alignItems: stacked ? 'flex-start' : 'center',
+        gap: shape === 'word' ? '0' : stacked ? '6px' : '11px',
+        color: T.ink, textDecoration: 'none',
+      },
+      wordWeight: shape === 'word' ? 800 : 700,
+      wordSize: shape === 'word' ? '21px' : '19px',
+      wordTrack: shape === 'word' ? '-0.04em' : '-0.025em',
+      wordCase: shape === 'rule' ? 'uppercase' : 'none',
+    };
+  }
+
+  lum(hex) {
+    const h = String(hex).replace('#', '');
+    const n = h.length === 3 ? h.split('').map(c => c + c).join('') : h;
+    const v = [0, 2, 4].map(i => parseInt(n.slice(i, i + 2), 16) / 255)
+      .map(c => c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+    return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2];
+  }
+
+  contrast(a, b) {
+    const la = this.lum(a), lb = this.lum(b);
+    return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+  }
+
+  readable(hex) {
+    return (1.05 / (this.lum(hex) + 0.05)) >= 4.5 ? '#FFFFFF' : '#1A1A1A';
+  }
+
+  key(fn) {
+    return (e) => { if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') { e.preventDefault(); fn(); } };
+  }
+
+  hoursRange() {
+    const use = this.picked();
+    const cap = { 'Under 5': 4, '5 to 15': 11, '15 to 30': 20, '30 plus': 30 }[this.state.hoursBand] || 11;
+    const lo = Math.min(use.reduce((a, p) => a + p.lo, 0), cap);
+    const hi = Math.min(use.reduce((a, p) => a + p.hi, 0), cap + 4);
+    return { lo, hi, mid: (lo + hi) / 2 };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const r = s.route;
+    const use = this.picked();
+    const hr = this.hoursRange();
+    const T = this.theme();
+    const L = this.logo(T);
+    const C = this.COPY[this.props.voice] || this.COPY.plain;
+    const prog = this.props.progress ?? 'dots';
+    const bar = (on) => prog === 'dots'
+      ? { width: '11px', height: '11px', borderRadius: 'var(--lv-r-round)', flex: 'none', background: on ? T.action : T.line }
+      : { height: '6px', flex: 1, borderRadius: '3px', background: on ? T.action : T.line };
+    const card = (extra) => Object.assign({
+      background: T.card, borderRadius: 'var(--lv-r-card)', padding: 'var(--lv-g-2)',
+      border: T.border ? '1px solid ' + T.line : 'none', boxShadow: T.shadow,
+    }, extra || {});
+    const field = (extra) => Object.assign({
+      width: '100%', minHeight: 'var(--lv-tap)', border: '1px solid ' + T.control, borderRadius: 'var(--lv-r-control)',
+      background: T.field, padding: '0 var(--lv-s-5)', fontFamily: "'Instrument Sans',sans-serif",
+      fontSize: 'var(--lv-t-body)', color: T.ink, outline: 'none',
+    }, extra || {});
+    const cta = (extra) => Object.assign({
+      minHeight: 'var(--lv-tap)', borderRadius: 'var(--lv-r-control)', background: T.action, color: T.onAction,
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      fontFamily: "'Schibsted Grotesk',sans-serif", fontWeight: 600, fontSize: 'var(--lv-t-lg)',
+      letterSpacing: '-0.01em', cursor: 'pointer',
+    }, extra || {});
+    const stepNo = r === 'step1' ? 1 : r === 'step2' ? 2 : 3;
+    const fix = use.slice().sort((a, b) => (b.lo + b.hi) - (a.lo + a.hi))[0] || this.PAINS[1];
+
+    const goStep1 = () => this.setState({ route: 'step1' });
+    const goStep2 = () => this.setState({ route: 'step2' });
+    const goStep3 = () => { if (!s.pains.length) { this.setState({ painError: true }); return; } this.setState({ route: 'step3' }); };
+    const goGate = () => this.setState({ route: 'gate' });
+    const tryUnlock = () => {
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(s.email).trim())) { this.setState({ emailError: true }); return; }
+      this.setState({ route: 'plan', emailError: false });
+    };
+    const restart = () => { this.clearSaved(); this.setState({ route: 'step1', bookedSlot: null, email: '', emailError: false, send: 'idle', sendError: '' }); };
+    const contactEmail = this.props.contactEmail || 'hello@levarum.co';
+    const replyWindow = this.props.replyWindow || 'within one working day';
+    const mailBody = 'My answers:\n' + JSON.stringify(this.payload(), null, 2);
+
+    return {
+      pageStyle: { fontFamily: "'Instrument Sans',sans-serif", color: T.ink, background: T.page, minHeight: '100vh', overflowX: 'hidden' },
+      cardStyle: card(),
+      cardListStyle: card({ display: 'flex', flexDirection: 'column', gap: 'var(--lv-s-5)' }),
+      selectStyle: field({ marginBottom: 'var(--lv-s-7)' }),
+      emailStyle: field({ flex: 1, minWidth: '240px', minHeight: 'var(--lv-tap)', borderRadius: 'var(--lv-r-control)', background: T.card, padding: '0 var(--lv-s-5)', width: 'auto' }),
+      ctaTopStyle: cta({ marginTop: 'var(--lv-s-6)' }),
+      ctaFlexStyle: cta({ flex: 1, minWidth: '200px' }),
+      ctaUnlockStyle: cta({ padding: '0 var(--lv-s-7)', whiteSpace: 'nowrap' }),
+      ctaGhostStyle: { minHeight: 'var(--lv-tap)', borderRadius: 'var(--lv-r-control)', border: '1.5px solid ' + T.ink, color: T.ink, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Schibsted Grotesk',sans-serif", fontWeight: 600, fontSize: 'var(--lv-t-body)', cursor: 'pointer', padding: '0 var(--lv-s-7)' },
+      showProgress: prog !== 'none' && (r === 'step1' || r === 'step2' || r === 'step3'),
+      trackStyle: { display: 'flex', gap: prog === 'dots' ? '10px' : '8px', alignItems: 'center' },
+      bandStyle: { borderBottom: '1px solid ' + T.line, background: T.page, animation: 'lvFade .5s ease-out both' },
+      markStyle: { display: 'block', flex: 'none', color: L.mark },
+      logoIsTile: L.shape === 'tile',
+      logoIsBadge: L.shape === 'badge',
+      logoIsPlain: L.shape === 'lift' || L.shape === 'stack',
+      logoIsRule: L.shape === 'rule',
+      logoLinkStyle: L.linkStyle,
+      logoTileStyle: { width: '32px', height: '32px', borderRadius: 'var(--lv-r-control)', background: L.mark, display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' },
+      logoBadgeStyle: { width: '32px', height: '32px', borderRadius: 'var(--lv-r-round)', background: L.mark, display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' },
+      logoKnockStyle: { display: 'block', flex: 'none', color: T.page },
+      logoDomeAnim: { animation: 'lvLift .62s var(--lv-ease-lift) both', transformOrigin: 'center' },
+      wordStyle: { fontFamily: "'Schibsted Grotesk',sans-serif", fontWeight: L.wordWeight, fontSize: L.wordSize, letterSpacing: L.wordTrack, color: L.word, textTransform: L.wordCase },
+      navLinkStyle: { fontSize: 'var(--lv-t-sm)', color: T.sub },
+      navCurrentStyle: { fontSize: 'var(--lv-t-sm)', color: T.ink, fontWeight: 600, borderBottom: '2px solid ' + T.accent, paddingBottom: 'var(--lv-s-1)' },
+      isPrototype: (this.props.mode || 'prototype') === 'prototype',
+      protoBarStyle: { maxWidth: '1180px', margin: '0 auto', padding: '0 var(--lv-s-7) var(--lv-s-4)', fontSize: 'var(--lv-t-xs)', color: T.sub },
+      backLinkStyle: { display: 'inline-flex', alignItems: 'center', minHeight: '44px', marginTop: 'var(--lv-s-3)', fontSize: 'var(--lv-t-md)', color: T.sub, cursor: 'pointer' },
+      metaStyle: { fontSize: 'var(--lv-t-xs)', color: T.sub },
+      leadStyle: { fontSize: 'var(--lv-d-7)', lineHeight: 1.55, color: T.sub, marginBottom: 'var(--lv-g-2)', maxWidth: '560px', textWrap: 'pretty' },
+      microStyle: { fontSize: 'var(--lv-t-sm)', color: T.sub, textAlign: 'center', marginTop: 'var(--lv-s-4)' },
+      fieldLabelStyle: { fontSize: 'var(--lv-t-md)', fontWeight: 500, marginBottom: 'var(--lv-s-3)', color: T.ink },
+      rowTextStyle: { fontSize: 'var(--lv-t-body)', lineHeight: 1.4, color: T.ink },
+      listTextStyle: { fontSize: 'var(--lv-t-body)', lineHeight: 1.45, color: T.ink },
+      numStyle: { width: '28px', height: '28px', borderRadius: 'var(--lv-r-round)', border: '1.5px solid ' + T.outline, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Schibsted Grotesk',sans-serif", fontWeight: 600, fontSize: 'var(--lv-t-xs)', flex: 'none', color: T.ink },
+      eyebrowStyle: { fontFamily: "'Schibsted Grotesk',sans-serif", fontWeight: 600, fontSize: 'var(--lv-t-cap)', letterSpacing: '0.08em', color: T.accent, marginBottom: 'var(--lv-s-4)' },
+      errorStyle: { fontSize: 'var(--lv-t-sm)', color: T.accent, marginTop: 'var(--lv-s-4)' },
+      statCardStyle: card({ borderRadius: 'var(--lv-r-card)', padding: 'var(--lv-s-7)' }),
+      statLabelStyle: { fontSize: 'var(--lv-t-sm)', color: T.sub, marginBottom: 'var(--lv-s-2)' },
+      summaryStyle: { border: '1px solid ' + T.line, borderRadius: 'var(--lv-r-card)', padding: 'var(--lv-s-6)', marginBottom: 'var(--lv-s-7)', background: T.dark ? T.card : 'var(--lv-band)' },
+      summaryKeyStyle: { fontSize: 'var(--lv-t-sm)', color: T.sub },
+      smallCapStyle: { fontFamily: "'Schibsted Grotesk',sans-serif", fontWeight: 600, fontSize: 'var(--lv-t-cap)', letterSpacing: '0.06em', color: T.sub, marginBottom: 'var(--lv-s-3)' },
+      sectionCapStyle: { fontSize: 'var(--lv-t-xs)', fontWeight: 600, letterSpacing: '0.06em', color: T.sub, marginBottom: 'var(--lv-s-4)' },
+      pillStyle: { border: '1px solid ' + T.control, background: T.field, borderRadius: 'var(--lv-r-chip)', padding: 'var(--lv-s-2) var(--lv-s-3)', fontSize: 'var(--lv-t-xs)', color: T.ink },
+      dividerBlockStyle: { borderTop: '1px solid ' + T.line, paddingTop: 'var(--lv-s-7)' },
+      askHeadStyle: { margin: '0 0 var(--lv-s-2)', fontFamily: "'Schibsted Grotesk',sans-serif", fontWeight: 700, fontSize: 'var(--lv-t-xl)', letterSpacing: '-0.025em', color: T.ink },
+      askSubStyle: { fontSize: 'var(--lv-t-md)', color: T.sub, lineHeight: 1.5, marginBottom: 'var(--lv-s-5)', maxWidth: '520px' },
+      oppRowStyle: card({ borderRadius: 'var(--lv-r-card)', padding: 'var(--lv-s-5) var(--lv-s-6)', display: 'grid', gridTemplateColumns: '1fr auto', gap: 'var(--lv-s-6)', alignItems: 'center' }),
+      oppMetaStyle: { fontSize: 'var(--lv-t-sm)', color: T.sub, whiteSpace: 'nowrap' },
+      fixCardStyle: { border: '1.5px solid ' + T.outline, borderRadius: 'var(--lv-r-card)', padding: 'var(--lv-s-7)', marginBottom: 'var(--lv-s-8)' },
+      fixWhyStyle: { fontSize: 'var(--lv-t-body)', lineHeight: 1.55, color: T.sub, maxWidth: '60ch' },
+      restartStyle: { fontSize: 'var(--lv-t-md)', color: T.sub, cursor: 'pointer' },
+
+      cS1Head: C.s1Head, cS1Sub: C.s1Sub, cS2Head: C.s2Head, cS2Sub: C.s2Sub,
+      cS3Head: C.s3Head, cS3Sub: C.s3Sub, cNext: C.next, cBuild: C.build, cUnlock: C.unlock,
+      cMicro: C.micro, cGateEyebrow: C.gateEyebrow, cGateAsk: C.gateAsk,
+      cPlanEyebrow: C.planEyebrow, cBookHead: C.bookHead,
+
+      kGoStep1: this.key(goStep1), kGoStep2: this.key(goStep2), kGoStep3: this.key(goStep3),
+      kGoGate: this.key(goGate), kUnlock: this.key(tryUnlock), kRestart: this.key(restart),
+      inIntake: r === 'step1' || r === 'step2' || r === 'step3',
+      isStep1: r === 'step1', isStep2: r === 'step2', isStep3: r === 'step3',
+      isGate: r === 'gate', isPlan: r === 'plan',
+      stepLabel: 'Step ' + stepNo + ' of 3',
+      bar1: bar(true), bar2: bar(stepNo >= 2), bar3: bar(stepNo >= 3),
+
+      business: s.business ?? 'Trades & home services',
+      setBusiness: (e) => this.setState({ business: e.target.value }),
+      hoursBand: s.hoursBand,
+      hourOpts: this.HOURS.map(h => {
+        const on = h === s.hoursBand;
+        const pick = () => this.setState({ hoursBand: h });
+        return {
+          label: h + ' hrs', selected: on ? 'true' : 'false',
+          onClick: pick, onKeyDown: this.key(pick),
+          style: {
+            minHeight: 'var(--lv-tap)', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            borderRadius: 'var(--lv-r-control)', cursor: 'pointer', fontSize: 'var(--lv-t-body)', whiteSpace: 'nowrap',
+            fontWeight: on ? 600 : 400,
+            background: on ? T.select : T.chipOff,
+            color: on ? T.onSelect : T.ink,
+            border: '1.5px solid ' + (on ? T.select : T.control),
+          },
+        };
+      }),
+
+      painRows: this.PAINS.map(p => {
+        const on = s.pains.includes(p.id);
+        const toggle = () => this.setState(st => ({
+          pains: st.pains.includes(p.id) ? st.pains.filter(x => x !== p.id) : st.pains.concat(p.id),
+          painError: false,
+        }));
+        return {
+          label: p.label, tick: on ? '✓' : '', checked: on ? 'true' : 'false',
+          onClick: toggle, onKeyDown: this.key(toggle),
+          rowStyle: {
+            display: 'flex', alignItems: 'center', gap: 'var(--lv-s-5)', padding: 'var(--lv-s-5) var(--lv-s-6)',
+            borderRadius: 'var(--lv-r-card)', cursor: 'pointer', background: on ? T.card : T.chipOff,
+            border: '1.5px solid ' + (on ? T.select : T.control),
+          },
+          boxStyle: {
+            width: '26px', height: '26px', flex: 'none', borderRadius: 'var(--lv-r-chip)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 'var(--lv-t-sm)', color: on ? T.onAction : 'transparent',
+            background: on ? T.action : 'transparent',
+            border: '1.5px solid ' + (on ? T.action : T.control),
+          },
+        };
+      }),
+      painError: s.painError,
+
+      goStep1: () => this.setState({ route: 'step1' }),
+      goStep2: () => this.setState({ route: 'step2' }),
+      goStep3: () => { if (!s.pains.length) { this.setState({ painError: true }); return; } this.setState({ route: 'step3' }); },
+      goGate: () => this.setState({ route: 'gate' }),
+
+      gateHeadline: 'I found ' + (use.length === 1 ? 'one place' : use.length + ' places') + ' your week is leaking time.',
+      jobCount: use.length + (use.length === 1 ? ' job' : ' jobs'),
+      pickedLabels: use.map(p => ({ label: p.short })),
+      hoursLabel: hr.lo === hr.hi ? hr.lo + ' hours' : hr.lo + ' to ' + hr.hi + ' hours',
+      hoursYear: Math.round(hr.mid * 46).toLocaleString('en-US'),
+
+      email: s.email, emailError: s.emailError,
+      setEmail: (e) => this.setState({ email: e.target.value, emailError: false }),
+      tryUnlock: () => {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(s.email.trim())) { this.setState({ emailError: true }); return; }
+        this.setState({ route: 'plan', emailError: false });
+        this.submit();
+      },
+      retrySubmit: this.submit,
+      kRetry: this.key(this.submit),
+      sending: s.send === 'sending',
+      sendFailed: s.send === 'failed',
+      sendError: s.sendError,
+      contactEmail: contactEmail,
+      mailtoHref: 'mailto:' + contactEmail + '?subject=' + encodeURIComponent('My Levarum plan') + '&body=' + encodeURIComponent(mailBody),
+      mailtoStyle: { minHeight: 'var(--lv-tap)', display: 'inline-flex', alignItems: 'center', padding: '0 var(--lv-s-6)', borderRadius: 'var(--lv-r-control)', border: '1px solid var(--lv-alert-btn-line)', color: 'var(--lv-alert-ink)', fontFamily: "'Schibsted Grotesk',sans-serif", fontWeight: 600, fontSize: 'var(--lv-t-md)' },
+      mailtoInlineStyle: { color: 'var(--lv-alert-quiet)', textDecoration: 'underline' },
+      retryStyle: { minHeight: 'var(--lv-tap)', display: 'inline-flex', alignItems: 'center', padding: '0 var(--lv-s-6)', borderRadius: 'var(--lv-r-control)', background: 'var(--lv-alert-ink)', color: 'var(--lv-alert-on-ink)', fontFamily: "'Schibsted Grotesk',sans-serif", fontWeight: 600, fontSize: 'var(--lv-t-md)', cursor: 'pointer' },
+      sendNoteStyle: { fontSize: 'var(--lv-t-md)', color: 'var(--lv-dark-quiet)', marginTop: 'var(--lv-s-5)', borderTop: '1px solid var(--lv-dark-petrol-line)', paddingTop: 'var(--lv-s-5)' },
+      failCardStyle: { marginTop: 'var(--lv-s-5)', border: '1px solid var(--lv-alert-line)', background: 'var(--lv-alert-surface)', borderRadius: 'var(--lv-r-card)', padding: 'var(--lv-s-6)' },
+      nextSteps: [
+        'We read your answers before the call — you will not repeat yourself.',
+        'A calendar invite reaches ' + (String(s.email).trim() || 'your inbox') + ' ' + replyWindow + '.',
+        'On the call we decide together whether any of it is worth building.',
+      ].map((text, i) => ({
+        n: i + 1, text,
+        numStyle: { width: '24px', height: '24px', flex: 'none', borderRadius: 'var(--lv-r-round)', border: '1px solid var(--lv-sec-on-dark)', color: 'var(--lv-sec-on-dark)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Schibsted Grotesk',sans-serif", fontWeight: 600, fontSize: 'var(--lv-t-cap)' },
+      })),
+
+      hoursWeeks: Math.max(1, Math.round(hr.mid * 46 / 38)),
+
+      opportunities: (() => {
+        const mid = p => (p.lo + p.hi) / 2;
+        const top = Math.max.apply(null, use.map(mid).concat([1]));
+        const all = use.map(p => ({
+          title: p.opp,
+          hoursText: 'About ' + p.lo + ' to ' + p.hi + ' hrs a week',
+          figure: Math.round(mid(p)),
+          barStyle: { width: Math.max(12, Math.round(mid(p) / top * 100)) + '%', height: '100%', background: mid(p) >= top * 0.9 ? 'var(--lv-meter-fill)' : 'var(--lv-meter-fill-quiet)' },
+        }));
+        return s.planStage >= 99 ? all : all.slice(0, s.planStage);
+      })(),
+      planWorking: !!s.planWorking, planWorkingText: s.planWorking,
+      fixFirst: fix.block,
+      fixFirstWhy: fix.why,
+
+      slots: ['Tomorrow, 9:30am', 'Tomorrow, 2:00pm', 'Thursday, 11:00am'].map(l => {
+        const on = s.bookedSlot === l;
+        const book = () => { this.setState({ bookedSlot: l }); this.submit(); };
+        return {
+          label: l, action: on ? 'Booked' : 'Pick →',
+          actionStyle: { fontSize: 'var(--lv-t-sm)', fontWeight: 600, color: on ? 'var(--lv-ok-on-dark)' : 'var(--lv-dark-ink)', whiteSpace: 'nowrap' },
+          onClick: book, onKeyDown: this.key(book),
+          style: {
+            minHeight: 'var(--lv-tap)', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            gap: 'var(--lv-s-5)', padding: '0 var(--lv-s-6)', borderRadius: 'var(--lv-r-control)', cursor: 'pointer',
+            background: 'var(--lv-dark-surface)',
+            border: '1.5px solid ' + (on ? 'var(--lv-ok-on-dark)' : 'var(--lv-dark-line)'),
+          },
+        };
+      }),
+      booked: !!s.bookedSlot,
+      bookedSlot: s.bookedSlot || '',
+
+      restart: restart,
+    };
+  }
+}
+(function(){
+  if (window.__lvMeters) return;
+  window.__lvMeters = true;
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e){}
+  if (reduce || !('IntersectionObserver' in window)) return;
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if (!en.isIntersecting) return;
+      var el = en.target; io.unobserve(el);
+      var target = el.getAttribute('data-lv-w') || el.style.width || '100%';
+      el.style.transition = 'none'; el.style.width = '0%';
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){
+        el.style.transition = 'width 900ms cubic-bezier(.2,.7,.2,1)';
+        el.style.width = target;
+      }); });
+    });
+  }, { threshold: 0.3 });
+  function scan(){
+    var list = document.querySelectorAll('[data-meter]');
+    for (var i=0;i<list.length;i++){
+      var el = list[i];
+      if (el.getAttribute('data-lv-seen')) continue;
+      el.setAttribute('data-lv-seen','1');
+      el.setAttribute('data-lv-w', el.style.width || '100%');
+      io.observe(el);
+    }
+  }
+  scan(); setTimeout(scan, 500); setTimeout(scan, 1400); setTimeout(scan, 3000);
+})();
+</script>
+</body>
+</html>

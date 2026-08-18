@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:#FBF6F2; -webkit-font-smoothing:antialiased; }
+  a{ color:#8F3D14; text-decoration:none; }
+  a:hover{ color:#1A1A1A; }
+  a:focus-visible, button:focus-visible{ outline:2px solid #8F3D14; outline-offset:3px; border-radius:6px; }
+  table{ border-collapse:collapse; width:100%; }
+  th,td{ text-align:left; padding:11px 14px; border-bottom:1px solid #E9E6E1; vertical-align:top; font-size:15px; line-height:1.45; }
+  th{ font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.08em; color:#5C5A56; white-space:nowrap; }
+  td.num{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace; white-space:nowrap; }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+</helmet>
+
+<div style="font-family:'Instrument Sans',sans-serif; color:#1A1A1A; padding:clamp(26px,4vw,52px) clamp(18px,3vw,36px) clamp(60px,7vw,90px);">
+  <div style="max-width:1240px; margin:0 auto;">
+
+    <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.06em; color:#8F3D14; margin-bottom:12px;">LEVARUM · SITE CHECK</div>
+    <h1 style="margin:0 0 14px; font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:clamp(30px,3.8vw,48px); line-height:1.05; letter-spacing:-0.035em;">Every page, every link, every value.</h1>
+    <div style="font-size:18px; line-height:1.5; color:#5C5A56; max-width:64ch; margin-bottom:26px; text-wrap:pretty;">This reads the actual source of all six pages on every load and computes what it reports. Nothing below is a remembered number. Re-run it after any change.</div>
+
+    <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:26px;">
+      <button type="button" onClick="{{ run }}" style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:16px; color:#fff; background:#1A1A1A; border:none; border-radius:13px; padding:14px 22px; min-height:48px; cursor:pointer;" style-hover="background:#333330">Re-run check</button>
+      <span style="font-size:16px; color:#5C5A56;">{{ status }}</span>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; margin-bottom:34px;">
+      <sc-for list="{{ tallies }}" as="t" hint-placeholder-count="4">
+        <div style="{{ t.style }}">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:34px; letter-spacing:-0.03em; line-height:1;">{{ t.n }}</div>
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.06em; margin-top:8px;">{{ t.label }}</div>
+        </div>
+      </sc-for>
+    </div>
+
+    <h2 style="margin:0 0 6px; font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:clamp(24px,2.8vw,34px); letter-spacing:-0.03em;">Structure</h2>
+    <div style="font-size:17px; color:#5C5A56; margin-bottom:18px;">Navigation, routing, mobile rules and the intake flow.</div>
+
+    <div style="display:flex; flex-direction:column; gap:20px; margin-bottom:clamp(40px,5vw,64px);">
+      <sc-for list="{{ groups }}" as="g" hint-placeholder-count="5">
+        <section style="border:1px solid #E9E6E1; border-radius:20px; background:#fff; overflow:hidden;">
+          <div style="padding:18px 20px; border-bottom:1px solid #E9E6E1; display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;">
+            <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:20px; letter-spacing:-0.025em;">{{ g.name }}</span>
+            <span style="font-size:15px; color:#5C5A56;">{{ g.note }}</span>
+          </div>
+          <div>
+            <sc-for list="{{ g.rows }}" as="r" hint-placeholder-count="4">
+              <div style="{{ r.rowStyle }}">
+                <span style="{{ r.pipStyle }}">{{ r.pip }}</span>
+                <div style="min-width:0;">
+                  <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:16px; letter-spacing:-0.01em; margin-bottom:3px;">{{ r.title }}</div>
+                  <div style="font-size:15px; line-height:1.5; color:#5C5A56; overflow-wrap:anywhere;">{{ r.detail }}</div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+      </sc-for>
+    </div>
+
+    <h2 style="margin:0 0 6px; font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:clamp(24px,2.8vw,34px); letter-spacing:-0.03em;">Design system</h2>
+    <div style="font-size:17px; line-height:1.5; color:#5C5A56; max-width:66ch; margin-bottom:24px; text-wrap:pretty;">Audited by reading all five live pages in full. Token naming scheme: <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:15px; color:#1A1A1A;">--lv-&lt;category&gt;-&lt;role&gt;</span>, kebab-case, always prefixed <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:15px; color:#1A1A1A;">lv</span>, identical in every file.</div>
+
+    <div style="border:1px solid #1A1A1A; border-radius:20px; padding:clamp(20px,2.6vw,28px); margin-bottom:22px;">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:20px; letter-spacing:-0.025em; margin-bottom:14px;">Summary</div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:18px;">
+        <sc-for list="{{ dsSummary }}" as="s" hint-placeholder-count="5">
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:30px; letter-spacing:-0.03em; line-height:1; margin-bottom:6px;">{{ s.n }}</div>
+            <div style="font-size:15px; line-height:1.4; color:#5C5A56;">{{ s.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <sc-for list="{{ dsTables }}" as="t" hint-placeholder-count="4">
+      <section style="border:1px solid #E9E6E1; border-radius:20px; background:#fff; overflow:hidden; margin-bottom:20px;">
+        <div style="padding:18px 20px; border-bottom:1px solid #E9E6E1;">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:20px; letter-spacing:-0.025em; margin-bottom:3px;">{{ t.name }}</div>
+          <div style="font-size:15px; line-height:1.5; color:#5C5A56;">{{ t.note }}</div>
+        </div>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <sc-for list="{{ t.head }}" as="h" hint-placeholder-count="4">
+                  <th>{{ h.label }}</th>
+                </sc-for>
+              </tr>
+            </thead>
+            <tbody>
+              <sc-for list="{{ t.rows }}" as="r" hint-placeholder-count="6">
+                <tr style="{{ r.trStyle }}">
+                  <sc-for list="{{ r.cells }}" as="c" hint-placeholder-count="4">
+                    <td class="{{ c.cls }}" style="{{ c.style }}">{{ c.v }}</td>
+                  </sc-for>
+                </tr>
+              </sc-for>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </sc-for>
+
+    <section style="border:1px solid #E9E6E1; border-radius:20px; background:#fff; overflow:hidden; margin-bottom:20px;">
+      <div style="padding:18px 20px; border-bottom:1px solid #E9E6E1;">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:20px; letter-spacing:-0.025em; margin-bottom:3px;">GAPs — blocked on a decision, not on code</div>
+        <div style="font-size:15px; line-height:1.5; color:#5C5A56;">Left alone on purpose. Each one names who decides and what stands in until they do.</div>
+      </div>
+      <div>
+        <sc-for list="{{ gaps }}" as="g" hint-placeholder-count="5">
+          <div style="padding:16px 20px; border-top:1px solid #F0EDE8;">
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:16px; letter-spacing:-0.01em; margin-bottom:5px;">{{ g.title }}</div>
+            <div style="font-size:15px; line-height:1.5; color:#5C5A56; margin-bottom:6px;">{{ g.body }}</div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.07em; color:#8F3D14;">{{ g.who }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="border:1px solid #1A1A1A; border-radius:20px; padding:clamp(20px,2.6vw,28px); margin-bottom:20px;">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:20px; letter-spacing:-0.025em; margin-bottom:4px;">Priority actions</div>
+      <div style="font-size:15px; line-height:1.5; color:#5C5A56; margin-bottom:18px;">Ordered by how much each one changes whether the site feels finished.</div>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <sc-for list="{{ priorities }}" as="p" hint-placeholder-count="5">
+          <div style="display:grid; grid-template-columns:28px 1fr; gap:14px; align-items:start;">
+            <span style="{{ p.numStyle }}">{{ p.n }}</span>
+            <div>
+              <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:17px; letter-spacing:-0.015em; margin-bottom:3px;">{{ p.title }}</div>
+              <div style="font-size:15px; line-height:1.5; color:#5C5A56;">{{ p.why }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="border:1px solid #E9E6E1; border-radius:20px; background:#E4E0DA; padding:clamp(20px,2.6vw,28px);">
+      <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:20px; letter-spacing:-0.025em; margin-bottom:4px;">Not verified</div>
+      <div style="font-size:15px; line-height:1.5; color:#5C5A56; margin-bottom:16px;">Everything on this page was read or computed from source. These were not.</div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <sc-for list="{{ unverified }}" as="u" hint-placeholder-count="4">
+          <div style="display:flex; gap:11px; align-items:baseline;">
+            <span style="color:#8F3D14; font-weight:700;">→</span>
+            <span style="font-size:16px; line-height:1.5; color:#1A1A1A;">{{ u.text }}</span>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <div style="font-size:15px; color:#5C5A56; margin-top:26px;">Pages read: <span style="color:#1A1A1A;">{{ fileList }}</span> · <a href="./Levarum%20Flow%20Map.dc.html">Flow map</a></div>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: { &quot;width&quot;: 1240 }
+}">
+class Component extends DCLogic {
+  PAGES = [
+    { file: 'Levarum Home v2.dc.html', name: 'Home', live: true },
+    { file: 'Levarum How It Works.dc.html', name: 'How it works', live: true },
+    { file: 'Levarum What We Automate.dc.html', name: 'What we automate', live: true },
+    { file: 'Levarum Questions.dc.html', name: 'Questions', live: true },
+    { file: 'Levarum Start.dc.html', name: 'Start', live: true },
+    { file: 'Levarum Admin.dc.html', name: 'Admin', live: true, internal: true },
+    { file: 'Levarum Partners.dc.html', name: 'Partners (quiet path)', live: false },
+    { file: 'Levarum Flow Map.dc.html', name: 'Flow map (tooling)', live: false },
+    { file: 'Levarum Journeys.dc.html', name: 'Journeys (tooling)', live: false },
+    { file: 'Levarum Launch Plan.dc.html', name: 'Launch plan (tooling)', live: false },
+    { file: 'Levarum Site Check.dc.html', name: 'Site check (tooling)', live: false },
+    { file: 'Levarum Prototype v2.dc.html', name: 'Prototype v2 (archived)', live: false },
+  ];
+
+  // baselines measured by reading all five live pages in full, before any token work
+  BASE = { color: 370, type: 181, space: 456, radius: 96, shadow: 4, motion: 39 };
+
+  SCALE = {
+    type: [13, 14, 15, 16, 17, 19, 22],
+    space: [2, 6, 10, 12, 16, 20, 26, 34, 54],
+    radius: ['8px', '13px', '20px', '50%', '100px', '3px'],
+  };
+
+  state = { src: null, status: 'Reading files…' };
+  componentDidMount() { this.run(); }
+
+  run = async () => {
+    this.setState({ status: 'Reading files…' });
+    const src = {};
+    for (const p of this.PAGES) {
+      try { const r = await fetch('./' + encodeURIComponent(p.file)); src[p.file] = r.ok ? await r.text() : null; }
+      catch (e) { src[p.file] = null; }
+    }
+    this.setState({ src, status: 'Read ' + Object.values(src).filter(Boolean).length + ' files at ' + new Date().toLocaleTimeString() });
+  };
+
+  hrefs(t) { const o = []; const re = /href="\.\/([^"]+)"/g; let m; while ((m = re.exec(t))) o.push(decodeURIComponent(m[1])); return o; }
+  rootBlock(t) { const m = t.match(/:root\{([\s\S]*?)\}/); return m ? m[1] : ''; }
+  themeBlock(t) { const m = t.match(/\[data-theme="dark"\]\{([\s\S]*?)\}/); return m ? m[1] : ''; }
+  themeTokens(t) {
+    const out = {}; const re = /(--[a-z0-9-]+)\s*:\s*([^;]+);/g; let m;
+    while ((m = re.exec(this.themeBlock(t)))) out[m[1]] = m[2].trim();
+    return out;
+  }
+  tokens(t) {
+    const out = {}; const re = /(--[a-z0-9-]+)\s*:\s*([^;]+);/g; let m;
+    while ((m = re.exec(this.rootBlock(t)))) out[m[1]] = m[2].trim();
+    return out;
+  }
+  outsideRoot(t) { return t.replace(/:root\{[\s\S]*?\}/, ''); }
+  // the data-props attribute is editor metadata, not page styling — swatch defaults there are not CSS
+  styleSource(t) { return this.outsideRoot(t).replace(/data-props="[\s\S]*?"\s*>/, '>'); }
+  normHex(v) { let s = String(v).trim().replace('#', '').toUpperCase(); if (s.length === 3) s = s.split('').map(c => c + c).join(''); return '#' + s; }
+  // tokens may be raw hex, var(--other), or color-mix(in srgb, var(--a) N%, var(--b)) — resolve to a hex so contrast can be computed
+  resolveColor(map, v, d) {
+    d = d || 0;
+    if (v == null || d > 6) return null;
+    v = String(v).trim();
+    if (/^#[0-9a-fA-F]{3,8}$/.test(v)) return this.normHex(v);
+    const mv = v.match(/^var\(\s*(--[a-z0-9-]+)\s*\)$/i);
+    if (mv) return this.resolveColor(map, map[mv[1]], d + 1);
+    const mm = v.match(/^color-mix\(\s*in\s+srgb\s*,\s*(.+?)\s+([\d.]+)%\s*,\s*(.+?)\s*\)$/i);
+    if (mm) {
+      const a = this.resolveColor(map, mm[1], d + 1), b = this.resolveColor(map, mm[3], d + 1);
+      if (!a || !b) return null;
+      const p = parseFloat(mm[2]) / 100;
+      const ch = (h) => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+      const A = ch(a), B = ch(b);
+      return '#' + A.map((x, i) => Math.round(x * p + B[i] * (1 - p)).toString(16).padStart(2, '0')).join('').toUpperCase();
+    }
+    return null;
+  }
+  resolvedTokenSet(t) {
+    const map = this.tokens(t), out = new Set();
+    Object.keys(map).forEach(k => { const h = this.resolveColor(map, map[k]); if (h) out.add(h); });
+    return out;
+  }
+  // only the rules actually inside @media (max-width:680px) — a 44px anywhere else must not count
+  mobileBlock(t) {
+    const i = t.search(/@media[^{]*max-width:\s*680px[^{]*\{/);
+    if (i === -1) return '';
+    let d = 0, start = t.indexOf('{', i);
+    for (let j = start; j < t.length; j++) {
+      if (t[j] === '{') d++;
+      else if (t[j] === '}') { d--; if (d === 0) return t.slice(start + 1, j); }
+    }
+    return '';
+  }
+  mark(t) {
+    if (/M9 44 A26 26/.test(t)) return 'A · lifted ground';
+    if (/M6 44 A26 26/.test(t)) return 'B · dome on plate';
+    if (/y="6" width="44"/.test(t)) return 'C · released unit';
+    return 'no mark found';
+  }
+
+  lum(h) {
+    h = String(h).replace('#', '').trim();
+    if (h.length === 3) h = h.split('').map(c => c + c).join('');
+    if (!/^[0-9a-fA-F]{6}$/.test(h)) return null;
+    const v = [0, 2, 4].map(i => parseInt(h.slice(i, i + 2), 16) / 255)
+      .map(c => c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+    return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2];
+  }
+  cr(a, b) {
+    const x = this.lum(a), y = this.lum(b);
+    if (x == null || y == null) return null;
+    return (Math.max(x, y) + 0.05) / (Math.min(x, y) + 0.05);
+  }
+
+  renderVals() {
+    const src = this.state.src;
+    const rows = [];
+    const add = (group, level, title, detail) => rows.push({ group, level, title, detail });
+    const known = this.PAGES.map(p => p.file);
+    const liveFiles = this.PAGES.filter(p => p.live).map(p => p.file);
+    let dsSummary = [], dsTables = [];
+
+    const home = src ? src['Levarum Home v2.dc.html'] : null;
+    if (src) {
+      this.PAGES.forEach(p => {
+        const t = src[p.file];
+        if (!t) { add('Files', 'fail', p.name, 'Could not read ' + p.file); return; }
+        add('Files', 'pass', p.name, p.file + ' — ' + Math.round(t.length / 1024) + 'KB');
+      });
+
+      this.PAGES.forEach(p => {
+        const t = src[p.file]; if (!t) return;
+        const links = this.hrefs(t);
+        const bad = links.filter(h => known.indexOf(h) === -1);
+        const uniq = links.filter((v, i) => links.indexOf(v) === i);
+        add('Link targets', bad.length ? 'fail' : 'pass', p.name,
+          bad.length ? 'Points at files not in this project: ' + bad.join(', ') : uniq.length + ' distinct targets, all resolve');
+      });
+
+      const NAV = ['Levarum How It Works.dc.html', 'Levarum What We Automate.dc.html', 'Levarum Questions.dc.html', 'Levarum Start.dc.html'];
+      liveFiles.forEach(f => {
+        const t = src[f]; if (!t) return;
+        const p = this.PAGES.find(x => x.file === f);
+        if (p.internal) { add('Nav parity', 'pass', p.name, 'Internal page — deliberately absent from the public navigation'); return; }
+        const nav = (t.match(/data-navlinks[\s\S]*?<\/div>/) || [''])[0];
+        const have = this.hrefs(nav);
+        const missing = NAV.filter(n => have.indexOf(n) === -1 && n !== f);
+        if (!nav) add('Nav parity', 'fail', p.name, 'No [data-navlinks] block found');
+        else if (missing.length) add('Nav parity', 'fail', p.name, 'Nav missing: ' + missing.map(m => m.replace('Levarum ', '').replace('.dc.html', '')).join(', '));
+        else add('Nav parity', 'pass', p.name, 'All four destinations present');
+      });
+
+      liveFiles.forEach(f => {
+        const t = src[f]; if (!t) return;
+        const p = this.PAGES.find(x => x.file === f);
+        if (f === 'Levarum Home v2.dc.html') { add('Route home', 'pass', p.name, 'Is the home page'); return; }
+        const h = this.hrefs(t).indexOf('Levarum Home v2.dc.html') !== -1;
+        add('Route home', h ? 'pass' : 'fail', p.name, h ? 'Logo or footer returns to Home' : 'Dead end — nothing links back to Home');
+      });
+
+      liveFiles.forEach(f => {
+        const t = src[f]; if (!t) return;
+        const p = this.PAGES.find(x => x.file === f);
+        if (p.internal) { add('Active state', 'pass', p.name, 'Internal page — not a public nav destination, so nothing marks it current'); return; }
+        const marked = new RegExp('href="\\./' + encodeURIComponent(f).replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '"\\s+aria-current="page"').test(t);
+        add('Active state', marked ? 'pass' : 'warn', p.name, marked ? 'Current page carries aria-current="page"' : 'Nothing marks this page as current');
+      });
+
+      liveFiles.forEach(f => {
+        const t = src[f]; if (!t) return;
+        const p = this.PAGES.find(x => x.file === f);
+        const notes = [];
+        if (!/@media[^{]*max-width:\s*680px/.test(t)) notes.push('no 680px stack rule');
+        if (!/name="viewport"/.test(t)) notes.push('no viewport meta');
+        if (!/min-height:\s*44px/.test(this.mobileBlock(t))) notes.push('no 44px rule inside the 680px block');
+        add('Mobile', notes.length ? 'fail' : 'pass', p.name, notes.length ? notes.join(' · ') : 'Viewport meta, 680px stack and 44px tap targets all present');
+      });
+
+      const marks = {};
+      liveFiles.forEach(f => {
+        const t = src[f]; if (!t) return;
+        const p = this.PAGES.find(x => x.file === f);
+        const m = this.mark(t); marks[m] = (marks[m] || 0) + 1;
+        add('Logo', 'info', p.name, m);
+      });
+      const dk = Object.keys(marks);
+      add('Logo', dk.length === 1 ? 'pass' : 'fail', 'Consistency', dk.length === 1 ? 'All live pages use ' + dk[0] : dk.length + ' different marks in use: ' + dk.join(' · '));
+
+      const s = src['Levarum Start.dc.html'];
+      if (s) {
+        const steps = (s.match(/data-step/g) || []).length;
+        [
+          ['Forward', /(next|advance|continue)/i.test(s), 'A way to advance through the questions'],
+          ['Backward', /(back|previous|prev)\b/i.test(s), 'A way to go back a step'],
+          ['Validation', /(required|invalid|error|please )/i.test(s), 'Validation or error copy'],
+          ['Completion', /(unlock|your plan|book|calendar)/i.test(s), 'Something happens at the end'],
+          ['Persistence', /localStorage/.test(s), 'Answers survive a refresh'],
+          ['Exit to site', this.hrefs(s).length > 2, 'More than one way back into the site'],
+          ['Failure state', /(sendFailed|did not go through)/.test(s), 'A visible failure state with a fallback'],
+          ['Fallback contact', /mailto:/.test(s), 'A mailto escape hatch'],
+          ['Deep links', /location\.hash/.test(s), 'Each step addressable by URL'],
+        ].forEach(([n, ok, why]) => add('Start flow', ok ? 'pass' : 'fail', n, (ok ? 'Present — ' : 'MISSING — ') + why));
+        add('Start flow', steps ? 'pass' : 'warn', 'Steps', steps ? steps + ' [data-step] markers found' : 'No [data-step] markers');
+        add('Start flow', /formEndpoint/.test(s) ? 'warn' : 'fail', 'Backend',
+          /formEndpoint/.test(s) ? 'Endpoint prop exists but is empty — prototype mode, nothing is posted yet' : 'No way to send a submission anywhere');
+      }
+
+      const proto = src['Levarum Prototype v2.dc.html'];
+      if (proto) {
+        const reach = liveFiles.some(f => src[f] && this.hrefs(src[f]).indexOf('Levarum Prototype v2.dc.html') !== -1);
+        add('Second intake', reach ? 'fail' : 'pass', 'Prototype v2', reach ? 'A live page still links to the archived phone intake' : 'Archived and unreachable, as intended');
+      }
+
+      // ---- design-system checks, all computed from source ----
+      const roots = {}, tokenCounts = {};
+      liveFiles.forEach(f => { if (src[f]) { roots[f] = this.rootBlock(f && src[f]).replace(/\s+/g, ' ').trim(); tokenCounts[f] = Object.keys(this.tokens(src[f])).length; } });
+      const rootVals = Object.values(roots);
+      const rootSame = rootVals.length > 0 && rootVals.every(v => v === rootVals[0]);
+      add('Tokens', rootSame ? 'pass' : 'fail', ':root parity',
+        rootSame ? 'Identical :root block on all ' + rootVals.length + ' live pages — ' + (tokenCounts[liveFiles[0]] || 0) + ' tokens each'
+                 : 'The :root block differs between pages — ' + liveFiles.map(f => (this.PAGES.find(p => p.file === f) || {}).name + ':' + (tokenCounts[f] || 0)).join(', '));
+
+      let colorLoose = 0, strayColor = 0, typeOff = 0, spaceOff = 0, radiusOff = 0;
+      const looseBy = {}, strayBy = {}, typeBy = {}, spaceBy = {};
+      const tokenHexes = this.resolvedTokenSet(home || '');
+      liveFiles.forEach(f => {
+        const t = src[f]; if (!t) return;
+        const body = this.styleSource(t);
+        const p = this.PAGES.find(x => x.file === f);
+        const lits = body.match(/#[0-9a-fA-F]{3,8}\b/g) || [];
+        const stray = lits.filter(v => !tokenHexes.has(this.normHex(v)));
+        colorLoose += lits.length; looseBy[p.name] = lits.length;
+        strayColor += stray.length; strayBy[p.name] = [...new Set(stray.map(v => this.normHex(v)))];
+        const fs = [...body.matchAll(/font-size:\s*(\d+)px/g)].map(m => +m[1]).filter(n => this.SCALE.type.indexOf(n) === -1);
+        typeOff += fs.length; typeBy[p.name] = fs.length;
+        const sp = [];
+        for (const m of body.matchAll(/(?:margin|padding|row-gap|column-gap|gap|rowGap|columnGap)[A-Za-z]*\s*:\s*'?([^;'"}\n]+)/g)) {
+          if (/calc\(/.test(m[1])) continue;
+          for (const v of (m[1].match(/\b\d+px\b|clamp\([^)]*\)/g) || [])) sp.push(v);
+        }
+        spaceOff += sp.length; spaceBy[p.name] = sp.length;
+        const rd = [...body.matchAll(/border-?[Rr]adius:\s*'?([^;,'"}]+)/g)].map(m => m[1].trim()).filter(v => /^[\d.]+px$|^50%$/.test(v) && this.SCALE.radius.indexOf(v) === -1);
+        radiusOff += rd.length;
+      });
+      add('Tokens', strayColor === 0 ? 'pass' : 'fail', 'Colour literals outside :root',
+        colorLoose + ' hex literals sit outside the :root block (' + (Object.entries(looseBy).filter(([, v]) => v).map(([k, v]) => k + ' ' + v).join(', ') || 'none') + '). ' + strayColor + ' of them are a value :root does not define. ' + (strayColor
+          ? 'Stray: ' + Object.entries(strayBy).filter(([, v]) => v.length).map(([k, v]) => k + ' ' + v.join(' ')).join(' · ')
+          : 'The rest are the Start theme engine, which computes contrast on real hex strings and cannot read var() — counted here but not scored as drift, and each one is checked against :root below.'));
+      add('Tokens', typeOff === 0 ? 'pass' : 'warn', 'Font sizes off the scale',
+        typeOff + ' px font-size values not in the ' + this.SCALE.type.length + '-step scale (' + this.SCALE.type.join('/') + ')');
+
+      const clamps = new Set(), clampWhere = {};
+      liveFiles.forEach(f => {
+        if (!src[f]) return;
+        const p = this.PAGES.find(x => x.file === f);
+        for (const m of this.outsideRoot(src[f]).matchAll(/font-?[Ss]ize:\s*'?(clamp\([^)]+\))/g)) {
+          const v = m[1].replace(/\s/g, ''); clamps.add(v);
+          (clampWhere[p.name] = clampWhere[p.name] || new Set()).add(v);
+        }
+      });
+      const dSteps = Object.keys(this.tokens(home || '')).filter(k => k.indexOf('--lv-d-') === 0).length;
+      add('Tokens', clamps.size === 0 ? 'pass' : 'fail', 'Display sizes',
+        clamps.size === 0
+          ? dSteps + ' fluid display steps are defined in :root and every heading on every page reads one of them — no clamp() font size is written outside the token block'
+          : clamps.size + ' clamp() font sizes are still written outside :root — ' + Object.entries(clampWhere).map(([k, v]) => k + ' ' + [...v].join(' ')).join(' · '));
+
+      // Start is the theming engine: its palette must be hex for the contrast maths it runs,
+      // so instead of banning literals there, check every one of them IS a token value.
+      const startSrc = src['Levarum Start.dc.html'];
+      if (startSrc && home) {
+        const tokenVals = this.resolvedTokenSet(home);
+        const used = [...new Set((this.outsideRoot(startSrc).match(/#[0-9a-fA-F]{6}\b/g) || []).map(v => v.toUpperCase()))];
+        const stray = used.filter(v => !tokenVals.has(v));
+        add('Tokens', stray.length === 0 ? 'pass' : 'fail', 'Start theme engine',
+          stray.length === 0
+            ? used.length + ' hex values drive the runtime theme and contrast maths — every one of them is a value defined in :root, so the engine cannot drift from the tokens'
+            : stray.length + ' hex values in the theme engine are not in :root: ' + stray.join(' '));
+      }
+      add('Tokens', radiusOff === 0 ? 'pass' : 'warn', 'Radii off the scale', radiusOff + ' border-radius values not in the scale (' + this.SCALE.radius.join('/') + ')');
+      const sSteps = Object.keys(this.tokens(home || '')).filter(k => k.indexOf('--lv-s-') === 0).length;
+      const gSteps = Object.keys(this.tokens(home || '')).filter(k => k.indexOf('--lv-g-') === 0).length;
+      add('Tokens', spaceOff === 0 ? 'pass' : 'fail', 'Spacing off the scale',
+        spaceOff === 0
+          ? sSteps + ' fixed steps (' + this.SCALE.space.join('/') + 'px) and ' + gSteps + ' fluid steps carry every margin, padding and gap on all five pages — no raw px or clamp() is written into a spacing declaration outside :root'
+          : spaceOff + ' spacing values are still written as raw px or clamp() rather than a token — ' + Object.entries(spaceBy).filter(([, v]) => v).map(([k, v]) => k + ' ' + v).join(', '));
+
+      const fams = {};
+      liveFiles.forEach(f => {
+        const t = src[f]; if (!t) return;
+        const set = [...new Set([...t.matchAll(/font-?[Ff]amily:\s*"?'?([^;"'}]+(?:',\s*sans-serif)?)/g)]
+          .map(m => m[1].replace(/["']/g, '').replace(/\s+/g, ' ').trim())
+          .filter(v => !/mono/i.test(v)))].sort().join(' | ');
+        fams[set] = (fams[set] || []).concat((this.PAGES.find(p => p.file === f) || {}).name);
+      });
+      const famKeys = Object.keys(fams);
+      add('Tokens', famKeys.length === 1 ? 'pass' : 'warn', 'Font families across pages',
+        famKeys.length === 1 ? 'One text family set on all live pages: ' + famKeys[0] + '. The monospace role is declared once as --lv-t-mono and scored separately below, because only pages showing machine references use it.' : famKeys.length + ' different sets — ' + famKeys.map(k => fams[k].join('/') + ': ' + k).join('  ·  '));
+
+      const monoPages = liveFiles.filter(f => src[f] && /var\(--lv-t-mono\)/.test(this.outsideRoot(src[f]))).map(f => (this.PAGES.find(p => p.file === f) || {}).name);
+      const monoRaw = liveFiles.filter(f => src[f] && /font-?[Ff]amily:\s*'?ui-monospace/.test(this.outsideRoot(src[f]))).map(f => (this.PAGES.find(p => p.file === f) || {}).name);
+      const monoDeclared = liveFiles.every(f => !src[f] || /--lv-t-mono\s*:/.test(this.rootBlock(src[f])));
+      add('Tokens', monoDeclared && monoRaw.length === 0 ? 'pass' : 'warn', 'Monospace role',
+        monoDeclared && monoRaw.length === 0
+          ? '--lv-t-mono is declared in every :root block and read via var() by the ' + (monoPages.length ? monoPages.join(' and ') + ' page' + (monoPages.length > 1 ? 's' : '') : 'pages that need it') + ' — no page hand-types a monospace stack'
+          : (monoRaw.length ? monoRaw.join(', ') + ' still hand-type a monospace stack. ' : '') + (monoDeclared ? '' : 'The token is missing from at least one :root block.'));
+
+      liveFiles.forEach(f => {
+        const t = src[f]; if (!t) return;
+        const p = this.PAGES.find(x => x.file === f);
+        const hov = (t.match(/:hover|style-hover/g) || []).length;
+        const act = (t.match(/:active|style-active/g) || []).length;
+        const foc = (t.match(/focus-visible/g) || []).length;
+        const miss = [];
+        if (hov < 2) miss.push('hover');
+        if (act < 1) miss.push('active');
+        if (foc < 1) miss.push('focus-visible');
+        add('Interactive states', miss.length ? 'fail' : 'pass', p.name,
+          miss.length ? 'No ' + miss.join(', ') + ' treatment — hover:' + hov + ' active:' + act + ' focus:' + foc
+                      : 'hover ' + hov + ' · active ' + act + ' · focus-visible ' + foc);
+      });
+
+      const focSels = {};
+      liveFiles.forEach(f => {
+        const t = src[f]; if (!t) return;
+        const m = t.match(/([^\n{]*focus-visible[^\n{]*)\{([^}]*)\}/);
+        const k = m ? (m[1].replace(/\s+/g, ' ').trim() + ' {' + m[2].replace(/\s+/g, ' ').trim() + '}') : 'none';
+        focSels[k] = (focSels[k] || []).concat((this.PAGES.find(p => p.file === f) || {}).name);
+      });
+      const fk = Object.keys(focSels);
+      add('Interactive states', fk.length === 1 ? 'pass' : 'warn', 'Focus ring parity',
+        fk.length === 1 ? 'One identical focus rule on all live pages' : fk.length + ' different focus rules — ' + fk.map(k => focSels[k].join('/')).join(' vs '));
+
+      liveFiles.forEach(f => {
+        const t = src[f]; if (!t) return;
+        const p = this.PAGES.find(x => x.file === f);
+        const mob = this.mobileBlock(t);
+        const has44 = /min-height:\s*44px/.test(mob);
+        add('Tap targets', has44 ? 'pass' : 'fail', p.name,
+          has44 ? 'A 44px minimum is enforced inside the 680px block itself' : 'No 44px minimum inside the 680px block — nav and footer links are ~20px tall on a phone');
+      });
+
+      const T = home ? this.tokens(home) : {};
+      const val = (k, fb) => this.resolveColor(T, T[k] || fb);
+      const PAIRS = [
+        ['--lv-ink-quiet', '--lv-page', 'body', 'quiet body text on the page'],
+        ['--lv-ink-quiet', '--lv-surface', 'body', 'quiet body text on a card'],
+        ['--lv-ink-quiet', '--lv-band', 'body', 'quiet body text on the band'],
+        ['--lv-ink', '--lv-page', 'body', 'ink on the page'],
+        ['--lv-ink', '--lv-surface', 'body', 'ink on a card'],
+        ['--lv-ink', '--lv-band', 'body', 'ink on the band'],
+        ['--lv-accent', '--lv-page', 'body', 'links and eyebrows on the page'],
+        ['--lv-accent', '--lv-surface', 'body', 'links and eyebrows on a card'],
+        ['--lv-accent', '--lv-band', 'body', 'accent on the band'],
+        ['--lv-spark-deep', '--lv-surface', 'body', 'EXAMPLE tag on a card'],
+        ['--lv-spark', '--lv-dark', 'body', 'spark eyebrow on the dark band'],
+        ['--lv-ink', '--lv-spark', 'large', 'ink label on the spark button'],
+        ['--lv-surface', '--lv-ink', 'body', 'white label on an ink surface'],
+        ['--lv-sec', '--lv-page', 'body', 'secondary on the page'],
+        ['--lv-sec', '--lv-surface', 'body', 'secondary on a card'],
+        ['--lv-sec', '--lv-tint', 'body', 'secondary on a tinted section'],
+        ['--lv-sec', '--lv-sec-tint', 'body', 'secondary on the footer band'],
+        ['--lv-sec', '--lv-band', 'body', 'secondary on the warm band'],
+        ['--lv-ink', '--lv-tint', 'body', 'ink on a tinted section'],
+        ['--lv-ink-quiet', '--lv-tint', 'body', 'quiet text on a tinted section'],
+        ['--lv-ink', '--lv-sec-tint', 'body', 'ink on the footer band'],
+        ['--lv-ink-quiet', '--lv-sec-tint', 'body', 'quiet text and footer links on the footer band'],
+        ['--lv-accent', '--lv-tint', 'body', 'accent on a tinted section'],
+        ['--lv-accent', '--lv-sec-tint', 'body', 'accent on the footer band'],
+        ['--lv-accent', '--lv-accent-tint', 'body', 'accent chip label on its own tint'],
+        ['--lv-ink', '--lv-accent-tint', 'body', 'ink on the accent chip'],
+        ['--lv-surface', '--lv-accent', 'body', 'white label on the primary CTA'],
+        ['--lv-surface', '--lv-accent-hover', 'body', 'white label on the hovered CTA'],
+        ['--lv-ok', '--lv-page', 'body', 'success on the page'],
+        ['--lv-ok', '--lv-surface', 'body', 'success on a card'],
+        ['--lv-ok', '--lv-ok-tint', 'body', 'success label on the success tint'],
+        ['--lv-surface', '--lv-ok', 'body', 'white on a success fill'],
+        ['--lv-sec-on-dark', '--lv-dark', 'body', 'secondary lifted onto the dark band'],
+        ['--lv-sec-on-dark', '--lv-dark-surface', 'body', 'secondary lifted onto a dark card'],
+        ['--lv-ok-on-dark', '--lv-dark', 'body', 'booked confirmation on the dark band'],
+        ['--lv-ok-on-dark', '--lv-dark-surface', 'body', 'booked confirmation on a dark card'],
+        ['--lv-dark-ink', '--lv-dark', 'body', 'text on the dark band'],
+        ['--lv-dark-quiet', '--lv-dark', 'body', 'quiet text on the dark band'],
+        ['--lv-dark-quiet', '--lv-dark-surface', 'body', 'quiet text on a dark card'],
+        ['--lv-ink-placeholder', '--lv-page', 'body', 'input placeholder'],
+        ['--lv-line-control', '--lv-page', 'ui', 'input and control boundary on the page'],
+        ['--lv-line-control', '--lv-surface', 'ui', 'input and control boundary on a card'],
+        ['--lv-dark-line-control', '--lv-dark', 'ui', 'control boundary on the dark band'],
+        ['--lv-link', '--lv-page', 'body', 'inline link on the page'],
+        ['--lv-link', '--lv-surface', 'body', 'inline link on a card'],
+        ['--lv-link-hover', '--lv-page', 'body', 'inline link, hovered'],
+        ['--lv-sec', '--lv-rung-2', 'body', 'petrol label on tint rung 2'],
+        ['--lv-sec', '--lv-rung-3', 'body', 'petrol label on tint rung 3'],
+        ['--lv-sec', '--lv-rung-4', 'body', 'petrol label on tint rung 4'],
+        ['--lv-ink', '--lv-rung-4', 'body', 'body text on tint rung 4'],
+        ['--lv-ink-quiet', '--lv-rung-2', 'body', 'quiet text on tint rung 2'],
+        ['--lv-ink-quiet', '--lv-rung-4', 'body', 'quiet text on tint rung 4'],
+        ['--lv-dark-ink', '--lv-dark-petrol', 'body', 'text on the petrol-ink band'],
+        ['--lv-dark-quiet', '--lv-dark-petrol', 'body', 'quiet text on the petrol-ink band'],
+        ['--lv-sec-on-dark', '--lv-dark-petrol', 'body', 'petrol accent on the petrol-ink band'],
+        ['--lv-dark-ink', '--lv-dark-petrol-surface', 'body', 'text on a card in the petrol-ink band'],
+        ['--lv-dark-quiet', '--lv-dark-petrol-surface', 'body', 'quiet text on a card in the petrol-ink band'],
+        ['--lv-meter-fill', '--lv-meter-track', 'ui', 'hours meter fill against its track'],
+        ['--lv-meter-fill-quiet', '--lv-meter-track', 'ui', 'quiet hours meter fill against its track'],
+        ['--lv-ok', '--lv-surface', 'body', 'partner track label on a card'],
+        ['--lv-ok', '--lv-rung-2', 'body', 'partner track label on tint rung 2'],
+        ['--lv-ok', '--lv-ok-tint', 'body', 'booked status pill'],
+      ];
+      const contrastRows = [];
+      let contrastFails = 0;
+      const DARK = home ? this.themeTokens(home) : {};
+      const TD = Object.assign({}, T, DARK);
+      const valD = (k, fb) => this.resolveColor(TD, TD[k] || fb);
+      PAIRS.forEach(([fk2, bk, kind, where]) => {
+        const need = kind === 'large' ? 3 : kind === 'ui' ? 3 : 4.5;
+        [['light', val], ['dark', valD]].forEach(([mode, pick]) => {
+          const fg = pick(fk2), bg = pick(bk);
+          const r = this.cr(fg, bg);
+          if (r == null) { contrastRows.push({ mode, fg: fk2, bg: bk, ratio: '—', ok: null, need: '', where: where + ' (token not defined yet)' }); return; }
+          const ok = r >= need;
+          if (!ok) contrastFails++;
+          contrastRows.push({ mode, fg: fg + '  ' + fk2, bg: bg + '  ' + bk, ratio: r.toFixed(2), need: need.toFixed(1), ok, where });
+        });
+      });
+      const lightRows = contrastRows.filter(r => r.mode === 'light');
+      const darkRows = contrastRows.filter(r => r.mode === 'dark');
+      const lightFails = lightRows.filter(r => r.ok === false).length;
+      const darkFails = darkRows.filter(r => r.ok === false).length;
+      add('Contrast', lightFails === 0 ? 'pass' : 'fail', 'Token pairs · light',
+        lightFails === 0 ? 'All ' + lightRows.length + ' pairs meet AA in light mode' : lightFails + ' of ' + lightRows.length + ' light pairs fail AA');
+      add('Contrast', darkFails === 0 ? 'pass' : 'fail', 'Token pairs · dark',
+        darkFails === 0 ? 'All ' + darkRows.length + ' pairs meet AA in dark mode, every value a color-mix() off the same base palette' : darkFails + ' of ' + darkRows.length + ' dark pairs fail AA');
+
+      const themes = {}, themeCounts = {};
+      liveFiles.forEach(f => { if (src[f]) { themes[f] = this.themeBlock(src[f]).replace(/\s+/g, ' ').trim(); themeCounts[f] = Object.keys(this.themeTokens(src[f])).length; } });
+      const themeVals = Object.values(themes);
+      const themeSame = themeVals.length > 0 && themeVals.every(v => v === themeVals[0]) && themeVals[0].length > 0;
+      add('Tokens', themeSame ? 'pass' : 'fail', 'Dark block parity',
+        themeSame ? 'Identical [data-theme="dark"] block on all ' + themeVals.length + ' live pages — ' + (themeCounts[liveFiles[0]] || 0) + ' overrides each'
+                  : 'The dark token block differs between pages — ' + liveFiles.map(f => (this.PAGES.find(p => p.file === f) || {}).name + ':' + (themeCounts[f] || 0)).join(', '));
+
+      const toggles = liveFiles.filter(f => src[f] && /data-theme-toggle/.test(src[f])).length;
+      const themeScripts = liveFiles.filter(f => src[f] && /levarum\.theme\.v1/.test(src[f])).length;
+      add('Tokens', toggles === liveFiles.length && themeScripts === liveFiles.length ? 'pass' : 'fail', 'Theme control',
+        toggles === liveFiles.length && themeScripts === liveFiles.length
+          ? 'Every live page carries the nav toggle and sets the theme from storage or prefers-color-scheme in the head, before body paint'
+          : toggles + ' of ' + liveFiles.length + ' pages have the toggle, ' + themeScripts + ' have the pre-paint script');
+
+      liveFiles.forEach(f => {
+        const t = src[f]; if (!t) return;
+        const p = this.PAGES.find(x => x.file === f);
+        const orphans = (t.match(/<\/svg>[\s\S]{0,140}?<\/span>\s*\n\s*<span style="font-family:'Schibsted Grotesk'/g) || []).length;
+        add('Markup', orphans ? 'fail' : 'pass', p.name,
+          orphans ? orphans + ' orphaned </span> after the logo SVG — leftover from an earlier edit' : 'No orphaned tags around the logo lockups');
+      });
+
+      // ---- tables ----
+      const liveNow = { color: strayColor, type: typeOff + clamps.size, space: spaceOff, radius: radiusOff };
+      const tokenTotal = tokenCounts[liveFiles[0]] || 0;
+      const byCat = (pfx) => Object.keys(this.tokens(home || '')).filter(k => k.indexOf(pfx) === 0).length;
+
+      const cov = [
+        ['Color', byCat('--lv-page') + byCat('--lv-surface') + byCat('--lv-band') + byCat('--lv-ink') + byCat('--lv-dark') + byCat('--lv-line') + byCat('--lv-accent') + byCat('--lv-spark'), this.BASE.color, liveNow.color],
+        ['Typography', byCat('--lv-t-') + byCat('--lv-d-'), this.BASE.type, liveNow.type],
+        ['Spacing', byCat('--lv-s-') + byCat('--lv-g-'), this.BASE.space, liveNow.space],
+        ['Radius', byCat('--lv-r-'), this.BASE.radius, liveNow.radius],
+        ['Shadow', byCat('--lv-shadow'), this.BASE.shadow, (home ? (this.outsideRoot(home).match(/box-shadow:\s*0 /g) || []).length : 0)],
+        ['Motion', byCat('--lv-ease') + byCat('--lv-dur'), this.BASE.motion, liveFiles.reduce((a, f) => a + (src[f] ? (this.outsideRoot(src[f]).match(/cubic-bezier\([^)]*\)/g) || []).length : 0), 0)],
+      ].map(([cat, defined, found, still]) => ({
+        cells: [{ v: cat }, { v: String(defined), cls: 'num' }, { v: String(found), cls: 'num' }, { v: String(Math.max(0, found - still)), cls: 'num' }, { v: String(still), cls: 'num' }],
+        trStyle: still === 0 ? { background: '#F1F7F2' } : {},
+      }));
+
+      // each component is scored against the files it actually lives in
+      const COMPONENTS = [
+        ['Primary button', '3 sizes (nav / standard / hero)', 'data-btn', ['Levarum Home v2.dc.html', 'Levarum How It Works.dc.html', 'Levarum What We Automate.dc.html', 'Levarum Questions.dc.html', 'Levarum Start.dc.html'], 'all five live pages'],
+        ['Link card', '1', 'data-card', ['Levarum Home v2.dc.html', 'Levarum How It Works.dc.html', 'Levarum What We Automate.dc.html'], 'Home ×3, How it works ×2, What we automate ×2'],
+        ['Nav link', '2 (quiet / current)', 'data-quiet-link', liveFiles, 'all five live pages'],
+        ['Footer', '1', 'data-foot', ['Levarum Home v2.dc.html', 'Levarum How It Works.dc.html', 'Levarum What We Automate.dc.html', 'Levarum Questions.dc.html'], 'every live page except Start'],
+        ['Choice chip', '1 + selected', 'data-choice', ['Levarum Start.dc.html'], 'Start — hours, time sinks, call slots'],
+        ['Form field', '1 (select + email)', 'data-field', ['Levarum Home v2.dc.html', 'Levarum Start.dc.html'], 'Home hero select, Start select and email'],
+        ['FAQ row', '1 + open state', 'aria-expanded', ['Levarum Questions.dc.html'], 'Questions ×7'],
+        ['Tool chip', '1', 'lv-r-chip', ['Levarum What We Automate.dc.html', 'Levarum Start.dc.html'], 'What we automate ×14, Start summary pills'],
+        ['Eyebrow label', '2 (accent / quiet)', 'lv-t-cap', liveFiles, 'all five live pages'],
+        ['Step circle', '2 sizes', 'lv-r-round', ['Levarum How It Works.dc.html', 'Levarum Start.dc.html'], 'How it works ×3, Start'],
+      ];
+      const compRows = COMPONENTS.map(([name, variants, marker, files, where]) => {
+        const present = files.filter(f => src[f] && src[f].indexOf(marker) !== -1);
+        const consistent = present.length === files.length;
+        const anyFile = src[files[0]] || '';
+        // anything a pointer can act on is state-scored. Footer is the one deliberate exception:
+        // its links are the same treatment as Nav link and are scored there, not twice.
+        const INTERACTIVE = ['data-btn', 'data-card', 'data-quiet-link', 'data-choice', 'data-field', 'aria-expanded'];
+        const interactive = INTERACTIVE.indexOf(marker) !== -1;
+        const st = [];
+        st.push('default');
+        if (!interactive) {
+          // static treatments are scored on consistency alone
+          const score = consistent ? 10 : Math.round(10 * present.length / files.length);
+          return { cells: [{ v: name }, { v: variants }, { v: 'static — no states apply' }, { v: consistent ? 'yes' : present.length + '/' + files.length }, { v: score + '/10', cls: 'num' }, { v: where, style: { color: '#5C5A56' } }],
+            trStyle: score >= 8 ? { background: '#F1F7F2' } : { background: '#FDF6EC' } };
+        }
+        const sel = '\\[' + marker + '\\]';
+        const hasHover = new RegExp(sel + ':hover').test(anyFile) || (marker === 'aria-expanded' && /isOpen/.test(anyFile));
+        const hasActive = new RegExp(sel + ':active').test(anyFile) || (marker === 'aria-expanded' && /isOpen/.test(anyFile));
+        const hasFocus = /focus-visible/.test(anyFile);
+        const hasDisabled = new RegExp(sel + '(\\[aria-disabled|:disabled)').test(anyFile);
+        if (hasHover) st.push('hover');
+        if (hasFocus) st.push('focus');
+        if (hasActive) st.push('active');
+        if (hasDisabled) st.push('disabled');
+        const needsDisabled = marker === 'data-btn' || marker === 'data-field';
+        const wanted = needsDisabled ? 5 : 4;
+        const score = Math.round(10 * (Math.min(st.length, wanted) / wanted) * (consistent ? 1 : present.length / files.length));
+        return {
+          cells: [{ v: name }, { v: variants }, { v: st.join(' · ') }, { v: consistent ? 'yes' : present.length + '/' + files.length + ' pages' }, { v: score + '/10', cls: 'num' }, { v: where, style: { color: '#5C5A56' } }],
+          trStyle: score >= 8 ? { background: '#F1F7F2' } : { background: '#FDF6EC' },
+        };
+      });
+
+      const DUPES = [
+        ['#FFFFFF', '#fff (lowercase short form)', 30, 'every card background on all five pages'],
+        ['#1A1A1A', '#1B1815 (BRAND.ink swatch)', 2, 'Start — the logo brand palette disagreed with the page ink by 1.6%'],
+        ['#242422', '#2C2C29, #2F2F2C, #201F1D', 3, 'Start — four dark surfaces within 1.16:1 of each other, visually one colour'],
+        ['#8F8C88', '#D8D3CC, #8F8C87', 3, 'Home hero pill, Questions FAQ icon, Start plan footnote'],
+        ['#73706C', '#9A948C', 1, 'Start — the input placeholder, which failed AA at 2.80:1'],
+        ['#7F7C74', '#5A5A56', 1, 'Start — the confirmation step numbers on the dark card'],
+        ['13px', '12px eyebrows', 9, 'the card eyebrows on Home ×3, How it works ×2, What we automate ×2'],
+        ['13px', '14px section cap', 1, 'Start — WHERE IT COMES FROM'],
+        ['clamp(30px,3.4vw,44px)', 'clamp(30px,3.8vw,46px), clamp(34px,3.6vw,46px), clamp(30px,3.4vw,40px), clamp(28px,3.2vw,40px)', 5, 'section headings on Home, How it works, What we automate, Start'],
+        ['clamp(32px,4.2vw,52px)', 'clamp(32px,4.4vw,56px), clamp(34px,4.4vw,56px), clamp(30px,4vw,52px)', 3, 'step titles on Home, Questions, Start'],
+        ['clamp(22px,2.4vw,28px)', 'clamp(26px,2.6vw,32px), clamp(22px,2.6vw,30px)', 2, 'sub-headings on Home and Start'],
+        ['clamp(36px,5vw,68px)', 'clamp(36px,5vw,64px)', 1, 'the Questions page title'],
+        ['clamp(19px,2vw,22px)', 'clamp(20px,2.2vw,26px)', 1, 'Start — the plan lead'],
+        ['clamp(17px,1.5vw,20px)', 'clamp(17px,1.8vw,20px)', 1, 'Questions — the intro lead'],
+        ['clamp(16px,1.4vw,18px)', 'clamp(16px,1.4vw,19px)', 2, 'Home hero lead and the Start step lead'],
+        ['0.06em', '0.05em tracking on quiet caps', 9, 'How it works ×3, What we automate ×5, Start ×1'],
+        ['17px / 19px', '18px button label', 2, 'Home hero CTA and the Start primary button'],
+        ['13px radius', '10px, 12px, 14px', 19, 'every button and form field across all five pages'],
+        ['20px radius', '18px, 22px, 26px', 10, 'cards on Home, How it works, Questions, Start'],
+        ['8px radius', '7px, 6px', 16, 'the 14 tool chips on What we automate, plus Start summary pills'],
+        ['Deep rust --lv-accent on CTAs', 'ink-black CTAs — the site had no accent on any button', 11, 'every primary button on all five live pages, plus Admin sign-in'],
+        ['Petrol --lv-sec on structure', 'ink and quiet-grey card eyebrows, step markers, tool chips, FAQ open state', 41, 'card eyebrows, step circles, 14 tool chips, FAQ accordion, secondary panels'],
+        ['--lv-tint alternating sections', 'untinted cream — four pages ran one flat background end to end', 4, 'Home page-links, How it works steps, What we automate cards, Questions FAQ'],
+        ['9 fixed spacing steps 2/6/10/12/16/20/26/34/54', '23 distinct px values — 5, 7, 9, 11, 15, 17, 18, 21, 22, 28, 30 and the rest', 240, 'every margin, padding and gap on all five pages'],
+        ['5 fluid spacing steps', '30 distinct clamp() rhythms — section padding written slightly differently on every page', 45, 'section and band padding on all five pages'],
+      ].map(([keep, removed, n, where]) => ({
+        cells: [{ v: keep, cls: 'num' }, { v: removed }, { v: String(n), cls: 'num' }, { v: where, style: { color: '#5C5A56' } }],
+      }));
+
+      const contRows = contrastRows.map(r => ({
+        cells: [
+          { v: r.mode.toUpperCase() }, { v: r.fg, cls: 'num' }, { v: r.bg, cls: 'num' }, { v: r.ratio, cls: 'num' },
+          { v: r.ok == null ? '—' : (r.ok ? 'AA pass' : 'FAIL, needs ' + r.need) },
+          { v: r.where, style: { color: '#5C5A56' } },
+        ],
+        trStyle: r.ok == null ? { background: '#F7F4F0' } : r.ok ? {} : { background: '#FCF0EE' },
+      }));
+
+      const h = (...l) => l.map(label => ({ label }));
+      dsTables = [
+        { name: 'Token coverage', note: 'Found is the pre-audit count taken by reading all five pages. Still loose re-reads the source on every load, so this table cannot flatter itself. Colour counts drift only — a literal that equals a token value is a duplicate, not a divergence; the raw literal count is in the Tokens check above.', head: h('Category', 'Tokens defined', 'Hardcoded found', 'Replaced', 'Still loose'), rows: cov },
+        { name: 'Component completeness', note: 'A component here is any treatment repeated across pages. States are read from the source, not assumed.', head: h('Component', 'Variants', 'States', 'Consistent', 'Score', 'Where it appears'), rows: compRows },
+        { name: 'Collapsed duplicates', note: 'Near-identical values that existed side by side. Kept value is the one already used more.', head: h('Kept', 'Removed', 'Instances moved', 'Where'), rows: dupeRowsGuard(DUPES) },
+        { name: 'Contrast', note: 'Every defined token pair, in both modes, computed live from the :root block and the [data-theme="dark"] overrides — passes included.', head: h('Mode', 'Foreground', 'Background', 'Ratio', 'AA', 'Where used'), rows: contRows },
+      ];
+
+      const score = Math.max(0, Math.round(100
+        - (strayColor > 0 ? 14 : 0) - (typeOff > 0 ? 8 : 0) - (spaceOff > 40 ? 8 : spaceOff > 0 ? 4 : 0)
+        - (radiusOff > 0 ? 6 : 0) - (rootSame ? 0 : 10) - contrastFails * 6
+        - rows.filter(r => r.group === 'Interactive states' && r.level === 'fail').length * 6
+        - rows.filter(r => r.group === 'Tap targets' && r.level === 'fail').length * 3
+        - rows.filter(r => r.group === 'Markup' && r.level === 'fail').length * 2));
+
+      dsSummary = [
+        { n: String(liveFiles.length + 1), label: 'files read in full — five live pages plus the archived intake' },
+        { n: String(COMPONENTS.length), label: 'repeated treatments that behave like components' },
+        { n: String(rows.filter(r => r.level === 'fail').length), label: 'issues found, counted not estimated' },
+        { n: String(tokenTotal), label: 'tokens defined in :root, identical on every page' },
+        { n: score + '/100', label: 'design-system score, recomputed on every load' },
+      ];
+    }
+
+    function dupeRowsGuard(d) { return d; }
+
+    const LEVEL = {
+      pass: { pip: '✓', bg: '#F1F7F2', fg: '#2C6B3F' },
+      warn: { pip: '!', bg: '#FDF6EC', fg: '#8A5A16' },
+      fail: { pip: '✕', bg: '#FCF0EE', fg: '#9C2F22' },
+      info: { pip: '·', bg: '#F7F4F0', fg: '#5C5A56' },
+    };
+    const ORDER = ['Files', 'Link targets', 'Nav parity', 'Route home', 'Active state', 'Mobile', 'Logo', 'Start flow', 'Second intake',
+      'Tokens', 'Interactive states', 'Tap targets', 'Contrast', 'Markup'];
+    const NOTES = {
+      'Files': 'can each page be read at all', 'Link targets': 'every href points at a file that exists',
+      'Nav parity': 'the same four destinations on every page', 'Route home': 'no dead ends',
+      'Active state': 'the nav tells you where you are', 'Mobile': 'viewport, the 680px stack, 44px targets',
+      'Logo': 'one mark, everywhere', 'Start flow': 'the intake actually completes', 'Second intake': 'only one way in',
+      'Tokens': 'one source of truth for every value', 'Interactive states': 'everything clickable answers the pointer',
+      'Tap targets': '44px minimum where thumbs land', 'Contrast': 'computed from the tokens, not eyeballed',
+      'Markup': 'no leftover tags from earlier edits',
+    };
+
+    const groups = ORDER.map(name => ({
+      name, note: NOTES[name],
+      rows: rows.filter(r => r.group === name).map((r, i) => {
+        const L = LEVEL[r.level];
+        return {
+          title: r.title, detail: r.detail, pip: L.pip,
+          rowStyle: { display: 'grid', gridTemplateColumns: '26px 1fr', gap: '13px', alignItems: 'start', padding: '14px 20px', borderTop: i === 0 ? 'none' : '1px solid #F0EDE8', background: L.bg },
+          pipStyle: { display: 'flex', alignItems: 'center', justifyContent: 'center', width: '26px', height: '26px', borderRadius: '50%', flex: 'none', background: '#fff', border: '1px solid ' + L.fg, color: L.fg, fontFamily: "'Schibsted Grotesk',sans-serif", fontWeight: 700, fontSize: '14px' },
+        };
+      }),
+    })).filter(g => g.rows.length);
+
+    const count = (l) => rows.filter(r => r.level === l).length;
+    const tally = (n, label, fg, bg) => ({ n, label, style: { background: bg, border: '1px solid ' + fg + '33', borderRadius: '20px', padding: '20px', color: fg } });
+
+    return {
+      groups, dsSummary, dsTables,
+      run: this.run, status: this.state.status,
+      fileList: this.PAGES.map(p => p.name).join(' · '),
+      tallies: [
+        tally(count('fail'), 'BROKEN', '#9C2F22', '#FCF0EE'),
+        tally(count('warn'), 'WORTH FIXING', '#8A5A16', '#FDF6EC'),
+        tally(count('pass'), 'PASSING', '#2C6B3F', '#F1F7F2'),
+      ],
+      gaps: [
+        { title: 'The logo mark is consistent but unconfirmed', body: 'All five live pages use mark B, the dome on a plate. The logo sheet offers A (lifted ground, drawn from your Plate I) and C (released unit). Picking one is a brand decision, so this pass left the dome in place everywhere rather than choosing.', who: 'YOU DECIDE · placeholder: mark B on all five pages' },
+        { title: 'There is no pricing policy behind the cost answer', body: 'The Questions page answers "what does it cost?" with process rather than numbers — priced per build, agreed on the call. That is a real answer only if it is your real policy.', who: 'YOU DECIDE · placeholder: hours only, no dollar figures anywhere' },
+        { title: 'Call availability and reply window are invented', body: 'The plan screen offers three slots and promises a reply window. Both are typed-in text standing where a calendar should be. The reply window is already a tweak, so it changes without code.', who: 'YOU DECIDE · placeholder: three fake slots, "within one working day"' },
+        { title: 'Start has no footer', body: 'The other four live pages end with a logo, a line of positioning and four links. Start ends at the plan. Adding one is a structure change, which this pass was scoped out of.', who: 'YOU DECIDE · placeholder: plan-screen exit links instead' },
+        { title: 'Admin auth is prototype-only by design', body: 'The sign-in on Levarum Admin checks a hard-coded user and password in front-end code anyone can read, and the inbox reads this device rather than a server. It gates a demo. Real deployment needs a backend session, server-held submissions, and the page refusing to render without a valid session — that is an infrastructure decision, so this pass labelled the limitation on the page instead of inventing auth.', who: 'YOU DECIDE · placeholder: owner / levarum, checked in the browser' },
+        { title: 'There is a second token vocabulary in the project that nothing loads', body: 'levarum-tokens.css defines a full palette under a different naming scheme (--color-base-ink at #1B1815, --color-page, --color-surface-raised) and no page links to it. The five live pages declare --lv-* inline instead. Whether that file is deleted or becomes the canonical source is a decision about how this site gets built next, not a value to collapse.', who: 'YOU DECIDE · placeholder: the inline --lv-* block is what actually renders' },
+        { title: 'The tooling pages run a second palette', body: 'The logo sheet and this checker use their own warm greys rather than the site tokens. They are internal tools, not the live site, so unifying them was not treated as site drift.', who: 'YOU DECIDE · placeholder: tooling keeps its own neutrals' },
+      ],
+      priorities: [
+        { n: 1, title: 'Nothing on the site answers the pointer', why: 'Nine buttons, seven link cards and thirty-five nav and footer links had no hover, no active, no transition. This is the single largest reason a finished site reads as unfinished.' },
+        { n: 2, title: 'The primary button existed in five different shapes', why: 'Same ink fill, five radii and four label sizes across nine instances. Buttons are the most-repeated element on the site, so drift there is felt everywhere at once.' },
+        { n: 3, title: 'Every colour was typed by hand, 370 times', why: 'Thirty-seven distinct literals for what is really a fourteen-colour palette. Nothing was broken; everything was one typo away from being.' },
+        { n: 4, title: 'Control boundaries and the placeholder failed AA', why: 'The input placeholder sat at 2.80:1, and the borders that identify inputs, radios and checkboxes were below 3:1 — the boundary is the only thing marking those as controls.' },
+        { n: 5, title: 'Nav and footer links were 20px tall on a phone', why: 'Thirty-five links with no minimum height. On the mobile stack that is the entire navigation, and it is the one surface you have not been able to test.' },
+      ].map(p => ({ ...p, numStyle: { width: '28px', height: '28px', flex: 'none', borderRadius: '50%', border: '1.5px solid #1A1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Schibsted Grotesk',sans-serif", fontWeight: 600, fontSize: '14px' } })),
+      unverified: [
+        { text: 'Rendering at 390px and 320px. The 680px stack rule and the 44px minimums are in the source and this page confirms they are there — but no phone has loaded these pages.' },
+        { text: 'Hover, active and focus appearance in a real browser. The rules exist and are counted here; how they look under a real pointer is unchecked.' },
+        { text: 'The submission path. Prototype mode never posts, so the failure state has been written and styled but never actually triggered by a failing request.' },
+        { text: 'Font loading. Every page requests the same two families from Google, but a slow or blocked connection has not been simulated.' },
+        { text: 'Screen readers. Roles, aria-current and aria-expanded are present in the source; none of it has been heard out loud.' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

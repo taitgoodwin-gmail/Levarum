@@ -1,0 +1,123 @@
+/* ============================================================
+   Levarum design tokens — v1.0
+   Naming: --{category}-{role}-{variant}. Roles, never appearances.
+   Every value below is either one of the five approved base colours
+   or a stated derivation from them. No hand-picked hexes.
+   ============================================================ */
+:root{
+
+  /* --- 1. Base palette (approved, do not extend) --- */
+  --color-base-ink:    #1B1815;   /* warm near-black */
+  --color-base-rust:   #BF4F1F;   /* the one accent */
+  --color-base-stone:  #9C948A;   /* warm neutral — non-text use only (2.57:1 on paper) */
+  --color-base-tint:   #E7E0D3;   /* raised surface */
+  --color-base-paper:  #F2EDE4;   /* ground */
+
+  /* --- 2. Surfaces --- */
+  --color-page:                   var(--color-base-paper);
+  --color-surface-raised:         var(--color-base-tint);
+  --color-surface-sunken:         #E7E2DA;  /* ink 5% over paper */
+  --color-surface-inverse:        var(--color-base-ink);
+  --color-surface-inverse-raised: #2A2723;  /* paper 7% over ink */
+  --color-scrim:                  rgba(27, 24, 21, 0.62);  /* ink at 62% */
+
+  /* --- 3. Text on light surfaces --- */
+  --color-text-primary:   var(--color-base-ink);        /* 15.16:1 on page — AA all sizes */
+  --color-text-secondary: #57544F;  /* ink 72% over paper — 6.46:1 AA all sizes */
+  --color-text-disabled:  #9C9891;  /* ink 40% over paper — 2.46:1 FAIL, disabled only */
+  --color-text-accent:    #873C1C;  /* ink 34% over rust — 6.69:1 AA all sizes */
+  --color-text-error:     #7A381B;  /* ink 42% over rust — 7.48:1 AA all sizes */
+
+  /* --- 4. Text on inverse surfaces --- */
+  --color-text-inverse:           var(--color-base-paper);  /* 15.16:1 on ink — AA */
+  --color-text-inverse-secondary: #B6B1AA;  /* paper 72% over ink — 8.30:1 AA */
+  --color-text-accent-inverse:    #D08562;  /* paper 34% over rust — 6.07:1 on ink, AA */
+
+  /* --- 5. Borders and focus --- */
+  --color-border-default: #D4CFC7;  /* ink 14% over paper — non-text */
+  --color-border-strong:  #ADA9A2;  /* ink 32% over paper — non-text */
+  --color-border-inverse: #3D3A36;  /* paper 16% over ink — non-text */
+  --color-focus-ring:     var(--color-base-rust);  /* 4.14:1 on paper, 3.66:1 on ink — non-text 3:1 PASS */
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 3px;
+
+  /* --- 6. Accent / action --- */
+  --color-accent:          var(--color-base-rust);  /* fills only; as text ≥24px or ≥19px bold */
+  --color-accent-hover:    #A5461D;  /* ink 16% over rust */
+  --color-accent-pressed:  #8E3F1C;  /* ink 30% over rust */
+  --color-accent-disabled: #E0B69F;  /* rust 35% over paper — fill only */
+  --color-on-accent:       var(--color-base-paper);  /* 4.14:1 on rust — large text only; buttons are ≥19px 600 */
+
+  /* --- 7. Semantic --- */
+  /* error is derived from rust; success / warning / info are GAPs — see style guide */
+  --color-semantic-error: var(--color-text-error);
+
+  /* --- 8. Type --- */
+  --font-heading: 'Poppins', 'Trebuchet MS', sans-serif;
+  --font-body:    'Lora', Georgia, 'Times New Roman', serif;
+  --font-weight-regular: 400;
+  --font-weight-medium:  500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:    700;
+
+  /* Modular scale, base 17px, ratio 1.25, rounded to whole px.
+     Floor: 17px for prose, 15px for any UI text, 13px only for tracked caps. */
+  --font-size-3xs: 13px;  /* eyebrow caps only */
+  --font-size-xs:  15px;  /* meta, helper */
+  --font-size-sm:  17px;  /* body — FLOOR for prose */
+  --font-size-md:  21px;  /* lead */
+  --font-size-lg:  27px;  /* h3 */
+  --font-size-xl:  34px;  /* h2 */
+  --font-size-2xl: 42px;  /* h1, narrow */
+  --font-size-3xl: 52px;  /* h1 */
+  --font-size-4xl: 65px;  /* display */
+
+  --line-height-tight: 1.05;  /* 2xl and up */
+  --line-height-snug:  1.15;  /* lg, xl */
+  --line-height-base:  1.55;  /* body */
+  --line-height-lead:  1.5;   /* md */
+
+  --letter-spacing-display: -0.035em;
+  --letter-spacing-heading: -0.02em;
+  --letter-spacing-body:     0em;
+  --letter-spacing-caps:     0.06em;
+
+  /* --- 9. Spacing — base unit 4px; ×4 to 24px, then ×8 --- */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --space-12: 48px; --space-16: 64px; --space-20: 80px; --space-24: 96px;
+
+  /* --- 10. Radii and border widths --- */
+  --radius-sm: 8px; --radius-md: 13px; --radius-lg: 20px; --radius-xl: 26px; --radius-pill: 999px;
+  --border-width-default: 1px;
+  --border-width-strong: 1.5px;
+
+  /* --- 11. Elevation — the system is flat; two shadows only --- */
+  --shadow-raised: 0 10px 30px rgba(27, 24, 21, 0.06);
+  --shadow-lifted: 0 18px 44px rgba(27, 24, 21, 0.10);
+
+  /* --- 12. Motion --- */
+  --duration-fast: 180ms;  /* state change on a control */
+  --duration-base: 280ms;  /* disclosure, accordion */
+  --duration-slow: 620ms;  /* entrance choreography */
+  --ease-out:    cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* --- 13. Layout --- */
+  --container-page: 1180px;
+  --container-prose: 62ch;
+  --container-form: 520px;
+  --gutter: var(--space-6);
+  --breakpoint-min: 320px;
+  --breakpoint-nav: 680px;
+  --breakpoint-wide: 900px;
+  --touch-target-min: 44px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  :root{
+    --duration-fast: 0ms;
+    --duration-base: 0ms;
+    --duration-slow: 0ms;  /* entrance animations are removed, not shortened */
+  }
+}

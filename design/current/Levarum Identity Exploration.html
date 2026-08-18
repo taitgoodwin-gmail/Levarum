@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Levarum — identity exploration</title>
+<style>
+  :root{
+    --ink:#15171B; --ivory:#F1EDE4; --rust:#B4472B; --mid:#8A887F;
+    --body:#5F5C54; --line:#DCD7CB; --info:#2E5C74; --pos:#3E6B4A; --paper:#FFFFFF;
+    --h:'Poppins','Poppins SemiBold','Century Gothic','Futura',system-ui,sans-serif;
+    --b:'Lora','Lora Regular','Iowan Old Style','Georgia',serif;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--ivory); color:var(--ink); font-family:var(--b); font-size:17px; line-height:1.6; -webkit-font-smoothing:antialiased; }
+  .wrap{ max-width:1120px; margin:0 auto; padding:56px 28px 90px; }
+  h1,h2,h3,h4,.hf{ font-family:var(--h); font-weight:600; letter-spacing:-0.02em; }
+  h1{ font-size:clamp(34px,4.6vw,58px); line-height:1.02; margin:0 0 14px; }
+  h2{ font-size:clamp(24px,2.6vw,32px); line-height:1.1; margin:0 0 18px; }
+  h3{ font-size:22px; margin:0 0 10px; }
+  h4{ font-size:13px; letter-spacing:0.09em; text-transform:uppercase; color:var(--body); margin:0 0 12px; font-weight:600; }
+  p{ margin:0 0 14px; max-width:66ch; }
+  .lede{ font-size:20px; color:var(--body); }
+  hr{ border:none; border-top:1px solid var(--line); margin:54px 0; }
+  section{ margin-bottom:26px; }
+  .card{ background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:26px; }
+  .panel{ background:var(--paper); border:1px solid var(--line); border-radius:20px; padding:30px; margin-bottom:22px; }
+  table{ border-collapse:collapse; width:100%; font-size:15px; background:var(--paper); border:1px solid var(--line); border-radius:12px; overflow:hidden; }
+  th,td{ text-align:left; padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th{ font-family:var(--h); font-weight:600; font-size:12px; letter-spacing:0.07em; text-transform:uppercase; color:var(--body); }
+  tr:last-child td{ border-bottom:none; }
+  .grid{ display:grid; gap:18px; }
+  .row{ display:flex; gap:22px; align-items:flex-end; flex-wrap:wrap; }
+  .mono{ font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12.5px; letter-spacing:0.02em; }
+  .lbl{ font-family:var(--h); font-size:11.5px; letter-spacing:0.07em; text-transform:uppercase; color:var(--mid); margin-top:8px; }
+  .tile{ background:var(--ink); border-radius:12px; padding:18px; display:flex; align-items:center; justify-content:center; }
+  .sq{ background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:18px; display:flex; align-items:center; justify-content:center; }
+  .blur{ filter:blur(8px); }
+  .pass{ color:var(--pos); font-weight:600; }
+  .fail{ color:var(--rust); font-weight:600; }
+  .swatch{ height:64px; border-radius:10px; border:1px solid rgba(0,0,0,.10); display:flex; align-items:flex-end; padding:8px; }
+  .swrow{ display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:10px; }
+  .tab{ background:#E6E2D8; border-radius:10px 10px 0 0; padding:8px 14px; display:inline-flex; align-items:center; gap:9px; font-family:var(--h); font-size:13px; border:1px solid var(--line); border-bottom:none; }
+  .hdr{ border:1px solid var(--line); border-radius:12px; padding:14px 18px; display:flex; align-items:center; gap:24px; background:var(--paper); flex-wrap:wrap; }
+  .nav{ display:flex; gap:18px; margin-left:auto; font-family:var(--h); font-size:14px; color:var(--body); flex-wrap:wrap; }
+  .wm{ font-family:var(--h); font-weight:600; letter-spacing:-0.035em; }
+  .wm .v{ display:inline-block; transform:translateY(-0.14em); }
+  .note{ font-size:15px; color:var(--body); }
+  .badge{ display:inline-block; font-family:var(--h); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--rust); border:1px solid var(--rust); border-radius:100px; padding:4px 10px; }
+  .phone{ width:390px; max-width:100%; border:1px solid var(--line); border-radius:22px; background:var(--paper); padding:20px; }
+  .fld{ border:1px solid var(--line); border-radius:10px; padding:12px 14px; margin:6px 0 14px; }
+  ul{ margin:0 0 14px; padding-left:22px; } li{ margin-bottom:7px; max-width:64ch; }
+  @media (prefers-reduced-motion: no-preference){
+    .rise{ animation:rise .7s cubic-bezier(.2,.7,.2,1) both; }
+    @keyframes rise{ from{ opacity:0; transform:translateY(14px);} to{ opacity:1; transform:none; } }
+  }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="sym-week" viewBox="0 0 64 64">
+      <path d="M57.24 44.15 A28 28 0 1 1 57.24 19.85 L32 32 Z" fill="currentColor"/>
+    </symbol>
+    <mask id="mask-notch" maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
+      <rect x="0" y="0" width="64" height="64" fill="#fff"/>
+      <circle cx="62" cy="2" r="24" fill="#000"/>
+    </mask>
+    <symbol id="sym-notch" viewBox="0 0 64 64">
+      <rect x="2" y="2" width="60" height="60" fill="currentColor" mask="url(#mask-notch)"/>
+    </symbol>
+    <symbol id="sym-lift" viewBox="0 0 64 64">
+      <path d="M6 44 A26 26 0 0 1 58 44 Z" fill="currentColor"/>
+      <rect x="6" y="52" width="52" height="9" fill="currentColor"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="wrap">
+<header class="rise">
+  <span class="badge">Clean-slate exploration</span>
+  <h1 style="margin-top:18px;">Levarum identity</h1>
+  <p class="lede">Four survivors from eight concepts, tested against ten structural properties. No lever anywhere.</p>
+</header>
+
+<hr>
+
+<h2>Strategic brief</h2>
+<div class="card">
+  <p><strong>For:</strong> the owner of a small trades or home-services business, reading a phone in a truck between jobs. Not a design buyer. The mark will meet him on a van door, a shirt, an invoice and a 16px tab.</p>
+  <p><strong>The one idea:</strong> something is taken off your plate — the week comes back lighter than it went out.</p>
+  <p><strong>Must be:</strong> plain-spoken, sturdy, unmistakable at a glance.<br>
+  <strong>Must not be:</strong> clever, technical, startup-fashionable.</p>
+  <p class="note">Judgement rule for everything below: a contractor should be able to describe the mark to his mate in one sentence, and a sign shop should be able to cut it out of vinyl without asking a question.</p>
+</div>
+
+<hr>
+
+<h2>Killed concepts</h2>
+<table>
+  <tr><th>Concept</th><th>Description</th><th>Property failed</th><th>Why I killed it</th></tr>
+  <tr><td>Counterweight</td><td>A bar pivoting on a triangular fulcrum, weight lifting on one side.</td><td>Out of scope</td><td>It is the lever. Explicitly banned this round, and it was the existing mark — keeping it would have made this exploration theatre.</td></tr>
+  <tr><td>Five Bars</td><td>Five vertical bars, the fifth detached and set aside.</td><td>7 Ownable · 5 Squint</td><td>At silhouette it is a bar chart, and any analytics tool could take it by swapping the wordmark. Blurred, the detached bar merges back into the group and the whole idea evaporates.</td></tr>
+  <tr><td>Seven Dots</td><td>Seven dots in a row, one raised above the line.</td><td>2 Size floor · 5 Squint</td><td>At 16px the dots are under 2px each and fuse into a dash. The one idea in the mark is carried by the smallest element in it — backwards.</td></tr>
+  <tr><td>The Handoff</td><td>A filled square with an identical outlined square shifted up and right.</td><td>7 Ownable · 9 Independent</td><td>This is the copy/duplicate/layers icon shipped in every interface on earth. Without the wordmark it says "duplicate", not "delegate".</td></tr>
+</table>
+
+<hr>
+
+<h2>The options</h2>
+
+<!-- OPTION 1 -->
+<div class="panel">
+  <h3>1 · The Week</h3>
+  <p class="note" style="margin-bottom:22px;">Phone test: <em>"A solid circle with one of its seven slices taken out."</em></p>
+
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
+    <div>
+      <h4>Construction</h4>
+      <p class="note">One circle, radius 28 on a 64 unit square, centred. The circle is divided into seven equal 51.43° sectors; exactly one sector is removed, its bisector locked to the horizontal axis so the notch always points right. Nothing else exists in the mark: one radius, one angle, one subtraction.</p>
+    </div>
+    <div class="sq">
+      <svg width="200" height="200" viewBox="0 0 64 64" role="img" aria-label="The Week on its construction grid">
+        <g stroke="#DCD7CB" stroke-width=".5">
+          <path d="M8 0V64M16 0V64M24 0V64M32 0V64M40 0V64M48 0V64M56 0V64M0 8H64M0 16H64M0 24H64M0 32H64M0 40H64M0 48H64M0 56H64"/>
+        </g>
+        <circle cx="32" cy="32" r="28" fill="none" stroke="#8A887F" stroke-width=".7"/>
+        <g stroke="#B4472B" stroke-width=".7">
+          <path d="M32 32 57.24 19.85M32 32 57.24 44.15"/>
+        </g>
+        <use href="#sym-week" width="64" height="64" style="color:rgba(21,23,27,.14)"/>
+      </svg>
+    </div>
+  </div>
+
+  <h4 style="margin-top:26px;">512px</h4>
+  <div class="sq" style="padding:26px;"><svg width="320" height="320" viewBox="0 0 64 64" style="color:var(--ink)" role="img" aria-label="The Week at large size"><use href="#sym-week" width="64" height="64"/></svg></div>
+  <p class="note" style="margin-top:8px;">Drawn at 512 in the file, shown here at 320 to fit the page. The geometry is resolution-free — there is nothing in it that only works large.</p>
+
+  <h4 style="margin-top:26px;">128 · 48 · 24 · 16</h4>
+  <div class="row" style="align-items:flex-end;">
+    <div><svg width="128" height="128" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-week" width="64" height="64"/></svg><div class="lbl">128</div></div>
+    <div><svg width="48" height="48" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-week" width="64" height="64"/></svg><div class="lbl">48</div></div>
+    <div><svg width="24" height="24" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-week" width="64" height="64"/></svg><div class="lbl">24</div></div>
+    <div><svg width="16" height="16" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-week" width="64" height="64"/></svg><div class="lbl">16</div></div>
+  </div>
+
+  <h4 style="margin-top:26px;">One colour · silhouette · squint</h4>
+  <div class="row">
+    <div><div class="sq"><svg width="80" height="80" viewBox="0 0 64 64" style="color:#000"><use href="#sym-week" width="64" height="64"/></svg></div><div class="lbl">Solid black</div></div>
+    <div><div class="tile"><svg width="80" height="80" viewBox="0 0 64 64" style="color:var(--ivory)"><use href="#sym-week" width="64" height="64"/></svg></div><div class="lbl">Knocked out</div></div>
+    <div><div class="sq"><svg width="80" height="80" viewBox="0 0 64 64" style="color:#000"><use href="#sym-week" width="64" height="64"/></svg></div><div class="lbl">100% silhouette</div></div>
+    <div><div class="sq"><svg class="blur" width="80" height="80" viewBox="0 0 64 64" style="color:#000"><use href="#sym-week" width="64" height="64"/></svg></div><div class="lbl">8px blur</div></div>
+  </div>
+
+  <h4 style="margin-top:26px;">Lockups</h4>
+  <div class="row" style="align-items:center; gap:34px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <svg width="40" height="40" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-week" width="64" height="64"/></svg>
+      <span class="wm" style="font-size:30px;">Le<span class="v">v</span>arum</span>
+    </div>
+    <div style="text-align:center;">
+      <svg width="40" height="40" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-week" width="64" height="64"/></svg>
+      <div class="wm" style="font-size:22px; margin-top:6px;">Le<span class="v">v</span>arum</div>
+    </div>
+    <svg width="40" height="40" viewBox="0 0 64 64" style="color:var(--rust)"><use href="#sym-week" width="64" height="64"/></svg>
+  </div>
+
+  <h4 style="margin-top:26px;">In place</h4>
+  <div class="row" style="align-items:flex-end;">
+    <div class="tab"><svg width="16" height="16" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-week" width="64" height="64"/></svg>Levarum — get your week back</div>
+  </div>
+  <div class="hdr" style="margin-top:14px;">
+    <span style="display:flex; align-items:center; gap:10px;">
+      <svg width="28" height="28" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-week" width="64" height="64"/></svg>
+      <span class="wm" style="font-size:20px;">Le<span class="v">v</span>arum</span>
+    </span>
+    <span class="nav"><span>How it works</span><span>What we automate</span><span>Questions</span></span>
+  </div>
+
+  <h4 style="margin-top:26px;">Property scorecard</h4>
+  <table>
+    <tr><th>#</th><th>Property</th><th>Result</th><th>Note</th></tr>
+    <tr><td>1</td><td>Silhouette</td><td class="pass">Pass</td><td>Single filled form; no stroke doing structural work.</td></tr>
+    <tr><td>2</td><td>Size floor 16px</td><td class="pass">Pass</td><td>The notch is 1/7 of the diameter — about 2.3px of visible bite at 16px. Legible, but this is the mark's tightest test.</td></tr>
+    <tr><td>3</td><td>One colour</td><td class="pass">Pass</td><td>Works black, knocked out, and as a single-colour stamp or stitch.</td></tr>
+    <tr><td>4</td><td>Phone test</td><td class="pass">Pass</td><td>One sentence, no second clause.</td></tr>
+    <tr><td>5</td><td>Squint</td><td class="pass">Pass</td><td>Blurred it stays a circle with a flat interruption, not a disc.</td></tr>
+    <tr><td>6</td><td>Construction</td><td class="pass">Pass</td><td>One radius, seven sectors, one removed.</td></tr>
+    <tr><td>7</td><td>Ownable</td><td class="pass">Pass</td><td>Pac-man association exists but the bite is far too shallow to read as a mouth.</td></tr>
+    <tr><td>8</td><td>Ageless</td><td class="pass">Pass</td><td>Geometry only.</td></tr>
+    <tr><td>9</td><td>Independent</td><td class="pass">Pass</td><td>Reads as "a part taken out of a whole" with no wordmark.</td></tr>
+    <tr><td>10</td><td>Honest story</td><td class="pass">Pass</td><td>Seven sectors were the starting point, not a rationale added after.</td></tr>
+  </table>
+
+  <h4 style="margin-top:22px;">Honest weaknesses</h4>
+  <ul>
+    <li>The pie-chart reading is unavoidable. A slice removed from a disc is the universal chart idiom, and some people will see data before they see a week.</li>
+    <li>A shallow notch is the first thing lost to bad reproduction — a cheap embroidery digitiser or a low-resolution favicon will round it away and leave a plain dot.</li>
+    <li>It shares its idea — subtraction — with option 2, so these two compete for the same slot rather than offering different strategies.</li>
+  </ul>
+</div>
+
+<!-- OPTION 2 -->
+<div class="panel">
+  <h3>2 · The Notch</h3>
+  <p class="note" style="margin-bottom:22px;">Phone test: <em>"A solid square with a round bite out of the top right corner."</em></p>
+
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
+    <div>
+      <h4>Construction</h4>
+      <p class="note">A 60 unit square on a 64 unit field. One circle, radius 24, centred exactly on the top-right corner point, subtracted. Two elements, one boolean operation, no optical adjustment anywhere: the bite radius is always 40% of the square's side.</p>
+    </div>
+    <div class="sq">
+      <svg width="200" height="200" viewBox="0 0 64 64" role="img" aria-label="The Notch on its construction grid">
+        <g stroke="#DCD7CB" stroke-width=".5">
+          <path d="M8 0V64M16 0V64M24 0V64M32 0V64M40 0V64M48 0V64M56 0V64M0 8H64M0 16H64M0 24H64M0 32H64M0 40H64M0 48H64M0 56H64"/>
+        </g>
+        <rect x="2" y="2" width="60" height="60" fill="none" stroke="#8A887F" stroke-width=".7"/>
+        <circle cx="62" cy="2" r="24" fill="none" stroke="#B4472B" stroke-width=".7"/>
+        <use href="#sym-notch" width="64" height="64" style="color:rgba(21,23,27,.14)"/>
+      </svg>
+    </div>
+  </div>
+
+  <h4 style="margin-top:26px;">512px</h4>
+  <div class="sq" style="padding:26px;"><svg width="320" height="320" viewBox="0 0 64 64" style="color:var(--ink)" role="img" aria-label="The Notch at large size"><use href="#sym-notch" width="64" height="64"/></svg></div>
+
+  <h4 style="margin-top:26px;">128 · 48 · 24 · 16</h4>
+  <div class="row">
+    <div><svg width="128" height="128" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-notch" width="64" height="64"/></svg><div class="lbl">128</div></div>
+    <div><svg width="48" height="48" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-notch" width="64" height="64"/></svg><div class="lbl">48</div></div>
+    <div><svg width="24" height="24" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-notch" width="64" height="64"/></svg><div class="lbl">24</div></div>
+    <div><svg width="16" height="16" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-notch" width="64" height="64"/></svg><div class="lbl">16</div></div>
+  </div>
+
+  <h4 style="margin-top:26px;">One colour · silhouette · squint</h4>
+  <div class="row">
+    <div><div class="sq"><svg width="80" height="80" viewBox="0 0 64 64" style="color:#000"><use href="#sym-notch" width="64" height="64"/></svg></div><div class="lbl">Solid black</div></div>
+    <div><div class="tile"><svg width="80" height="80" viewBox="0 0 64 64" style="color:var(--ivory)"><use href="#sym-notch" width="64" height="64"/></svg></div><div class="lbl">Knocked out</div></div>
+    <div><div class="sq"><svg width="80" height="80" viewBox="0 0 64 64" style="color:#000"><use href="#sym-notch" width="64" height="64"/></svg></div><div class="lbl">100% silhouette</div></div>
+    <div><div class="sq"><svg class="blur" width="80" height="80" viewBox="0 0 64 64" style="color:#000"><use href="#sym-notch" width="64" height="64"/></svg></div><div class="lbl">8px blur</div></div>
+  </div>
+
+  <h4 style="margin-top:26px;">Lockups</h4>
+  <div class="row" style="align-items:center; gap:34px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <svg width="40" height="40" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-notch" width="64" height="64"/></svg>
+      <span class="wm" style="font-size:30px;">Le<span class="v">v</span>arum</span>
+    </div>
+    <div style="text-align:center;">
+      <svg width="40" height="40" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-notch" width="64" height="64"/></svg>
+      <div class="wm" style="font-size:22px; margin-top:6px;">Le<span class="v">v</span>arum</div>
+    </div>
+    <svg width="40" height="40" viewBox="0 0 64 64" style="color:var(--rust)"><use href="#sym-notch" width="64" height="64"/></svg>
+  </div>
+
+  <h4 style="margin-top:26px;">In place</h4>
+  <div class="row" style="align-items:flex-end;">
+    <div class="tab"><svg width="16" height="16" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-notch" width="64" height="64"/></svg>Levarum — get your week back</div>
+  </div>
+  <div class="hdr" style="margin-top:14px;">
+    <span style="display:flex; align-items:center; gap:10px;">
+      <svg width="28" height="28" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-notch" width="64" height="64"/></svg>
+      <span class="wm" style="font-size:20px;">Le<span class="v">v</span>arum</span>
+    </span>
+    <span class="nav"><span>How it works</span><span>What we automate</span><span>Questions</span></span>
+  </div>
+
+  <h4 style="margin-top:26px;">Property scorecard</h4>
+  <table>
+    <tr><th>#</th><th>Property</th><th>Result</th><th>Note</th></tr>
+    <tr><td>1</td><td>Silhouette</td><td class="pass">Pass</td><td>One filled form.</td></tr>
+    <tr><td>2</td><td>Size floor 16px</td><td class="pass">Pass</td><td>Strongest of the three at 16px — the bite is 40% of the side, so it survives heavy rounding.</td></tr>
+    <tr><td>3</td><td>One colour</td><td class="pass">Pass</td><td>Cuts in vinyl, stitches, stamps.</td></tr>
+    <tr><td>4</td><td>Phone test</td><td class="pass">Pass</td><td>One sentence.</td></tr>
+    <tr><td>5</td><td>Squint</td><td class="pass">Pass</td><td>Blurred, the missing corner still reads as a deliberate absence.</td></tr>
+    <tr><td>6</td><td>Construction</td><td class="pass">Pass</td><td>Square side 60; bite radius 0.4 × side, centred on the corner.</td></tr>
+    <tr><td>7</td><td>Ownable</td><td class="fail">Fail</td><td>A square with a rounded corner bite is close to a generic app tile and to the "folded page" idiom. A competitor could take this by changing the wordmark.</td></tr>
+    <tr><td>8</td><td>Ageless</td><td class="pass">Pass</td><td>No era-specific treatment.</td></tr>
+    <tr><td>9</td><td>Independent</td><td class="fail">Fail</td><td>Alone it reads as a container or a UI shape, not as a statement about work being removed.</td></tr>
+    <tr><td>10</td><td>Honest story</td><td class="pass">Pass</td><td>Subtraction was the brief; the shape was drawn from it.</td></tr>
+  </table>
+
+  <h4 style="margin-top:22px;">Honest weaknesses</h4>
+  <ul>
+    <li>It fails two properties, so it is here as a control rather than as a real candidate — it proves how much stronger a mark has to be than "a nice shape".</li>
+    <li>On a van door, a square is a sign panel. It will read as the background for a logo rather than as the logo.</li>
+    <li>It is the same idea as option 1, executed with less specificity — nothing in it says <em>seven</em>, so nothing in it says <em>week</em>.</li>
+  </ul>
+</div>
+
+<!-- OPTION 3 -->
+<div class="panel">
+  <h3>3 · The Lift</h3>
+  <p class="note" style="margin-bottom:22px;">Phone test: <em>"A filled dome floating just above a solid bar."</em></p>
+
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
+    <div>
+      <h4>Construction</h4>
+      <p class="note">One circle, radius 26, cut on its horizontal diameter: the upper half is kept. Below it, a bar of the same 52 unit width and 9 unit height, separated by a gap of 8 units — the gap is always 0.9 of the bar height, so the lift is visible before it is measured. Two elements, one radius, one gap ratio. From <em>levare</em>: to lift.</p>
+    </div>
+    <div class="sq">
+      <svg width="200" height="200" viewBox="0 0 64 64" role="img" aria-label="The Lift on its construction grid">
+        <g stroke="#DCD7CB" stroke-width=".5">
+          <path d="M8 0V64M16 0V64M24 0V64M32 0V64M40 0V64M48 0V64M56 0V64M0 8H64M0 16H64M0 24H64M0 32H64M0 40H64M0 48H64M0 56H64"/>
+        </g>
+        <circle cx="32" cy="44" r="26" fill="none" stroke="#8A887F" stroke-width=".7"/>
+        <path d="M0 44H64" stroke="#B4472B" stroke-width=".7"/>
+        <path d="M0 52H64" stroke="#B4472B" stroke-width=".7" stroke-dasharray="2 2"/>
+        <use href="#sym-lift" width="64" height="64" style="color:rgba(21,23,27,.14)"/>
+      </svg>
+    </div>
+  </div>
+
+  <h4 style="margin-top:26px;">512px</h4>
+  <div class="sq" style="padding:26px;"><svg width="320" height="320" viewBox="0 0 64 64" style="color:var(--ink)" role="img" aria-label="The Lift at large size"><use href="#sym-lift" width="64" height="64"/></svg></div>
+
+  <h4 style="margin-top:26px;">128 · 48 · 24 · 16</h4>
+  <div class="row">
+    <div><svg width="128" height="128" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-lift" width="64" height="64"/></svg><div class="lbl">128</div></div>
+    <div><svg width="48" height="48" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-lift" width="64" height="64"/></svg><div class="lbl">48</div></div>
+    <div><svg width="24" height="24" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-lift" width="64" height="64"/></svg><div class="lbl">24</div></div>
+    <div><svg width="16" height="16" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-lift" width="64" height="64"/></svg><div class="lbl">16</div></div>
+  </div>
+
+  <h4 style="margin-top:26px;">One colour · silhouette · squint</h4>
+  <div class="row">
+    <div><div class="sq"><svg width="80" height="80" viewBox="0 0 64 64" style="color:#000"><use href="#sym-lift" width="64" height="64"/></svg></div><div class="lbl">Solid black</div></div>
+    <div><div class="tile"><svg width="80" height="80" viewBox="0 0 64 64" style="color:var(--ivory)"><use href="#sym-lift" width="64" height="64"/></svg></div><div class="lbl">Knocked out</div></div>
+    <div><div class="sq"><svg width="80" height="80" viewBox="0 0 64 64" style="color:#000"><use href="#sym-lift" width="64" height="64"/></svg></div><div class="lbl">100% silhouette</div></div>
+    <div><div class="sq"><svg class="blur" width="80" height="80" viewBox="0 0 64 64" style="color:#000"><use href="#sym-lift" width="64" height="64"/></svg></div><div class="lbl">8px blur</div></div>
+  </div>
+
+  <h4 style="margin-top:26px;">Lockups</h4>
+  <div class="row" style="align-items:center; gap:34px;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <svg width="40" height="40" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-lift" width="64" height="64"/></svg>
+      <span class="wm" style="font-size:30px;">Le<span class="v">v</span>arum</span>
+    </div>
+    <div style="text-align:center;">
+      <svg width="40" height="40" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-lift" width="64" height="64"/></svg>
+      <div class="wm" style="font-size:22px; margin-top:6px;">Le<span class="v">v</span>arum</div>
+    </div>
+    <svg width="40" height="40" viewBox="0 0 64 64" style="color:var(--rust)"><use href="#sym-lift" width="64" height="64"/></svg>
+  </div>
+
+  <h4 style="margin-top:26px;">In place</h4>
+  <div class="row" style="align-items:flex-end;">
+    <div class="tab"><svg width="16" height="16" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-lift" width="64" height="64"/></svg>Levarum — get your week back</div>
+  </div>
+  <div class="hdr" style="margin-top:14px;">
+    <span style="display:flex; align-items:center; gap:10px;">
+      <svg width="28" height="28" viewBox="0 0 64 64" style="color:var(--ink)"><use href="#sym-lift" width="64" height="64"/></svg>
+      <span class="wm" style="font-size:20px;">Le<span class="v">v</span>arum</span>
+    </span>
+    <span class="nav"><span>How it works</span><span>What we automate</span><span>Questions</span></span>
+  </div>
+
+  <h4 style="margin-top:26px;">Property scorecard</h4>
+  <table>
+    <tr><th>#</th><th>Property</th><th>Result</th><th>Note</th></tr>
+    <tr><td>1</td><td>Silhouette</td><td class="pass">Pass</td><td>Two solid forms, no strokes.</td></tr>
+    <tr><td>2</td><td>Size floor 16px</td><td class="pass">Pass</td><td>Gap is 2px at 16px — holds, but it is the element under most pressure.</td></tr>
+    <tr><td>3</td><td>One colour</td><td class="pass">Pass</td><td>The gap does the work, not a second colour.</td></tr>
+    <tr><td>4</td><td>Phone test</td><td class="pass">Pass</td><td>One sentence.</td></tr>
+    <tr><td>5</td><td>Squint</td><td class="pass">Pass</td><td>Two masses stay separate at 8px blur; the dome keeps its curve.</td></tr>
+    <tr><td>6</td><td>Construction</td><td class="pass">Pass</td><td>Half of r26; bar width = diameter; gap = 0.9 × bar height.</td></tr>
+    <tr><td>7</td><td>Ownable</td><td class="pass">Pass</td><td>Not a category cliché; nearest neighbours are sunrise marks, and this has no rays and sits above its line rather than behind it.</td></tr>
+    <tr><td>8</td><td>Ageless</td><td class="pass">Pass</td><td>Flat geometry.</td></tr>
+    <tr><td>9</td><td>Independent</td><td class="pass">Pass</td><td>Alone it reads as weight lifted off a surface.</td></tr>
+    <tr><td>10</td><td>Honest story</td><td class="pass">Pass</td><td><em>Levare</em> was the input; the shape is the literal act, not a retrofitted meaning.</td></tr>
+  </table>
+
+  <h4 style="margin-top:22px;">Honest weaknesses</h4>
+  <ul>
+    <li>Sunrise adjacency. Put it in warm orange on a van and some people will read dawn, which is a wellness cue, not a business one — this is the strongest argument for keeping the mark in near-black.</li>
+    <li>The gap is a reproduction risk in the opposite direction from option 1: cheap printing and embroidery close gaps, and a closed gap turns this into a plain tombstone shape.</li>
+    <li>It is the least literal of the three. It carries "lighter" well and "your week" not at all.</li>
+  </ul>
+</div>
+
+<!-- OPTION 4 -->
+<div class="panel">
+  <h3>4 · Lifted V — wordmark route</h3>
+  <p class="note" style="margin-bottom:22px;">Phone test: <em>"The word Levarum with the v sitting a step above the other letters."</em></p>
+
+  <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
+    <div>
+      <h4>Construction</h4>
+      <p class="note">No symbol. Poppins SemiBold, tracking −0.035em, and one rule: the <em>v</em> is raised by 0.14 of the cap height and nothing else changes. The raise is the same fraction at every size, so the word scales as one object. The letter that gets lifted is the letter that starts <em>levare</em>.</p>
+    </div>
+    <div class="sq" style="padding:26px;">
+      <div style="position:relative;">
+        <div style="position:absolute; left:0; right:0; top:0; height:100%; background:repeating-linear-gradient(to bottom,transparent 0 15px,rgba(220,215,203,.9) 15px 15.5px);"></div>
+        <div class="wm" style="font-size:52px; position:relative;">Le<span class="v">v</span>arum</div>
+      </div>
+    </div>
+  </div>
+
+  <h4 style="margin-top:26px;">Sizes</h4>
+  <div class="row" style="align-items:baseline;">
+    <div><div class="wm" style="font-size:44px;">Le<span class="v">v</span>arum</div><div class="lbl">44</div></div>
+    <div><div class="wm" style="font-size:24px;">Le<span class="v">v</span>arum</div><div class="lbl">24</div></div>
+    <div><div class="wm" style="font-size:16px;">Le<span class="v">v</span>arum</div><div class="lbl">16</div></div>
+    <div><div class="wm" style="font-size:11px;">Le<span class="v">v</span>arum</div><div class="lbl">11</div></div>
+  </div>
+  <p class="note" style="margin-top:8px;">A wordmark cannot be tested at a 16px <em>square</em>; it is tested at 16px <em>type size</em>. That is the honest equivalent, and it is also why this route needs a separate app icon.</p>
+
+  <h4 style="margin-top:26px;">One colour · squint</h4>
+  <div class="row">
+    <div><div class="sq"><span class="wm" style="font-size:30px; color:#000;">Le<span class="v">v</span>arum</span></div><div class="lbl">Solid black</div></div>
+    <div><div class="tile"><span class="wm" style="font-size:30px; color:var(--ivory);">Le<span class="v">v</span>arum</span></div><div class="lbl">Knocked out</div></div>
+    <div><div class="sq"><span class="wm blur" style="font-size:30px; color:#000; display:inline-block;">Le<span class="v">v</span>arum</span></div><div class="lbl">8px blur</div></div>
+  </div>
+
+  <h4 style="margin-top:26px;">In place</h4>
+  <div class="row" style="align-items:flex-end;">
+    <div class="tab"><span class="wm" style="font-size:12px;">L<span class="v">v</span></span>Levarum — get your week back</div>
+  </div>
+  <div class="hdr" style="margin-top:14px;">
+    <span class="wm" style="font-size:22px;">Le<span class="v">v</span>arum</span>
+    <span class="nav"><span>How it works</span><span>What we automate</span><span>Questions</span></span>
+  </div>
+
+  <h4 style="margin-top:26px;">Property scorecard</h4>
+  <table>
+    <tr><th>#</th><th>Property</th><th>Result</th><th>Note</th></tr>
+    <tr><td>1</td><td>Silhouette</td><td class="pass">Pass</td><td>Letterforms filled solid; the raise survives.</td></tr>
+    <tr><td>2</td><td>Size floor 16px</td><td class="fail">Fail</td><td>As a favicon it is unusable — seven letters cannot live in a 16px square. The tab mock above uses a two-letter reduction, which is a different mark.</td></tr>
+    <tr><td>3</td><td>One colour</td><td class="pass">Pass</td><td>Type only.</td></tr>
+    <tr><td>4</td><td>Phone test</td><td class="pass">Pass</td><td>One sentence, and the sentence contains the name — an advantage no symbol has.</td></tr>
+    <tr><td>5</td><td>Squint</td><td class="fail">Fail</td><td>At 8px blur it is a grey bar with a bump. It becomes unrecognisable exactly where a symbol would still be working: distance, small size, motion.</td></tr>
+    <tr><td>6</td><td>Construction</td><td class="pass">Pass</td><td>One stated ratio applied to one letter.</td></tr>
+    <tr><td>7</td><td>Ownable</td><td class="pass">Pass</td><td>The raise is specific to this word; no competitor can lift the v in their own name.</td></tr>
+    <tr><td>8</td><td>Ageless</td><td class="pass">Pass</td><td>Geometric sans, no effects. Poppins is fashionable now, which is the risk.</td></tr>
+    <tr><td>9</td><td>Independent</td><td class="pass">Pass</td><td>Valid by the stated exception: the wordmark <em>is</em> the mark.</td></tr>
+    <tr><td>10</td><td>Honest story</td><td class="pass">Pass</td><td>Lift the letter that means lift.</td></tr>
+  </table>
+
+  <h4 style="margin-top:22px;">Honest weaknesses</h4>
+  <ul>
+    <li>It leaves you with no icon. Favicon, app icon, van roundel, shirt chest, social avatar all still need a symbol, so choosing this route means commissioning a second thing.</li>
+    <li>It depends entirely on Poppins being present. Substituted or re-set by a sign shop, the whole identity is gone — a symbol survives that, type does not.</li>
+    <li>A raised letter is read by some people as a typo or a rendering bug rather than as intent.</li>
+  </ul>
+</div>
+
+<hr>
+
+<h2>Head to head</h2>
+<p class="note">All four at 24px, black on white, nothing else.</p>
+<div style="background:#fff; border:1px solid var(--line); border-radius:14px; padding:34px; display:flex; gap:56px; align-items:center; flex-wrap:wrap;">
+  <svg width="24" height="24" viewBox="0 0 64 64" style="color:#000"><use href="#sym-week" width="64" height="64"/></svg>
+  <svg width="24" height="24" viewBox="0 0 64 64" style="color:#000"><use href="#sym-notch" width="64" height="64"/></svg>
+  <svg width="24" height="24" viewBox="0 0 64 64" style="color:#000"><use href="#sym-lift" width="64" height="64"/></svg>
+  <span class="wm" style="font-size:24px; color:#000;">Le<span class="v">v</span>arum</span>
+</div>
+<p style="margin-top:14px;">At this size the ranking is not close. <strong>The Lift</strong> holds its two masses and its idea; <strong>The Week</strong> holds its silhouette but its notch is nearly gone; <strong>The Notch</strong> is legible and generic; the wordmark has stopped being a mark at all. Leading option: <strong>The Lift</strong>, with The Week as the alternate if you want the mark to say "week" literally.</p>
+
+<hr>
+
+<h2>Identity starter — The Lift</h2>
+
+<h4>Colour, and the correction</h4>
+<p>The prototype was running on another company's brand values. Structure kept — near-black, warm off-white, one warm accent, neutral step — values replaced.</p>
+
+<div class="card" style="margin-bottom:18px;">
+  <h4>Proof panel</h4>
+  <p class="note">Old values appear here only, for comparison, and nowhere in the identity.</p>
+  <div class="swrow" style="margin-bottom:12px;">
+    <div class="swatch mono" style="background:#141413; color:#fff;">#141413</div>
+    <div class="swatch mono" style="background:#faf9f5;">#faf9f5</div>
+    <div class="swatch mono" style="background:#d97757; color:#fff;">#d97757</div>
+    <div class="swatch mono" style="background:#b0aea5;">#b0aea5</div>
+    <div class="swatch mono" style="background:#e8e6dc;">#e8e6dc</div>
+    <div class="swatch mono" style="background:#6a9bcc; color:#fff;">#6a9bcc</div>
+    <div class="swatch mono" style="background:#788c5d; color:#fff;">#788c5d</div>
+  </div>
+  <div class="swrow">
+    <div class="swatch mono" style="background:#15171B; color:#F1EDE4;">#15171B</div>
+    <div class="swatch mono" style="background:#F1EDE4;">#F1EDE4</div>
+    <div class="swatch mono" style="background:#B4472B; color:#fff;">#B4472B</div>
+    <div class="swatch mono" style="background:#8A887F; color:#fff;">#8A887F</div>
+    <div class="swatch mono" style="background:#DCD7CB;">#DCD7CB</div>
+    <div class="swatch mono" style="background:#2E5C74; color:#fff;">#2E5C74</div>
+    <div class="swatch mono" style="background:#3E6B4A; color:#fff;">#3E6B4A</div>
+  </div>
+</div>
+
+<table style="margin-bottom:18px;">
+  <tr><th>Role</th><th>New value</th><th>Replaces</th><th>Shift made</th></tr>
+  <tr><td>Ink</td><td class="mono">#15171B</td><td class="mono">#141413</td><td>Warm near-black to <strong>cool</strong> near-black: hue moved from yellow (~60°) to blue (~250°), chroma roughly doubled off zero. Reads as iron rather than soot.</td></tr>
+  <tr><td>Ivory</td><td class="mono">#F1EDE4</td><td class="mono">#faf9f5</td><td>Lightness down ~4%, chroma up ~2.5×, hue held warm yellow. Paper white becomes sand.</td></tr>
+  <tr><td>Accent (clay rust)</td><td class="mono">#B4472B</td><td class="mono">#d97757</td><td>Lightness down ~18%, chroma up ~20%, hue pulled from salmon (~45°) toward red-clay (~36°). Still warm; no longer the same orange.</td></tr>
+  <tr><td>Neutral</td><td class="mono">#8A887F</td><td class="mono">#b0aea5</td><td>Lightness down ~13%, hue held warm-neutral. A grey that can sit on sand without floating.</td></tr>
+  <tr><td>Line</td><td class="mono">#DCD7CB</td><td class="mono">#e8e6dc</td><td>Lightness down ~5%, chroma up: sand-toned rule rather than grey.</td></tr>
+  <tr><td>Info</td><td class="mono">#2E5C74</td><td class="mono">#6a9bcc</td><td>Lightness down ~40%, hue from sky (~245°) to petrol (~225°). Text-capable rather than decorative.</td></tr>
+  <tr><td>Positive</td><td class="mono">#3E6B4A</td><td class="mono">#788c5d</td><td>Lightness down ~30%, hue from olive (~120°) to true green (~148°), chroma up.</td></tr>
+  <tr><td>Body text</td><td class="mono">#5F5C54</td><td>—</td><td>New. Added because the neutral above cannot carry body text (see the ratios).</td></tr>
+</table>
+
+<h4>Computed contrast — WCAG AA</h4>
+<table>
+  <tr><th>Pair</th><th>Ratio</th><th>AA normal (4.5)</th><th>AA large (3.0)</th><th>Use</th></tr>
+  <tr><td>Ink #15171B on Ivory #F1EDE4</td><td>15.36:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>All headings and primary text.</td></tr>
+  <tr><td>Ivory #F1EDE4 on Ink #15171B</td><td>15.36:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Dark sections, knocked-out mark.</td></tr>
+  <tr><td>White #FFFFFF on Ink</td><td>17.94:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Buttons on dark.</td></tr>
+  <tr><td>Body #5F5C54 on Ivory</td><td>5.21:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Secondary and helper text.</td></tr>
+  <tr><td>Rust #B4472B on Ivory</td><td>4.68:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Eyebrows, links, small accent text.</td></tr>
+  <tr><td>White #FFFFFF on Rust</td><td>5.47:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Accent buttons.</td></tr>
+  <tr><td>Rust #B4472B on Ink</td><td>3.28:1</td><td class="fail">Fail</td><td class="pass">Pass</td><td>Large display text only — never body copy or 15px labels on dark.</td></tr>
+  <tr><td>Neutral #8A887F on Ivory</td><td>3.09:1</td><td class="fail">Fail</td><td class="pass">Pass</td><td>Non-text only: rules, disabled states, ≥24px labels.</td></tr>
+  <tr><td>Info #2E5C74 on Ivory</td><td>5.77:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Informational text.</td></tr>
+  <tr><td>Positive #3E6B4A on Ivory</td><td>5.28:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Confirmation text — always with a word, never colour alone.</td></tr>
+  <tr><td>Ink on Line #DCD7CB</td><td>12.65:1</td><td class="pass">Pass</td><td class="pass">Pass</td><td>Text on tinted cards.</td></tr>
+</table>
+<p class="note" style="margin-top:10px;">Ratios computed from the sRGB relative-luminance formula, not estimated. Two pairs fail and are restricted above rather than quietly used.</p>
+
+<h4 style="margin-top:30px;">Type</h4>
+<p>Poppins for headings — 600 for display and 500 for interface labels. Lora for body — 400, with 500 for emphasis. Licensing: both families are published under the <strong>SIL Open Font License 1.1</strong>, which permits commercial use, embedding and bundling; <cite>Font Squirrel's licence pages carry the full OFL text for both Poppins and Lora</cite><span class="note"> — Poppins from Indian Type Foundry (Jonny Pinhorn), Lora from Cyreal with the reserved name "Lora".</span> <span class="badge">GAP</span> I read this from secondary listings, not from the foundries' own repositories — confirm against the OFL file in each font's own distribution before you put it in a contract.</p>
+
+<h4 style="margin-top:24px;">The Lora check you asked for — honest result</h4>
+<div class="row" style="align-items:flex-start;">
+  <div class="phone">
+    <div class="lbl" style="margin:0 0 6px;">390px · Lora 16px labels</div>
+    <div style="font-family:var(--b); font-size:16px;">What kind of business is this?</div>
+    <div class="fld" style="font-family:var(--b); font-size:16px;">Trades &amp; home services</div>
+    <div style="font-family:var(--b); font-size:16px;">About how many hours a week go to back-office work?</div>
+    <div class="fld" style="font-family:var(--b); font-size:14px; color:var(--body);">Helper at 14px: your answers stay on this device until you unlock the plan.</div>
+    <div style="font-family:var(--b); font-size:14px; color:var(--body);">14px option list: Clinic or practice · Salon, studio or gym · Agency or consultancy</div>
+  </div>
+  <div class="phone">
+    <div class="lbl" style="margin:0 0 6px;">Same content · Poppins 500 interface text</div>
+    <div style="font-family:var(--h); font-weight:500; font-size:16px;">What kind of business is this?</div>
+    <div class="fld" style="font-family:var(--h); font-size:16px;">Trades &amp; home services</div>
+    <div style="font-family:var(--h); font-weight:500; font-size:16px;">About how many hours a week go to back-office work?</div>
+    <div class="fld" style="font-family:var(--h); font-size:14px; color:var(--body);">Helper at 14px: your answers stay on this device until you unlock the plan.</div>
+    <div style="font-family:var(--h); font-size:14px; color:var(--body);">14px option list: Clinic or practice · Salon, studio or gym · Agency or consultancy</div>
+  </div>
+</div>
+<p style="margin-top:14px;"><strong>Verdict: it does not hold up at 14px, and it is marginal at 16px.</strong> Lora's moderate stroke contrast and fine serif terminals thin out at small sizes, and this reader is one-handed, in daylight, often at arm's length on a dusty screen. Question labels at 16px are acceptable; 14px helper text and dropdown options are not. <strong>Smallest fix, for you to accept or reject — I have not applied it:</strong> restrict Lora to prose at 17px and above, set all interface text (labels, helper, options, buttons, table cells) in Poppins 500 with a 15px floor. That is a scope change, not a pairing change — Lora stays, and stays where it is good.</p>
+
+<h4 style="margin-top:30px;">Clear space</h4>
+<div class="row" style="align-items:center;">
+  <div class="sq" style="padding:0;">
+    <svg width="220" height="220" viewBox="0 0 128 128" role="img" aria-label="Clear space diagram">
+      <rect x="0" y="0" width="128" height="128" fill="#F1EDE4"/>
+      <rect x="16" y="16" width="96" height="96" fill="none" stroke="#B4472B" stroke-width="1" stroke-dasharray="4 3"/>
+      <g transform="translate(32,32)"><svg width="64" height="64" viewBox="0 0 64 64" style="color:#15171B"><use href="#sym-lift" width="64" height="64"/></svg></g>
+      <path d="M16 8H32" stroke="#8A887F" stroke-width="1"/>
+      <text x="18" y="7" font-family="monospace" font-size="7" fill="#5F5C54">= bar height × 1.8</text>
+    </svg>
+  </div>
+  <p class="note" style="max-width:44ch;">Clear space on all four sides equals <strong>1.8 × the bar height</strong> — the bar is the one element every reproduction keeps, so the rule is measurable off the artwork itself with no reference to the original file.</p>
+</div>
+
+<h4 style="margin-top:30px;">Minimum size</h4>
+<table>
+  <tr><th>Medium</th><th>Minimum</th><th>Why</th></tr>
+  <tr><td>Screen</td><td>16px tall</td><td>Below this the 2px gap closes on low-density displays and the mark becomes one mass.</td></tr>
+  <tr><td>Print — offset or digital</td><td>6mm tall</td><td>Keeps the gap above 0.8mm, clear of dot gain.</td></tr>
+  <tr><td>Embroidery, etch, vinyl</td><td>12mm tall</td><td>Stitch and blade minimums close small gaps; below 12mm order the gap widened to 1.4 × bar height as a separate production artwork.</td></tr>
+</table>
+
+<h4 style="margin-top:30px;">Misuse — five things someone will actually do to this mark</h4>
+<div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(190px,1fr));">
+  <div>
+    <div class="sq" style="height:120px;">
+      <svg width="70" height="70" viewBox="0 0 64 64" style="color:var(--ink)"><path d="M6 44 A26 26 0 0 1 58 44 Z" fill="currentColor"/><rect x="6" y="45.5" width="52" height="9" fill="currentColor"/></svg>
+    </div>
+    <div class="lbl">1 · Closing the gap</div>
+    <p class="note">Someone tidies the "floating" piece down onto the bar. The gap is the idea; without it the mark says nothing.</p>
+  </div>
+  <div>
+    <div class="sq" style="height:120px;">
+      <svg width="70" height="70" viewBox="0 0 64 64" style="color:var(--ink)"><path d="M6 44 A26 26 0 0 1 58 44" fill="none" stroke="currentColor" stroke-width="3"/><rect x="6" y="52" width="52" height="3" fill="currentColor"/></svg>
+    </div>
+    <div class="lbl">2 · Outlining it</div>
+    <p class="note">Redrawn as thin strokes to match an icon set. It then fails silhouette and disappears at small sizes.</p>
+  </div>
+  <div>
+    <div class="sq" style="height:120px;">
+      <svg width="70" height="70" viewBox="0 0 64 64"><defs><linearGradient id="bad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E0A24A"/><stop offset="1" stop-color="#B4472B"/></linearGradient></defs><path d="M6 44 A26 26 0 0 1 58 44 Z" fill="url(#bad)"/><rect x="6" y="52" width="52" height="9" fill="url(#bad)"/></svg>
+    </div>
+    <div class="lbl">3 · Gradient sunrise</div>
+    <p class="note">A gradient turns the dome into a setting sun and dates the mark instantly.</p>
+  </div>
+  <div>
+    <div class="sq" style="height:120px;">
+      <svg width="70" height="70" viewBox="0 0 64 64"><path d="M6 44 A26 26 0 0 1 58 44 Z" fill="#B4472B"/><rect x="6" y="52" width="52" height="9" fill="#2E5C74"/></svg>
+    </div>
+    <div class="lbl">4 · Two-colour split</div>
+    <p class="note">Colouring the two parts differently breaks property 3 and makes single-colour production impossible.</p>
+  </div>
+  <div>
+    <div class="sq" style="height:120px;">
+      <svg width="70" height="70" viewBox="0 0 64 64" style="color:var(--ink)"><g transform="rotate(-18 32 40)"><path d="M6 44 A26 26 0 0 1 58 44 Z" fill="currentColor"/><rect x="6" y="52" width="52" height="9" fill="currentColor"/></g></svg>
+    </div>
+    <div class="lbl">5 · Tilting it</div>
+    <p class="note">Rotated for "energy". The bar is a ground line; tilted, the thing being lifted looks like it is sliding off.</p>
+  </div>
+</div>
+
+<h4 style="margin-top:30px;">Motion</h4>
+<div class="row" style="align-items:center;">
+  <div class="sq" style="width:150px; height:150px;">
+    <svg width="80" height="80" viewBox="0 0 64 64" style="color:var(--ink)" role="img" aria-label="Entrance animation">
+      <style>
+        @keyframes liftIn{ 0%{ transform:translateY(9px); opacity:.35; } 100%{ transform:none; opacity:1; } }
+        .dome{ animation:liftIn .62s cubic-bezier(.2,.8,.2,1) both; }
+        @media (prefers-reduced-motion: reduce){ .dome{ animation:none; } }
+      </style>
+      <rect x="6" y="52" width="52" height="9" fill="currentColor"/>
+      <path class="dome" d="M6 44 A26 26 0 0 1 58 44 Z" fill="currentColor"/>
+    </svg>
+  </div>
+  <p class="note" style="max-width:46ch;"><strong>One entrance, once.</strong> The bar is already in place; the dome rises 9 units into position over 620ms on a decelerating curve, at 35% to 100% opacity. Nothing loops, nothing bounces. Under <span class="mono">prefers-reduced-motion: reduce</span> the dome renders in its final position with no animation and no fade — tested in this file, not assumed.</p>
+</div>
+
+<hr>
+
+<h2>What I did not test or verify</h2>
+<ul>
+  <li><strong>Font rendering.</strong> This file makes no external requests, so Poppins and Lora render only if installed locally; otherwise you are seeing fallbacks (Century Gothic / Futura and Georgia / Iowan). The small-size verdict above is based on Lora's construction and my rendering here — repeat it on a real phone with the real webfonts before you act on it.</li>
+  <li><strong>Licence primary sources.</strong> Read from secondary listings, not from each foundry's own OFL file. Marked GAP above.</li>
+  <li><strong>Physical reproduction.</strong> No proof printed, no vinyl cut, no stitch-out. The 6mm and 12mm minimums are conventional starting figures, not measured results from your suppliers.</li>
+  <li><strong>Trademark clearance.</strong> No search of any register for the name Levarum or for any of these marks. Both the dome-over-bar and the notched-circle geometries are simple enough that prior registrations are plausible.</li>
+  <li><strong>Real-world recognition.</strong> No one but me has been shown these, and the phone test is only valid when an actual stranger sketches it. Three people, one sentence each, is a twenty-minute test worth running before you commit.</li>
+  <li><strong>Colour on substrate.</strong> Contrast ratios are computed for sRGB screens only — not for print on uncoated stock, not for a van wrap in sunlight.</li>
+  <li><strong>The rest of the site.</strong> No file in the prototype was touched, and nothing here has been applied to it. The diagnostic audit I had started is unfinished and is not included in this file.</li>
+</ul>
+
+</div>
+</body>
+</html>
