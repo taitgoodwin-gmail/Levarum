@@ -14,6 +14,7 @@ export const ROUTES = {
   howItWorks: '/how-it-works',
   whatWeAutomate: '/what-we-automate',
   questions: '/questions',
+  caseStudies: '/case-studies',
   start: '/start',
   partners: '/partners',
   operator: '/operator',

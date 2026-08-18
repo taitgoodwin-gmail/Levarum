@@ -9,6 +9,7 @@ import { Home } from './pages/Home'
 import { HowItWorks } from './pages/HowItWorks'
 import { WhatWeAutomate } from './pages/WhatWeAutomate'
 import { Questions } from './pages/Questions'
+import { CaseStudies } from './pages/CaseStudies'
 import { Partners } from './pages/Partners'
 import { Start } from './pages/Start'
 
@@ -27,6 +28,7 @@ const TITLES: Record<string, string> = {
   [ROUTES.howItWorks]: 'How it works — Levarum',
   [ROUTES.whatWeAutomate]: 'What we automate — Levarum',
   [ROUTES.questions]: 'Questions — Levarum',
+  [ROUTES.caseStudies]: 'Case studies — Levarum',
   [ROUTES.start]: 'Build my Game Plan — Levarum',
   [ROUTES.partners]: 'Implementation partners — Levarum',
 }
@@ -55,6 +57,8 @@ export function ProspectApp() {
           <WhatWeAutomate />
         ) : path === ROUTES.questions ? (
           <Questions />
+        ) : path === ROUTES.caseStudies ? (
+          <CaseStudies />
         ) : path === ROUTES.start ? (
           <Start />
         ) : path === ROUTES.partners ? (

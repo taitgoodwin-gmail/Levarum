@@ -17,6 +17,7 @@ export function Footer({ current }: { current: string }) {
     { to: ROUTES.howItWorks, label: 'How it works' },
     { to: ROUTES.whatWeAutomate, label: 'What we automate' },
     { to: ROUTES.questions, label: 'Questions' },
+    { to: ROUTES.caseStudies, label: 'Case studies' },
   ].filter((l) => l.to !== current)
 
   return (

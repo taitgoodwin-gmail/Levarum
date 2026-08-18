@@ -255,6 +255,10 @@ export function Home() {
             </div>
           </Rise>
         </div>
+
+        <Link to={ROUTES.caseStudies} className="lv-textlink lv-proof__more">
+          What you can check today →
+        </Link>
       </Section>
 
       {/* PAGE LINKS ---------------------------------------------------- */}

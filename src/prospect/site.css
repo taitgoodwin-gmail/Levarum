@@ -1923,3 +1923,61 @@ button.lv-card:hover,
 ::view-transition-group(lv-track) {
   animation-duration: var(--lv-dur-1);
 }
+
+/* ==========================================================================
+   Case studies
+   --------------------------------------------------------------------------
+   The card format the owner asked for: metric first, then the transformation
+   headline, then what changed. Metric first because these are meant to be
+   scanned before they are read.
+   ========================================================================== */
+
+.lv-cases {
+  display: grid;
+  gap: var(--lv-g-2);
+  grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+  margin-top: var(--lv-g-2);
+}
+
+.lv-case {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-4);
+  height: 100%;
+}
+
+.lv-case__metric {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-1);
+  padding-bottom: var(--lv-s-4);
+  border-bottom: 1px solid var(--lv-line);
+}
+
+.lv-case__metric .lv-figure {
+  color: var(--lv-sec);
+}
+
+.lv-case__metriclabel {
+  font-size: var(--lv-t-xs);
+  color: var(--lv-ink-quiet);
+  line-height: 1.4;
+}
+
+/* Where the reader can check the claim. The whole point of these cards. */
+.lv-case__check {
+  margin: auto 0 0;
+  padding-top: var(--lv-s-4);
+  border-top: 1px solid var(--lv-line);
+  font-size: var(--lv-t-sm);
+  color: var(--lv-sec);
+}
+
+.lv-case--reserved {
+  border-style: dashed;
+  background: transparent;
+}
+
+.lv-proof__more {
+  margin-top: var(--lv-g-1);
+}
