@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  *{ box-sizing:border-box; }
+  body{ margin:0; -webkit-font-smoothing:antialiased; }
+  input[type=range]{ -webkit-appearance:none; appearance:none; background:transparent; }
+  input[type=range]::-webkit-slider-runnable-track{ height:4px; border-radius:3px; background:#E9E6E1; }
+  input[type=range]::-webkit-slider-thumb{ -webkit-appearance:none; appearance:none; width:24px; height:24px; border-radius:50%; background:#1A1A1A; margin-top:-10px; cursor:pointer; box-shadow:0 1px 3px rgba(26,26,26,.3); }
+  input[type=range]::-moz-range-track{ height:4px; border-radius:3px; background:#E9E6E1; }
+  input[type=range]::-moz-range-thumb{ width:24px; height:24px; border:none; border-radius:50%; background:#1A1A1A; cursor:pointer; }
+</style>
+</helmet>
+<div style="width:max-content; min-width:100%; min-height:100vh; box-sizing:border-box; padding:56px 56px 80px; background:#E4E0DA; font-family:'Instrument Sans',sans-serif;">
+
+  <!-- ===== POSTER TITLE ===== -->
+  <div style="max-width:720px; margin-bottom:40px;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+      <span style="width:14px; height:14px; background:#D4622A; border-radius:3px; display:inline-block;"></span>
+      <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:18px; letter-spacing:-0.015em; color:#1A1A1A;">MindLever</span>
+    </div>
+    <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:40px; letter-spacing:-0.015em; line-height:1.06; color:#1A1A1A;">Game Plan and Operator Console</div>
+    <div style="font-size:17px; line-height:1.6; color:#5C5A56; margin-top:10px;">High-fidelity frames. One lever, whole operation. The prospect surface sells the call by showing sized opportunity. The operator surface is an internal working tool. Mobile-first at 390px, then desktop.</div>
+  </div>
+
+  <!-- ===== SECTION: PROSPECT ===== -->
+  <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:26px;">
+    <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.08em; color:#B5511F; background:#FFFFFF; padding:5px 11px; border-radius:7px;">PROSPECT FACING</div>
+    <div style="font-size:16px; color:#5C5A56;">Shown to the small-business owner</div>
+  </div>
+
+  <!-- ===== ROW 1: PROSPECT MOBILE ===== -->
+  <div style="display:flex; gap:30px; align-items:flex-start; margin-bottom:52px;">
+    <!-- FRAME 01 -->
+    <div style="flex:none; display:flex; flex-direction:column; gap:12px;">
+      <div style="font-size:13px; color:#5C5A56; letter-spacing:0.02em;">01 · Intake, step 1</div>
+      <div style="width:390px; background:#FFFFFF; border:1px solid #E9E6E1; border-radius:34px; box-shadow:0 20px 50px rgba(26,26,26,.10); padding:22px 22px 26px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:0 4px 16px;"><span style="font-family:'Schibsted Grotesk',sans-serif; font-size:14px; font-weight:600; color:#1A1A1A;">9:41</span><span style="display:flex; gap:5px; align-items:center;"><span style="width:17px; height:10px; border:1px solid #1A1A1A; border-radius:2px; opacity:.5; display:inline-block;"></span></span></div>
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;"><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:16px; letter-spacing:-0.015em; color:#1A1A1A;">MindLever</span><span style="font-size:13px; color:#5C5A56;">Step 1 of 3</span></div>
+        <div style="display:flex; gap:6px; margin-bottom:24px;"><span style="height:5px; flex:1; border-radius:3px; background:#D4622A;"></span><span style="height:5px; flex:1; border-radius:3px; background:#E9E6E1;"></span><span style="height:5px; flex:1; border-radius:3px; background:#E9E6E1;"></span></div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:27px; letter-spacing:-0.015em; line-height:1.08; color:#1A1A1A; margin-bottom:22px;">First, the basics.</div>
+        <div style="font-size:15px; font-weight:500; color:#1A1A1A; margin-bottom:9px;">What kind of business is this?</div>
+        <div style="min-height:50px; border:1px solid #E9E6E1; border-radius:12px; background:#FBF6F2; display:flex; align-items:center; justify-content:space-between; padding:0 16px; font-size:16px; color:#5C5A56; margin-bottom:22px;">Choose your closest fit<span style="font-size:13px;">▾</span></div>
+        <div style="font-size:15px; font-weight:500; color:#1A1A1A; margin-bottom:9px;">About how many hours a week go to back-office work?</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:9px; margin-bottom:26px;">
+          <div style="min-height:48px; border:1px solid #E9E6E1; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:16px; color:#5C5A56; background:#FBF6F2;">Under 5</div>
+          <div style="min-height:48px; border:1.5px solid #1A1A1A; border-radius:12px; display:flex; align-items:center; justify-content:center; gap:7px; font-size:16px; font-weight:500; color:#1A1A1A; background:#fff;"><span style="width:16px;height:16px;border-radius:50%;background:#1A1A1A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;">✓</span>5 to 15</div>
+          <div style="min-height:48px; border:1px solid #E9E6E1; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:16px; color:#5C5A56; background:#FBF6F2;">15 to 30</div>
+          <div style="min-height:48px; border:1px solid #E9E6E1; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:16px; color:#5C5A56; background:#FBF6F2;">30 plus</div>
+        </div>
+        <div style="min-height:54px; border-radius:13px; background:#1A1A1A; color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:17px; letter-spacing:-0.01em; margin-bottom:12px;">Next</div>
+        <div style="font-size:14px; color:#5C5A56; text-align:center;">About 90 seconds. No account, no card.</div>
+      </div>
+    </div>
+
+    <div style="flex:none; align-self:center; color:#5C5A56; font-size:26px;">→</div>
+
+    <!-- FRAME 02 -->
+    <div style="flex:none; display:flex; flex-direction:column; gap:12px;">
+      <div style="font-size:13px; color:#5C5A56; letter-spacing:0.02em;">02 · Intake, step 2</div>
+      <div style="width:390px; background:#FFFFFF; border:1px solid #E9E6E1; border-radius:34px; box-shadow:0 20px 50px rgba(26,26,26,.10); padding:22px 22px 26px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:0 4px 16px;"><span style="font-family:'Schibsted Grotesk',sans-serif; font-size:14px; font-weight:600; color:#1A1A1A;">9:41</span><span style="width:17px; height:10px; border:1px solid #1A1A1A; border-radius:2px; opacity:.5; display:inline-block;"></span></div>
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;"><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:16px; letter-spacing:-0.015em; color:#1A1A1A;">MindLever</span><span style="font-size:13px; color:#5C5A56;">Step 2 of 3</span></div>
+        <div style="display:flex; gap:6px; margin-bottom:24px;"><span style="height:5px; flex:1; border-radius:3px; background:#D4622A;"></span><span style="height:5px; flex:1; border-radius:3px; background:#D4622A;"></span><span style="height:5px; flex:1; border-radius:3px; background:#E9E6E1;"></span></div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:27px; letter-spacing:-0.015em; line-height:1.08; color:#1A1A1A; margin-bottom:8px;">Where does the week actually go?</div>
+        <div style="font-size:16px; color:#5C5A56; line-height:1.5; margin-bottom:20px;">Pick the ones that sound like you. More than one is fine.</div>
+        <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:24px;">
+          <div style="min-height:52px; border:1.5px solid #1A1A1A; border-radius:13px; display:flex; align-items:center; gap:13px; padding:8px 15px; background:#fff;"><span style="width:22px;height:22px;border-radius:6px;background:#1A1A1A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;flex:none;">✓</span><span style="font-size:16px; line-height:1.35; color:#1A1A1A;">Answering the same questions over and over</span></div>
+          <div style="min-height:52px; border:1px solid #E9E6E1; border-radius:13px; display:flex; align-items:center; gap:13px; padding:8px 15px; background:#FBF6F2;"><span style="width:22px;height:22px;border-radius:6px;border:1.5px solid #d8d3cc;display:inline-block;flex:none;"></span><span style="font-size:16px; line-height:1.35; color:#5C5A56;">Chasing invoices and payments</span></div>
+          <div style="min-height:52px; border:1.5px solid #1A1A1A; border-radius:13px; display:flex; align-items:center; gap:13px; padding:8px 15px; background:#fff;"><span style="width:22px;height:22px;border-radius:6px;background:#1A1A1A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;flex:none;">✓</span><span style="font-size:16px; line-height:1.35; color:#1A1A1A;">Copying details between tools by hand</span></div>
+          <div style="min-height:52px; border:1px solid #E9E6E1; border-radius:13px; display:flex; align-items:center; gap:13px; padding:8px 15px; background:#FBF6F2;"><span style="width:22px;height:22px;border-radius:6px;border:1.5px solid #d8d3cc;display:inline-block;flex:none;"></span><span style="font-size:16px; line-height:1.35; color:#5C5A56;">Booking people in and sending reminders</span></div>
+          <div style="min-height:52px; border:1px solid #E9E6E1; border-radius:13px; display:flex; align-items:center; gap:13px; padding:8px 15px; background:#FBF6F2;"><span style="width:22px;height:22px;border-radius:6px;border:1.5px solid #d8d3cc;display:inline-block;flex:none;"></span><span style="font-size:16px; line-height:1.35; color:#5C5A56;">Following up with new leads</span></div>
+        </div>
+        <div style="min-height:54px; border-radius:13px; background:#1A1A1A; color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:17px; letter-spacing:-0.01em;">Next</div>
+      </div>
+    </div>
+
+    <div style="flex:none; align-self:center; color:#5C5A56; font-size:26px;">→</div>
+
+    <!-- FRAME 03 -->
+    <div style="flex:none; display:flex; flex-direction:column; gap:12px;">
+      <div style="font-size:13px; color:#5C5A56; letter-spacing:0.02em;">03 · Intake, step 3 (the promise)</div>
+      <div style="width:390px; background:#FFFFFF; border:1px solid #E9E6E1; border-radius:34px; box-shadow:0 20px 50px rgba(26,26,26,.10); padding:22px 22px 26px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:0 4px 16px;"><span style="font-family:'Schibsted Grotesk',sans-serif; font-size:14px; font-weight:600; color:#1A1A1A;">9:41</span><span style="width:17px; height:10px; border:1px solid #1A1A1A; border-radius:2px; opacity:.5; display:inline-block;"></span></div>
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:14px;"><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:16px; letter-spacing:-0.015em; color:#1A1A1A;">MindLever</span><span style="font-size:13px; color:#5C5A56;">Step 3 of 3</span></div>
+        <div style="display:flex; gap:6px; margin-bottom:24px;"><span style="height:5px; flex:1; border-radius:3px; background:#D4622A;"></span><span style="height:5px; flex:1; border-radius:3px; background:#D4622A;"></span><span style="height:5px; flex:1; border-radius:3px; background:#D4622A;"></span></div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:27px; letter-spacing:-0.015em; line-height:1.08; color:#1A1A1A; margin-bottom:8px;">Here is what I will put together for you.</div>
+        <div style="font-size:16px; color:#5C5A56; line-height:1.5; margin-bottom:22px;">A short, costed plan. Built from your answers, written in plain language.</div>
+        <div style="display:flex; flex-direction:column; gap:16px; margin-bottom:26px;">
+          <div style="display:flex; gap:13px;"><span style="width:26px;height:26px;border-radius:50%;border:1.5px solid #1A1A1A;display:flex;align-items:center;justify-content:center;font-family:'Schibsted Grotesk',sans-serif;font-weight:600;font-size:13px;flex:none;color:#1A1A1A;">1</span><span style="font-size:16px; line-height:1.4; color:#1A1A1A;">The handful of jobs worth handing off first</span></div>
+          <div style="display:flex; gap:13px;"><span style="width:26px;height:26px;border-radius:50%;border:1.5px solid #1A1A1A;display:flex;align-items:center;justify-content:center;font-family:'Schibsted Grotesk',sans-serif;font-weight:600;font-size:13px;flex:none;color:#1A1A1A;">2</span><span style="font-size:16px; line-height:1.4; color:#1A1A1A;">Roughly how many hours that gives you back each week</span></div>
+          <div style="display:flex; gap:13px;"><span style="width:26px;height:26px;border-radius:50%;border:1.5px solid #1A1A1A;display:flex;align-items:center;justify-content:center;font-family:'Schibsted Grotesk',sans-serif;font-weight:600;font-size:13px;flex:none;color:#1A1A1A;">3</span><span style="font-size:16px; line-height:1.4; color:#1A1A1A;">What those hours are worth in money</span></div>
+          <div style="display:flex; gap:13px;"><span style="width:26px;height:26px;border-radius:50%;border:1.5px solid #1A1A1A;display:flex;align-items:center;justify-content:center;font-family:'Schibsted Grotesk',sans-serif;font-weight:600;font-size:13px;flex:none;color:#1A1A1A;">4</span><span style="font-size:16px; line-height:1.4; color:#1A1A1A;">The one thing I would fix before anything else</span></div>
+        </div>
+        <div style="min-height:54px; border-radius:13px; background:#1A1A1A; color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:17px; letter-spacing:-0.01em; margin-bottom:12px;">Build my Game Plan</div>
+        <div style="font-size:14px; color:#5C5A56; text-align:center;">Takes about ten seconds.</div>
+      </div>
+    </div>
+
+    <div style="flex:none; align-self:center; color:#5C5A56; font-size:26px;">→</div>
+    <!-- FRAME 04 — LOCKED GATE -->
+    <div style="flex:none; display:flex; flex-direction:column; gap:12px;">
+      <div style="font-size:13px; color:#5C5A56; letter-spacing:0.02em;">04 · Result, locked</div>
+      <div style="width:390px; background:#FFFFFF; border:1px solid #E9E6E1; border-radius:34px; box-shadow:0 20px 50px rgba(26,26,26,.10); padding:22px 22px 26px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:0 4px 16px;"><span style="font-family:'Schibsted Grotesk',sans-serif; font-size:14px; font-weight:600; color:#1A1A1A;">9:41</span><span style="width:17px; height:10px; border:1px solid #1A1A1A; border-radius:2px; opacity:.5; display:inline-block;"></span></div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.08em; color:#B5511F; margin-bottom:10px;">YOUR GAME PLAN IS READY</div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:26px; letter-spacing:-0.015em; line-height:1.1; color:#1A1A1A; margin-bottom:8px;">I found three places your week is leaking time.</div>
+        <div style="font-size:16px; color:#5C5A56; line-height:1.5; margin-bottom:22px;">I put a number on each one. Here is the size of it.</div>
+        <!-- hours shown (magnitude) -->
+        <div style="border:1px solid #E9E6E1; border-radius:16px; padding:18px; margin-bottom:14px;">
+          <div style="font-size:14px; color:#5C5A56; margin-bottom:6px;">Hours back, every week</div>
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:30px; letter-spacing:-0.015em; color:#1A1A1A;">9 to 13 hours</div>
+        </div>
+        <!-- locked value -->
+        <div style="border:1px solid #E9E6E1; border-radius:16px; padding:18px; margin-bottom:22px; background:#FBF6F2; position:relative; overflow:hidden;">
+          <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+            <span style="font-size:14px; color:#5C5A56;">What that is worth, per month</span>
+            <span style="position:relative; display:inline-block; width:18px; height:16px;"><span style="position:absolute; bottom:0; left:0; width:18px; height:11px; background:#D4622A; border-radius:3px;"></span><span style="position:absolute; top:0; left:4px; width:10px; height:9px; border:2px solid #D4622A; border-bottom:none; border-radius:6px 6px 0 0;"></span></span>
+          </div>
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:34px; letter-spacing:-0.015em; color:#1A1A1A; filter:blur(9px); user-select:none;">$2,300 to $3,350</div>
+          <div style="font-size:14px; color:#5C5A56; margin-top:10px;">Unlock the plan to see the math, every opportunity named, and the one thing to fix first.</div>
+        </div>
+        <!-- gate -->
+        <div style="border-top:1px solid #E9E6E1; padding-top:20px;">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:17px; letter-spacing:-0.01em; color:#1A1A1A; margin-bottom:12px;">Where should I send the full plan?</div>
+          <div style="min-height:52px; border:1px solid #E9E6E1; border-radius:12px; background:#fff; display:flex; align-items:center; padding:0 16px; font-size:16px; color:#5C5A56; margin-bottom:11px;">you@yourbusiness.com</div>
+          <div style="min-height:54px; border-radius:13px; background:#1A1A1A; color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:17px; letter-spacing:-0.01em; margin-bottom:11px;">Unlock my Game Plan</div>
+          <div style="font-size:14px; color:#5C5A56; text-align:center;">Sent once. No list, no spam.</div>
+        </div>
+      </div>
+      <div style="width:390px; border:1px solid #E9E6E1; border-radius:12px; background:#FBF6F2; padding:13px 15px; display:flex; gap:9px;"><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.06em; color:#5C5A56; flex:none;">NOTE</span><span style="font-size:14px; line-height:1.45; color:#5C5A56;">Magnitude is shown, method stays hidden. No tool names, no steps. Email unlocks the costed plan. The booked call is the conversion, not the email.</span></div>
+    </div>
+
+    <div style="flex:none; align-self:center; display:flex; flex-direction:column; align-items:center; gap:5px; color:#5C5A56;"><span style="font-size:26px;">→</span><span style="font-size:12px; max-width:74px; text-align:center; color:#5C5A56;">email submitted</span></div>
+
+    <!-- FRAME 05 — UNLOCKED COSTED REVEAL -->
+    <div style="flex:none; display:flex; flex-direction:column; gap:12px;">
+      <div style="font-size:13px; color:#5C5A56; letter-spacing:0.02em;">05 · Unlocked, costed plan</div>
+      <div style="width:390px; background:#FFFFFF; border:1px solid #E9E6E1; border-radius:34px; box-shadow:0 20px 50px rgba(26,26,26,.10); padding:22px 22px 26px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; padding:0 4px 16px;"><span style="font-family:'Schibsted Grotesk',sans-serif; font-size:14px; font-weight:600; color:#1A1A1A;">9:41</span><span style="width:17px; height:10px; border:1px solid #1A1A1A; border-radius:2px; opacity:.5; display:inline-block;"></span></div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.08em; color:#B5511F; margin-bottom:14px;">YOUR GAME PLAN</div>
+        <!-- focal sized result -->
+        <div style="margin-bottom:8px; font-size:15px; color:#5C5A56;">Your time, given back, is worth about</div>
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:38px; letter-spacing:-0.02em; line-height:1.0; color:#B5511F;">{{ monthlyRange }}</div>
+        <div style="font-size:15px; color:#5C5A56; margin:6px 0 12px;">a month</div>
+        <div style="width:56px; height:4px; border-radius:3px; background:#D4622A; margin-bottom:14px;"></div>
+        <div style="font-size:15px; line-height:1.55; color:#5C5A56; margin-bottom:20px;">Based on <span style="color:#1A1A1A; font-weight:500;">9 to 13 hours</span> a week back, at your rate, across about 4.3 weeks. That is roughly <span style="color:#1A1A1A; font-weight:500;">{{ annualRange }}</span> a year. An estimate, not a quote.</div>
+        <!-- rate control -->
+        <div style="border:1px solid #E9E6E1; border-radius:16px; background:#FBF6F2; padding:17px; margin-bottom:22px;">
+          <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px;">
+            <span style="font-size:15px; font-weight:500; color:#1A1A1A;">Your hourly rate</span>
+            <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:20px; letter-spacing:-0.015em; color:#1A1A1A;">{{ rateLabel }} / hr</span>
+          </div>
+          <input type="range" min="25" max="200" step="5" value="{{ rate }}" onInput="{{ setRate }}" style="width:100%; height:44px;" />
+          <div style="font-size:13px; color:#5C5A56; margin-top:8px;">Drag to use your real number. The estimate moves with it.</div>
+        </div>
+        <!-- opportunities -->
+        <div style="font-size:14px; font-weight:500; color:#5C5A56; margin-bottom:11px;">Where it comes from</div>
+        <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:22px;">
+          <div style="border:1px solid #E9E6E1; border-radius:13px; padding:13px 15px;"><div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:16px; letter-spacing:-0.01em; color:#1A1A1A; line-height:1.3; margin-bottom:4px;">Stop re-answering the same customer questions</div><div style="font-size:14px; color:#5C5A56;">about 3 to 4 hours a week</div></div>
+          <div style="border:1px solid #E9E6E1; border-radius:13px; padding:13px 15px;"><div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:16px; letter-spacing:-0.01em; color:#1A1A1A; line-height:1.3; margin-bottom:4px;">Get invoices out and followed up without you</div><div style="font-size:14px; color:#5C5A56;">about 2 to 3 hours a week</div></div>
+          <div style="border:1px solid #E9E6E1; border-radius:13px; padding:13px 15px;"><div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:16px; letter-spacing:-0.01em; color:#1A1A1A; line-height:1.3; margin-bottom:4px;">Hand off booking and reminders</div><div style="font-size:14px; color:#5C5A56;">about 4 to 6 hours a week</div></div>
+        </div>
+        <!-- fix first -->
+        <div style="border:1.5px solid #1A1A1A; border-radius:16px; padding:16px; margin-bottom:20px;">
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.06em; color:#5C5A56; margin-bottom:8px;">FIX THIS FIRST</div>
+          <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:18px; letter-spacing:-0.015em; color:#1A1A1A; line-height:1.25; margin-bottom:7px;">Hand off booking and reminders</div>
+          <div style="font-size:15px; line-height:1.5; color:#5C5A56;">It is the biggest block of hours and the easiest to lift off your plate, so you feel it in the first week.</div>
+        </div>
+        <!-- credibility stat slot -->
+        <div style="border:1px dashed #d8d3cc; border-radius:13px; padding:13px 15px; margin-bottom:22px; background:#FBF6F2;">
+          <div style="font-size:12px; font-weight:500; color:#5C5A56; letter-spacing:0.04em; margin-bottom:6px;">PROOF TO ADD</div>
+          <div style="font-size:14px; color:#5C5A56; font-style:italic;">[ stat plus named source ]</div>
+        </div>
+        <!-- conversion -->
+        <div style="min-height:58px; border-radius:14px; background:#1A1A1A; color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:18px; letter-spacing:-0.01em; margin-bottom:12px;">Book a 15-min call</div>
+        <div style="font-size:14px; color:#5C5A56; text-align:center; line-height:1.45;">Fifteen minutes, no pitch. We see together whether this is worth doing.</div>
+      </div>
+      <div style="width:390px; border:1px solid #E9E6E1; border-radius:12px; background:#FBF6F2; padding:13px 15px; display:flex; gap:9px;"><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.06em; color:#5C5A56; flex:none;">NOTE</span><span style="font-size:14px; line-height:1.45; color:#5C5A56;">Outcomes named, never methods. The dollar figure is transparent math the prospect can adjust. The booked call is the conversion.</span></div>
+    </div>
+  </div>
+
+  <!-- ===== DESKTOP BREAKPOINT (prospect) ===== -->
+  <div style="display:flex; align-items:baseline; gap:14px; margin:6px 0 24px;">
+    <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.08em; color:#5C5A56;">DESKTOP</div>
+    <div style="font-size:16px; color:#5C5A56;">Same flow, wider canvas. Intake steps reflow the same way.</div>
+  </div>
+
+  <div style="display:flex; gap:36px; align-items:flex-start; margin-bottom:56px;">
+    <!-- 01-D intake -->
+    <div style="flex:none; display:flex; flex-direction:column; gap:12px;">
+      <div style="font-size:13px; color:#5C5A56; letter-spacing:0.02em;">01-D · Intake, step 1</div>
+      <div style="width:840px; background:#FFFFFF; border:1px solid #E9E6E1; border-radius:20px; box-shadow:0 24px 60px rgba(26,26,26,.10); padding:38px 44px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:22px;"><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:18px; letter-spacing:-0.015em; color:#1A1A1A;">MindLever</span><span style="font-size:14px; color:#5C5A56;">Step 1 of 3</span></div>
+        <div style="display:flex; gap:8px; margin-bottom:34px;"><span style="height:5px; width:140px; border-radius:3px; background:#D4622A;"></span><span style="height:5px; width:140px; border-radius:3px; background:#E9E6E1;"></span><span style="height:5px; width:140px; border-radius:3px; background:#E9E6E1;"></span></div>
+        <div style="display:grid; grid-template-columns:1.05fr 1fr; gap:48px; align-items:start;">
+          <div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:36px; letter-spacing:-0.015em; line-height:1.06; color:#1A1A1A; margin-bottom:14px;">First, the basics.</div>
+            <div style="font-size:17px; line-height:1.6; color:#5C5A56;">Two quick answers and I can start sizing where your week is going.</div>
+          </div>
+          <div>
+            <div style="font-size:15px; font-weight:500; color:#1A1A1A; margin-bottom:9px;">What kind of business is this?</div>
+            <div style="min-height:52px; border:1px solid #E9E6E1; border-radius:12px; background:#FBF6F2; display:flex; align-items:center; justify-content:space-between; padding:0 16px; font-size:16px; color:#5C5A56; margin-bottom:24px;">Choose your closest fit<span style="font-size:13px;">▾</span></div>
+            <div style="font-size:15px; font-weight:500; color:#1A1A1A; margin-bottom:9px;">About how many hours a week go to back-office work?</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:30px;">
+              <div style="min-height:50px; border:1px solid #E9E6E1; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:16px; color:#5C5A56; background:#FBF6F2;">Under 5</div>
+              <div style="min-height:50px; border:1.5px solid #1A1A1A; border-radius:12px; display:flex; align-items:center; justify-content:center; gap:7px; font-size:16px; font-weight:500; color:#1A1A1A; background:#fff;"><span style="width:16px;height:16px;border-radius:50%;background:#1A1A1A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;">✓</span>5 to 15</div>
+              <div style="min-height:50px; border:1px solid #E9E6E1; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:16px; color:#5C5A56; background:#FBF6F2;">15 to 30</div>
+              <div style="min-height:50px; border:1px solid #E9E6E1; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:16px; color:#5C5A56; background:#FBF6F2;">30 plus</div>
+            </div>
+            <div style="display:flex; align-items:center; gap:18px;">
+              <div style="min-height:54px; border-radius:13px; background:#1A1A1A; color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:17px; letter-spacing:-0.01em; padding:0 40px;">Next</div>
+              <div style="font-size:14px; color:#5C5A56;">About 90 seconds. No account.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05-D unlocked -->
+    <div style="flex:none; display:flex; flex-direction:column; gap:12px;">
+      <div style="font-size:13px; color:#5C5A56; letter-spacing:0.02em;">05-D · Unlocked, costed plan</div>
+      <div style="width:920px; background:#FFFFFF; border:1px solid #E9E6E1; border-radius:20px; box-shadow:0 24px 60px rgba(26,26,26,.10); padding:38px 44px;">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.08em; color:#B5511F; margin-bottom:18px;">YOUR GAME PLAN</div>
+        <div style="display:grid; grid-template-columns:1.15fr 1fr; gap:44px; align-items:start; margin-bottom:30px;">
+          <!-- focal value + math -->
+          <div>
+            <div style="font-size:16px; color:#5C5A56; margin-bottom:8px;">Your time, given back, is worth about</div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:800; font-size:56px; letter-spacing:-0.02em; line-height:1.0; color:#B5511F;">{{ monthlyRange }}</div>
+            <div style="font-size:16px; color:#5C5A56; margin:8px 0 14px;">a month</div>
+            <div style="width:64px; height:4px; border-radius:3px; background:#D4622A; margin-bottom:18px;"></div>
+            <div style="font-size:17px; line-height:1.6; color:#5C5A56; max-width:440px;">Based on <span style="color:#1A1A1A; font-weight:500;">9 to 13 hours</span> a week back, at your rate, across about 4.3 weeks. That is roughly <span style="color:#1A1A1A; font-weight:500;">{{ annualRange }}</span> a year. An estimate, not a quote.</div>
+          </div>
+          <!-- rate control -->
+          <div style="border:1px solid #E9E6E1; border-radius:18px; background:#FBF6F2; padding:24px;">
+            <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:18px;">
+              <span style="font-size:16px; font-weight:500; color:#1A1A1A;">Your hourly rate</span>
+              <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:24px; letter-spacing:-0.015em; color:#1A1A1A;">{{ rateLabel }} / hr</span>
+            </div>
+            <input type="range" min="25" max="200" step="5" value="{{ rate }}" onInput="{{ setRate }}" style="width:100%; height:44px;" />
+            <div style="font-size:14px; color:#5C5A56; margin-top:10px; line-height:1.5;">Drag to use your real number. The estimate moves with it. This is your math, in the open.</div>
+          </div>
+        </div>
+        <div style="height:1px; background:#E9E6E1; margin-bottom:28px;"></div>
+        <div style="display:grid; grid-template-columns:1.4fr 1fr; gap:40px; align-items:start;">
+          <!-- opportunities -->
+          <div>
+            <div style="font-size:14px; font-weight:500; color:#5C5A56; margin-bottom:14px;">Where it comes from</div>
+            <div style="display:flex; flex-direction:column; gap:11px;">
+              <div style="border:1px solid #E9E6E1; border-radius:13px; padding:15px 18px; display:flex; justify-content:space-between; align-items:center; gap:16px;"><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:17px; letter-spacing:-0.01em; color:#1A1A1A;">Stop re-answering the same customer questions</span><span style="font-size:14px; color:#5C5A56; white-space:nowrap;">3 to 4 hrs/wk</span></div>
+              <div style="border:1px solid #E9E6E1; border-radius:13px; padding:15px 18px; display:flex; justify-content:space-between; align-items:center; gap:16px;"><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:17px; letter-spacing:-0.01em; color:#1A1A1A;">Get invoices out and followed up without you</span><span style="font-size:14px; color:#5C5A56; white-space:nowrap;">2 to 3 hrs/wk</span></div>
+              <div style="border:1px solid #E9E6E1; border-radius:13px; padding:15px 18px; display:flex; justify-content:space-between; align-items:center; gap:16px;"><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:17px; letter-spacing:-0.01em; color:#1A1A1A;">Hand off booking and reminders</span><span style="font-size:14px; color:#5C5A56; white-space:nowrap;">4 to 6 hrs/wk</span></div>
+            </div>
+          </div>
+          <!-- fix first + proof + cta -->
+          <div style="display:flex; flex-direction:column; gap:18px;">
+            <div style="border:1.5px solid #1A1A1A; border-radius:16px; padding:18px;">
+              <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.06em; color:#5C5A56; margin-bottom:8px;">FIX THIS FIRST</div>
+              <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:19px; letter-spacing:-0.015em; color:#1A1A1A; line-height:1.25; margin-bottom:8px;">Hand off booking and reminders</div>
+              <div style="font-size:15px; line-height:1.5; color:#5C5A56;">Biggest block of hours, easiest to lift off your plate. You feel it in week one.</div>
+            </div>
+            <div style="border:1px dashed #d8d3cc; border-radius:13px; padding:14px 16px; background:#FBF6F2;">
+              <div style="font-size:12px; font-weight:500; color:#5C5A56; letter-spacing:0.04em; margin-bottom:6px;">PROOF TO ADD</div>
+              <div style="font-size:14px; color:#5C5A56; font-style:italic;">[ stat plus named source ]</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:22px; margin-top:30px; padding-top:28px; border-top:1px solid #E9E6E1;">
+          <div style="min-height:58px; border-radius:14px; background:#1A1A1A; color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:18px; letter-spacing:-0.01em; padding:0 44px;">Book a 15-min call</div>
+          <div style="font-size:15px; color:#5C5A56; line-height:1.45;">Fifteen minutes, no pitch. We see together whether this is worth doing. The call is the next step, not a sale.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== BOUNDARY ===== -->
+  <div style="max-width:1000px; border:1px solid #d8d3cc; border-radius:16px; background:#FBF6F2; padding:20px 24px; margin-bottom:40px; display:flex; gap:16px; align-items:flex-start;">
+    <span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:12px; letter-spacing:0.06em; color:#5C5A56; flex:none; margin-top:3px;">BOUNDARY</span>
+    <div style="font-size:16px; line-height:1.6; color:#1A1A1A;">Everything above is prospect-facing. Everything below is internal only. The two surfaces share no layout, no component, and no rendering path. In the real build a prospect is never one tab-switch away from the console. Separate app, separate sign-in.</div>
+  </div>
+
+  <!-- ===== SECTION: OPERATOR ===== -->
+  <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:26px;">
+    <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.08em; color:#5C5A56;">INTERNAL · OPERATOR ONLY</div>
+    <div style="font-size:16px; color:#5C5A56;">The consultant scopes and quotes from the same intake</div>
+  </div>
+
+  <div style="display:flex; gap:36px; align-items:flex-start; margin-bottom:56px;">
+    <!-- OPERATOR DESKTOP -->
+    <div style="flex:none; display:flex; flex-direction:column; gap:12px;">
+      <div style="font-size:13px; color:#5C5A56; letter-spacing:0.02em;">06-D · Operator Console</div>
+      <div style="width:1000px; background:#FFFFFF; border:1px solid #E9E6E1; border-radius:20px; box-shadow:0 24px 60px rgba(26,26,26,.10); overflow:hidden;">
+        <!-- internal dark bar -->
+        <div style="background:#1A1A1A; padding:16px 28px; display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:12px;"><span style="width:9px; height:9px; border-radius:50%; background:#B9B6B1; display:inline-block;"></span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:16px; letter-spacing:-0.015em; color:#EDE6D6;">Operator Console</span></div>
+          <span style="font-size:14px; color:#B9B6B1;">Internal. Not shown to the prospect.</span>
+        </div>
+        <div style="padding:30px 32px;">
+          <!-- intake readout -->
+          <div style="border:1px solid #E9E6E1; border-radius:14px; padding:20px; margin-bottom:24px;">
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.06em; color:#5C5A56; margin-bottom:16px;">FROM THE INTAKE</div>
+            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px;">
+              <div><div style="font-size:13px; color:#5C5A56; margin-bottom:5px;">Business type</div><div style="font-size:17px; color:#1A1A1A; font-weight:500;">[ value ]</div></div>
+              <div><div style="font-size:13px; color:#5C5A56; margin-bottom:5px;">Back-office hours</div><div style="font-size:17px; color:#1A1A1A; font-weight:500;">5 to 15 / week</div></div>
+              <div><div style="font-size:13px; color:#5C5A56; margin-bottom:5px;">Named pains</div><div style="font-size:17px; color:#1A1A1A; font-weight:500;">Repeat questions, manual copy</div></div>
+            </div>
+          </div>
+          <!-- draft approach (focal, ember spark) -->
+          <div style="border:1px solid #E9E6E1; border-radius:14px; padding:22px; margin-bottom:24px;">
+            <div style="display:flex; align-items:center; gap:9px; margin-bottom:14px;"><span style="width:11px; height:11px; background:#D4622A; border-radius:3px; display:inline-block;"></span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:20px; letter-spacing:-0.015em; color:#1A1A1A;">Draft approach</span></div>
+            <div style="font-size:17px; line-height:1.6; color:#1A1A1A; margin-bottom:8px;">Lead with a shared answer library so the same questions stop landing in the owner's inbox. Then automate invoice send and follow-up. Booking and reminders come third, once the first two are steady.</div>
+            <div style="font-size:15px; line-height:1.6; color:#5C5A56; font-style:italic;">Phase it. Each piece earns the next. Working draft, refine on the call.</div>
+          </div>
+          <!-- working grid -->
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px;">
+            <div style="border:1px solid #E9E6E1; border-radius:14px; padding:20px;">
+              <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.06em; color:#5C5A56; margin-bottom:14px;">BUILDING BLOCKS</div>
+              <div style="display:flex; flex-wrap:wrap; gap:8px;">
+                <span style="border:1px solid #E9E6E1; background:#FBF6F2; border-radius:8px; padding:8px 12px; font-size:14px; color:#1A1A1A;">Shared answer library</span>
+                <span style="border:1px solid #E9E6E1; background:#FBF6F2; border-radius:8px; padding:8px 12px; font-size:14px; color:#1A1A1A;">Invoice automation</span>
+                <span style="border:1px solid #E9E6E1; background:#FBF6F2; border-radius:8px; padding:8px 12px; font-size:14px; color:#1A1A1A;">Booking sync</span>
+                <span style="border:1px solid #E9E6E1; background:#FBF6F2; border-radius:8px; padding:8px 12px; font-size:14px; color:#1A1A1A;">Reminder flow</span>
+              </div>
+            </div>
+            <div style="border:1px solid #E9E6E1; border-radius:14px; padding:20px;">
+              <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.06em; color:#5C5A56; margin-bottom:14px;">WHAT TO MEASURE</div>
+              <div style="display:flex; flex-direction:column; gap:9px;">
+                <div style="display:flex; gap:10px; align-items:baseline;"><span style="width:5px;height:5px;border-radius:50%;background:#1A1A1A;flex:none;"></span><span style="font-size:15px; color:#1A1A1A; line-height:1.45;">Hours/week the owner spends on repeat questions</span></div>
+                <div style="display:flex; gap:10px; align-items:baseline;"><span style="width:5px;height:5px;border-radius:50%;background:#1A1A1A;flex:none;"></span><span style="font-size:15px; color:#1A1A1A; line-height:1.45;">Days from invoice sent to invoice paid</span></div>
+                <div style="display:flex; gap:10px; align-items:baseline;"><span style="width:5px;height:5px;border-radius:50%;background:#1A1A1A;flex:none;"></span><span style="font-size:15px; color:#1A1A1A; line-height:1.45;">No-shows per week before and after reminders</span></div>
+              </div>
+            </div>
+            <div style="border:1px solid #E9E6E1; border-radius:14px; padding:20px;">
+              <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.06em; color:#5C5A56; margin-bottom:14px;">DISCOVERY QUESTIONS</div>
+              <div style="display:flex; flex-direction:column; gap:10px;">
+                <div style="font-size:15px; color:#1A1A1A; line-height:1.45;">Which questions actually repeat, and who answers them today?</div>
+                <div style="font-size:15px; color:#1A1A1A; line-height:1.45;">Where do invoices live right now, and what triggers a chase?</div>
+                <div style="font-size:15px; color:#1A1A1A; line-height:1.45;">Who owns the calendar, and what cannot be automated?</div>
+              </div>
+            </div>
+            <div style="border:1px solid #E9E6E1; border-radius:14px; padding:20px;">
+              <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.06em; color:#5C5A56; margin-bottom:14px;">WATCH-OUTS</div>
+              <div style="display:flex; flex-direction:column; gap:9px;">
+                <div style="display:flex; gap:10px; align-items:baseline;"><span style="color:#5C5A56; flex:none; font-size:14px;">!</span><span style="font-size:15px; color:#1A1A1A; line-height:1.45;">Answer library goes stale without an owner</span></div>
+                <div style="display:flex; gap:10px; align-items:baseline;"><span style="color:#5C5A56; flex:none; font-size:14px;">!</span><span style="font-size:15px; color:#1A1A1A; line-height:1.45;">Invoice tooling may be locked to their accountant</span></div>
+              </div>
+            </div>
+          </div>
+          <!-- build estimate -->
+          <div style="border:1.5px solid #1A1A1A; border-radius:14px; padding:22px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;">
+            <div>
+              <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.06em; color:#5C5A56; margin-bottom:10px;">ROUGH BUILD ESTIMATE</div>
+              <div style="display:flex; gap:36px;">
+                <div><div style="font-size:13px; color:#5C5A56; margin-bottom:4px;">Effort</div><div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:22px; letter-spacing:-0.015em; color:#1A1A1A;">[ days ]</div></div>
+                <div><div style="font-size:13px; color:#5C5A56; margin-bottom:4px;">Range</div><div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:22px; letter-spacing:-0.015em; color:#1A1A1A;">[ $low to $high ]</div></div>
+              </div>
+            </div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:14px; letter-spacing:0.02em; color:#1A1A1A; max-width:260px; line-height:1.4;">Your sizing only. Never shown to the prospect.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OPERATOR MOBILE -->
+    <div style="flex:none; display:flex; flex-direction:column; gap:12px;">
+      <div style="font-size:13px; color:#5C5A56; letter-spacing:0.02em;">06 · Operator Console (mobile)</div>
+      <div style="width:390px; background:#FFFFFF; border:1px solid #E9E6E1; border-radius:34px; box-shadow:0 20px 50px rgba(26,26,26,.10); overflow:hidden;">
+        <div style="background:#1A1A1A; padding:16px 22px; display:flex; align-items:center; justify-content:space-between;"><span style="display:flex; align-items:center; gap:9px;"><span style="width:8px;height:8px;border-radius:50%;background:#B9B6B1;display:inline-block;"></span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:15px; letter-spacing:-0.015em; color:#EDE6D6;">Operator Console</span></span></div>
+        <div style="background:#1A1A1A; padding:0 22px 14px; margin-top:-4px;"><span style="font-size:13px; color:#B9B6B1;">Internal. Not shown to the prospect.</span></div>
+        <div style="padding:20px;">
+          <div style="border:1px solid #E9E6E1; border-radius:13px; padding:15px; margin-bottom:14px;">
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.06em; color:#5C5A56; margin-bottom:11px;">FROM THE INTAKE</div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:7px;"><span style="font-size:14px; color:#5C5A56;">Business</span><span style="font-size:14px; color:#1A1A1A; font-weight:500;">[ value ]</span></div>
+            <div style="display:flex; justify-content:space-between; margin-bottom:7px;"><span style="font-size:14px; color:#5C5A56;">Hours</span><span style="font-size:14px; color:#1A1A1A; font-weight:500;">5 to 15 / wk</span></div>
+            <div style="display:flex; justify-content:space-between;"><span style="font-size:14px; color:#5C5A56;">Pains</span><span style="font-size:14px; color:#1A1A1A; font-weight:500;">Repeat Qs, copy</span></div>
+          </div>
+          <div style="border:1px solid #E9E6E1; border-radius:13px; padding:16px; margin-bottom:14px;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px;"><span style="width:10px;height:10px;background:#D4622A;border-radius:3px;display:inline-block;"></span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:17px; letter-spacing:-0.015em; color:#1A1A1A;">Draft approach</span></div>
+            <div style="font-size:15px; line-height:1.55; color:#1A1A1A;">Shared answer library first, then invoice send and follow-up, then booking. Phase it so each piece earns the next.</div>
+          </div>
+          <div style="border:1px solid #E9E6E1; border-radius:13px; padding:15px; margin-bottom:14px;">
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.06em; color:#5C5A56; margin-bottom:11px;">BLOCKS · MEASURE · DISCOVERY · WATCH-OUTS</div>
+            <div style="display:flex; flex-wrap:wrap; gap:7px; margin-bottom:11px;"><span style="border:1px solid #E9E6E1; background:#FBF6F2; border-radius:7px; padding:6px 10px; font-size:13px; color:#1A1A1A;">Answer library</span><span style="border:1px solid #E9E6E1; background:#FBF6F2; border-radius:7px; padding:6px 10px; font-size:13px; color:#1A1A1A;">Invoice automation</span><span style="border:1px solid #E9E6E1; background:#FBF6F2; border-radius:7px; padding:6px 10px; font-size:13px; color:#1A1A1A;">Booking sync</span></div>
+            <div style="font-size:14px; line-height:1.5; color:#5C5A56;">Measure hours on repeat questions, days to paid, no-shows. Ask who owns each today and what cannot be automated.</div>
+          </div>
+          <div style="border:1.5px solid #1A1A1A; border-radius:13px; padding:16px;">
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:12px; letter-spacing:0.06em; color:#5C5A56; margin-bottom:11px;">ROUGH BUILD ESTIMATE</div>
+            <div style="display:flex; gap:24px; margin-bottom:10px;"><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:18px; color:#1A1A1A;">[ days ]</span><span style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:18px; color:#1A1A1A;">[ $low to $high ]</span></div>
+            <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:13px; color:#1A1A1A;">Your sizing only. Never shown to the prospect.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== RUN REPORT STUB ===== -->
+  <div style="display:flex; align-items:baseline; gap:14px; margin-bottom:24px;">
+    <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.08em; color:#5C5A56;">OUT OF SCOPE</div>
+    <div style="font-size:16px; color:#5C5A56;">Post-sale surface, stubbed only</div>
+  </div>
+  <div style="display:flex; gap:30px;">
+    <div style="flex:none; display:flex; flex-direction:column; gap:12px;">
+      <div style="font-size:13px; color:#5C5A56; letter-spacing:0.02em;">07 · Run Report (placeholder)</div>
+      <div style="width:390px; min-height:300px; border:1.5px dashed #c9c4bc; border-radius:24px; background:#FBF6F2; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; padding:40px; text-align:center;">
+        <div style="font-family:'Schibsted Grotesk',sans-serif; font-weight:700; font-size:22px; letter-spacing:-0.015em; color:#5C5A56;">Run Report</div>
+        <div style="font-size:16px; line-height:1.6; color:#5C5A56;">Post-sale surface. Exists in the product, out of scope here.</div>
+        <div style="font-size:14px; color:#5C5A56; border:1px solid #d8d3cc; border-radius:9px; padding:7px 14px;">Nothing designed, intentionally</div>
+      </div>
+    </div>
+  </div>
+
+  <!--CANVAS-->
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { rate: 60 };
+
+  money(n, step) {
+    const r = Math.round(n / step) * step;
+    return '$' + r.toLocaleString('en-US');
+  }
+
+  renderVals() {
+    const hoursLow = 9, hoursHigh = 13;
+    const rate = this.state.rate;
+    const setRate = (e) => this.setState({ rate: Number(e.target.value) });
+    return {
+      rate,
+      setRate,
+      rateLabel: '$' + rate,
+      monthlyRange: this.money(hoursLow * rate * 4.3, 50) + ' to ' + this.money(hoursHigh * rate * 4.3, 50),
+      annualRange: this.money(hoursLow * rate * 52, 100) + ' to ' + this.money(hoursHigh * rate * 52, 100),
+    };
+  }
+}
+</script>
+</body>
+</html>
