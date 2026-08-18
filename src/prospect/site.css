@@ -556,12 +556,18 @@ button.lv-card:hover,
 }
 
 /* The figure beside a bar. Display weight, tabular so digits do not jitter
-   while the spring is still settling. */
+   while the spring is still settling.
+   A figure sets its own line-height near 1, which is right for the numeral and
+   wrong for everything sharing its line: an inline unit and whatever sits
+   below both end up on top of it. Baseline-aligning the pair fixes both. */
 .lv-figure {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
   font-family: var(--lv-t-display);
   font-weight: 800;
   font-size: var(--lv-d-3);
-  line-height: 1;
+  line-height: 1.1;
   letter-spacing: -0.03em;
   font-variant-numeric: tabular-nums;
   color: var(--lv-ink);
@@ -577,6 +583,12 @@ button.lv-card:hover,
   font-size: var(--lv-t-sm);
   color: var(--lv-ink-quiet);
   letter-spacing: 0;
+  /* A trailing phrase needs the space; a bare "h" after "4" does not. */
+  margin-left: var(--lv-s-2);
+}
+
+.lv-figure--sm .lv-figure__unit {
+  margin-left: 0;
 }
 
 .lv-hoursrow {
@@ -1146,15 +1158,6 @@ button.lv-card:hover,
   border-top: none;
   padding-top: 0;
   gap: var(--lv-s-4);
-}
-
-/* The display figure sets line-height 1, which leaves its unit and the bar
-   below sitting on the numeral. Give the pair its own baseline. */
-.lv-auto__hours .lv-figure {
-  display: flex;
-  align-items: baseline;
-  gap: var(--lv-s-3);
-  line-height: 1.1;
 }
 
 /* ==========================================================================
