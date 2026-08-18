@@ -1981,3 +1981,11 @@ button.lv-card:hover,
 .lv-proof__more {
   margin-top: var(--lv-g-1);
 }
+
+/* A transformation headline in a three-up column runs to five lines at
+   display size, which stops being scannable — which is the entire point of
+   the format. Step it down to the size the column can carry. */
+.lv-case .lv-h3 {
+  font-size: var(--lv-d-5);
+  line-height: 1.25;
+}
