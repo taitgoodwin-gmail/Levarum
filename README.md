@@ -48,6 +48,30 @@ in the console, so nothing is ever presented as generated when it wasn't.
 
 ---
 
+## Deploying
+
+Configured for Vercel. Vite is auto-detected, so the defaults build `dist/`
+and no framework settings are needed. Two pieces make it work in production:
+
+- **`api/draft.ts`** — the draft endpoint as a Vercel Function. In dev the
+  endpoint is mounted by a Vite plugin, which does not exist in a static
+  build; without this function `/api/draft` would simply be absent and every
+  draft would silently fall back to the offline one. It reads Vercel's
+  pre-parsed request body rather than re-reading the stream, which would hang.
+- **`vercel.json`** — an SPA rewrite. `/operator` is a client-side route with
+  no `index.html` of its own, so without the rewrite it 404s on a fresh visit
+  or a refresh. The negative lookahead keeps `/api/*` out of the fallback.
+
+**Set `ANTHROPIC_API_KEY` in the project's environment variables.** It is read
+only by the function, never exposed to the browser. Without it the app still
+works end to end and labels every draft as an offline draft.
+
+Deploying elsewhere needs the same two things: a Node handler for
+`POST /api/draft` (wrap `server/handler.ts`, which is transport-free for this
+reason) and an SPA fallback that leaves `/api/*` alone.
+
+---
+
 ## The two surfaces
 
 ### Prospect Game Plan (`/`)

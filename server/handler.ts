@@ -23,7 +23,8 @@ function readBody(req: IncomingMessage): Promise<string> {
   })
 }
 
-function send(res: ServerResponse, status: number, payload: unknown): void {
+/** Shared by every host that mounts this endpoint, including the Vercel Function. */
+export function send(res: ServerResponse, status: number, payload: unknown): void {
   const body = JSON.stringify(payload)
   res.statusCode = status
   res.setHeader('Content-Type', 'application/json; charset=utf-8')

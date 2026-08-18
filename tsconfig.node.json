@@ -15,5 +15,5 @@
     "noEmit": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo"
   },
-  "include": ["vite.config.ts", "server", "src/domain", "src/brand.ts"]
+  "include": ["vite.config.ts", "server", "api", "src/domain", "src/brand.ts"]
 }
