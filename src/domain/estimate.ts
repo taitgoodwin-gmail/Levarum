@@ -1,6 +1,6 @@
-import type { Draft, Pain, PainId, StackItem } from './types.ts'
-import { painsOrDefault } from './pains.ts'
-import { defaultStackItem, optionFor } from './catalog.ts'
+import type { Draft, Pain, PainId, StackItem } from './types'
+import { painsOrDefault } from './pains'
+import { defaultStackItem, optionFor } from './catalog'
 
 /** Weeks in a month, and the day rate the operator's sizing is built from. */
 export const WEEKS_PER_MONTH = 4.3

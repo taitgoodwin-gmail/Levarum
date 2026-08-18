@@ -1,6 +1,6 @@
 import type { IncomingMessage, ServerResponse } from 'node:http'
 
-import { handleApiRequest } from '../server/api.ts'
+import { handleApiRequest } from '../server/api'
 
 /**
  * The API, as Vercel Functions.

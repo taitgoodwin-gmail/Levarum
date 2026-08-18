@@ -1,5 +1,5 @@
-import type { CatalogEntry, PainId, StackItem, WorkflowOption } from './types.ts'
-import { PAIN_BY_ID } from './pains.ts'
+import type { CatalogEntry, PainId, StackItem, WorkflowOption } from './types'
+import { PAIN_BY_ID } from './pains'
 
 /**
  * Real-world solution catalog. Operator-only: not one of these names may

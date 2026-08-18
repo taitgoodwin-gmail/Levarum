@@ -1,8 +1,8 @@
 import type { IncomingMessage, ServerResponse } from 'node:http'
 
-import { DraftUnavailableError } from './draft.ts'
-import { send } from './handler.ts'
-import { addLead, backend, listLeads, patchLead, type StoredLead } from './store.ts'
+import { DraftUnavailableError } from './draft'
+import { send } from './handler'
+import { addLead, backend, listLeads, patchLead, type StoredLead } from './store'
 import {
   checkCredentials,
   clearCookie,
@@ -11,7 +11,7 @@ import {
   readCookie,
   sessionCookie,
   verifyToken,
-} from './session.ts'
+} from './session'
 
 /**
  * The API surface beyond /api/draft: submissions, the operator's lead list,

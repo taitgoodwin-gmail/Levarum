@@ -1,6 +1,6 @@
 import type { Plugin } from 'vite'
-import { handleDraftRequest, isDraftRequest } from './handler.ts'
-import { handleApiRequest, isApiRequest, readBody } from './api.ts'
+import { handleDraftRequest, isDraftRequest } from './handler'
+import { handleApiRequest, isApiRequest, readBody } from './api'
 
 /**
  * Mounts the whole API on the dev server so `npm run dev` is the entire app —

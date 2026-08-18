@@ -5,8 +5,8 @@ import {
   generateDraft,
   isDraftConfigured,
   parseDraftRequest,
-} from '../server/draft.ts'
-import { send } from '../server/handler.ts'
+} from '../server/draft'
+import { send } from '../server/handler'
 
 /**
  * POST /api/draft, as a Vercel Function.

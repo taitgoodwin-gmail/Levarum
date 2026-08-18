@@ -4,6 +4,11 @@
     "lib": ["ES2023"],
     "module": "ESNext",
     "moduleResolution": "bundler",
+    // This flag is why `npm run typecheck` passed while the deploy failed: it
+    // made `.ts` specifiers legal here, and Vercel's emitting build cannot turn
+    // it on. Left enabled for the tsx-run scripts, but tsconfig.vercel.json now
+    // type-checks the same api/ tree without it, so the two can no longer
+    // disagree in silence.
     "allowImportingTsExtensions": true,
     "types": ["node"],
     "strict": true,

@@ -4,8 +4,10 @@
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "moduleResolution": "bundler",
-    // src/domain is also loaded by Node's native TS loader through vite.config.ts,
-    // which requires explicit .ts extensions on its imports.
+    // Kept on for .tsx/.ts resolution inside src, but nothing under src/domain
+    // may carry a .ts import specifier any more: that code is reachable from the
+    // Vercel Functions, whose emitting build rejects them. See
+    // tsconfig.vercel.json, which is the check that holds the line.
     "allowImportingTsExtensions": true,
     "jsx": "react-jsx",
     "types": ["vite/client"],

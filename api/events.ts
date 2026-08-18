@@ -1,4 +1,4 @@
-import { createHandler } from './index.ts'
+import { createHandler } from './index'
 
 /**
  * /api/events, as a Vercel Function.

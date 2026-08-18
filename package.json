@@ -4,13 +4,14 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "vite --configLoader bundle",
+    "build": "tsc -b && tsc -p tsconfig.vercel.json && vite build --configLoader bundle",
     "preview": "vite preview",
     "typecheck": "tsc -b",
     "serve:api": "tsx server/index.ts",
     "check:boundary": "node scripts/check-boundary.mjs",
-    "check:contrast": "node scripts/check-contrast.mjs"
+    "check:contrast": "node scripts/check-contrast.mjs",
+    "check:api": "tsc -p tsconfig.vercel.json"
   },
   "dependencies": {
     "react": "^19.2.0",

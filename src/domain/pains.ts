@@ -1,4 +1,4 @@
-import type { HoursBand, Pain, PainId } from './types.ts'
+import type { HoursBand, Pain, PainId } from './types'
 
 /**
  * The business types the intake offers, from the design project. The list is

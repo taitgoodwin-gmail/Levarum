@@ -2,10 +2,10 @@ import Anthropic from '@anthropic-ai/sdk'
 import { betaZodOutputFormat } from '@anthropic-ai/sdk/helpers/beta/zod'
 import { z } from 'zod'
 
-import { CATALOG } from '../src/domain/catalog.ts'
-import { HOURS_BANDS, PAINS, isPainId, painsOrDefault } from '../src/domain/pains.ts'
-import type { DraftRequest, DraftResponse, HoursBand, PainId } from '../src/domain/types.ts'
-import { BRAND } from '../src/brand.ts'
+import { CATALOG } from '../src/domain/catalog'
+import { HOURS_BANDS, PAINS, isPainId, painsOrDefault } from '../src/domain/pains'
+import type { DraftRequest, DraftResponse, HoursBand, PainId } from '../src/domain/types'
+import { BRAND } from '../src/brand'
 
 /**
  * The one place that talks to the Claude API. It runs server-side so the API

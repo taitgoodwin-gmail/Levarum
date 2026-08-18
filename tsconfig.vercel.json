@@ -1,0 +1,42 @@
+{
+  // The deploy's compile, reproduced.
+  //
+  // This config exists because `npm run typecheck` cannot catch what broke
+  // production. That command is `tsc -b`, which follows the project references
+  // in tsconfig.json and type-checks api/ under tsconfig.node.json — where
+  // `allowImportingTsExtensions: true` is set, so `import … from './index.ts'`
+  // is legal and everything passes.
+  //
+  // Vercel does not use tsconfig.node.json. It compiles each api/ entrypoint to
+  // JavaScript, and it reads the root tsconfig.json, which is a solution-style
+  // file carrying nothing but `references` — no compilerOptions at all. So the
+  // function build runs on TypeScript's defaults, with the flag off, and every
+  // `.ts` import specifier is a TS5097 error.
+  //
+  // The flag cannot simply be turned on for that build either:
+  // `allowImportingTsExtensions` is only permitted alongside `noEmit` or
+  // `emitDeclarationOnly`, and Vercel has to emit JavaScript. The two
+  // requirements are mutually exclusive, which is why the fix was to drop the
+  // extensions rather than to widen the config.
+  //
+  // Deliberately omitted below: `allowImportingTsExtensions`. Its absence is
+  // the entire point — this project fails if a `.ts` specifier comes back.
+  // `noEmit` is on only to keep the check fast and output-free; TS5097 is
+  // raised on the specifier itself, not on emit, so the check is still exact.
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2023"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "types": ["node"],
+    "strict": true,
+    "isolatedModules": true,
+    "verbatimModuleSyntax": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.vercel.tsbuildinfo"
+  },
+  // api/ only. server/ and src/domain/ are pulled in transitively, which is
+  // exactly the reach Vercel's build has.
+  "include": ["api"]
+}

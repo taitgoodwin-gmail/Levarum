@@ -1,9 +1,9 @@
 import { createServer } from 'node:http'
-import { handleDraftRequest, isDraftRequest } from './handler.ts'
-import { handleApiRequest, isApiRequest, readBody } from './api.ts'
-import { isDraftConfigured } from './draft.ts'
-import { isAuthConfigured } from './session.ts'
-import { backend } from './store.ts'
+import { handleDraftRequest, isDraftRequest } from './handler'
+import { handleApiRequest, isApiRequest, readBody } from './api'
+import { isDraftConfigured } from './draft'
+import { isAuthConfigured } from './session'
+import { backend } from './store'
 
 /**
  * Standalone API, for production hosts other than Vercel or alongside

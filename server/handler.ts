@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import { DraftUnavailableError, generateDraft, isDraftConfigured, parseDraftRequest } from './draft.ts'
+import { DraftUnavailableError, generateDraft, isDraftConfigured, parseDraftRequest } from './draft'
 
 /**
  * Transport-free request handling, shared by the Vite dev middleware and the
