@@ -1,4 +1,5 @@
-import type { Draft, DraftResponse, PainId, StackItem, Submission } from '../domain/types'
+import type { Draft, DraftResponse, Lead, PainId, StackItem, Submission } from '../domain/types'
+import { isPlanSubmission } from '../domain/types'
 import { baseDraft } from '../domain/estimate'
 import { isValidOption } from '../domain/catalog'
 import { getSubmission, updateSubmission } from '../store/submissions'
@@ -62,8 +63,12 @@ function applyPicks(stack: StackItem[], picks: DraftResponse['picks']): StackIte
  */
 export async function runDraft(id: string): Promise<void> {
   if (inFlight.has(id)) return
-  const sub = getSubmission(id)
-  if (!sub) return
+  const lead = getSubmission(id)
+  // Partner leads have nothing to draft from: there is no intake behind them,
+  // and generating an approach for one would put an invented plan in front of
+  // the operator.
+  if (!lead || !isPlanSubmission(lead)) return
+  const sub: Submission = lead
 
   inFlight.add(id)
   // Back to the skeleton first, so a regenerate visibly starts over.
@@ -73,7 +78,8 @@ export async function runDraft(id: string): Promise<void> {
   try {
     const result = await fetchDraft(sub)
     updateSubmission(id, (prev): Partial<Submission> => {
-      const draft: Draft = { ...prev.draft }
+      // Narrowed above; the record cannot have changed kind under us.
+      const draft: Draft = { ...(prev as Submission).draft }
       if (!result) {
         draft.status = 'ready'
         draft.source = 'fallback'
@@ -99,10 +105,10 @@ export async function runDraft(id: string): Promise<void> {
  * Pick up drafts left pending by a tab that closed mid-generation. The console
  * calls this on load so a record never sits at "Drafting..." forever.
  */
-export function resumeStalledDrafts(subs: Submission[]): void {
-  for (const sub of subs) {
-    if (sub.draft.status === 'pending' && !inFlight.has(sub.id)) {
-      void runDraft(sub.id)
+export function resumeStalledDrafts(leads: Lead[]): void {
+  for (const lead of leads) {
+    if (isPlanSubmission(lead) && lead.draft.status === 'pending' && !inFlight.has(lead.id)) {
+      void runDraft(lead.id)
     }
   }
 }

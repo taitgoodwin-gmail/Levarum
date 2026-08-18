@@ -18,6 +18,8 @@ export interface Pain {
   /** Hours a week this pain gives back, low and high. */
   lo: number
   hi: number
+  /** Why it is worth fixing first, in the owner's terms. Prospect-facing. */
+  why: string
 }
 
 export type HoursBand = 'Under 5' | '5 to 15' | '15 to 30' | '30 plus'
@@ -88,9 +90,12 @@ export interface Draft {
 
 export type SubmissionStatus = 'new' | 'contacted' | 'archived'
 
+/** A Game Plan request: someone who ran the intake and unlocked a plan. */
 export interface Submission {
   id: string
   createdAt: number
+  /** Discriminates the two lead types that share the console inbox. */
+  kind: 'plan'
   business: string
   hours: HoursBand
   pains: PainId[]
@@ -100,6 +105,38 @@ export interface Submission {
   status: SubmissionStatus
   bookedSlot?: string
   draft: Draft
+}
+
+/**
+ * An implementation partner who put their name down.
+ *
+ * REQUIREMENTS.md §5 asks for a partner lead type in the console inbox rather
+ * than a second inbox: one place to work leads, with the kind visible on the
+ * row. It carries no draft — there is nothing to generate a plan from, and
+ * pretending otherwise would put an empty Game Plan in front of the operator.
+ */
+export interface PartnerLead {
+  id: string
+  createdAt: number
+  kind: 'partner'
+  name: string
+  /** What they do, in their words. */
+  craft: string
+  /** Where they would plug in. */
+  plugIn: string
+  email: string
+  status: SubmissionStatus
+}
+
+/** Anything that lands in the console inbox. */
+export type Lead = Submission | PartnerLead
+
+export function isPlanSubmission(lead: Lead): lead is Submission {
+  return lead.kind === 'plan'
+}
+
+export function isPartnerLead(lead: Lead): lead is PartnerLead {
+  return lead.kind === 'partner'
 }
 
 /** What the drafting endpoint is given. */

@@ -1,20 +1,25 @@
 import { createServer } from 'node:http'
 import { handleDraftRequest, isDraftRequest } from './handler.ts'
+import { handleApiRequest, isApiRequest, readBody } from './api.ts'
 import { isDraftConfigured } from './draft.ts'
+import { isAuthConfigured } from './session.ts'
+import { backend } from './store.ts'
 
 /**
- * Standalone draft API, for production or alongside `vite preview`.
- * Run with: npm run serve:api
+ * Standalone API, for production hosts other than Vercel or alongside
+ * `vite preview`. Run with: npm run serve:api
  */
 const port = Number(process.env.DRAFT_API_PORT ?? 8787)
 
 const server = createServer((req, res) => {
-  // The browser bundle may be served from another origin in this setup, so the
-  // endpoint answers preflight for the single method it accepts.
-  const origin = process.env.DRAFT_API_ORIGIN ?? '*'
-  res.setHeader('Access-Control-Allow-Origin', origin)
+  // The browser bundle may be served from another origin in this setup. The
+  // session cookie rides these requests, so credentials must be allowed and
+  // the origin cannot be a wildcard when it is.
+  const origin = process.env.DRAFT_API_ORIGIN
+  res.setHeader('Access-Control-Allow-Origin', origin ?? '*')
+  if (origin) res.setHeader('Access-Control-Allow-Credentials', 'true')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PATCH, DELETE, OPTIONS')
 
   if (req.method === 'OPTIONS') {
     res.statusCode = 204
@@ -22,19 +27,27 @@ const server = createServer((req, res) => {
     return
   }
 
-  if (!isDraftRequest(req)) {
-    res.statusCode = 404
-    res.setHeader('Content-Type', 'application/json; charset=utf-8')
-    res.end(JSON.stringify({ error: 'Not found' }))
+  if (isDraftRequest(req)) {
+    void handleDraftRequest(req, res)
     return
   }
 
-  void handleDraftRequest(req, res)
+  if (isApiRequest(req)) {
+    void (async () => {
+      const raw = req.method === 'GET' || req.method === 'DELETE' ? '' : await readBody(req)
+      await handleApiRequest(req, res, raw ? JSON.parse(raw) : undefined)
+    })()
+    return
+  }
+
+  res.statusCode = 404
+  res.setHeader('Content-Type', 'application/json; charset=utf-8')
+  res.end(JSON.stringify({ error: 'Not found' }))
 })
 
 server.listen(port, () => {
-  const state = isDraftConfigured()
-    ? 'ANTHROPIC_API_KEY found'
-    : 'no ANTHROPIC_API_KEY, drafts will fall back to the offline draft'
-  console.log(`Draft API listening on http://localhost:${port}/api/draft (${state})`)
+  console.log(`Levarum API listening on http://localhost:${port}`)
+  console.log(`  drafting: ${isDraftConfigured() ? 'live' : 'offline draft (no ANTHROPIC_API_KEY)'}`)
+  console.log(`  console:  ${isAuthConfigured() ? 'credential set' : 'CLOSED (no OPERATOR_USER)'}`)
+  console.log(`  storage:  ${backend()}`)
 })

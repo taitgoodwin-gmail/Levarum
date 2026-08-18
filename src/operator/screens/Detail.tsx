@@ -2,6 +2,7 @@ import type { PainId, Submission, SubmissionStatus } from '../../domain/types'
 import { PAINS } from '../../domain/pains'
 import { CATALOG, optionFor } from '../../domain/catalog'
 import { stackTotals, timeAgo } from '../../domain/estimate'
+import { ThemeToggle } from '../../components/ThemeToggle'
 
 /**
  * One submission, scoped.
@@ -56,9 +57,12 @@ export function Detail({
           <button type="button" className="op-link" onClick={onBack}>
             ‹ Inbox
           </button>
-          <button type="button" className="op-link" onClick={onSignOut}>
-            Sign out
-          </button>
+          <span className="op-bar-actions">
+            <ThemeToggle />
+            <button type="button" className="op-link" onClick={onSignOut}>
+              Sign out
+            </button>
+          </span>
         </div>
         <div className="op-detail-head">{submission.business}</div>
         <div className="op-detail-meta">
@@ -69,7 +73,7 @@ export function Detail({
       <div className="op-body">
         {/* From the intake */}
         <section className="op-card">
-          <div className="op-label">FROM THE INTAKE</div>
+          <div className="op-label">From the intake</div>
           <div className="op-intake-grid">
             <div>
               <div className="op-intake-label">Back-office hours</div>
@@ -136,7 +140,7 @@ export function Detail({
         <section className="op-card">
           <div className="op-stack-head">
             <span className="op-label" style={{ marginBottom: 0 }}>
-              RECOMMENDED WORKFLOW STACK
+              Recommended workflow stack
             </span>
             <span className="op-stack-note">real tools · operator only</span>
           </div>
@@ -152,7 +156,7 @@ export function Detail({
                   <div className="op-workflow-why">{item.why}</div>
 
                   <div className="op-trigger">
-                    <span className="op-trigger-tag">TRIGGER</span>
+                    <span className="op-trigger-tag">Trigger</span>
                     <span className="op-trigger-text">{option.trigger}</span>
                   </div>
 
@@ -216,7 +220,7 @@ export function Detail({
         {/* Working notes */}
         <div className="op-working">
           <section className="op-card">
-            <div className="op-label">WHAT TO MEASURE</div>
+            <div className="op-label">What to measure</div>
             <ul className="op-list">
               {draft.measure.map((line) => (
                 <li key={line}>
@@ -228,7 +232,7 @@ export function Detail({
           </section>
 
           <section className="op-card">
-            <div className="op-label">DISCOVERY QUESTIONS</div>
+            <div className="op-label">Discovery questions</div>
             <ul className="op-list">
               {draft.discovery.map((line) => (
                 <li key={line}>
@@ -239,7 +243,7 @@ export function Detail({
           </section>
 
           <section className="op-card">
-            <div className="op-label">WATCH-OUTS</div>
+            <div className="op-label">Watch-outs</div>
             <ul className="op-list">
               {draft.watchouts.map((line) => (
                 <li key={line}>
@@ -256,7 +260,7 @@ export function Detail({
         {/* Rough build estimate */}
         <section className="op-card op-card--focal op-estimate-card">
           <div>
-            <div className="op-label">ROUGH BUILD ESTIMATE</div>
+            <div className="op-label">Rough build estimate</div>
             <div className="op-estimate">
               <div>
                 <div className="op-estimate-label">Effort</div>
@@ -271,7 +275,7 @@ export function Detail({
           <div className="op-never">Your sizing only. Never shown to the prospect.</div>
         </section>
 
-        <div className="op-label">STATUS</div>
+        <div className="op-label">Status</div>
         <div className="op-status">
           {STATUS_ACTIONS.map((action) => (
             <button

@@ -1,20 +1,26 @@
-import type { HoursBand, PainId, Submission, SubmissionStatus } from '../domain/types'
+import type { HoursBand, Lead, PainId, Submission, SubmissionStatus } from '../domain/types'
 import { baseDraft } from '../domain/estimate'
 import { defaultStackItem } from '../domain/catalog'
 import { isPainId, painsOrDefault } from '../domain/pains'
 import { BRAND } from '../brand'
 
 /**
- * The submission store. Stands in for the database: unlocking a plan writes a
- * record here, and the operator console reads it as an inbox. On-device and
- * refresh-safe, with a change feed so an open console sees new intakes without
- * a reload (including from another tab).
+ * The on-device lead store.
+ *
+ * This is no longer the record of truth — POST /api/submit is, and the console
+ * reads the server list first (see src/store/leads.ts). What survives here is
+ * the job it was always best at: an offline fallback so a submission made on a
+ * phone with no signal is not lost, and a cross-tab change feed so an open
+ * console sees a new intake without a reload.
+ *
+ * Refresh-safe, quota-tolerant, and migrating on read rather than on write, so
+ * a record written before a field existed still renders.
  */
 const STORE_KEY = `${BRAND.slug}.submissions.v1`
 
-type Listener = (list: Submission[]) => void
+type Listener = (list: Lead[]) => void
 
-let cache: Submission[] | null = null
+let cache: Lead[] | null = null
 const listeners = new Set<Listener>()
 
 function readRaw(): unknown {
@@ -25,7 +31,7 @@ function readRaw(): unknown {
   }
 }
 
-function write(list: Submission[]): void {
+function write(list: Lead[]): void {
   cache = list
   try {
     localStorage.setItem(STORE_KEY, JSON.stringify(list))
@@ -38,22 +44,41 @@ function write(list: Submission[]): void {
 
 /**
  * Records written before a field existed still have to render. Rather than
- * versioning the whole payload, fill in what is missing on read.
+ * versioning the whole payload, fill in what is missing on read — including
+ * `kind`, which pre-dates the partner track and defaults to a plan.
  */
-function migrate(value: unknown): Submission[] {
+function migrate(value: unknown): Lead[] {
   if (!Array.isArray(value)) return []
-  const out: Submission[] = []
+  const out: Lead[] = []
   for (const raw of value) {
     if (!raw || typeof raw !== 'object') continue
+    const rec = raw as Record<string, unknown>
+    if (typeof rec.id !== 'string') continue
+
+    if (rec.kind === 'partner') {
+      out.push({
+        id: rec.id,
+        createdAt: typeof rec.createdAt === 'number' ? rec.createdAt : Date.now(),
+        kind: 'partner',
+        name: String(rec.name ?? ''),
+        craft: String(rec.craft ?? ''),
+        plugIn: String(rec.plugIn ?? ''),
+        email: String(rec.email ?? ''),
+        status: (rec.status ?? 'new') as SubmissionStatus,
+      })
+      continue
+    }
+
+    if (!rec.draft) continue
     const sub = raw as Partial<Submission>
-    if (typeof sub.id !== 'string' || !sub.draft) continue
     const pains = Array.isArray(sub.pains) ? sub.pains.filter(isPainId) : []
-    const draft = { ...sub.draft }
+    const draft = { ...(sub.draft as Submission['draft']) }
     if (!Array.isArray(draft.stack) || draft.stack.length === 0) {
       draft.stack = painsOrDefault(pains).map((p) => defaultStackItem(p.id))
     }
     out.push({
       ...(sub as Submission),
+      kind: 'plan',
       pains,
       draft,
       status: (sub.status ?? 'new') as SubmissionStatus,
@@ -62,7 +87,7 @@ function migrate(value: unknown): Submission[] {
   return out
 }
 
-function seed(): Submission[] {
+function seed(): Lead[] {
   const now = Date.now()
   const make = (
     id: string,
@@ -81,6 +106,7 @@ function seed(): Submission[] {
     return {
       id,
       createdAt: now - minsAgo * 60_000,
+      kind: 'plan',
       business,
       hours,
       pains,
@@ -94,7 +120,7 @@ function seed(): Submission[] {
     make(
       'seed-2',
       26,
-      'Health and wellness clinic',
+      'Medical, dental or vet practice',
       '15 to 30',
       ['booking', 'questions', 'invoices'],
       'dana@rivergateclinic.com',
@@ -103,7 +129,7 @@ function seed(): Submission[] {
     make(
       'seed-1',
       190,
-      'Professional services (legal, accounting)',
+      'Agency or consultancy',
       '5 to 15',
       ['invoices', 'copying'],
       'marcus@haleaccounting.com',
@@ -113,11 +139,11 @@ function seed(): Submission[] {
 }
 
 /** Newest first, which is the only order the inbox ever wants. */
-function sorted(list: Submission[]): Submission[] {
+function sorted(list: Lead[]): Lead[] {
   return [...list].sort((a, b) => b.createdAt - a.createdAt)
 }
 
-export function loadSubmissions(): Submission[] {
+export function loadSubmissions(): Lead[] {
   if (cache) return sorted(cache)
   const migrated = migrate(readRaw())
   const list = migrated.length ? migrated : seed()
@@ -139,22 +165,27 @@ export function subscribe(fn: Listener): () => void {
   }
 }
 
-export function addSubmission(sub: Submission): void {
-  write([sub, ...loadSubmissions()])
+export function addSubmission(lead: Lead): void {
+  write([lead, ...loadSubmissions().filter((l) => l.id !== lead.id)])
+}
+
+/** Replace the local mirror with the server's list, keeping the change feed. */
+export function replaceAll(list: Lead[]): void {
+  write(list)
 }
 
 export function updateSubmission(
   id: string,
-  patch: Partial<Submission> | ((prev: Submission) => Partial<Submission>),
-): Submission | undefined {
+  patch: Partial<Lead> | ((prev: Lead) => Partial<Lead>),
+): Lead | undefined {
   const list = loadSubmissions().map((s) =>
-    s.id === id ? { ...s, ...(typeof patch === 'function' ? patch(s) : patch) } : s,
+    s.id === id ? ({ ...s, ...(typeof patch === 'function' ? patch(s) : patch) } as Lead) : s,
   )
   write(list)
   return list.find((s) => s.id === id)
 }
 
-export function getSubmission(id: string): Submission | undefined {
+export function getSubmission(id: string): Lead | undefined {
   return loadSubmissions().find((s) => s.id === id)
 }
 

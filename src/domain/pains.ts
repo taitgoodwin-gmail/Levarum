@@ -1,12 +1,19 @@
 import type { HoursBand, Pain, PainId } from './types.ts'
 
+/**
+ * The business types the intake offers, from the design project. The list is
+ * short on purpose: it exists to let someone recognise themselves in one tap,
+ * not to classify them, so "Something else" is a real answer rather than a
+ * fallback nobody picks.
+ */
 export const BUSINESS_TYPES = [
-  'Home services (plumbing, HVAC, electrical)',
-  'Trades and contracting',
-  'Health and wellness clinic',
-  'Professional services (legal, accounting)',
-  'Retail or online shop',
-  'Hospitality or food',
+  'Trades & home services',
+  'Medical, dental or vet practice',
+  'Salon, barber or studio',
+  'Agency or consultancy',
+  'Online shop',
+  'Restaurant, cafe or bar',
+  'Property management',
   'Something else',
 ] as const
 
@@ -14,8 +21,16 @@ export const HOURS_BANDS: HoursBand[] = ['Under 5', '5 to 15', '15 to 30', '30 p
 
 /**
  * The five things a small-business owner recognises about their own week.
- * `opp` is the only field that ever crosses to the prospect surface; `block`,
+ *
+ * `opp` and `why` are the fields that cross to the prospect surface; `block`,
  * `measure`, `discovery` and `watchout` are operator vocabulary.
+ *
+ * The `lo`/`hi` hours are the design project's, which is the source of record
+ * for anything a prospect reads. They rank invoice chasing top, which is why
+ * the site leads on it everywhere: it pays for itself first and nothing else
+ * depends on it. Changing a number here moves the ranked cards on
+ * /what-we-automate and the "fix this first" pick in every Game Plan, so
+ * change it there first.
  */
 export const PAINS: Pain[] = [
   {
@@ -27,8 +42,9 @@ export const PAINS: Pain[] = [
     measure: 'Hours a week spent on repeat questions',
     discovery: 'Which questions actually repeat, and who answers them today?',
     watchout: 'Answer library goes stale without a named owner',
-    lo: 3,
-    hi: 4,
+    lo: 2,
+    hi: 3,
+    why: 'It is the quickest thing to lift off you, and it makes every other flow easier to write.',
   },
   {
     id: 'invoices',
@@ -39,8 +55,9 @@ export const PAINS: Pain[] = [
     measure: 'Days from invoice sent to invoice paid',
     discovery: 'Where do invoices live, and what triggers a chase today?',
     watchout: 'Invoice tooling may be locked to their accountant',
-    lo: 2,
-    hi: 3,
+    lo: 3,
+    hi: 5,
+    why: 'It pays for itself first and nothing else depends on it, so it is the safest place to start.',
   },
   {
     id: 'copying',
@@ -51,8 +68,9 @@ export const PAINS: Pain[] = [
     measure: 'Manual re-entries a week across tools',
     discovery: 'Which two tools get double-entered the most?',
     watchout: 'A legacy tool may have no API to sync against',
-    lo: 1,
-    hi: 2,
+    lo: 2,
+    hi: 4,
+    why: 'Every other automation gets more reliable once the same detail stops being typed twice.',
   },
   {
     id: 'booking',
@@ -63,8 +81,9 @@ export const PAINS: Pain[] = [
     measure: 'No-shows a week, before and after reminders',
     discovery: 'Who owns the calendar, and what cannot be automated?',
     watchout: 'Reminders annoy customers if over-sent',
-    lo: 4,
-    hi: 6,
+    lo: 2,
+    hi: 4,
+    why: 'It removes the back-and-forth and the no-shows in one go, and customers notice immediately.',
   },
   {
     id: 'leads',
@@ -76,7 +95,8 @@ export const PAINS: Pain[] = [
     discovery: 'Where do new leads land today, and who sees them?',
     watchout: 'Automated follow-up must not read as robotic',
     lo: 2,
-    hi: 3,
+    hi: 4,
+    why: 'A first reply in minutes rather than days changes how many enquiries turn into work.',
   },
 ]
 

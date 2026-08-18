@@ -1,0 +1,1841 @@
+/*
+ * The public site.
+ *
+ * Ported from the design project, which built these pages with inline styles
+ * off the --lv-* tokens. Nothing here introduces a colour: every value is a
+ * token or a color-mix() of tokens, so both themes and the AA check in
+ * scripts/check-contrast.mjs stay true by construction.
+ *
+ * Two rules run through the whole file. Rust (--lv-accent) appears on primary
+ * buttons, active nav and focus rings, and nowhere else. And every transition
+ * reads --lv-dur-*, which is zeroed under prefers-reduced-motion, so motion is
+ * removed rather than sped up.
+ */
+
+/* ==========================================================================
+   Layout scaffolding
+   ========================================================================== */
+
+.lv-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: var(--lv-page);
+  color: var(--lv-ink);
+}
+
+.lv-main {
+  flex: 1;
+}
+
+.lv-wrap {
+  max-width: var(--lv-page-w);
+  margin: 0 auto;
+  padding: 0 var(--lv-s-7);
+}
+
+.lv-wrap--prose {
+  max-width: var(--lv-prose-w);
+}
+
+/* The tint ladder. Section rhythm, between and within pages. */
+.lv-band {
+  padding: var(--lv-g-5) 0;
+  background: var(--lv-rung-1);
+}
+
+.lv-band[data-rung='2'] {
+  background: var(--lv-rung-2);
+}
+.lv-band[data-rung='3'] {
+  background: var(--lv-rung-3);
+}
+.lv-band[data-rung='4'] {
+  background: var(--lv-rung-4);
+}
+
+/* Full-bleed dark bands are petrol-ink, never neutral black. */
+.lv-band[data-rung='dark'] {
+  background: var(--lv-dark-petrol);
+  color: var(--lv-dark-ink);
+}
+
+.lv-band[data-rung='dark'] a {
+  color: var(--lv-sec-on-dark);
+}
+
+.lv-band[data-ruled] {
+  border-top: 1px solid var(--lv-line);
+  border-bottom: 1px solid var(--lv-line);
+}
+
+.lv-band--tight {
+  padding: var(--lv-g-3) 0;
+}
+
+/* ==========================================================================
+   Scroll-driven arrival
+   --------------------------------------------------------------------------
+   The attributes are attached by useReveal, and only when motion is allowed —
+   under reduced motion the element renders with neither, so these rules never
+   match and there is nothing to transition out of.
+   ========================================================================== */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--lv-dur-3) var(--lv-ease),
+    transform var(--lv-dur-3) var(--lv-ease);
+}
+
+[data-reveal][data-shown] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ==========================================================================
+   Type
+   ========================================================================== */
+
+.lv-hero-title {
+  margin: 0 0 var(--lv-s-6);
+  font-size: var(--lv-d-hero);
+  font-weight: 800;
+  line-height: 0.96;
+  letter-spacing: -0.04em;
+}
+
+.lv-h1 {
+  margin: 0 0 var(--lv-s-5);
+  font-size: var(--lv-d-1);
+  font-weight: 800;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
+}
+
+.lv-h2 {
+  margin: 0 0 var(--lv-s-5);
+  font-size: var(--lv-d-2);
+  font-weight: 800;
+  line-height: 1.03;
+  letter-spacing: -0.035em;
+}
+
+.lv-h3 {
+  margin: 0 0 var(--lv-s-4);
+  font-size: var(--lv-d-4);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.lv-h4 {
+  margin: 0 0 var(--lv-s-3);
+  font-size: var(--lv-d-6);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.lv-lead {
+  font-size: var(--lv-d-6);
+  line-height: 1.55;
+  color: var(--lv-ink-quiet);
+  max-width: 62ch;
+}
+
+.lv-body {
+  font-size: var(--lv-t-body-size);
+  line-height: 1.6;
+  color: var(--lv-ink-quiet);
+  max-width: 62ch;
+}
+
+.lv-meta {
+  font-size: var(--lv-t-sm);
+  color: var(--lv-ink-quiet);
+}
+
+/* Eyebrows are petrol. Never the accent. */
+.lv-eyebrow {
+  font-family: var(--lv-t-display);
+  font-weight: 600;
+  font-size: var(--lv-t-cap);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--lv-sec);
+  margin-bottom: var(--lv-s-5);
+}
+
+.lv-eyebrow[data-tone='quiet'] {
+  color: var(--lv-ink-quiet);
+  letter-spacing: 0.06em;
+}
+
+.lv-band[data-rung='dark'] .lv-eyebrow {
+  color: var(--lv-sec-on-dark);
+}
+
+.lv-band[data-rung='dark'] .lv-lead,
+.lv-band[data-rung='dark'] .lv-body,
+.lv-band[data-rung='dark'] .lv-meta {
+  color: var(--lv-dark-quiet);
+}
+
+/* ==========================================================================
+   Buttons
+   --------------------------------------------------------------------------
+   .lv-btn is the commit action and the only rust fill on the site. One per
+   viewport. .lv-btn--ghost is everything else that is still a button.
+   ========================================================================== */
+
+.lv-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--lv-s-3);
+  min-height: var(--lv-tap);
+  padding: 0 var(--lv-s-8);
+  border-radius: var(--lv-r-control);
+  background: var(--lv-accent);
+  color: var(--lv-surface);
+  font-family: var(--lv-t-display);
+  font-weight: 600;
+  font-size: var(--lv-t-lg);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background var(--lv-dur-1) var(--lv-ease),
+    box-shadow var(--lv-dur-1) var(--lv-ease),
+    transform var(--lv-dur-1) var(--lv-ease);
+}
+
+.lv-btn:hover {
+  background: var(--lv-accent-hover);
+  color: var(--lv-surface);
+  box-shadow: var(--lv-shadow-sm);
+  transform: translateY(-1px);
+}
+
+.lv-btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.lv-btn[disabled],
+.lv-btn[aria-disabled='true'] {
+  opacity: 0.55;
+  cursor: default;
+  transform: none;
+  box-shadow: none;
+}
+
+.lv-btn--sm {
+  min-height: 44px;
+  padding: 0 var(--lv-s-6);
+  font-size: var(--lv-t-sm);
+}
+
+.lv-btn--block {
+  width: 100%;
+}
+
+.lv-btn--ghost {
+  background: transparent;
+  color: var(--lv-ink);
+  border: 1.5px solid var(--lv-ink);
+  font-size: var(--lv-t-body-size);
+  padding: 0 var(--lv-s-7);
+}
+
+.lv-btn--ghost:hover {
+  background: var(--lv-tint);
+  color: var(--lv-ink);
+  transform: none;
+  box-shadow: none;
+}
+
+/* A quiet text link that behaves like a button. Petrol, with a moving rule. */
+.lv-textlink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lv-s-2);
+  min-height: 44px;
+  font-family: var(--lv-t-display);
+  font-weight: 600;
+  font-size: var(--lv-t-md);
+  color: var(--lv-link);
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.lv-textlink::after {
+  content: '';
+  display: block;
+  height: 1.5px;
+  width: 0;
+  background: currentColor;
+  transition: width var(--lv-dur-1) var(--lv-ease);
+}
+
+.lv-textlink:hover {
+  color: var(--lv-link-hover);
+}
+
+.lv-textlink:hover::after {
+  width: var(--lv-s-6);
+}
+
+/* ==========================================================================
+   Nav
+   ========================================================================== */
+
+.lv-nav {
+  border-bottom: 1px solid var(--lv-line);
+  background: var(--lv-page);
+  position: sticky;
+  top: 0;
+  z-index: 40;
+}
+
+.lv-nav__inner {
+  max-width: var(--lv-page-w);
+  margin: 0 auto;
+  padding: var(--lv-s-5) var(--lv-s-7);
+  display: flex;
+  align-items: center;
+  gap: var(--lv-s-6);
+  flex-wrap: wrap;
+}
+
+.lv-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--lv-s-3);
+  color: var(--lv-ink);
+}
+
+.lv-nav__brand:hover {
+  color: var(--lv-ink);
+}
+
+.lv-nav__wordmark {
+  font-family: var(--lv-t-display);
+  font-weight: 700;
+  font-size: var(--lv-t-lg);
+  letter-spacing: -0.025em;
+}
+
+.lv-nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--lv-s-6);
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.lv-nav__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: var(--lv-t-sm);
+  color: var(--lv-ink-quiet);
+  border-bottom: 2px solid transparent;
+  transition: color var(--lv-dur-1) var(--lv-ease);
+}
+
+.lv-nav__link:hover {
+  color: var(--lv-ink);
+}
+
+/* Active nav is the second of rust's three permitted jobs. */
+.lv-nav__link[data-current] {
+  color: var(--lv-ink);
+  font-weight: 600;
+  border-bottom-color: var(--lv-accent);
+}
+
+.lv-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lv-s-2);
+  min-height: 44px;
+  padding: 0 var(--lv-s-4);
+  background: transparent;
+  border: 1px solid var(--lv-line-control);
+  border-radius: var(--lv-r-control);
+  color: var(--lv-ink-quiet);
+  font-size: var(--lv-t-xs);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    border-color var(--lv-dur-1) var(--lv-ease),
+    color var(--lv-dur-1) var(--lv-ease);
+}
+
+.lv-theme-toggle:hover {
+  border-color: var(--lv-sec);
+  color: var(--lv-ink);
+}
+
+.lv-theme-toggle__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: var(--lv-r-round);
+  border: 1.5px solid currentColor;
+  background: linear-gradient(90deg, currentColor 50%, transparent 50%);
+}
+
+/* ==========================================================================
+   Mark
+   ========================================================================== */
+
+.lv-mark {
+  display: block;
+  flex: none;
+  color: currentColor;
+}
+
+.lv-mark__dome {
+  transform-origin: center;
+  animation: lv-lift 0.62s var(--lv-ease-lift) both;
+}
+
+@keyframes lv-lift {
+  from {
+    opacity: 0.35;
+    transform: translateY(9px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.lv-foot {
+  background: var(--lv-rung-3);
+  border-top: 1px solid var(--lv-line);
+}
+
+.lv-foot__inner {
+  max-width: var(--lv-page-w);
+  margin: 0 auto;
+  padding: var(--lv-s-8) var(--lv-s-7) var(--lv-s-9);
+  display: flex;
+  align-items: center;
+  gap: var(--lv-s-6);
+  flex-wrap: wrap;
+}
+
+.lv-foot__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--lv-s-3);
+  color: var(--lv-ink);
+}
+
+.lv-foot__word {
+  font-family: var(--lv-t-display);
+  font-weight: 700;
+  font-size: var(--lv-t-md);
+  letter-spacing: -0.025em;
+}
+
+.lv-foot__tagline {
+  font-size: var(--lv-t-xs);
+  color: var(--lv-ink-quiet);
+}
+
+.lv-foot__links {
+  margin-left: auto;
+  display: flex;
+  gap: var(--lv-s-6);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.lv-foot__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: var(--lv-t-xs);
+  color: var(--lv-ink-quiet);
+  transition: color var(--lv-dur-1) var(--lv-ease);
+}
+
+.lv-foot__link:hover {
+  color: var(--lv-sec);
+}
+
+/* ==========================================================================
+   Cards
+   ========================================================================== */
+
+.lv-card {
+  background: var(--lv-surface);
+  border: 1px solid var(--lv-line);
+  border-radius: var(--lv-r-card);
+  padding: var(--lv-g-2);
+  transition:
+    border-color var(--lv-dur-1) var(--lv-ease),
+    box-shadow var(--lv-dur-1) var(--lv-ease),
+    transform var(--lv-dur-1) var(--lv-ease);
+}
+
+/* Only cards that do something lift. A card that lifts but does not click
+   is a promise the page does not keep. */
+a.lv-card:hover,
+button.lv-card:hover,
+.lv-card[data-interactive]:hover {
+  border-color: var(--lv-sec);
+  box-shadow: var(--lv-shadow-sm);
+  transform: translateY(-2px);
+}
+
+.lv-grid {
+  display: grid;
+  gap: var(--lv-g-2);
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+}
+
+.lv-grid--2 {
+  grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+}
+
+.lv-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-5);
+}
+
+.lv-stack--tight {
+  gap: var(--lv-s-3);
+}
+
+.lv-stack--loose {
+  gap: var(--lv-g-2);
+}
+
+/* A petrol rail down the side of a card: the secondary's structural job. */
+.lv-railed {
+  border-left: 3px solid var(--lv-sec);
+  padding-left: var(--lv-s-6);
+}
+
+/* ==========================================================================
+   Hours bars — one shared scale everywhere on the site
+   ========================================================================== */
+
+.lv-meter {
+  height: 10px;
+  border-radius: var(--lv-r-pill);
+  background: var(--lv-meter-track);
+  overflow: hidden;
+  width: 100%;
+}
+
+.lv-meter__fill {
+  height: 100%;
+  border-radius: var(--lv-r-pill);
+  background: var(--lv-meter-fill-quiet);
+}
+
+.lv-meter__fill[data-emphasis='lead'] {
+  background: var(--lv-meter-fill);
+}
+
+.lv-band[data-rung='dark'] .lv-meter {
+  background: var(--lv-meter-track-dark);
+}
+
+/* The figure beside a bar. Display weight, tabular so digits do not jitter
+   while the spring is still settling. */
+.lv-figure {
+  font-family: var(--lv-t-display);
+  font-weight: 800;
+  font-size: var(--lv-d-3);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: var(--lv-ink);
+}
+
+.lv-figure--sm {
+  font-size: var(--lv-d-5);
+}
+
+.lv-figure__unit {
+  font-family: var(--lv-t-body);
+  font-weight: 500;
+  font-size: var(--lv-t-sm);
+  color: var(--lv-ink-quiet);
+  letter-spacing: 0;
+}
+
+.lv-hoursrow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--lv-s-5);
+  align-items: center;
+}
+
+/* ==========================================================================
+   Chips and pills — petrol, the secondary's decorative job
+   ========================================================================== */
+
+.lv-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--lv-s-3);
+  border: 1px solid var(--lv-sec);
+  background: var(--lv-sec-tint);
+  border-radius: var(--lv-r-pill);
+  padding: var(--lv-s-2) var(--lv-s-5);
+  font-size: var(--lv-t-cap);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--lv-sec);
+}
+
+.lv-pill__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: var(--lv-r-round);
+  background: var(--lv-sec);
+}
+
+.lv-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--lv-line-control);
+  border-radius: var(--lv-r-chip);
+  padding: var(--lv-s-2) var(--lv-s-4);
+  font-size: var(--lv-t-xs);
+  color: var(--lv-ink-quiet);
+  background: var(--lv-page);
+}
+
+.lv-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--lv-s-3);
+}
+
+/* Numbered step markers are petrol: sequence, not commitment. */
+.lv-marker {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: var(--lv-r-round);
+  border: 1.5px solid var(--lv-sec);
+  color: var(--lv-sec);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--lv-t-display);
+  font-weight: 600;
+  font-size: var(--lv-t-sm);
+}
+
+.lv-band[data-rung='dark'] .lv-marker {
+  border-color: var(--lv-sec-on-dark);
+  color: var(--lv-sec-on-dark);
+}
+
+/* The ranked 01–05 numeral. Display-scale, petrol, structural. */
+.lv-rank {
+  font-family: var(--lv-t-display);
+  font-weight: 800;
+  font-size: var(--lv-d-3);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--lv-sec);
+}
+
+/* ==========================================================================
+   Before / after — the shape every use-case story is told in
+   ========================================================================== */
+
+.lv-ba {
+  display: grid;
+  gap: var(--lv-g-1);
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+
+.lv-ba__col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-3);
+}
+
+.lv-ba__label {
+  font-family: var(--lv-t-display);
+  font-weight: 600;
+  font-size: var(--lv-t-cap);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--lv-ink-quiet);
+}
+
+/* The "once it is set up" side is the one that carries the argument, so it
+   gets the petrol rail and the fuller ink. */
+.lv-ba__col[data-side='after'] .lv-ba__label {
+  color: var(--lv-sec);
+}
+
+.lv-ba__col[data-side='after'] .lv-ba__text {
+  color: var(--lv-ink);
+}
+
+.lv-ba__text {
+  font-size: var(--lv-t-body-size);
+  line-height: 1.6;
+  color: var(--lv-ink-quiet);
+}
+
+/* ==========================================================================
+   Accordion (Questions)
+   ========================================================================== */
+
+.lv-faq {
+  background: var(--lv-surface);
+  border: 1px solid var(--lv-line);
+  border-radius: var(--lv-r-card);
+  overflow: hidden;
+  transition: border-color var(--lv-dur-1) var(--lv-ease);
+}
+
+.lv-faq[data-open] {
+  border-color: var(--lv-sec);
+}
+
+.lv-faq__button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--lv-s-5);
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  padding: var(--lv-g-1);
+  font-family: var(--lv-t-display);
+  font-weight: 600;
+  font-size: var(--lv-d-6);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  color: var(--lv-ink);
+}
+
+.lv-faq__icon {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--lv-r-round);
+  border: 1.5px solid var(--lv-sec);
+  color: var(--lv-sec);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--lv-t-md);
+  transition: transform var(--lv-dur-2) var(--lv-ease);
+}
+
+.lv-faq[data-open] .lv-faq__icon {
+  transform: rotate(45deg);
+}
+
+/* Grid-rows is the only way to animate to auto height without measuring. */
+.lv-faq__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--lv-dur-2) var(--lv-ease);
+}
+
+.lv-faq[data-open] .lv-faq__panel {
+  grid-template-rows: 1fr;
+}
+
+.lv-faq__panelinner {
+  overflow: hidden;
+}
+
+.lv-faq__answer {
+  padding: 0 var(--lv-g-1) var(--lv-g-1);
+  font-size: var(--lv-t-body-size);
+  line-height: 1.6;
+  color: var(--lv-ink-quiet);
+  max-width: 62ch;
+}
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+
+.lv-label {
+  display: block;
+  font-size: var(--lv-t-md);
+  font-weight: 500;
+  margin-bottom: var(--lv-s-3);
+  color: var(--lv-ink);
+}
+
+.lv-field {
+  width: 100%;
+  min-height: var(--lv-tap);
+  border: 1px solid var(--lv-line-control);
+  border-radius: var(--lv-r-control);
+  background: var(--lv-page);
+  padding: 0 var(--lv-s-5);
+  font-size: var(--lv-t-body-size);
+  color: var(--lv-ink);
+  transition:
+    border-color var(--lv-dur-1) var(--lv-ease),
+    box-shadow var(--lv-dur-1) var(--lv-ease);
+}
+
+.lv-field::placeholder {
+  color: var(--lv-ink-placeholder);
+}
+
+.lv-field:hover {
+  border-color: var(--lv-sec);
+}
+
+.lv-field[aria-invalid='true'] {
+  border-color: var(--lv-accent);
+}
+
+.lv-error {
+  font-size: var(--lv-t-sm);
+  color: var(--lv-accent);
+  margin-top: var(--lv-s-4);
+}
+
+/* A selectable option: petrol when chosen, because choosing is not
+   committing. The commit is the button underneath. */
+.lv-option {
+  min-height: var(--lv-tap);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--lv-s-3);
+  padding: 0 var(--lv-s-5);
+  border-radius: var(--lv-r-control);
+  border: 1.5px solid var(--lv-line-control);
+  background: var(--lv-page);
+  color: var(--lv-ink);
+  font-size: var(--lv-t-body-size);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background var(--lv-dur-1) var(--lv-ease),
+    border-color var(--lv-dur-1) var(--lv-ease),
+    transform var(--lv-dur-1) var(--lv-ease);
+}
+
+.lv-option:hover {
+  border-color: var(--lv-sec);
+}
+
+.lv-option:active {
+  transform: scale(0.985);
+}
+
+.lv-option[aria-pressed='true'],
+.lv-option[aria-checked='true'] {
+  background: var(--lv-sec);
+  border-color: var(--lv-sec);
+  color: var(--lv-surface);
+  font-weight: 600;
+}
+
+.lv-optionrow {
+  justify-content: flex-start;
+  text-align: left;
+  padding: var(--lv-s-5) var(--lv-s-6);
+  border-radius: var(--lv-r-card);
+  min-height: var(--lv-tap);
+  white-space: normal;
+  line-height: 1.4;
+}
+
+.lv-optionrow[aria-checked='true'] {
+  background: var(--lv-surface);
+  color: var(--lv-ink);
+  border-color: var(--lv-sec);
+  font-weight: 400;
+}
+
+/* The tick box is rust: ticking is the commitment on this screen. */
+.lv-tick {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border-radius: var(--lv-r-chip);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--lv-t-sm);
+  color: transparent;
+  border: 1.5px solid var(--lv-line-control);
+  transition:
+    background var(--lv-dur-1) var(--lv-ease),
+    border-color var(--lv-dur-1) var(--lv-ease);
+}
+
+.lv-optionrow[aria-checked='true'] .lv-tick {
+  background: var(--lv-accent);
+  border-color: var(--lv-accent);
+  color: var(--lv-surface);
+}
+
+.lv-optiongrid {
+  display: grid;
+  gap: var(--lv-s-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+}
+
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
+
+@media (max-width: 680px) {
+  .lv-nav__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--lv-s-4);
+  }
+
+  .lv-nav__links {
+    margin-left: 0;
+    width: 100%;
+    justify-content: flex-start;
+    row-gap: var(--lv-s-3);
+  }
+
+  .lv-foot__links {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .lv-nav {
+    position: static;
+  }
+}
+
+/* ==========================================================================
+   Lists
+   ========================================================================== */
+
+.lv-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-3);
+  font-size: var(--lv-t-body-size);
+  line-height: 1.5;
+  color: var(--lv-ink-quiet);
+}
+
+.lv-list li {
+  padding-left: var(--lv-s-6);
+  position: relative;
+}
+
+/* A petrol tick rule, not a bullet: the list is evidence, not an inventory. */
+.lv-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 10px;
+  height: 1.5px;
+  background: var(--lv-sec);
+}
+
+.lv-list--arrow li::before {
+  content: '→';
+  background: none;
+  width: auto;
+  height: auto;
+  top: 0;
+  color: var(--lv-sec);
+  font-weight: 600;
+}
+
+.lv-band[data-rung='dark'] .lv-list {
+  color: var(--lv-dark-quiet);
+}
+
+.lv-band[data-rung='dark'] .lv-list li::before {
+  color: var(--lv-sec-on-dark);
+  background: var(--lv-sec-on-dark);
+}
+
+.lv-band[data-rung='dark'] .lv-list--arrow li::before {
+  background: none;
+}
+
+.lv-numbered {
+  margin: 0 0 var(--lv-g-1);
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-5);
+}
+
+.lv-numbered li {
+  display: flex;
+  align-items: center;
+  gap: var(--lv-s-5);
+  font-size: var(--lv-t-body-size);
+  line-height: 1.45;
+}
+
+.lv-numbered--dark {
+  gap: var(--lv-s-4);
+}
+
+.lv-numbered--dark li {
+  color: var(--lv-dark-quiet);
+  font-size: var(--lv-t-md);
+}
+
+.lv-numbered--dark .lv-marker {
+  width: 26px;
+  height: 26px;
+  font-size: var(--lv-t-cap);
+  border-color: var(--lv-sec-on-dark);
+  color: var(--lv-sec-on-dark);
+}
+
+/* ==========================================================================
+   Home — hero and plan preview
+   ========================================================================== */
+
+.lv-hero {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(380px, 100%), 1fr));
+  gap: var(--lv-g-4);
+  align-items: start;
+}
+
+.lv-hero .lv-pill {
+  margin-bottom: var(--lv-s-7);
+}
+
+.lv-hero__lead {
+  max-width: 540px;
+  margin: 0 0 var(--lv-s-8);
+}
+
+.lv-hero__form {
+  max-width: 460px;
+}
+
+.lv-hero__form .lv-field {
+  margin-bottom: var(--lv-s-6);
+}
+
+.lv-hero__micro {
+  text-align: center;
+  margin: var(--lv-s-4) 0 0;
+}
+
+.lv-preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-6);
+  box-shadow: var(--lv-shadow-lg);
+}
+
+.lv-preview__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--lv-s-5);
+}
+
+.lv-preview__title {
+  font-family: var(--lv-t-display);
+  font-weight: 700;
+  font-size: var(--lv-t-lg);
+  letter-spacing: -0.02em;
+}
+
+.lv-preview__total {
+  border-bottom: 1px solid var(--lv-line);
+  padding-bottom: var(--lv-s-6);
+}
+
+.lv-preview__row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-3);
+}
+
+.lv-preview__rowtitle {
+  font-size: var(--lv-t-md);
+  line-height: 1.4;
+}
+
+.lv-preview__fix {
+  border-top: 1px solid var(--lv-line);
+  padding-top: var(--lv-s-6);
+  border-left: 3px solid var(--lv-sec);
+}
+
+.lv-problem,
+.lv-proof {
+  margin-top: var(--lv-g-3);
+}
+
+/* ==========================================================================
+   Home — use cases
+   ========================================================================== */
+
+.lv-usecases {
+  margin-top: var(--lv-g-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-g-2);
+}
+
+.lv-usecase {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-g-1);
+}
+
+.lv-usecase__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-3);
+}
+
+.lv-usecase__who {
+  font-family: var(--lv-t-display);
+  font-weight: 600;
+  font-size: var(--lv-t-cap);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--lv-sec);
+}
+
+.lv-usecase__foot,
+.lv-auto__hours {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-3);
+  border-top: 1px solid var(--lv-line);
+  padding-top: var(--lv-s-5);
+}
+
+.lv-auto__hours {
+  border-top: none;
+  padding-top: 0;
+}
+
+/* ==========================================================================
+   Home — cited figures on the dark band
+   ========================================================================== */
+
+.lv-figures {
+  margin-bottom: var(--lv-g-2);
+}
+
+.lv-figures__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-3);
+}
+
+.lv-figures__num {
+  color: var(--lv-dark-ink);
+}
+
+.lv-figures__caveat,
+.lv-figures__scale {
+  max-width: 72ch;
+}
+
+.lv-figures__scale {
+  margin-top: var(--lv-s-5);
+  color: var(--lv-dark-quiet);
+}
+
+.lv-figures__link {
+  margin-top: var(--lv-s-5);
+  color: var(--lv-sec-on-dark);
+}
+
+.lv-proof__reserved {
+  border-style: dashed;
+  background: transparent;
+}
+
+.lv-pagelink {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-3);
+  color: var(--lv-ink);
+  height: 100%;
+}
+
+.lv-pagelink:hover {
+  color: var(--lv-ink);
+}
+
+.lv-cta {
+  text-align: center;
+}
+
+.lv-cta__lead {
+  margin: 0 auto var(--lv-s-8);
+  max-width: 540px;
+}
+
+.lv-cta__micro {
+  margin-top: var(--lv-s-5);
+}
+
+.lv-partners-strip .lv-card {
+  max-width: 640px;
+}
+
+/* ==========================================================================
+   How it works
+   ========================================================================== */
+
+.lv-step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-4);
+}
+
+.lv-step__head {
+  display: flex;
+  align-items: center;
+  gap: var(--lv-s-5);
+}
+
+.lv-step__list {
+  margin-top: var(--lv-s-4);
+}
+
+.lv-step__list .lv-eyebrow {
+  margin-bottom: var(--lv-s-3);
+}
+
+.lv-line {
+  margin: var(--lv-g-3) 0 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.lv-line__item {
+  position: relative;
+}
+
+/* The rail that makes seven cards read as one line. */
+.lv-line__item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 17px;
+  top: 34px;
+  bottom: -2px;
+  width: 1.5px;
+  background: var(--lv-sec);
+  opacity: 0.4;
+}
+
+.lv-line__row {
+  display: flex;
+  gap: var(--lv-s-5);
+  padding-bottom: var(--lv-g-1);
+}
+
+.lv-line__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-2);
+}
+
+.lv-line__title {
+  display: flex;
+  align-items: center;
+  gap: var(--lv-s-3);
+  flex-wrap: wrap;
+  font-family: var(--lv-t-display);
+  font-weight: 600;
+  font-size: var(--lv-d-6);
+  letter-spacing: -0.02em;
+}
+
+.lv-line__notes {
+  margin-top: var(--lv-g-2);
+}
+
+.lv-calc {
+  margin-top: var(--lv-g-2);
+  max-width: 620px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-5);
+}
+
+.lv-calc__out {
+  border-top: 1px solid var(--lv-line);
+  padding-top: var(--lv-s-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-3);
+}
+
+/* The slider track is petrol; the thumb is the one thing being committed to,
+   so it is not — it is ink, and the focus ring around it is rust. */
+.lv-slider {
+  width: 100%;
+  height: var(--lv-tap);
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.lv-slider::-webkit-slider-runnable-track {
+  height: 10px;
+  border-radius: var(--lv-r-pill);
+  background: var(--lv-meter-track);
+}
+
+.lv-slider::-moz-range-track {
+  height: 10px;
+  border-radius: var(--lv-r-pill);
+  background: var(--lv-meter-track);
+}
+
+.lv-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 28px;
+  height: 28px;
+  margin-top: -9px;
+  border-radius: var(--lv-r-round);
+  background: var(--lv-sec);
+  border: 2px solid var(--lv-surface);
+  box-shadow: var(--lv-shadow-sm);
+}
+
+.lv-slider::-moz-range-thumb {
+  width: 28px;
+  height: 28px;
+  border-radius: var(--lv-r-round);
+  background: var(--lv-sec);
+  border: 2px solid var(--lv-surface);
+  box-shadow: var(--lv-shadow-sm);
+}
+
+/* ==========================================================================
+   What we automate — the ranked rhythm
+   ========================================================================== */
+
+.lv-rank-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--lv-s-6);
+  flex-wrap: wrap;
+  margin-bottom: var(--lv-g-2);
+}
+
+.lv-auto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-5);
+  height: 100%;
+}
+
+.lv-auto--lead {
+  box-shadow: var(--lv-shadow-lg);
+  border-color: var(--lv-sec);
+}
+
+.lv-auto--quiet {
+  background: transparent;
+}
+
+.lv-auto__head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--lv-s-5);
+}
+
+.lv-auto__head .lv-eyebrow {
+  margin-bottom: var(--lv-s-2);
+}
+
+.lv-auto__foot {
+  margin-top: auto;
+  border-top: 1px solid var(--lv-line);
+  padding-top: var(--lv-s-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-4);
+}
+
+.lv-auto__meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-3);
+}
+
+.lv-auto__pair {
+  margin-top: var(--lv-g-2);
+}
+
+.lv-keys {
+  margin-top: var(--lv-g-2);
+  font-size: var(--lv-d-7);
+}
+
+/* ==========================================================================
+   Questions
+   ========================================================================== */
+
+.lv-faq__heading {
+  margin: 0;
+  font-size: inherit;
+  letter-spacing: normal;
+}
+
+/* ==========================================================================
+   Partners
+   ========================================================================== */
+
+.lv-partner,
+.lv-partner__sent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-6);
+}
+
+.lv-fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.lv-fieldset .lv-label {
+  padding: 0;
+}
+
+.lv-option--wrap {
+  white-space: normal;
+  text-align: center;
+  line-height: 1.35;
+  padding: var(--lv-s-4) var(--lv-s-5);
+}
+
+.lv-partner__sentactions {
+  display: flex;
+  gap: var(--lv-s-7);
+  flex-wrap: wrap;
+}
+
+.lv-partner__contact {
+  margin-top: var(--lv-g-1);
+}
+
+/* ==========================================================================
+   Start — intake
+   ========================================================================== */
+
+.lv-start {
+  padding-top: var(--lv-g-3);
+  padding-bottom: var(--lv-g-5);
+  max-width: 760px;
+}
+
+.lv-start__progress {
+  display: flex;
+  align-items: center;
+  gap: var(--lv-s-5);
+  margin-bottom: var(--lv-s-7);
+  flex-wrap: wrap;
+}
+
+.lv-track {
+  display: flex;
+  gap: var(--lv-s-3);
+  align-items: center;
+}
+
+.lv-track__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: var(--lv-r-round);
+  background: var(--lv-line);
+  transition: background var(--lv-dur-2) var(--lv-ease);
+}
+
+/* The step you are on is a commitment made, so the dot is rust. */
+.lv-track__dot[data-on] {
+  background: var(--lv-accent);
+}
+
+.lv-intake {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-6);
+}
+
+.lv-intake .lv-lead {
+  margin: 0;
+}
+
+.lv-intake__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.lv-intake__micro {
+  text-align: center;
+  margin: 0;
+}
+
+.lv-intake__actions {
+  display: flex;
+  gap: var(--lv-s-5);
+  flex-wrap: wrap;
+}
+
+.lv-intake__actions .lv-btn {
+  flex: 1;
+  min-width: 160px;
+}
+
+/* ==========================================================================
+   Start — gate
+   ========================================================================== */
+
+.lv-gate__stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: var(--lv-s-5);
+}
+
+.lv-gate__stat {
+  background: var(--lv-rung-3);
+  border-radius: var(--lv-r-card);
+  padding: var(--lv-s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-2);
+}
+
+.lv-gate__stat .lv-figure {
+  font-size: var(--lv-d-4);
+}
+
+.lv-gate__summary {
+  border: 1px solid var(--lv-line);
+  border-radius: var(--lv-r-card);
+  padding: var(--lv-s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-4);
+}
+
+.lv-deflist {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--lv-s-2) var(--lv-s-5);
+  font-size: var(--lv-t-sm);
+}
+
+.lv-deflist dt {
+  color: var(--lv-ink-quiet);
+}
+
+.lv-deflist dd {
+  margin: 0;
+}
+
+.lv-gate__ask {
+  border-top: 1px solid var(--lv-line);
+  padding-top: var(--lv-s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-3);
+}
+
+.lv-gate__row {
+  display: flex;
+  gap: var(--lv-s-4);
+  flex-wrap: wrap;
+  margin-top: var(--lv-s-3);
+}
+
+.lv-gate__row .lv-field {
+  flex: 1;
+  min-width: 240px;
+  width: auto;
+}
+
+/* ==========================================================================
+   Start — the assembling plan
+   ========================================================================== */
+
+.lv-plan {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-g-3);
+}
+
+.lv-plan__head .lv-lead {
+  margin: 0;
+}
+
+.lv-plan__rows {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-5);
+}
+
+.lv-plan__rowshead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--lv-s-5);
+  flex-wrap: wrap;
+}
+
+.lv-plan__rowshead .lv-eyebrow {
+  margin-bottom: 0;
+}
+
+/* The working line. Petrol, quiet, and only ever on screen while something is
+   genuinely in flight — see usePlanAssembly. */
+.lv-working {
+  display: flex;
+  align-items: center;
+  gap: var(--lv-s-3);
+  margin: 0;
+  font-size: var(--lv-t-sm);
+  color: var(--lv-sec);
+}
+
+.lv-working__pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--lv-r-round);
+  background: currentColor;
+  animation: lv-pulse 1.1s var(--lv-ease) infinite;
+}
+
+@keyframes lv-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* A row arriving. Each is mounted as it is assembled, so the animation runs
+   once per row on insert; under reduced motion the rows all mount together on
+   the first frame and this is zeroed by the global stop. */
+.lv-planrow {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-3);
+  animation: lv-rise var(--lv-dur-2) var(--lv-ease) both;
+}
+
+@keyframes lv-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.lv-planrow__title {
+  font-family: var(--lv-t-display);
+  font-weight: 600;
+  font-size: var(--lv-d-6);
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+.lv-plan__fix {
+  animation: lv-rise var(--lv-dur-2) var(--lv-ease) both;
+}
+
+/* The booking band is petrol-ink: a dark room for the one rust action left. */
+.lv-plan__book {
+  background: var(--lv-dark-petrol);
+  color: var(--lv-dark-ink);
+  border-radius: var(--lv-r-card);
+  padding: var(--lv-g-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-5);
+  animation: lv-rise var(--lv-dur-2) var(--lv-ease) both;
+}
+
+.lv-plan__book .lv-body,
+.lv-plan__book .lv-meta {
+  color: var(--lv-dark-quiet);
+}
+
+.lv-plan__book a {
+  color: var(--lv-sec-on-dark);
+}
+
+.lv-slots {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-4);
+}
+
+.lv-slot {
+  min-height: var(--lv-tap);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--lv-s-5);
+  padding: 0 var(--lv-s-6);
+  border-radius: var(--lv-r-control);
+  cursor: pointer;
+  background: var(--lv-dark-petrol-surface);
+  border: 1.5px solid var(--lv-dark-petrol-line);
+  color: var(--lv-dark-ink);
+  font-size: var(--lv-t-body-size);
+  transition:
+    border-color var(--lv-dur-1) var(--lv-ease),
+    transform var(--lv-dur-1) var(--lv-ease);
+}
+
+.lv-slot:hover {
+  border-color: var(--lv-sec-on-dark);
+  transform: translateX(2px);
+}
+
+.lv-slot__action {
+  font-family: var(--lv-t-display);
+  font-weight: 600;
+  font-size: var(--lv-t-sm);
+  white-space: nowrap;
+}
+
+.lv-booked {
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-5);
+  border-top: 1px solid var(--lv-dark-petrol-line);
+  padding-top: var(--lv-s-5);
+}
+
+.lv-booked .lv-h4 {
+  color: var(--lv-ok-on-dark);
+  margin: 0;
+}
+
+.lv-alert {
+  border: 1px solid var(--lv-alert-line);
+  background: var(--lv-alert-surface);
+  border-radius: var(--lv-r-card);
+  padding: var(--lv-s-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--lv-s-3);
+}
+
+.lv-alert__head {
+  margin: 0;
+  font-family: var(--lv-t-display);
+  font-weight: 700;
+  font-size: var(--lv-t-xl);
+  letter-spacing: -0.025em;
+  color: var(--lv-alert-ink);
+}
+
+.lv-alert__body {
+  margin: 0;
+  font-size: var(--lv-t-md);
+  line-height: 1.5;
+  color: var(--lv-alert-quiet);
+}
+
+.lv-alert__detail {
+  margin: 0;
+  font-family: var(--lv-t-mono);
+  font-size: var(--lv-t-xs);
+  color: var(--lv-alert-detail);
+}
+
+.lv-alert__actions {
+  display: flex;
+  gap: var(--lv-s-4);
+  flex-wrap: wrap;
+  margin-top: var(--lv-s-2);
+}
+
+.lv-alert__retry {
+  min-height: var(--lv-tap);
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--lv-s-6);
+  border-radius: var(--lv-r-control);
+  background: var(--lv-alert-ink);
+  color: var(--lv-alert-on-ink);
+  font-family: var(--lv-t-display);
+  font-weight: 600;
+  font-size: var(--lv-t-md);
+  cursor: pointer;
+}
+
+.lv-alert__mail {
+  min-height: var(--lv-tap);
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--lv-s-6);
+  border-radius: var(--lv-r-control);
+  border: 1px solid var(--lv-alert-btn-line);
+  color: var(--lv-alert-ink);
+  font-family: var(--lv-t-display);
+  font-weight: 600;
+  font-size: var(--lv-t-md);
+}
+
+.lv-alert__mail:hover {
+  color: var(--lv-alert-ink);
+}
+
+.lv-plan__foot {
+  display: flex;
+  gap: var(--lv-s-7);
+  flex-wrap: wrap;
+  border-top: 1px solid var(--lv-line);
+  padding-top: var(--lv-s-6);
+}

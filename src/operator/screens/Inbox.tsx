@@ -1,47 +1,47 @@
-import type { Submission } from '../../domain/types'
+import type { Lead } from '../../domain/types'
+import { isPlanSubmission } from '../../domain/types'
 import { PAINS } from '../../domain/pains'
 import { timeAgo } from '../../domain/estimate'
+import { ThemeToggle } from '../../components/ThemeToggle'
 
-/** The inbox: every intake that has been unlocked, newest first. */
+/**
+ * The inbox: every lead, newest first.
+ *
+ * Two kinds share it, as REQUIREMENTS.md §5 asks — a Game Plan request and an
+ * implementation partner — because one place to work leads beats two. The kind
+ * is on the row, so the difference is visible before it is opened.
+ */
 
 interface InboxProps {
-  submissions: Submission[]
+  leads: Lead[]
+  /** Where the list came from, stated rather than assumed. */
+  storage: 'kv' | 'memory' | 'device'
   onOpen: (id: string) => void
   onSignOut: () => void
 }
 
-function draftState(sub: Submission) {
-  if (sub.draft.status === 'pending') {
-    return { label: 'Drafting…', tone: 'wait', color: 'var(--ink)' }
-  }
-  if (sub.draft.source === 'fallback') {
-    return { label: 'Offline draft', tone: 'offline', color: 'var(--ink)' }
-  }
-  return { label: 'Draft ready', tone: 'ready', color: 'var(--go)' }
-}
-
-const STATUS_LABEL: Record<Submission['status'], string> = {
+const STATUS_LABEL: Record<Lead['status'], string> = {
   new: 'New',
   contacted: 'Contacted',
   archived: 'Archived',
 }
 
-function statusStyle(status: Submission['status']) {
-  if (status === 'new') {
-    return { color: 'var(--white)', background: 'var(--ember)', border: '1px solid transparent' }
-  }
-  if (status === 'contacted') {
-    return { color: 'var(--go)', background: 'var(--white)', border: '1px solid var(--go)' }
-  }
-  return {
-    color: 'var(--ink)',
-    background: 'var(--warm)',
-    border: '1px solid var(--hairline-strong)',
-  }
+const STORAGE_NOTE: Record<InboxProps['storage'], string> = {
+  kv: 'Stored server-side. Visible from any device.',
+  memory:
+    'Server has no KV attached, so leads live in the function’s memory and are lost on a cold start. Attach Vercel KV to make them durable.',
+  device: 'Could not reach the server. Showing what this device has seen.',
 }
 
-export function Inbox({ submissions, onOpen, onSignOut }: InboxProps) {
-  const newCount = submissions.filter((s) => s.status === 'new').length
+function draftState(lead: Lead) {
+  if (!isPlanSubmission(lead)) return { label: 'Partner lead', tone: 'partner' as const }
+  if (lead.draft.status === 'pending') return { label: 'Drafting…', tone: 'wait' as const }
+  if (lead.draft.source === 'fallback') return { label: 'Offline draft', tone: 'offline' as const }
+  return { label: 'Draft ready', tone: 'ready' as const }
+}
+
+export function Inbox({ leads, storage, onOpen, onSignOut }: InboxProps) {
+  const newCount = leads.filter((l) => l.status === 'new').length
 
   return (
     <>
@@ -49,44 +49,49 @@ export function Inbox({ submissions, onOpen, onSignOut }: InboxProps) {
         <div className="op-bar-row">
           <span className="op-bar-mark">
             <span className="op-dot" aria-hidden="true" />
-            <span className="op-bar-title">Operator Console</span>
+            <span className="op-bar-title">Operator console</span>
           </span>
-          <button type="button" className="op-link" onClick={onSignOut}>
-            Sign out
-          </button>
+          <span className="op-bar-actions">
+            <ThemeToggle />
+            <button type="button" className="op-link" onClick={onSignOut}>
+              Sign out
+            </button>
+          </span>
         </div>
         <div className="op-bar-sub">
-          <span className="op-bar-note">Intake inbox. Internal, not shown to the prospect.</span>
+          <span className="op-bar-note">Internal. Not linked from the public navigation.</span>
           <span className="op-count">{newCount} new</span>
         </div>
       </div>
 
       <div className="op-body">
-        {submissions.length ? (
+        {leads.length ? (
           <div className="op-inbox">
-            {submissions.map((sub) => {
-              const state = draftState(sub)
-              const shorts = PAINS.filter((p) => sub.pains.includes(p.id)).map((p) => p.short)
+            {leads.map((lead) => {
+              const state = draftState(lead)
+              const title = isPlanSubmission(lead) ? lead.business : lead.name
+              const detail = isPlanSubmission(lead)
+                ? `${PAINS.filter((p) => lead.pains.includes(p.id)).length} named`
+                : lead.plugIn
               return (
                 <button
-                  key={sub.id}
+                  key={lead.id}
                   type="button"
-                  className={sub.status === 'new' ? 'op-inbox-row is-new' : 'op-inbox-row'}
-                  onClick={() => onOpen(sub.id)}
+                  className={lead.status === 'new' ? 'op-inbox-row is-new' : 'op-inbox-row'}
+                  onClick={() => onOpen(lead.id)}
                 >
                   <span className="op-inbox-top">
-                    <span className="op-inbox-business">{sub.business}</span>
-                    <span className="op-badge" style={statusStyle(sub.status)}>
-                      {STATUS_LABEL[sub.status]}
+                    <span className="op-inbox-business">{title}</span>
+                    <span className={`op-badge op-badge--${lead.status}`}>
+                      {STATUS_LABEL[lead.status]}
                     </span>
                   </span>
-                  <span className="op-inbox-email">{sub.email}</span>
+                  <span className="op-inbox-email">{lead.email}</span>
                   <span className="op-inbox-foot">
                     <span>
-                      {timeAgo(sub.createdAt)} · {shorts.length}{' '}
-                      {shorts.length === 1 ? 'pain' : 'pains'}
+                      {timeAgo(lead.createdAt)} · {detail}
                     </span>
-                    <span className="op-draft-state" style={{ color: state.color }}>
+                    <span className={`op-draft-state op-draft-state--${state.tone}`}>
                       <span className={`op-state-dot op-state-dot--${state.tone}`} />
                       {state.label}
                     </span>
@@ -97,13 +102,18 @@ export function Inbox({ submissions, onOpen, onSignOut }: InboxProps) {
           </div>
         ) : (
           <div className="op-empty">
-            <div className="op-empty-title">No submissions yet</div>
+            <div className="op-empty-title">Nothing has come in yet.</div>
             <div className="op-empty-body">
-              Run the prospect flow and unlock a plan. The record lands here.
+              Run the intake and unlock a plan. The request lands here.
             </div>
+            <a className="op-link" href="/start">
+              Open the intake form
+            </a>
           </div>
         )}
-        <div className="op-foot">Stored on this device. Refresh-safe.</div>
+        <div className="op-foot" data-storage={storage}>
+          {STORAGE_NOTE[storage]}
+        </div>
       </div>
     </>
   )

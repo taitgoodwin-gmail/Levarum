@@ -1,21 +1,30 @@
 import type { Plugin } from 'vite'
 import { handleDraftRequest, isDraftRequest } from './handler.ts'
+import { handleApiRequest, isApiRequest, readBody } from './api.ts'
 
 /**
- * Mounts the draft endpoint on the dev server so `npm run dev` is the whole
- * app, key included, with nothing else to start. Production and `vite preview`
- * use `npm run serve:api` instead.
+ * Mounts the whole API on the dev server so `npm run dev` is the entire app —
+ * intake, persistence, session and drafting — with nothing else to start.
+ * Production runs these as Vercel Functions under api/; `vite preview` uses
+ * `npm run serve:api`.
  */
 export function draftApiPlugin(): Plugin {
   return {
-    name: 'levarum-draft-api',
+    name: 'levarum-api',
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
-        if (!isDraftRequest(req)) {
-          next()
+        if (isDraftRequest(req)) {
+          void handleDraftRequest(req, res)
           return
         }
-        void handleDraftRequest(req, res)
+        if (isApiRequest(req)) {
+          void (async () => {
+            const raw = req.method === 'GET' || req.method === 'DELETE' ? '' : await readBody(req)
+            await handleApiRequest(req, res, raw ? JSON.parse(raw) : undefined)
+          })()
+          return
+        }
+        next()
       })
     },
   }
