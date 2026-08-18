@@ -3,12 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#E4E0DA" />
+    <!--
+      The browser chrome colour. A meta tag cannot hold a color-mix(), so these
+      are the two resolved values of --lv-page: the literal light ground, and
+      color-mix(in srgb, #2E5C74 22%, #1A1A1A) for the dark one. Not new colours
+      — recompute them from tokens.css if the ground ever moves.
+    -->
+    <meta name="theme-color" content="#FBF6F2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1E292E" media="(prefers-color-scheme: dark)" />
     <meta
       name="description"
       content="Levarum turns one short intake into a costed Game Plan: the jobs worth handing off first, the hours they give back, and what those hours are worth."
     />
-    <title>Levarum</title>
+    <title>Levarum — get your week back</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,6 +23,42 @@
       href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap"
       rel="stylesheet"
     />
+    <!--
+      Theme boot. This has to run here, in the head, before the first paint:
+      the reported black-frame flash was the page painting once in the default
+      scheme and again after the app decided. Two things prevent that. The
+      data-theme attribute is set on <html> synchronously, so the render-
+      blocking stylesheet resolves the right tokens on its first pass; and
+      color-scheme is set at the same moment, so the canvas the browser paints
+      behind the page — visible during load and on overscroll — is already the
+      right one. src/theme.ts reads this decision rather than repeating it.
+
+      The __lvTheme guard is for the double-invoked case (a second copy of this
+      script, or a re-execution in dev): binding the listener twice would make
+      one click toggle and toggle back.
+    -->
+    <script>
+      ;(function () {
+        var KEY = 'levarum.theme.v1'
+        var el = document.documentElement
+        var stored = null
+        try {
+          stored = localStorage.getItem(KEY)
+        } catch (e) {}
+        var theme = stored === 'dark' || stored === 'light' ? stored : null
+        if (!theme) {
+          try {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+          } catch (e) {
+            theme = 'light'
+          }
+        }
+        el.setAttribute('data-theme', theme)
+        el.style.colorScheme = theme
+        if (window.__lvTheme) return
+        window.__lvTheme = true
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

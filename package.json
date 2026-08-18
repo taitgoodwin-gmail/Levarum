@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "typecheck": "tsc -b",
     "serve:api": "tsx server/index.ts",
-    "check:boundary": "node scripts/check-boundary.mjs"
+    "check:boundary": "node scripts/check-boundary.mjs",
+    "check:contrast": "node scripts/check-contrast.mjs"
   },
   "dependencies": {
     "react": "^19.2.0",

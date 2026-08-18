@@ -6,6 +6,17 @@
   box-sizing: border-box;
 }
 
+html {
+  /* Set by the boot script too, before paint. This is the fallback for the
+     no-JS case, and the reason the first frame is never the wrong colour. */
+  color-scheme: light;
+  background: var(--lv-page);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+}
+
 html,
 body {
   margin: 0;
@@ -13,45 +24,102 @@ body {
 }
 
 body {
-  font-family: var(--body);
-  /* Brand body size. Nothing readable goes below 16px. */
-  font-size: 17px;
+  min-height: 100vh;
+  font-family: var(--lv-t-body);
+  font-size: var(--lv-t-body-size);
   line-height: 1.6;
-  color: var(--charcoal);
-  background: var(--canvas);
+  color: var(--lv-ink);
+  background: var(--lv-page);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
-button {
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--lv-t-display);
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+/* Links are petrol. The rust accent never lands on an inline link. */
+a {
+  color: var(--lv-link);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--lv-link-hover);
+}
+
+button,
+input,
+select,
+textarea {
   font: inherit;
   color: inherit;
   margin: 0;
 }
 
-input {
-  font-family: var(--body);
+button {
+  background: none;
+  border: none;
+  padding: 0;
 }
 
-/* A visible focus ring everywhere, since every control here is keyboard-reachable. */
+/* The focus ring is one of the three places rust is allowed. */
 :focus-visible {
-  outline: 2px solid var(--ember-deep);
-  outline-offset: 2px;
-  border-radius: 4px;
+  outline: 2px solid var(--lv-accent);
+  outline-offset: 3px;
+  border-radius: var(--lv-r-chip);
 }
 
-.sr-only {
+.lv-sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
 }
 
+.lv-skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  background: var(--lv-ink);
+  color: var(--lv-page);
+  padding: var(--lv-s-3) var(--lv-s-5);
+  border-radius: var(--lv-r-control);
+  font-family: var(--lv-t-display);
+  font-weight: 600;
+  font-size: var(--lv-t-sm);
+}
+
+.lv-skip:focus {
+  left: var(--lv-s-5);
+  top: var(--lv-s-5);
+  color: var(--lv-page);
+}
+
+/*
+ * The blanket reduced-motion stop.
+ *
+ * Components are written to render their finished state when motion is off
+ * rather than to rely on this, but a rule that catches everything is worth
+ * having: a transition added later without thinking about it still cannot
+ * move for someone who asked for no movement.
+ */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -59,5 +127,12 @@ input {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

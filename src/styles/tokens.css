@@ -1,49 +1,280 @@
 /*
- * Levarum brand tokens.
+ * Levarum design tokens — the --lv-* system.
  *
- * The rule that governs the orange: if it is decoration use --ember, if it is
- * words someone has to read use --ember-deep. --ember is not contrast-safe for
- * small text and must never carry copy.
+ * Single source of truth for colour. Ported verbatim from the design project
+ * ("Levarum Website Project Aug 18 2026", design/current/), which is the design
+ * source of record; this repo is the deployment vehicle. Do not add a hex value
+ * here that is not one of the eight brand bases below: everything else is a
+ * color-mix() derivation, which is what keeps the two themes in step.
  *
- * One burnt-orange spark, a charcoal line, a warm-white page. One spark per
- * screen: resist scattering ember.
+ * The 60-30-10 split this encodes:
+ *
+ *   60  --lv-page / --lv-rung-*   warm neutral tint ladder, section rhythm
+ *   30  --lv-sec (petrol #2E5C74) links, eyebrows, step markers, chips, rails
+ *   10  --lv-accent (rust #8F3D14) COMMIT ACTIONS ONLY
+ *
+ * The accent rule is not a preference. Rust marks primary buttons, active nav,
+ * and focus rings, and nothing else — never an inline link, never a badge,
+ * never decoration. One commit action per viewport.
+ *
+ * Ember-era mapping, for anyone reading an old commit: --warm became the page
+ * ground (--lv-page), --charcoal became the ink (--lv-ink), --canvas became the
+ * tint ladder (--lv-rung-*), and --ember retired as an action colour — it lives
+ * on only as --lv-spark, for display figures and the mark. The console's go and
+ * wait status colours stay console-only and are re-derived below inside the
+ * rust/petrol family.
  */
 :root {
-  /* Reading ground. Long copy sits on white, never on the warm tint. */
-  --white: #ffffff;
-  /* Secondary surfaces and quiet cards, small doses only. */
-  --warm: #fbf6f2;
-  /* Primary text and dark sections. */
-  --charcoal: #1a1a1a;
-  /* Secondary text and captions. 6.9:1 on white. */
-  --ink: #5c5a56;
-  /* Dividers and borders. */
-  --hairline: #e9e6e1;
-  /* The heavier hairline, for dashed slots and quiet outlines. */
-  --hairline-strong: #d8d3cc;
-  /* The single spark: the mark, dots, accent rules, large display moments. */
-  --ember: #d4622a;
-  /* The text-safe orange: eyebrows, labels, links, any orange to be read. */
-  --ember-deep: #b5511f;
-  /* On charcoal sections only. */
-  --warm-offwhite: #ede6d6;
-  --muted: #b9b6b1;
-  --dark-field: #242422;
-  --dark-field-border: #3a3a38;
-  /* The board the frames sit on. */
-  --canvas: #e4e0da;
-  /* Status colours, used only in the operator console. */
-  --go: #1a7a4c;
-  --go-bg: #eaf5ef;
-  --go-border: #b9dec9;
-  --wait: #8a6d1f;
-  --wait-bg: #fbf3de;
-  --wait-border: #e7d08a;
-  --wait-dot: #c9a24a;
+  /* --- Brand bases. The only hand-picked colour in the file. --- */
+  --lv-brand-ink: #1a1a1a;
+  --lv-brand-rust: #bf4f1f;
+  --lv-brand-petrol: #2e5c74;
+  --lv-brand-forest: #3e6b4a;
+  --lv-brand-plum: #5b4b8a;
+  --lv-brand-sand: #a67c4e;
+  --lv-brand-slate: #4a5b7a;
+  --lv-brand-teal: #1f5c57;
 
-  --display: 'Schibsted Grotesk', system-ui, -apple-system, sans-serif;
-  --body: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+  /* --- Ground and surfaces --- */
+  --lv-page: #fbf6f2;
+  --lv-surface: #ffffff;
+  --lv-band: #e4e0da;
+  --lv-dark: #1a1a1a;
+  --lv-dark-surface: #242422;
 
-  /* Every interactive element clears 44px, at every breakpoint. */
-  --tap: 44px;
+  /* --- Ink --- */
+  --lv-ink: #1a1a1a;
+  --lv-ink-hover: #333330;
+  --lv-ink-quiet: #5c5a56;
+  --lv-ink-placeholder: #73706c;
+  --lv-dark-ink: #ede6d6;
+  --lv-dark-quiet: #b9b6b1;
+
+  /* --- Lines --- */
+  --lv-line: #e9e6e1;
+  --lv-line-control: #8f8c88;
+  --lv-dark-line: #3a3a38;
+  --lv-dark-line-control: #7f7c74;
+
+  /* --- Accent: commit actions only --- */
+  --lv-accent: #8f3d14;
+  --lv-accent-hover: color-mix(in srgb, var(--lv-accent) 80%, var(--lv-ink));
+  --lv-accent-tint: color-mix(in srgb, var(--lv-accent) 7%, var(--lv-page));
+
+  /* --- Spark: what --ember became. Display figures and the mark, never a control. --- */
+  --lv-spark: #d4622a;
+  --lv-spark-deep: #b5511f;
+  --lv-spark-soft: #e08a5c;
+
+  /* --- Secondary: petrol. Links, eyebrows, markers, chips, rails. --- */
+  --lv-sec: var(--lv-brand-petrol);
+  --lv-sec-tint: color-mix(in srgb, var(--lv-brand-petrol) 20%, var(--lv-page));
+  --lv-sec-on-dark: color-mix(in srgb, var(--lv-brand-petrol) 45%, var(--lv-dark-ink));
+  --lv-tint: color-mix(in srgb, var(--lv-brand-petrol) 12%, var(--lv-page));
+
+  --lv-link: var(--lv-sec);
+  --lv-link-hover: color-mix(in srgb, var(--lv-sec) 74%, var(--lv-ink));
+  --lv-link-on-dark: var(--lv-sec-on-dark);
+
+  /* --- Full-bleed dark bands are petrol-ink, never neutral black. --- */
+  --lv-dark-petrol: color-mix(in srgb, var(--lv-brand-petrol) 32%, var(--lv-dark));
+  --lv-dark-petrol-surface: color-mix(in srgb, var(--lv-brand-petrol) 24%, var(--lv-dark-surface));
+  --lv-dark-petrol-line: color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-dark-line));
+
+  /* --- The tint ladder: section rhythm between AND within pages. --- */
+  --lv-rung-1: var(--lv-page);
+  --lv-rung-2: color-mix(in srgb, var(--lv-brand-petrol) 5%, var(--lv-page));
+  --lv-rung-3: color-mix(in srgb, var(--lv-brand-petrol) 9%, var(--lv-page));
+  --lv-rung-4: color-mix(in srgb, var(--lv-brand-petrol) 14%, var(--lv-page));
+
+  /* --- Hours bars. One shared scale everywhere on the site. --- */
+  --lv-meter-track: color-mix(in srgb, var(--lv-brand-petrol) 16%, var(--lv-page));
+  --lv-meter-fill: var(--lv-sec);
+  --lv-meter-fill-quiet: color-mix(in srgb, var(--lv-brand-petrol) 85%, var(--lv-page));
+  --lv-meter-track-dark: color-mix(in srgb, var(--lv-brand-petrol) 30%, var(--lv-dark-surface));
+
+  /* --- Status. Console-only, re-derived inside the family. --- */
+  --lv-ok: var(--lv-brand-forest);
+  --lv-ok-tint: color-mix(in srgb, var(--lv-brand-forest) 9%, var(--lv-page));
+  --lv-ok-line: color-mix(in srgb, var(--lv-brand-forest) 30%, var(--lv-page));
+  --lv-ok-on-dark: color-mix(in srgb, var(--lv-brand-forest) 40%, var(--lv-dark-ink));
+  --lv-wait: color-mix(in srgb, var(--lv-brand-sand) 72%, var(--lv-ink));
+  --lv-wait-tint: color-mix(in srgb, var(--lv-brand-sand) 12%, var(--lv-page));
+  --lv-wait-line: color-mix(in srgb, var(--lv-brand-sand) 34%, var(--lv-page));
+
+  /* --- Alert surface: a petrol-ink band tuned warm, for send failures. --- */
+  --lv-alert-surface: #2a1712;
+  --lv-alert-line: #7a3524;
+  --lv-alert-ink: #f3d9cf;
+  --lv-alert-quiet: #e8c9be;
+  --lv-alert-detail: #b08a7e;
+  --lv-alert-on-ink: #5a1e10;
+  --lv-alert-btn-line: #c97a63;
+
+  /* --- Type --- */
+  --lv-t-display: 'Schibsted Grotesk', system-ui, -apple-system, sans-serif;
+  --lv-t-body: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+  --lv-t-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --lv-t-cap: 13px;
+  --lv-t-xs: 14px;
+  --lv-t-sm: 15px;
+  --lv-t-md: 16px;
+  --lv-t-body-size: 17px;
+  --lv-t-lg: 19px;
+  --lv-t-xl: 22px;
+
+  --lv-d-hero: clamp(44px, 6.2vw, 84px);
+  --lv-d-1: clamp(36px, 5vw, 68px);
+  --lv-d-2: clamp(32px, 4.2vw, 52px);
+  --lv-d-3: clamp(30px, 3.4vw, 44px);
+  --lv-d-4: clamp(22px, 2.4vw, 28px);
+  --lv-d-5: clamp(19px, 2vw, 22px);
+  --lv-d-6: clamp(17px, 1.5vw, 20px);
+  --lv-d-7: clamp(16px, 1.4vw, 18px);
+
+  /* --- Space --- */
+  --lv-s-1: 2px;
+  --lv-s-2: 6px;
+  --lv-s-3: 10px;
+  --lv-s-4: 12px;
+  --lv-s-5: 16px;
+  --lv-s-6: 20px;
+  --lv-s-7: 26px;
+  --lv-s-8: 34px;
+  --lv-s-9: 54px;
+
+  --lv-g-1: clamp(22px, 2.6vw, 28px);
+  --lv-g-2: clamp(22px, 3vw, 34px);
+  --lv-g-3: clamp(28px, 4vw, 44px);
+  --lv-g-4: clamp(32px, 4.5vw, 60px);
+  --lv-g-5: clamp(50px, 6vw, 78px);
+
+  /* --- Radius, shadow, layout --- */
+  --lv-r-chip: 8px;
+  --lv-r-control: 13px;
+  --lv-r-card: 20px;
+  --lv-r-round: 50%;
+  --lv-r-pill: 100px;
+  --lv-shadow-sm: 0 10px 30px rgba(26, 26, 26, 0.06);
+  --lv-shadow-lg: 0 26px 60px rgba(26, 26, 26, 0.1);
+  --lv-page-w: 1180px;
+  --lv-prose-w: 820px;
+  --lv-tap: 56px;
+
+  /* --- Motion. Every duration here is zeroed under reduced motion, below. --- */
+  --lv-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --lv-ease-lift: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --lv-dur-1: 0.18s;
+  --lv-dur-2: 0.5s;
+  --lv-dur-3: 0.7s;
+}
+
+/*
+ * Dark theme.
+ *
+ * A mirror of :root, not a filter. The ground is petrol-ink rather than
+ * neutral black, the accent lifts off the rust base so a commit action still
+ * reads as a commit action, and every rung of the tint ladder is re-derived
+ * against the new ground so section rhythm survives the switch.
+ */
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --lv-page: color-mix(in srgb, var(--lv-brand-petrol) 22%, var(--lv-dark));
+  --lv-surface: color-mix(in srgb, var(--lv-brand-petrol) 26%, var(--lv-dark-surface));
+  --lv-band: color-mix(in srgb, var(--lv-dark-ink) 10%, var(--lv-page));
+
+  --lv-ink: var(--lv-dark-ink);
+  --lv-ink-hover: color-mix(in srgb, var(--lv-dark-ink) 80%, var(--lv-page));
+  --lv-ink-quiet: var(--lv-dark-quiet);
+  --lv-ink-placeholder: color-mix(in srgb, var(--lv-dark-ink) 62%, var(--lv-page));
+
+  --lv-line: color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-dark-line));
+  --lv-line-control: var(--lv-dark-line-control);
+
+  --lv-accent: color-mix(in srgb, var(--lv-brand-rust) 45%, var(--lv-dark-ink));
+  --lv-accent-hover: color-mix(in srgb, var(--lv-accent) 82%, var(--lv-dark-ink));
+  --lv-accent-tint: color-mix(in srgb, var(--lv-brand-rust) 26%, var(--lv-page));
+
+  --lv-sec: color-mix(in srgb, var(--lv-brand-petrol) 38%, var(--lv-dark-ink));
+  --lv-sec-tint: color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-page));
+  --lv-tint: color-mix(in srgb, var(--lv-dark-ink) 8%, var(--lv-page));
+  --lv-link: var(--lv-sec);
+  --lv-link-hover: color-mix(in srgb, var(--lv-brand-petrol) 22%, var(--lv-dark-ink));
+
+  --lv-rung-1: var(--lv-page);
+  --lv-rung-2: color-mix(in srgb, var(--lv-dark-ink) 4%, var(--lv-page));
+  --lv-rung-3: color-mix(in srgb, var(--lv-dark-ink) 8%, var(--lv-page));
+  --lv-rung-4: color-mix(in srgb, var(--lv-dark-ink) 13%, var(--lv-page));
+
+  --lv-dark-petrol: color-mix(in srgb, var(--lv-dark-ink) 10%, var(--lv-page));
+  --lv-dark-petrol-surface: color-mix(in srgb, var(--lv-dark-ink) 15%, var(--lv-page));
+  --lv-dark-petrol-line: color-mix(in srgb, var(--lv-dark-ink) 24%, var(--lv-page));
+
+  --lv-meter-track: color-mix(in srgb, var(--lv-dark-ink) 16%, var(--lv-page));
+  --lv-meter-fill: var(--lv-sec);
+  --lv-meter-fill-quiet: color-mix(in srgb, var(--lv-brand-petrol) 52%, var(--lv-dark-ink));
+
+  --lv-ok: color-mix(in srgb, var(--lv-brand-forest) 38%, var(--lv-dark-ink));
+  --lv-ok-tint: color-mix(in srgb, var(--lv-brand-forest) 22%, var(--lv-page));
+  --lv-ok-line: color-mix(in srgb, var(--lv-brand-forest) 34%, var(--lv-page));
+  --lv-wait: color-mix(in srgb, var(--lv-brand-sand) 52%, var(--lv-dark-ink));
+  --lv-wait-tint: color-mix(in srgb, var(--lv-brand-sand) 22%, var(--lv-page));
+  --lv-wait-line: color-mix(in srgb, var(--lv-brand-sand) 34%, var(--lv-page));
+
+  --lv-spark-deep: color-mix(in srgb, var(--lv-spark) 60%, var(--lv-dark-ink));
+
+  --lv-shadow-sm: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --lv-shadow-lg: 0 26px 60px rgba(0, 0, 0, 0.42);
+}
+
+/*
+ * Entrance animations are removed, not shortened. A 1ms fade is still a fade,
+ * and the point of the setting is that nothing moves. Components read
+ * --lv-dur-* rather than hard-coding a duration, so zeroing here reaches all
+ * of them; the JS motion layer checks the same media query directly and
+ * renders the finished state on the first frame.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --lv-dur-1: 0s;
+    --lv-dur-2: 0s;
+    --lv-dur-3: 0s;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * TEMPORARY: ember-era alias bridge.
+ *
+ * The operator console and the old prospect screens still reference the retired
+ * vocabulary. These aliases keep both surfaces coherent while they are ported
+ * one at a time, so no commit in this series ships a half-styled page. Every
+ * alias is removed in the commit that ports its last consumer; if this block
+ * still exists when the series is done, something was missed.
+ * ------------------------------------------------------------------------ */
+:root {
+  --white: var(--lv-surface);
+  --warm: var(--lv-page);
+  --charcoal: var(--lv-ink);
+  --ink: var(--lv-ink-quiet);
+  --hairline: var(--lv-line);
+  --hairline-strong: var(--lv-line-control);
+  --ember: var(--lv-spark);
+  --ember-deep: var(--lv-accent);
+  --warm-offwhite: var(--lv-dark-ink);
+  --muted: var(--lv-dark-quiet);
+  --dark-field: var(--lv-dark-petrol-surface);
+  --dark-field-border: var(--lv-dark-petrol-line);
+  --canvas: var(--lv-band);
+  --go: var(--lv-ok);
+  --go-bg: var(--lv-ok-tint);
+  --go-border: var(--lv-ok-line);
+  --wait: var(--lv-wait);
+  --wait-bg: var(--lv-wait-tint);
+  --wait-border: var(--lv-wait-line);
+  --wait-dot: var(--lv-wait);
+  --display: var(--lv-t-display);
+  --body: var(--lv-t-body);
+  --tap: var(--lv-tap);
 }
