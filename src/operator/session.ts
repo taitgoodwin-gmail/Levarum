@@ -13,10 +13,42 @@ import { hydrateLeads } from '../store/submissions'
  * Every call sends credentials, because the cookie is the whole session.
  */
 
+/**
+ * Why the endpoint could not be believed, when it could not be.
+ *
+ * The console used to return `configured: false` for every one of these, and
+ * the sign-in screen rendered that as "no operator credential is set on this
+ * deployment". So a missing function, a platform auth wall, an HTML error page
+ * and a genuinely unset credential all produced the same sentence — one which
+ * is only true for the last of them, and which sends the reader off to check
+ * environment variables that were never the problem.
+ *
+ * A screen cannot report a cause it was never told. These are the causes.
+ */
+export type SessionFault =
+  /** 404: no function answered. The endpoint is not deployed. */
+  | 'missing'
+  /** 401/403, or HTML where JSON belongs: something in front of the app
+      intercepted the request. On Vercel that is Deployment Protection. */
+  | 'protected'
+  /** 2xx, but not JSON — an interstitial or error page served as success. */
+  | 'not-json'
+  /** 5xx: the function ran and failed. */
+  | 'erroring'
+  /** The request never completed. Offline, DNS, CORS. */
+  | 'unreachable'
+
 export interface SessionState {
   signedIn: boolean
-  /** False when no operator credential is set on this deployment. */
+  /**
+   * Whether the *server* said a credential is configured. Only meaningful when
+   * `fault` is null — otherwise nothing was heard from the server at all.
+   */
   configured: boolean
+  /** Null when the endpoint answered properly. */
+  fault: SessionFault | null
+  /** The status seen, for the fault message. */
+  status?: number
 }
 
 async function json<T>(res: Response): Promise<T> {
@@ -25,12 +57,49 @@ async function json<T>(res: Response): Promise<T> {
 }
 
 export async function readSession(): Promise<SessionState> {
+  let res: Response
   try {
-    const res = await fetch('/api/session', { credentials: 'same-origin' })
-    if (!res.ok) return { signedIn: false, configured: false }
-    return await json<SessionState>(res)
+    res = await fetch('/api/session', {
+      credentials: 'same-origin',
+      headers: { Accept: 'application/json' },
+    })
   } catch {
-    return { signedIn: false, configured: false }
+    return { signedIn: false, configured: false, fault: 'unreachable' }
+  }
+
+  const type = res.headers.get('content-type') ?? ''
+  const isJson = type.includes('application/json')
+
+  if (!res.ok) {
+    // 404 is the endpoint not existing. 401/403 on *this* route can only come
+    // from in front of the app: /api/session answers 200 whether or not anyone
+    // is signed in, so it never issues either itself.
+    const fault: SessionFault =
+      res.status === 404
+        ? 'missing'
+        : res.status === 401 || res.status === 403
+          ? 'protected'
+          : res.status >= 500
+            ? 'erroring'
+            : 'protected'
+    return { signedIn: false, configured: false, fault, status: res.status }
+  }
+
+  // A 200 carrying HTML is an interstitial wearing a success code.
+  if (!isJson) {
+    return { signedIn: false, configured: false, fault: 'not-json', status: res.status }
+  }
+
+  try {
+    const payload = await json<{ signedIn?: boolean; configured?: boolean }>(res)
+    return {
+      signedIn: Boolean(payload.signedIn),
+      configured: Boolean(payload.configured),
+      fault: null,
+      status: res.status,
+    }
+  } catch {
+    return { signedIn: false, configured: false, fault: 'not-json', status: res.status }
   }
 }
 

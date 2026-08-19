@@ -1,9 +1,7 @@
-import { createHandler } from './index'
+import { handleLeadPatch, handleLeads } from '../server/api'
+import { vercelRoute } from '../server/vercel'
 
-/**
- * /api/leads, as a Vercel Function.
- *
- * Vercel routes by file, so each endpoint needs its own module even though the
- * routing and the logic are shared. See api/index.ts.
- */
-export default createHandler()
+/** GET/PATCH /api/leads, as a Vercel Function. */
+export default vercelRoute((req, res, body) =>
+  req.method === 'PATCH' ? handleLeadPatch(req, res, body) : handleLeads(req, res),
+)

@@ -6,7 +6,7 @@ import type { Lead, PainId, SubmissionStatus } from '../domain/types'
 import { isPlanSubmission } from '../domain/types'
 import { loadSubmissions, mergeServerLeads, subscribe, updateSubmission } from '../store/submissions'
 import { resumeStalledDrafts, runDraft } from '../ai/drafting'
-import { fetchLeads, patchLeadStatus, readSession, signOut } from './session'
+import { fetchLeads, patchLeadStatus, readSession, signOut, type SessionFault } from './session'
 
 import { SignIn } from './screens/SignIn'
 import { Inbox } from './screens/Inbox'
@@ -32,6 +32,10 @@ const POLL_MS = 20_000
 export function OperatorApp() {
   const [session, setSession] = useState<'checking' | 'out' | 'in'>('checking')
   const [configured, setConfigured] = useState(true)
+  // Why /api/session could not be believed, if it could not be. Kept distinct
+  // from `configured`: a transport fault says nothing about the credential.
+  const [fault, setFault] = useState<SessionFault | null>(null)
+  const [faultStatus, setFaultStatus] = useState<number | undefined>(undefined)
   const [leads, setLeads] = useState<Lead[]>([])
   const [storage, setStorage] = useState<'kv' | 'memory' | 'device'>('device')
   const [openId, setOpenId] = useState<string | null>(null)
@@ -39,6 +43,8 @@ export function OperatorApp() {
   useEffect(() => {
     void readSession().then((state) => {
       setConfigured(state.configured)
+      setFault(state.fault)
+      setFaultStatus(state.status)
       setSession(state.signedIn ? 'in' : 'out')
     })
   }, [])
@@ -140,7 +146,12 @@ export function OperatorApp() {
     return (
       <div className="op-canvas">
         <main className="op-frame">
-          <SignIn configured={configured} onSignedIn={() => setSession('in')} />
+          <SignIn
+            configured={configured}
+            fault={fault}
+            status={faultStatus}
+            onSignedIn={() => setSession('in')}
+          />
         </main>
       </div>
     )

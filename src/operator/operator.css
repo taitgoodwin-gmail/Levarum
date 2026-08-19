@@ -1019,3 +1019,26 @@
     min-height: 100vh;
   }
 }
+
+/* The fault notice. It carries a heading, a body and a command, so it needs
+   more room than the single-sentence version it replaces. */
+.op-signin-closed strong {
+  display: block;
+  font-family: var(--lv-t-display);
+  font-weight: 700;
+  margin-bottom: var(--lv-s-2);
+}
+
+.op-signin-closed p {
+  margin: 0 0 var(--lv-s-3);
+}
+
+.op-signin-closed p:last-child {
+  margin-bottom: 0;
+}
+
+.op-signin-diag code {
+  font-family: var(--lv-t-mono);
+  font-size: var(--lv-t-xs);
+  word-break: break-all;
+}

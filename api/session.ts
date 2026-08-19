@@ -1,9 +1,11 @@
-import { createHandler } from './index'
+import { handleSession } from '../server/api'
+import { vercelRoute } from '../server/vercel'
 
 /**
- * /api/session, as a Vercel Function.
+ * GET/POST/DELETE /api/session, as a Vercel Function.
  *
- * Vercel routes by file, so each endpoint needs its own module even though the
- * routing and the logic are shared. See api/index.ts.
+ * Bound directly to the session handler. It cannot answer 404 because of a
+ * path-string mismatch, which is the failure the console previously reported
+ * to the user as "no operator credential is set on this deployment".
  */
-export default createHandler()
+export default vercelRoute(handleSession)

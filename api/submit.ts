@@ -1,9 +1,5 @@
-import { createHandler } from './index'
+import { handleSubmit } from '../server/api'
+import { vercelRoute } from '../server/vercel'
 
-/**
- * /api/submit, as a Vercel Function.
- *
- * Vercel routes by file, so each endpoint needs its own module even though the
- * routing and the logic are shared. See api/index.ts.
- */
-export default createHandler()
+/** POST/PATCH /api/submit, as a Vercel Function. */
+export default vercelRoute(handleSubmit)
