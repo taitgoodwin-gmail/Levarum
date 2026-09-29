@@ -1,12 +1,17 @@
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
+import leadHandler from './api/leads.ts'
 
-// Everything under server/ and src/domain/ is reachable from this file, which
-// means Node's native TypeScript loader resolves it. That loader needs explicit
-// file extensions, so imports in those two directories carry `.ts`. App code
-// under src/prospect and src/operator goes through Vite and does not.
-import { draftApiPlugin } from './server/vitePlugin.ts'
-
-export default defineConfig({
-  plugins: [react(), draftApiPlugin()],
+export default defineConfig(({ mode }) => {
+  const env = loadEnv(mode, process.cwd(), '')
+  for (const key of ['BLOB_READ_WRITE_TOKEN', 'BLOB_STORE_ID', 'RESEND_API_KEY', 'LEAD_EMAIL_FROM']) {
+    if (env[key]) process.env[key] = env[key]
+  }
+  return { plugins: [react(), {
+    name: 'pilot-api',
+    configureServer(server) {
+      server.middlewares.use('/api/leads', (req, res) => { void leadHandler(req, res) })
+      server.middlewares.use('/api/draft', (_req, res) => { res.statusCode = 404; res.end('Not found') })
+    },
+  }] }
 })

@@ -1124,3 +1124,23 @@
     font-size: 15px;
   }
 }
+
+/* Public pilot: accessible native controls and honest request states. */
+.pilot-frame .p-field-label { display: block; margin-top: 24px; }
+.pilot-frame .p-input { width: 100%; min-height: 48px; font: inherit; }
+.pilot-frame textarea.p-input { height: auto; }
+.pilot-fieldset { border: 0; padding: 0; margin: 20px 0; min-width: 0; }
+.pilot-choice { cursor: pointer; gap: 14px; }
+.pilot-choice input, .pilot-consent input { width: 20px; height: 20px; flex: 0 0 20px; accent-color: var(--ember-deep); }
+.pilot-consent { display: flex; align-items: flex-start; gap: 12px; margin: 22px 0; font-size: 15px; }
+.pilot-trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.pilot-frame .p-cta { margin-top: 16px; }
+.pilot-frame .p-cta:disabled { opacity: .65; cursor: wait; }
+.pilot-frame .p-back { width: auto; }
+.pilot-footer { margin-top: 48px; border-top: 1px solid var(--line); padding-top: 20px; font-size: 14px; }
+.pilot-footer a, .pilot-consent a, .pilot-privacy a { color: inherit; text-underline-offset: 3px; }
+.pilot-frame .p-wordmark { text-decoration: none; color: inherit; }
+.pilot-frame .p-step-count { max-width: 145px; text-align: right; }
+.pilot-privacy { margin: 32px auto; }
+.pilot-privacy h2 { font-size: 22px; margin-top: 28px; }
+@media print { .pilot-frame button, .pilot-footer { display: none; } .p-canvas, .p-frame { background: white; box-shadow: none; } }
