@@ -1,6 +1,6 @@
 # Preview verification — migration and redesign evidence
 
-This is dated evidence for the design-migration/redesign branch, not production-release acceptance. Production remains the earlier pilot. The current review preview is protected by Vercel account access. The [wordmark/recovery checkpoint](#wordmark-and-recovery-preview--2026-09-30) is the latest verified application deployment and supersedes earlier results only for its explicitly repeated checks. Task-first/v2 private-record and Lighthouse results remain tied to source8989; all earlier sections retain their historical scope.
+This is dated evidence for the design-migration/redesign branch, not production-release acceptance. Production remains the earlier pilot. The current tested application is d3c0a824 at https://levarum-epjcu3fu0-mind-lever-gmail.vercel.app; see [current public release checks](PUBLIC-RELEASE-CHECKS.md) and [current baseline](README.md). Earlier sections below retain their own source/deployment scope, including real persistence and Lighthouse evidence. A later documentation commit does not relabel an earlier test run.
 
 ## Observed results
 

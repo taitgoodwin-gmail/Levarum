@@ -34,3 +34,18 @@ Blob is durable submission content. PostgreSQL holds index/current status/audit 
 | A08 | Production identity/resources/recovery/backup/rollback and review routine documented/tested. | Isolated production Neon/schema and Clerk DNS/certificates verified; synthetic combined SQL/Blob recovery passed. Production Clerk binding/owner operation, backup custody/routine, rollback and operating commitments remain open. |
 
 See [verification](verification.md) for evidence limitations and [operations](OPERATIONS.md) for secure configuration names and recovery. No credentials, account IDs, real customer fixtures, paid service commitments or destructive migrations belong in this redesign documentation.
+
+## Prepared current-owner verification
+
+A private local manifest, `work/owner-release/fixtures.json`, now derives exactly three known synthetic preview IDs and direct detail routes from the post-scope submission evidence, using the actual lead/partner parsers and source-path hash. The preparation checks the synthetic email and consent; it makes no network request or mutation. Do not copy these preview IDs into production tests or assume their previous status/version is current.
+
+After a legitimate fresh sign-in, execute the following against the tested application and record actual results separately:
+
+1. Open each allowlisted detail route; verify type, supplied answers, consent, manual follow-up wording and current status/history. Keep screenshots synthetic; never export a general customer inbox as evidence.
+2. Verify inbox type/status filters, retained filter query on detail/back/refresh, empty and loading/error states, keyboard access and narrow/wide layouts in both themes. Restrict inspection to authorized synthetic preview records.
+3. Fetch the selected synthetic record's current version before changing status. Check valid states, persistence after refresh and that Booked appears only for calls. No email is sent.
+4. Use two legitimate views of the same current version for a controlled conflict; expect one accepted update and one409. Refresh the losing view. Replay the same successful mutation ID only for its original unchanged body and verify history is not duplicated. Existing direct-store evidence is not a substitute for this authenticated browser/API result.
+5. Test bounded reconciliation only on the known isolated preview store; verify completion and that current status/history are unchanged. Do not run a production store scan as part of preview testing.
+6. Exercise expiry/denial using a legitimate test session. For logout replay, keep the pre-logout bearer only in transient test memory, never logs/files; log out normally, then require denial of the retained token and clear it. Verify private content remains absent after Back, focus/visibility changes and refresh. Report a missing legitimate non-owner session as unavailable; never change the owner allowlist to manufacture a pass.
+
+This is execution preparation, not evidence that these owner cases passed. Production tests require the verified production identity and newly isolated synthetic records, followed by their own exact deployment results.
