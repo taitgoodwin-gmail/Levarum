@@ -1,0 +1,23 @@
+import {readFileSync,writeFileSync,mkdirSync} from 'node:fs'
+const versions=[['wireframes','MindLever Wireframes.dc.html','Wireframes'],['high-fidelity','MindLever Hi-Fi.dc.html','High-fidelity screens'],['prototype','MindLever Prototype.dc.html','Interactive prototype'],['prototype-v2','MindLever Prototype v2.dc.html','Workflow prototype']]
+mkdirSync('public/designs',{recursive:true})
+for(const [slug,file,title] of versions){
+ const raw=readFileSync(`design/project/${file}`,'utf8')
+ let template=raw.match(/<x-dc>([\s\S]*?)<\/x-dc>/)[1].replaceAll('MindLever','Levarum')
+ template=template.replaceAll('operator@mindlever.co','operator@example.com').replaceAll('Stored on this device. Refresh-safe.','Sample data. Resets when refreshed.').replaceAll('Claude drafts the approach for the operator.','a sample approach appears for the operator.').replaceAll('Regenerate with Claude','Regenerate sample draft')
+ template=template.replaceAll('Unlocking the plan writes a real record to on-device storage. The operator console reads that store as a live inbox, and Claude drafts the approach from the intake answers. Refresh-safe.','Explore the intake, sample Game Plan and operator inbox. This preview keeps demo data in memory and resets when refreshed.').replaceAll('Unlocking writes a submission to on-device storage (a stand-in for the real database). The operator console reads that store as an inbox — booking a call flips the record\'s status. Claude generates each draft approach from the intake answers and picks a real-world workflow per pain from the solution catalog (Claude, Zapier, RingCentral, Cal.com, Calendly, Stripe, QuickBooks, HubSpot, Twilio, Make…). Operators can swap options; effort and tooling cost roll up automatically. If Claude is unreachable, a deterministic draft is used and labelled. Email and scheduling are simulated.','The demo inbox uses temporary sample data. Drafts use a fixed example; no AI service is called. Explore workflow options, example effort estimates and a simulated booking. Refreshing resets the demo.').replaceAll('Claude is drafting the approach…','Preparing the sample approach…')
+ const head=template.match(/<helmet>([\s\S]*?)<\/helmet>/)?.[1]||''
+ template=template.replace(/<helmet>[\s\S]*?<\/helmet>/,'')
+ let logic=raw.match(/<script type="text\/x-dc"[\s\S]*?>([\s\S]*?)<\/script>/)[1].replaceAll('MindLever','Levarum').replaceAll('React.createRef()','({current:null})')
+ logic=logic.replaceAll('casey@brightpathplumbing.com','casey@example.com').replaceAll('dana@rivergateclinic.com','dana@example.com').replaceAll('marcus@haleaccounting.com','marcus@example.com')
+ if(slug==='prototype-v2'){
+  const start=logic.indexOf('  async generateDraft(id) {'), end=logic.indexOf('  parseJSON(raw)',start)
+  logic=logic.slice(0,start)+`  async generateDraft(id) { this.updateSub(id, s => ({draft:{...s.draft,status:'ready',source:'fallback'}})); }\n`+logic.slice(end)
+  logic=logic.replaceAll("'new', 'ai'","'new', 'fallback'").replaceAll("'contacted', 'ai'","'contacted', 'fallback'")
+ }
+ const warning='Design preview only. Sample figures, simulated booking and sign-in. No real leads, emails, or appointments are created.'
+ const header=`<header class="gallery-bar"><a href="/designs/">← All designs</a><strong>${title}</strong><a href="/">Live site ↗</a></header>`
+ const extras=slug.startsWith('prototype')?`<nav id="screens" aria-label="Preview screens"></nav><details class="tweaks"><summary>Design controls</summary><label>Spark <select id="spark"><option value="ember">Ember</option><option value="blue">Blue</option><option value="forest">Forest</option><option value="violet">Violet</option></select></label><label>Voice <select id="voice"><option>plain</option><option>punchy</option></select></label><label>Density <select id="density"><option>calm</option><option>compact</option></select></label></details>`:''
+ writeFileSync(`public/designs/${slug}.html`,`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>Levarum · ${title}</title>${head}<link rel="stylesheet" href="/designs/gallery.css"></head><body>${header}${extras}<aside class="gallery-note">${warning}</aside><main id="design-root"></main><template id="design-template">${template}</template><script type="module" src="/designs/${slug}.js"></script></body></html>`)
+ writeFileSync(`public/designs/${slug}.js`,`import {DCLogic,mount} from './runtime.js';\n// Preview storage is memory only and cannot access live submissions.\nconst memory=new Map(); const localStorage={getItem:k=>memory.get(k),setItem:(k,v)=>memory.set(k,v)};\n${logic}\nmount(Component,${JSON.stringify(slug)});\n`)
+}
