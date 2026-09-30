@@ -1,6 +1,6 @@
 # Visual concept review — Levarum
 
-Date: 2026-09-30. Author: senior UX/content agent collaborating with BA and engineering. Status: expert concept recommendation for editable Figma exploration; no new concept implementation or user-study results asserted here. Scope: current marketing/intake source, the retained `levarum-redesign-mobile.png` screenshot (390 × 4242), and official Figma guidance. This document does not replace the existing launch gates.
+Date: 2026-09-30. Author: senior UX/content agent collaborating with BA and engineering. **Current status: concept and brand selection complete for preview; final production visual approval remains open.** The initial critique and A/B proposals below are retained as decision history. The dated selection closeout at the end records what was actually selected and inspected. No participant-study results are asserted. This document does not replace the existing launch gates.
 
 ## Basis and limits
 
@@ -101,3 +101,32 @@ Recommendation: construct both concepts in Figma; choose A for the public narrat
 Minimum prototype frames: A/Home desktop+mobile; B/Home desktop+mobile; selected Explorer empty/selected; contact email/call/validation/pending/failure/receipt; partner form/failure/receipt; owner inbox/detail/conflict/session-ended. Supplement with320px and dark-mode representative frames, logo comparison and component states. Link a complete representative journey; annotations name retained inputs, consent reset, unchanged retry identity and durable-save-only receipt.
 
 Acceptance walkthroughs: rushed mobile owner finds a relevant example without giving email; skeptical consultant explains what is hypothetical and what service is offered; ready-to-talk visitor reaches contact without unrelated required questions; partner understands there is no offer of work; owner finds and replies to a synthetic request, distinguishes call request from booking, and recovers from a stale update. These are test scenarios, not completed participant results. Browser/accessibility/security tests remain separate evidence.
+
+
+## Selection closeout — 2026-09-30
+
+**Selected for the preview: Concept A’s editorial Home, Concept B’s task-first utility on `/start`, and Wordmark-first branding.** This is the team’s authorized expert selection, not a claim of owner production approval or measured conversion improvement. Original concept dimensions/copy above are historical proposals; current source and QA6 define the implemented composition.
+
+The two materially different concepts remain editable on [concept page16:2](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L?node-id=16-2): A desktop/mobile16:3/16:4, B desktop/mobile16:5/16:6. A gives a first-time visitor the service offer, illustrative process and human boundary before task selection. B provides immediate relevance once a visitor chooses to explore. Keeping them on separate routes avoids making the marketing page look like software that performs automation itself. Direct contact stays available for visitors who already know what they need.
+
+The final Home headline is “Make room for the work that needs you.” The service explanation, rather than the headline alone, says what Levarum does. Its invoice example has routine, disputed and missing-data scenarios; all are labeled illustrations. Compact task rows replace the repetitive catalog. The explorer chooses one task, shows editorial guidance locally, and does not require business type, hours or contact. These are deliberate departures from the initial proposals for a hero diagram, expandable task rows and possible multiple-task comparison.
+
+### Logo decision and inspected context
+
+The [three-direction board29:35](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L?node-id=29-35) was inspected again for this closeout. It retains refined Lift, Wordmark-first and Connected work, each in a light header, dark mobile navigation,16/24/32px symbol strip and monochrome lockup.
+
+| Direction | Selection judgment | Tradeoff retained |
+|---|---|---|
+| Refined Lift | Retain as an alternative. | It preserves continuity, but its familiar rising-arrow motif competes with navigation arrows and can suggest growth/results the service has not demonstrated. |
+| Wordmark-first | Selected. | The name is immediately legible and gives the editorial offer room. It is deliberately restrained rather than a highly distinctive standalone symbol; recognition is not measured. |
+| Connected work | Retain as an alternative. | The connected-step metaphor fits the work, but at small scale can resemble a generic integration/software icon and imply a software product. |
+
+The selected lockup is [29:25](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L?node-id=29-25): lowercase **levarum**, Schibsted Grotesk700,30px header,−0.03em tracking;26px footer and28px owner header use the same rule. It is typeset branding, not custom-drawn lettering. `src/ui/core/Logo.jsx` is the authoritative implementation. The selected [symbol29:27](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L?node-id=29-27) maps to `public/favicon.svg`: a compact L-shaped silhouette with a separated top bar. The earlier proposal of a petrol tile is superseded by this actual unboxed rust/light-theme and pale-rust/dark-theme SVG.
+
+Read-only hosted inspection on the `d3c0a8` candidate used1440px/light and390px/dark, with fonts loaded. The actual header wordmark measured114.33px wide in both contexts versus the116px Figma instance: same type rules, small renderer metrics difference, no clipping or competing adjacent icon. Opening the actual390px menu retains the wordmark and exposes text navigation, theme control and the direct-contact action.
+
+The actual favicon SVG was separately rendered at16px and32px, then as black-on-white and white-on-black silhouettes. The L and top bar remained distinguishable in the inspected raster. This confirms a usable small silhouette in those fixtures, not unaided brand recognition or browser-tab testing across every OS. The retained Figma monochrome board supplies the selected wordmark’s monochrome comparison as well.
+
+Evidence: chat work `work/levarum-reimagination/qa7/` contains matching-width hosted Home screenshots, the actual open mobile menu, `favicon-monochrome.png` and `results.json`; the source SVG and board29:35 supply traceable asset provenance. The [QA7 closeout](REIMAGINATION-DESIGN-QA.md#qa7--matching-width-comparison-and-design-acceptance-closeout-2026-09-30) records the application/Figma differences.
+
+**Stage3 acceptance: achieved for reversible design selection and preview handoff.** Alternatives, qualitative rationale, responsive selected frames, logo context/size/theme/monochrome inspection and source mapping now have explicit evidence. Production visual approval remains a separate owner decision.

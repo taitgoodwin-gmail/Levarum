@@ -95,11 +95,11 @@ When blocked, state the precise unresolved gate and continue unrelated authorize
 - [x] Comprehensive execution plan saved.
 - [x] Baseline and current gaps established.
 - [x] Offer, journeys and field rationale synchronized.
-- [ ] Figma alternatives and selected direction complete.
-- [ ] Full prototype/specification complete.
+- [x] Figma alternatives and selected direction complete (QA7 expert selection; owner production approval remains separate).
+- [x] Prototype/specification handoff complete (QA7; static forms and documented Figma execution differences).
 - [x] Application implemented and locally verified.
 - [x] Tested Vercel preview, PR and evidence delivered.
 - [ ] Production readiness and owner visual approval complete.
 - [ ] Production promotion, smoke checks and launch handoff complete.
 
-Milestone evidence as of 2026-09-30: current application source6b9a0f7 and the tested post-scope preview84663f5 are recorded in verification.md; documentation-only commitbfa506e also deployed successfully. Wordmark and failed-submission focus fixes are deployed. Local SQL recovery and selected-record cloud Blob recovery have passed their separate scopes; combined target-only application restoration also passed for three matching synthetic records/two events, as recorded in RECOVERY-PLAN.md. Completed preview milestones do not imply full prototype, owner session, production or visual approval completion.
+Milestone evidence as of2026-09-30: QA7 closes expert design selection and specification handoff with matching-width comparisons and explicit prototype limits. Applicationd3c0a824 is deployed and its affected hosted release, navigation, long-content and denial checks pass; earlier storage/performance evidence retains its original scope. SQL/Blob and combined selected-record recovery passed; local synthetic deletion mechanics passed. Production Clerk/owner and current authenticated journeys, operating/backup commitments and owner visual approval remain open. A preview is not completion of production launch.

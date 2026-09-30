@@ -4,7 +4,7 @@ Updated 2026-09-30. The active objective is [AUTONOMOUS-LAUNCH-PLAN.md](docs/AUT
 
 The [previous record](docs/archive/2026-09-30-before-evidence-sync/PLANS.md) is preserved verbatim as historical evidence. Its old questionnaire, no-API-change, earlier-preview and pending-redeployment statements are superseded here. Paths inside that archived copy are relative to its original repository-root location.
 
-The current tested preview is commit `84663f5` at [msf preview](https://levarum-msfizuxea-mind-lever-gmail.vercel.app), with application source `6b9a0f7`. [Current status](docs/README.md) and [verification](docs/verification.md) separate exact deployment evidence. Earlier checkpoints below are historical. Production remains unchanged.
+The current tested preview is application commit `d3c0a824` at [release preview](https://levarum-epjcu3fu0-mind-lever-gmail.vercel.app). Earlier persistence/performance evidence retains its original source/deployment scope; see docs/PUBLIC-RELEASE-CHECKS.md and docs/README.md.
 
 ## Task-first application checkpoint — historical source 8989
 
@@ -31,7 +31,7 @@ The UX agent owns core public Figma state completion on page18:2. Engineering ow
 
 ## Remaining release work
 
-1. Complete and compare responsive/theme/interaction specifications, including operator loading/empty/conflict/session states; apply reviewed brand consistently.
+1. Design selection and specification handoff are complete (QA7), with intentional prototype differences recorded. Remaining visual acceptance is the owner’s explicit production review; authenticated operator rendering is verified after login.
 2. Finish current authenticated owner walkthrough and live denied/expired/revoked checks using synthetic records. Owner sign-in request is pending; never extract credentials or weaken authorization.
 3. Correct any reproducible accessibility defects, document real AT/zoom/representative-user limitations, and verify the exact final preview after changes.
 4. Save/push source and evidence; update attached PR and preview report. Deployment-specific results belong to their exact commit/deployment.
@@ -65,3 +65,7 @@ Cloud Blob recovery and a combined application drill now pass for the same three
 After source599d2f2, actual browser checks found raw network/JSON errors and a low-contrast dark-theme print heading. Shared submission copy and print-only styles now correct those failures; public route metadata supplies canonical URLs/descriptions and unknown-route noindex.33 tests/build/typecheck/boundary and the bounded release browser suite pass. The suite covers eight routes, unknown-route recovery, contextual Back/refresh, both print themes and eight offline/real-timeout/429/malformed-response cases with unchanged-ID mocked retries. No API/private-source changes. The same bounded suite now passes on d3c0a824 at https://levarum-epjcu3fu0-mind-lever-gmail.vercel.app (dpl_Edn1UoLYzYPdNZpf2d9PzAaXVtD3). No real submissions were made in this follow-up. See PUBLIC-RELEASE-CHECKS.md and the launch acceptance matrix for exact scope.
 
 Figma QA6 connects103 public frames with1653 verified navigation reactions and no invalid targets across desktop-light/mobile-dark cohorts. Static forms, selected-cohort coverage, Present-mode behavior and remaining visual differences stay explicitly limited in REIMAGINATION-DESIGN-QA.md. This does not substitute for owner visual approval or live application tests.
+
+## Design and operational closeout
+
+QA7 completes stages3/4: matching hosted Home1440light/390dark comparison, actual menu/favicon/monochrome inspection and requirements→frames→code→acceptance mapping. Prototype forms and Present-mode behavior retain explicit limits. Public navigation/long-content/header checks and live anonymous/fabricated admin denials pass on d3c0a824. The operations runbook includes a tested localhost exact-record deletion procedure and copy/backup-custody handling; no cloud deletion or owner retention commitment is claimed.
