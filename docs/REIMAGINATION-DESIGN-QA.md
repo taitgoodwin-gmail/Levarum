@@ -173,3 +173,21 @@ These remain **source-informed specifications**, not pixel-perfect captures: nat
 Ledger: chat work `work/levarum-reimagination/shell-owner-node-ledger.json`; construction source `shell-owner-spec.js`. Combined QA2+QA3 additions total98 frames; counts alone do not establish completeness or usability.
 
 Remaining: Home's three scenario frames, full-shell integration into every QA2 contact frame, all task variants at all widths, real AT/zoom checks, exact final-preview visual comparison and authenticated owner testing. Static diagrams do not close those evidence gates.
+
+## QA4 — Home invoice scenario handoff (2026-09-30)
+
+Added six native editable worked-example excerpts on selected-state page `18:2`, preserving all earlier frames. This closes the representative Home scenario specification gap above, not full-page or all-breakpoint parity. Copy comes from the three `SCENARIOS` in `src/marketing/Pages.tsx`: the routine route uses approved wording; disputes require human review; missing payment data pauses action. Each includes the explicit human boundary and illustration-only notice, with no savings claim or customer data.
+
+| Scenario | 1440px light | 390px dark |
+|---|---|---|
+| Routine invoice | `46:640` | `46:799` |
+| Disputed invoice | `46:693` | `46:843` |
+| Missing payment data | `46:746` | `46:887` |
+
+The six frames contain 291 nodes, including reviewed wordmark instances (`29:25`), shared semantic color modes, text styles and Auto Layout. Twelve radio controls navigate between the other scenarios at the same width/theme. The selected radio has no redundant navigation. No image fills were introduced. These are static native Figma drawings of radio controls, not working HTML inputs: app arrow-key behavior and polite atomic status announcements are annotated, not verified by the prototype. Headers provide context; full Home hero, task index, engagement sections and footer are omitted from these excerpts.
+
+Inspected screenshots of desktop routine and dark mobile missing-data states. The initial desktop navigation clipped its CTA; expanded its container in all three desktop frames, then inspected the corrected desktop screenshot. The final inspected samples have readable wrapping, visible human boundaries and no clipping. This sample inspection does not certify all six frames or exact browser parity.
+
+Ledger: chat work `work/levarum-reimagination/home-scenario-node-ledger.json`; construction source `home-scenario-spec.js`. QA2–QA4 additions total 104 frames. Counts are inventory, not a completeness or usability score.
+
+Remaining bounded gaps: whole-page shell integration into QA2 contact states; other task variants across the full width/theme matrix; exact comparison against the final hosted preview; real browser UI zoom and assistive-technology checks; authenticated owner tests; representative-user research. Existing test evidence retains its own version and date. This design extension performs no API submission, authentication, email or live owner operation.

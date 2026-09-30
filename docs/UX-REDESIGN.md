@@ -1,5 +1,7 @@
 # Levarum UX redesign — current decisions and traceability
 
+Current delivery status and latest evidence are centralized in [README](README.md) and [verification](verification.md). The source8989 checkpoint below is retained as dated journey/contract evidence, not the latest deployment or a claim that later work remains undone.
+
 Current baseline: task-first exploration and direct contact, 2026-09-30. The user permits substantial brand, layout and journey changes to simplify the experience for visitors and operator. Current explorer/contact/v2 source is implemented and verified within the [task-first checkpoint](verification.md#task-first-and-v2-verification--2026-09-30): 32 tests/build/boundary, 80 local/hosted route-width-theme cases, targeted flows and exact synthetic private storage/transaction checks. Source8989c1c0d6853c608baf3c424edd34e9a99fe334 is on the [current preview](https://levarum-k09ohnt2g-mind-lever-gmail.vercel.app). Authenticated owner/manual accessibility, logo refinement/full-state alignment, final hosted performance and production gates remain open. This is coordinated AI-assisted BA/UX/engineering work, not research with representative users.
 
 ## Evidence boundaries and preserved history

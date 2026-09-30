@@ -142,3 +142,18 @@ Lighthouse scores are automated indicators, not proof of usable journeys or full
 Use the same local conditions for the redesigned build, and separately verify the final hosted application rather than benchmarking a deployment-protection page. Do not infer production SEO/indexing correctness from this local score; canonical URLs, metadata, robots policy and hosted responses need their own review.
 
 Sources: [Chrome: Lighthouse overview](https://developer.chrome.com/docs/lighthouse/overview) describes audit scope and workflows; [Chrome: performance scoring](https://developer.chrome.com/docs/lighthouse/performance/performance-scoring) explains score variability and why distributions are more useful than one run. The settings, thresholds and interpretation above distinguish source guidance from this project’s test choices.
+
+## Current application source 6b9a0f7 — hosted measurement, 2026-09-30
+
+Measured the actual app at https://levarum-cjhcj1631-mind-lever-gmail.vercel.app (deployment dpl_352C2wYRW8uVsbcU5irXd3DJTeBm). Eight audits completed with Lighthouse 13.5.0 / Chrome 154: three Home runs per device plus mobile Start and Contact. Every run verified the expected final route and actual application heading; HTTP status audit passed. The temporary preview access link established access before measurement without extracting an existing browser credential. Reports remain ignored/private under work/performance-baseline/isolation-hosted-reports.
+
+| Page/profile | Performance scores | Median LCP | CLS |
+|---|---|---|---|
+| Home mobile, 3 runs | 98 / 98 / 98 | 1.843 s | 0 each |
+| Home desktop, 3 runs | 100 / 100 / 100 | 0.485 s | 0.0102–0.0129 |
+| Start mobile, 1 run | 98 | 1.846 s | 0.0664 |
+| Contact mobile, 1 run | 98 | 1.868 s | 0 |
+
+All eight audits returned accessibility 100 and best practices 100, with no run warnings or runtime errors. SEO 63 is attributable to the preview x-robots-tag:noindex directive; keeping previews out of indexing is intentional. These scores do not prove real assistive-technology usability or production indexing.
+
+Mobile/desktop configSettings exactly match the earlier hosted measurement profiles. Current Home mobile median98 meets the project >=90 target (earlier hosted source8989 median90; frozen earlier local baseline median92). Different deployment/time/cache/network conditions prevent attributing the observed change to one code edit. This is lab evidence, not field p75 Core Web Vitals, INP or a conversion outcome.

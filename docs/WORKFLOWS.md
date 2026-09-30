@@ -1,5 +1,7 @@
 # User and operator journeys
 
+Current delivery status and latest evidence are centralized in [README](README.md) and [verification](verification.md). The source8989 checkpoint below is retained as dated journey/contract evidence, not the latest deployment or a claim that later work remains undone.
+
 Current target: task-first exploration and direct contact, 2026-09-30. [Requirements](REQUIREMENTS.md) and the [v2 contract](LEAD-V2-CONTRACT.md) define acceptance. The new public flows pass current API/build/browser/private-storage checks at the [recorded task-first deployment](verification.md#task-first-and-v2-verification--2026-09-30). Authenticated redesigned owner operation and manual accessibility remain unverified. The [previous questionnaire journeys](archive/2026-09-30-before-task-first/WORKFLOWS.md) preserve history; current evidence does not transfer between revisions or untested states.
 
 ## W01 — Understand the service and choose a next step
