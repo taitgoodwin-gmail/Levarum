@@ -19,6 +19,8 @@ export function createAdminAuthorizer({environment = () => process.env, clientFa
     const env = environment()
     const secretKey = env.CLERK_SECRET_KEY, publishableKey = env.VITE_CLERK_PUBLISHABLE_KEY
     const authorizedParties = (env.ADMIN_ALLOWED_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean)
+    // Vercel supplies this immutable deployment hostname; never derive trust from request headers.
+    if (env.VERCEL_ENV === 'preview' && env.VERCEL_URL) authorizedParties.push(`https://${env.VERCEL_URL}`)
     if (!secretKey || !publishableKey || !env.ADMIN_OWNER_USER_ID || !authorizedParties.length) {
       throw new AdminError(503, 'Admin setup is incomplete')
     }

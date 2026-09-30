@@ -4,3 +4,6 @@ work/
 design/current/
 docs/
 tests/
+
+.agents/
+skills-lock.json

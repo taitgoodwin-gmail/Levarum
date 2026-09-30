@@ -1,6 +1,6 @@
 # Secure owner dashboard — first-release plan
 
-> Implementation checkpoint (2026-09-29): public flows are implemented and verified in a hosted preview; private admin code is implemented but Clerk/Neon setup and live admin tests remain incomplete. Production is unchanged. [Verification](verification.md) and [operations](OPERATIONS.md) supersede historical planning-state statements below.
+> Implementation checkpoint (2026-09-30): public flows are implemented and browser-tested. Preview Clerk/Neon and isolated private Blob are provisioned; the verified owner ID is bound. Cloud persistence, reconciliation and concurrent status changes pass. Owner inbox/details/status/filter/reconciliation/logout browser checks passed. Production configuration/recovery and remaining negative-session probes remain gates. Production is unchanged. [Verification](verification.md) and [operations](OPERATIONS.md) supersede historical planning-state statements below.
 
 
 User decision: include a secure dashboard with a login for the owner/admin. This supersedes the earlier admin deferral. Owner login email is taitgoodwin@gmail.com (user-confirmed); public contact remains hello@levarum.com regardless of that choice. No accounts have been provisioned and no invitations sent.
@@ -9,7 +9,7 @@ User decision: include a secure dashboard with a login for the owner/admin. This
 
 Recommend Clerk for authentication, using its React integration in the separate Vite admin entry and its backend verification on every private endpoint. This retains the current application stack. Clerk documents React/Vite support and server verification; provider setup, available sign-in methods and costs must be checked during implementation, not assumed free.
 
-Use invite-only enrollment for the initial owner. After the owner verifies their chosen email, record their immutable provider user ID in a server-only owner allowlist. Authorization is based on that ID, not a client-provided role, email suffix or hidden navigation. An authenticated non-owner gets 403. Missing/invalid/expired credentials get 401. Public marketing, intake and partner submissions do not require accounts. Do not add public customer sign-up.
+Implemented preview enrollment uses an exact owner-email allowlist with subaddresses blocked. After the owner verifies their chosen email, record their immutable provider user ID in a server-only owner allowlist. Authorization is based on that ID, not a client-provided role, email suffix or hidden navigation. An authenticated non-owner gets 403. Missing/invalid/expired credentials get 401. Public marketing, intake and partner submissions do not require accounts. Do not add public customer sign-up.
 
 Use provider-managed sign-in and account recovery, not custom password storage. Prefer passwordless email verification for the selected inbox, with an additional factor or passkey where supported and configured. User enters credentials/codes directly. Confirm production account ownership, domains, verification/recovery access and session policy before launch. Require server session verification that enforces revocation, not merely a client redirect; verify replay after sign-out fails.
 

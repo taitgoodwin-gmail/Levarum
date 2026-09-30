@@ -1,6 +1,6 @@
 # Remaining implementation and release decisions
 
-> Implementation checkpoint (2026-09-29): public flows are implemented and verified in a hosted preview; private admin code is implemented but Clerk/Neon setup and live admin tests remain incomplete. Production is unchanged. [Verification](verification.md) and [operations](OPERATIONS.md) supersede historical planning-state statements below.
+> Implementation checkpoint (2026-09-30): public flows are implemented and browser-tested. Preview Clerk/Neon and isolated private Blob are provisioned; the verified owner ID is bound. Cloud persistence, reconciliation and concurrent status changes pass. Owner inbox/details/status/filter/reconciliation/logout browser checks passed. Production configuration/recovery and remaining negative-session probes remain gates. Production is unchanged. [Verification](verification.md) and [operations](OPERATIONS.md) supersede historical planning-state statements below.
 
 
 Status: planning only. Confirmed first release includes the public marketing site, intake, partner form, manual call requests AND a secure dashboard with a private owner/admin login. The administrator email is user-confirmed as taitgoodwin@gmail.com. This document supplements PLANS.md and does not authorize execution.

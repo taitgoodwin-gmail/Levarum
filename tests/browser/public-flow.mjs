@@ -16,10 +16,10 @@ page.on('request',r=>{if(r.method()==='POST'&&/\/api\/(leads|partners)$/.test(r.
 for(const width of [320,390,768,1440]){
  await page.setViewportSize({width,height:900})
  for(const path of ['/','/how-it-works','/what-we-automate','/questions','/partners','/start','/privacy','/admin','/not-found']){
-  await page.goto(base+path);await page.locator('h1').waitFor()
+  await page.goto(base+path);await page.locator('h1').first().waitFor()
   const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)
   assert.equal(overflow,false,`Overflow ${path} at ${width}`)
-  assert.ok((await page.locator('h1').innerText()).length)
+  assert.ok((await page.locator('h1').first().innerText()).length)
   evidence.push({path,width,overflow})
   if([320,1440].includes(width)&&['/','/partners','/admin','/start'].includes(path)){await page.waitForTimeout(1000);await page.screenshot({path:`${out}/${width}-${path==='/'?'home':path.slice(1)}.png`,fullPage:true})}
  }
@@ -31,12 +31,12 @@ assert.equal(await page.getByLabel('What kind of business is this?').inputValue(
 await page.getByRole('radio',{name:'Under 5 hours',exact:true}).focus();await page.keyboard.press('ArrowRight');assert.ok(await page.getByRole('radio',{name:'5 to 15 hours',exact:true}).isChecked())
 await page.getByRole('button',{name:'Next',exact:true}).click();await page.getByRole('button',{name:'Next',exact:true}).click();assert.ok(await page.getByRole('alert').isVisible())
 await page.getByRole('checkbox',{name:'Chasing invoices and payments'}).check();await page.getByRole('button',{name:'Next',exact:true}).click();await page.getByRole('button',{name:'Build my Game Plan',exact:true}).click()
-await page.getByRole('button',{name:'← Back a step'}).focus();await page.keyboard.press('Enter');assert.match(await page.locator('h1').innerText(),/put together/)
+await page.getByRole('button',{name:'← Back a step'}).focus();await page.keyboard.press('Enter');assert.match(await page.locator('h1').first().innerText(),/put together/)
 await page.getByRole('button',{name:'Build my Game Plan',exact:true}).click()
 await page.getByRole('button',{name:'Save and view my plan'}).click();assert.equal(await page.getByLabel('Email',{exact:true}).getAttribute('aria-invalid'),'true')
 await page.getByLabel('Email',{exact:true}).fill('levarum-preview-check@example.com');await page.locator('#consent').check()
 await page.route('**/api/leads',route=>route.fulfill({status:503,contentType:'application/json',body:'{"error":"synthetic failure"}'}))
-await page.getByRole('button',{name:'Save and view my plan'}).click();await page.getByRole('alert').waitFor();assert.equal(await page.getByLabel('Email',{exact:true}).inputValue(),'levarum-preview-check@example.com');assert.match(await page.locator('h1').innerText(),/ready/)
+await page.getByRole('button',{name:'Save and view my plan'}).click();await page.getByRole('alert').waitFor();assert.equal(await page.getByLabel('Email',{exact:true}).inputValue(),'levarum-preview-check@example.com');assert.match(await page.locator('h1').first().innerText(),/ready/)
 await page.unroute('**/api/leads')
 await page.getByRole('button',{name:'Save and view my plan'}).click();await page.getByRole('heading',{name:'A few jobs worth exploring.'}).waitFor({timeout:30000})
 assert.equal(submissions[0].body.requestId,submissions[1].body.requestId)

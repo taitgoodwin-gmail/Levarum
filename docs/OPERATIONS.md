@@ -2,17 +2,17 @@
 
 ## Current environment
 
-Production is the previous pilot. This branch is a review preview. Public submissions save privately to the existing Vercel Blob store. The separate admin app is implemented but fails closed until Clerk and PostgreSQL provisioning is completed. The public build must never include the admin entry or server dependencies.
+Production remains the previous pilot. The review preview now has Clerk development authentication, Neon Free PostgreSQL, and a separate private preview Blob store. Preview/development writes use PREVIEW_READ_WRITE_TOKEN; production explicitly uses BLOB_READ_WRITE_TOKEN. No production lead reconciliation was performed. The public bundle cannot import the admin entry or server SDKs.
 
-## Provider setup still required
+## Provisioned preview services
 
-The requested marketplace provisioning commands selected Clerk `hobby_2025_08` ($0/month) and Neon `free_v3`, region iad1, built-in Neon auth disabled. Both returned `integration_terms_acceptance_required`; the owner must accept those provider terms in Vercel. Retry provisioning after acceptance, first for preview/development only. Do not silently select a paid plan.
+After the owner accepted marketplace terms, Clerk Hobby and Neon Free (iad1, Neon auth disabled) were provisioned for preview/development. No paid plan was selected. Clerk enrollment is restricted by an exact email allowlist to taitgoodwin@gmail.com, with subaddresses blocked. This is restricted self-enrollment, not an emailed invitation. The owner completed verification; the verified primary-email account's immutable ID is configured server-side as ADMIN_OWNER_USER_ID. Both that ID and the verified exact primary email are checked on every admin request.
 
-Configure Clerk restricted enrollment and invite the owner through the normal provider UI. The owner completes verification. Record the verified account's immutable Clerk user ID as ADMIN_OWNER_USER_ID. The API also checks that the primary email is verified and exactly taitgoodwin@gmail.com. Neither client-side roles nor email alone grant access. Configure recovery and test it with the owner.
+Server configuration: CLERK_SECRET_KEY, ADMIN_OWNER_USER_ID, ADMIN_ALLOWED_ORIGINS (comma-separated exact trusted origins), DATABASE_URL, and the environment-specific private Blob token. The only client configuration is VITE_CLERK_PUBLISHABLE_KEY. The marketplace public key is mapped to this Vite name. Secret values stay in Vercel and ignored env files.
 
-Server configuration: CLERK_SECRET_KEY, ADMIN_OWNER_USER_ID, ADMIN_ALLOWED_ORIGINS (comma-separated exact trusted origins), DATABASE_URL, BLOB_READ_WRITE_TOKEN. The only client configuration is VITE_CLERK_PUBLISHABLE_KEY. If the marketplace creates a differently named publishable variable, map its public value to this Vite name. Never prefix a secret with VITE_. Keep all secret values in Vercel/ignored env files, not source or chat.
+Preview authorization also trusts Vercel's platform-supplied immutable VERCEL_URL. It never derives trusted origins from request headers. A deployment hostname change requires a fresh browser sign-in. Configure explicit stable production origins before release.
 
-Use isolated resources for provider development/preview and production. The existing Blob integration currently connects the same private store to all environments; verification therefore reads only exact synthetic keys. Do not reconcile production customer records into a preview database. Establish isolation before admin reconciliation tests.
+Production Clerk/domain setup, production database isolation, owner recovery, and provider backup/restore verification remain release gates. Do not promote a development Clerk instance as the production authentication setup.
 
 ## Admin API
 
@@ -24,6 +24,6 @@ Blob is the durable submission record. PostgreSQL stores the index and status hi
 
 ## Release and recovery
 
-Local PostgreSQL transactional behavior passed the opt-in test in tests/postgres.integration.mjs. Do not promote this preview until owner login, Neon integration/reconciliation, mobile admin, manual review cadence and visual review pass. Before promotion record the previous production deployment ID. A rollback changes application code, not customer records. Do not delete Blob data or drop tables during rollback.
+Local PostgreSQL transactional behavior passed the opt-in test in tests/postgres.integration.mjs. Neon persistence, concurrent updates and private Blob reconciliation now also pass with isolated synthetic records. Do not promote until browser admin verification, production authentication/resources, recovery, manual review cadence and visual review pass. Before promotion record the previous production deployment ID. A rollback changes application code, not customer records. Do not delete Blob data or drop tables during rollback.
 
 Confirm provider backup/restore availability and retention on the selected plan before production. There is no verified automated retention/deletion job. For a deletion request, verify identity privately and remove matching content, index and associated records consistently using an audited procedure; do not publish personal data in tickets or logs.

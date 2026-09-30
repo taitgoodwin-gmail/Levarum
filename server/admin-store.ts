@@ -1,3 +1,4 @@
+import { blobToken } from './blob-config.ts'
 import { Pool } from 'pg'
 import { createHash } from 'node:crypto'
 import { get, list } from '@vercel/blob'
@@ -22,7 +23,7 @@ export async function indexLead(key:string,date=new Date()){
 }
 export async function syncPage(){
  const d=await db();const c=await d.connect()
- try{await c.query('BEGIN');const {rows}=await c.query('SELECT cursor FROM levarum_sync WHERE id=1 FOR UPDATE');const result=await list({prefix:'leads/',limit:50,cursor:rows[0].cursor||undefined})
+ try{await c.query('BEGIN');const {rows}=await c.query('SELECT cursor FROM levarum_sync WHERE id=1 FOR UPDATE');const result=await list({token:blobToken(),prefix:'leads/',limit:50,cursor:rows[0].cursor||undefined})
  for(const blob of result.blobs){if(!validLeadKey(blob.pathname))continue;const id=createHash('sha256').update(blob.pathname).digest('hex');await c.query('INSERT INTO levarum_lead_index(id,source_key,kind,received_at) VALUES($1,$2,$3,$4) ON CONFLICT(source_key) DO NOTHING',[id,blob.pathname,blob.pathname.split('/')[1],blob.uploadedAt])}
  await c.query('UPDATE levarum_sync SET cursor=$1,last_complete=CASE WHEN $1::text IS NULL THEN now() ELSE last_complete END WHERE id=1',[result.hasMore?result.cursor:null]);await c.query('COMMIT');return {hasMore:result.hasMore}
  }catch(e){await c.query('ROLLBACK');throw e}finally{c.release()}
@@ -35,7 +36,7 @@ export async function readInbox(page:number,kind:string,status:string){
 export async function readDetail(id:string){
  const d=await db();const {rows}=await d.query('SELECT * FROM levarum_lead_index WHERE id=$1',[id]);if(!rows[0])throw new AdminError(404,'Request not found')
  if(!validLeadKey(rows[0].source_key))throw new AdminError(404,'Request not found')
- const blob=await get(rows[0].source_key,{access:'private',useCache:false});if(!blob||blob.statusCode!==200)throw new AdminError(404,'Saved submission unavailable')
+ const blob=await get(rows[0].source_key,{token:blobToken(),access:'private',useCache:false});if(!blob||blob.statusCode!==200)throw new AdminError(404,'Saved submission unavailable')
  const lead=await new Response(blob.stream).json()
  const events=await d.query('SELECT old_status,new_status,actor,created_at,version FROM levarum_status_events WHERE lead_id=$1 ORDER BY version DESC',[id])
  const {source_key:_,...record}=rows[0];return {record,lead,events:events.rows}

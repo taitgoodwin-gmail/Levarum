@@ -111,3 +111,13 @@ Discovery: npm was absent from shell PATH; the existing bundled Node 24.19.0 and
 Provider decision: Clerk Hobby and Neon Free were selected for development/preview. Both marketplace commands returned integration_terms_acceptance_required and created no usable configured service. Owner action is required only for that provider step and later identity verification. No paid plan was selected.
 
 Final review checkpoint: application commit cf088592685b8bd39443d82b984d535ca837eec2; draft PR #4; READY Vercel preview https://levarum-l8p152zh0-mind-lever-gmail.vercel.app (dpl_86fx5d4AmN8YueQw8qAvZPhvKdwj). Node 24 build/typecheck and 16 API/security tests pass. An isolated real PostgreSQL 18.4 integration test additionally verified concurrent stale-write conflicts, persisted status/history, index/mutation idempotence and partner status restrictions. Cloud provisioning, Blob reconciliation into the cloud database and actual Clerk owner login remain gates. No production promotion occurred.
+
+
+## Provider continuation — 2026-09-30
+
+Owner accepted provider terms. Clerk Hobby and Neon Free were provisioned for preview/development, along with a separate private Blob store. The verified exact owner primary-email account is now bound by immutable server-only ID. Restricted self-enrollment uses the provider email allowlist; no invitation email was sent. Production is unchanged.
+
+Real cloud tests passed synthetic plan/call/partner saves, exact private reads, Neon index persistence, reconciliation of a deliberately removed synthetic index row, concurrent stale-write rejection and idempotent status history. All 17 API/security tests and build/typecheck pass. Preview dpl_77429kfzBAfnf1e8LghqmrkhnUZa is READY at https://levarum-2f9vhhm0b-mind-lever-gmail.vercel.app. Browser owner/admin verification is in progress. Production provider setup, recovery, review cadence and visual approval remain gates.
+
+
+Owner browser acceptance: inbox, private details, keyboard status update with persisted history, type/status filtering, reconciliation and logout/Back clearing passed. Clerk confirmed the session ended. Anonymous private Blob reads returned 403; hosted missing/fabricated admin tokens returned 401. Refreshed public browser suite passed all 36 viewport/route checks and synthetic form flows. A 320px audit-ID overflow was fixed and its built CSS passes four-width regression checks. Final preview is https://levarum-moq3w4uv1-mind-lever-gmail.vercel.app, dpl_6bNR8R7f5Z2Aeub47RVNvn5xmXwU. No production promotion.

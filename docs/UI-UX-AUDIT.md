@@ -148,7 +148,7 @@ This table reports evidence from the implemented preview. Original findings abov
 
 | Finding | Current evidence / status |
 |---|---|
-| UX01 | Server ID allowlist, verified owner email and live session checks implemented; negative paths tested with injected provider responses. Real Clerk login/recovery/revocation blocked by setup. **Open release gate.** |
+| UX01 | Server ID allowlist, verified owner email and live session checks implemented; negative paths tested with injected provider responses. Real owner enrollment/verification and immutable ID binding passed. Owner inbox/details/status updates and logout/Back clearing passed in a real browser; provider confirms the session ended. Recovery and remaining negative-session probes are tracked in verification.md. **Open release gate.** |
 | UX02 | Hosted synthetic plan/call/partner saves privately retrieved; failed plan submission retains inputs; call receipt explicitly unbooked. Public fix verified. |
 | UX03 | Personalized savings numbers removed. Qualitative opportunities cannot exceed reported hours. Static design figures are explicitly illustrative, not customer outcomes. |
 | UX04 | New stacked admin CSS implemented; setup page passes mobile overflow checks. Populated owner inbox awaits real authentication/data. **Not fully verified.** |

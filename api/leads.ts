@@ -1,3 +1,4 @@
+import { blobConfigured } from '../server/blob-config.ts'
 import { indexLead } from '../server/admin-store.ts'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { createHash } from 'node:crypto'
@@ -49,7 +50,7 @@ type LeadDependencies = {
   notify: (lead: Lead) => Promise<void>
 }
 const defaults: LeadDependencies = {
-  configured: () => Boolean(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID),
+  configured: blobConfigured,
   save: async lead => {
     await savePrivateRecord(leadPath(lead), lead)
     if (process.env.DATABASE_URL) { try { await indexLead(leadPath(lead)) } catch { console.error('Lead saved; dashboard indexing pending reconciliation') } }

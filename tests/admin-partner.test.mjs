@@ -70,3 +70,14 @@ test('authorization checks session token policy, live revocation and verified ow
  await assert.rejects(()=>authorize({...req,headers:{origin:'https://preview.example.com'}}),e=>e.status===401)
  await assert.rejects(()=>authorize({...req,headers:{...req.headers,origin:'https://attacker.example.com'}}),e=>e.status===403)
 })
+
+test('preview Blob credentials are never used by production',async()=>{
+ const {blobToken}=await import('../server/blob-config.ts')
+ const saved={environment:process.env.VERCEL_ENV,preview:process.env.PREVIEW_READ_WRITE_TOKEN,production:process.env.BLOB_READ_WRITE_TOKEN}
+ try{
+ process.env.PREVIEW_READ_WRITE_TOKEN='synthetic-preview';process.env.BLOB_READ_WRITE_TOKEN='synthetic-production'
+ process.env.VERCEL_ENV='preview';assert.equal(blobToken(),'synthetic-preview')
+ process.env.VERCEL_ENV='production';assert.equal(blobToken(),'synthetic-production')
+ delete process.env.VERCEL_ENV;assert.equal(blobToken(),'synthetic-preview')
+ }finally{for(const [key,value] of Object.entries({VERCEL_ENV:saved.environment,PREVIEW_READ_WRITE_TOKEN:saved.preview,BLOB_READ_WRITE_TOKEN:saved.production})){if(value===undefined)delete process.env[key];else process.env[key]=value}}
+})
