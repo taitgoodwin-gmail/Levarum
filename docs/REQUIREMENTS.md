@@ -1,6 +1,6 @@
 # Requirements and acceptance criteria
 
-Current baseline: task-first exploration and direct contact, 2026-09-30. The [previous questionnaire baseline](archive/2026-09-30-before-task-first/REQUIREMENTS.md) preserves earlier requirements/evidence. Current explorer/contact source is implemented; fresh tests and deployment acceptance are pending. Earlier 21-test/72-browser-check results apply to their recorded revision, not the new v2 flow. No blanket R01–R14 closure is claimed. See [offer/field review](OFFER-JOURNEY-REVIEW.md), [v2 contract](LEAD-V2-CONTRACT.md), [traceability](UX-REDESIGN.md) and [verification](verification.md).
+Current baseline: task-first exploration and direct contact, 2026-09-30. The [previous questionnaire baseline](archive/2026-09-30-before-task-first/REQUIREMENTS.md) preserves earlier requirements/evidence. Current explorer/contact/v2 source has passed 32 tests/build/boundary, 80 local/hosted rendering cases plus interaction checks and exact synthetic private-record verification at source 8989c1c0d6853c608baf3c424edd34e9a99fe334. See [current evidence](verification.md#task-first-and-v2-verification--2026-09-30). Earlier 21-test/72-case evidence remains historical. No blanket R01–R14 closure is claimed. See [offer/field review](OFFER-JOURNEY-REVIEW.md), [v2 contract](LEAD-V2-CONTRACT.md), [traceability](UX-REDESIGN.md) and [verification](verification.md).
 
 ## Product requirements
 
@@ -23,13 +23,13 @@ Current baseline: task-first exploration and direct contact, 2026-09-30. The [pr
 
 ## Public contracts — legacy preserved, explicit v2 added
 
-The [v2 specification](LEAD-V2-CONTRACT.md) is authoritative for exact dispatch, canonical key order, bounds, privacy version and regression tests. Current source implements the task-first/contact integration; fresh acceptance and deployment are pending.
+The [v2 specification](LEAD-V2-CONTRACT.md) is authoritative for exact dispatch, canonical key order, bounds, privacy version and regression tests. Current source implements the task-first/contact integration, with current API/browser/private-record passes recorded in verification. This does not close manual owner/accessibility, design alignment or production gates.
 
 `POST /api/leads` without a schemaVersion retains the previous accepted fields, strict validation, normalization and content hash byte shape: requestId, intent plan/call, email, required business/hours, one-to-five pains, preferences maximum 500, consent:true and honeypot. Existing valid clients remain valid; old invalid omissions are not silently accepted.
 
 Only numeric `schemaVersion:2` opts into v2. Required fields include requestId, intent plan/call, email, pains array zero-to-five known IDs, message string maximum 1000, preferences string maximum 500 and consent:true. Require at least one selected pain OR a trimmed nonempty message. Business/hours are optional but must match existing values if supplied; omitted means absent, never an invented default. New UI offers optional business and no hours question. Purpose remains email follow-up or call; plan discards call preferences. Unknown supplied versions fail. Guidance sends no POST.
 
-V2 stores genuine message/context and server privacyVersion2026-09-30; historical/legacy records and normalized keys stay unchanged. Same plan/call prefixes, index/status architecture and saved:true/reference response remain. Owner detail and optional notification formatting must safely handle absent context. No automatic email, source-tracking field or new stored kind is added.
+V2 stores genuine message/context and server privacyVersion 2026-09-30; historical/legacy records and normalized keys stay unchanged. Same plan/call prefixes, index/status architecture and saved:true/reference response remain. Owner detail and optional notification formatting must safely handle absent context. No automatic email, source-tracking field or new stored kind is added.
 
 `POST /api/partners`: requestId, name (1–120 characters), craft (1–1000), contribution (known category), email (maximum 254), consent:true, website empty. Partners remain a separate record type.
 

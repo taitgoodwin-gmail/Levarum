@@ -1,6 +1,6 @@
 # User and operator journeys
 
-Current target: task-first exploration and direct contact, 2026-09-30. [Requirements](REQUIREMENTS.md) and the [v2 contract](LEAD-V2-CONTRACT.md) define acceptance. New source is implemented but fresh tests/deployment remain pending. The [previous questionnaire journeys](archive/2026-09-30-before-task-first/WORKFLOWS.md) and dated verification retain historical results; they are not evidence that this new flow passes.
+Current target: task-first exploration and direct contact, 2026-09-30. [Requirements](REQUIREMENTS.md) and the [v2 contract](LEAD-V2-CONTRACT.md) define acceptance. The new public flows pass current API/build/browser/private-storage checks at the [recorded task-first deployment](verification.md#task-first-and-v2-verification--2026-09-30). Authenticated redesigned owner operation and manual accessibility remain unverified. The [previous questionnaire journeys](archive/2026-09-30-before-task-first/WORKFLOWS.md) preserve history; current evidence does not transfer between revisions or untested states.
 
 ## W01 — Understand the service and choose a next step
 
@@ -16,7 +16,7 @@ Switching a task updates the announced guidance. Print/save outputs useful guida
 
 /contact works on a fresh direct load and requires no prior exploration. Collect email, a genuine problem description, chosen follow-up purpose and unchecked consent. The description is required when no task is selected; it is optional when contextual contact already supplies a selected task. Business category is optional; weekly hours are not asked. No default category, hours band, task or hidden message is invented. Call availability/timezone is optional. A selected task remains visible when entering from exploration; changing task context or purpose resets consent.
 
-Submit uses POST /api/leads with numeric schemaVersion2. Plan means manual email follow-up; call means a request to arrange a call. The payload omits unspecified business/hours, includes only genuine task/message context, and preserves compatible consent/retry protections. Server validation rejects a request with neither known task nor meaningful message. Pending state locks changes; only saved:true shows the purpose-specific receipt.
+Submit uses POST /api/leads with numeric schemaVersion 2. Plan means manual email follow-up; call means a request to arrange a call. The payload omits unspecified business/hours, includes only genuine task/message context, and preserves compatible consent/retry protections. Server validation rejects a request with neither known task nor meaningful message. Pending state locks changes; only saved:true shows the purpose-specific receipt.
 
 Email follow-up receipt confirms private saving and manual review, not an automatically delivered plan. Call receipt states that no appointment is booked; the owner will arrange a time by email. Offline, timeout, 429 or storage failure retains values and offers retry plus hello@levarum.com. An unchanged retry reuses identity. Historical unversioned clients still use the exact legacy contract; v2 does not reinterpret their records. (R04/R07/R09/R10/R13)
 

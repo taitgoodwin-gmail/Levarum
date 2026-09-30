@@ -99,6 +99,42 @@ Candidate performance scores: mobile **92, 99, 99**; desktop **99, 100, 100**. T
 
 Candidate artifacts remain under ignored `work/performance-baseline/candidate-dist/`, `candidate-reports/`, `serve-candidate.mjs`, and `run-candidate.mjs`. Baseline artifacts were not overwritten. No secrets, cookies or lead data were used. The later server `hasOwnProperty.call` compiler-compatibility fix does not change the measured public assets; later public edits do, and are outside this snapshot.
 
+## Final hosted preview — measured with authorized access
+
+Target: [the exact review preview](https://levarum-k09ohnt2g-mind-lever-gmail.vercel.app/), source commit `8989c1c0d6853c608baf3c424edd34e9a99fe334`. These are **hosted-preview laboratory results**, not production or real-user field results.
+
+The user explicitly authorized reusing the existing preview session cookie solely for this audit. After the initial access-review rejection, the coordinating agent obtained approval in the root conversation and ran the same scoped audit. Authentication was seeded as domain-scoped browser cookies in a fresh Chrome profile per measurement, never as global request headers; `extraHeaders` remains null. Saved JSON/HTML reports are sanitized and stay in ignored local work. Cookie values were neither printed nor committed. The earlier access gate is now resolved for this audit only.
+
+All eight retained reports have the expected final application URL and HTTP 200 document response. Expected application headings were verified after measurement; homepage and task-explorer audit screenshots were also inspected. No protection or sign-in screen was accepted as Levarum performance evidence. The runner reopened the route after Lighthouse closed its measurement tab to verify content; that check occurs after the recorded audit and does not warm the next fresh browser profile.
+
+Audit timestamps: **2026-09-30T06:06:32.606Z–2026-09-30T06:08:39.383Z**. Lighthouse **13.5.0**, Chrome **154.0.8037.58**. Every retained report matches the baseline's profile, viewport, DPR, simulated throttling/CPU, storage-reset and category settings. Reports contain no runtime errors or run warnings.
+
+| Homepage metric | Hosted mobile median (range) | Hosted desktop median (range) |
+|---|---:|---:|
+| Performance | 90 (90–98) | 100 (100–100) |
+| FCP | 2.924 s (1.726 s–2.930 s) | 0.569 s (0.567 s–0.571 s) |
+| LCP | 2.924 s (2.198 s–2.930 s) | 0.644 s (0.567 s–0.653 s) |
+| Speed Index | 3.016 s (1.726 s–3.033 s) | 0.569 s (0.567 s–0.571 s) |
+| TBT | 0 ms (0 ms–0 ms) | 0 ms (0 ms–0 ms) |
+| CLS | 0.00000 (0.00000–0.00000) | 0.01021 (0.01021–0.01021) |
+
+Individual homepage scores: mobile **90, 98, 90**; desktop **100, 100, 100**. The mobile median meets the project’s >=90 target at its threshold, while measured mobile LCP still has room for improvement.
+
+| Hosted mobile route | Performance | FCP | LCP | TBT | CLS |
+|---|---:|---:|---:|---:|---:|
+| `/start` | 89 | 2.899 s | 2.899 s | 0 ms | 0.06640 |
+| `/contact` | 98 | 1.659 s | 2.157 s | 0 ms | 0.00000 |
+
+### Category interpretation and comparison
+
+- **Accessibility and best practices: 100 in all eight runs.** This clears only the automated navigation checks exercised here, not manual accessibility, form-state, owner-session or representative-user testing.
+- **SEO: 63 in all eight runs.** The only failing weighted SEO audit is `is-crawlable`: the preview response has `x-robots-tag: noindex`. This is appropriate for the private review deployment; do not remove preview indexing protection to improve a score. Title, description, HTTP status, link text, crawlable anchors, robots.txt and hreflang audits pass. The canonical audit is **not applicable**, so no canonical configuration is certified. Verify intended public production headers and canonical metadata separately before promotion.
+- **Same settings do not make local and hosted transport identical.** Mobile homepage medians are local baseline 92, local candidate 99 and hosted final 90; desktop medians are 100 across all three sets. External fonts and actual hosted transport vary, and the source also changed. These results do not establish a causal speed improvement or a clean code-only regression comparison.
+- **The duplicate font request correction survives deployment:** all eight hosted traces contain exactly one Google Fonts stylesheet request. Render-blocking font CSS remains a performance opportunity; the slow hosted homepage run estimates 1,550 ms potential savings. This is a model estimate, not a promised gain.
+- **Remaining observed weakness:** `/start` scored 89 in its single mobile run, with LCP 2.899 seconds and CLS 0.06640. Desktop homepage font-swap CLS remains approximately 0.01021. Improve font delivery/fallback metrics and retest rather than discarding the slower result. These navigation samples are not real-user p75 field measurements and cannot certify INP or field CWV.
+
+Sanitized evidence: ignored `work/performance-baseline/hosted-reports/summary.json`, eight JSON/HTML reports and inspected screenshot exports. Measured deployed assets include `public-C6zzipIF.js`, `public-D4xVNfJK.js`, `public-CZGc4JkJ.css` and `public-Cm0Nu5M_.css`. The local baseline/candidate reports remain preserved separately. No form submissions or private admin records were accessed during Lighthouse.
+
 ## Interpretation and next checks
 
 Lighthouse scores are automated indicators, not proof of usable journeys or full accessibility conformance. The navigation runs do not measure INP, validate consent/submission states or establish real-user p75 Core Web Vitals. Those remain separate browser/manual/field checks. A mobile median performance score of at least 90 is a **project target**, not a claim of complete UX quality or a guarantee of field results.

@@ -1,6 +1,6 @@
 # Preview verification — migration and redesign evidence
 
-This is dated evidence for the design-migration/redesign branch, not production-release acceptance. Production remains the earlier pilot. The current review preview is protected by Vercel account access. The [redesign checkpoint](#ux-redesign-verification--2026-09-30) below supersedes earlier interface/deployment results where explicitly retested; earlier sections remain historical evidence.
+This is dated evidence for the design-migration/redesign branch, not production-release acceptance. Production remains the earlier pilot. The current review preview is protected by Vercel account access. The [task-first/v2 checkpoint](#task-first-and-v2-verification--2026-09-30) below is current and supersedes earlier interface/deployment results only where explicitly retested; earlier sections remain historical evidence.
 
 ## Observed results
 
@@ -94,3 +94,45 @@ The implementation is not a pixel-perfect reproduction of every draft frame: the
 4. Owner visual approval before production homepage replacement; no approval is inferred from the implemented preview or design selection.
 5. Manual lead-review cadence and privacy retention/deletion operations; automatic email delivery and booking remain outside the implemented workflow.
 6. Manual review of the three incomplete Clerk contrast items, actual screen-reader checks and representative-user task testing. No certification or experimentally measured UX improvement is claimed.
+
+
+## Task-first and v2 verification — 2026-09-30
+
+### Exact tested source and deployment
+
+- Source commit `8989c1c0d6853c608baf3c424edd34e9a99fe334`, tree `0252f14aab8690f0f2b56dc982f3ebb0703fca61`.
+- [Current task-first review preview](https://levarum-k09ohnt2g-mind-lever-gmail.vercel.app), deployment `dpl_DF4zfACeg4HahJwDZ6CWAa3gG5Tr`.
+- Draft [PR #4](https://github.com/taitgoodwin-gmail/Levarum/pull/4) updated; no production promotion.
+- Local/hosted browser evidence includes ignored repository `work/reimagination-hosted/results.json` and synthetic submission manifest. Exact private checks are in `work/reimagination-private-results.json`; no record identifiers or customer content are copied into this document.
+
+### Passed at this checkpoint
+
+1. **API and build:** 32 tests pass, with build/TypeScript/boundary checks. Boundary scan covers 112 files; public graph has 15 reachable modules and no auth/private dependency.
+2. **Rendering:** local and hosted runs each pass 80 route/width/theme cases: ten routes, four widths (320/390/768/1440px), light and dark. No page exceptions reported. This includes unauthenticated admin entry, not an authenticated owner walkthrough.
+3. **Task-first exploration:** scenario keyboard operation and no POST; guidance before contact; task-specific content; valid task deep link; invalid-task recovery. Changing task context resets consent; returning to exploration/contact retains the existing draft; refreshing clears it as disclosed.
+4. **Contact:** direct contact requires a genuine message when no task is selected; payload check confirms no fabricated context. Purpose change resets consent; injected failure retains input; pending disables changes; retry preserves ID. Follow-up/call receipts match purpose; no booking/automatic email is asserted.
+5. **Shared interactions:** mobile menu keyboard, theme persistence, native FAQ keyboard and skip link pass; partner acknowledgement passes.
+6. **Real private storage:** three hosted synthetic requests—follow-up, call and partner—were retrieved by exact known references from isolated preview storage. V2 lead records use schemaVersion 2, privacyVersion 2026-09-30 and contain no invented business/hours. Concurrent stale status update produces 409; status persists; successful mutation retry is idempotent. This proves the checked storage/transaction behavior, not new owner UI operation.
+7. **Separate automated accessibility:** Axe 4.12.1 reports zero violations on eight public routes in both themes. Evidence is in the chat working directory’s ignored `work/levarum-reimagination/a11y.json`. The browser-flow harness reports its optional Axe installation unavailable; do not attribute the separate scan to that harness. No screen-reader, authenticated-owner or complete conformance claim follows.
+
+### Design reference and limits
+
+Current editable [Figma](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L) includes concept alternatives 16:3/16:4 and 16:5/16:6, journey page 18:2, contact 18:4, receipt 18:5, error 18:6 and operator 18:7. Task references are questions 23:33, invoices 18:3, copying 23:54, booking 23:75 and leads 23:96. These are conceptual visual/interaction references, not pixel-perfect browser parity. Full-state alignment and further logo refinement remain open; frame availability does not prove every theme/viewport/state is designed or matched.
+
+The recorded [performance baseline](PERFORMANCE-BASELINE.md) remains a frozen previous local build. Final hosted performance comparison is still open; no current Lighthouse score or field Core Web Vitals result is inferred from the 80 browser cases.
+
+### Remaining work and release gates
+
+- Fresh authenticated owner inbox/detail/filter/status/sync/logout walkthrough, plus live non-owner/expired/revoked-session probes not yet evidenced. Earlier provider/owner checks remain historical.
+- Logo refinement, complete design-state alignment and final hosted performance comparison.
+- Manual accessibility/contrast follow-up, actual screen-reader checks and representative-user testing; automated zero violations does not close these.
+- Owner visual approval, production Clerk/domain/storage isolation, recovery/backup/rollback, manual lead-review cadence and privacy retention/deletion operation. These remain production gates; no deadline, paid package, automatic delivery or appointment is promised.
+
+
+## Keyboard recovery follow-up — 2026-09-30
+
+Scope: local source changes following deployed8989, not yet evidence for a new deployment. Manual review reproduced loss of keyboard focus after a failed asynchronous save. Shared SubmissionError focuses the failure alert after controls re-enable; Tab reaches the retry button. Contact and partner use the same component. Native validation now appends/removes only its own aria-describedby token, preserving message-help.
+
+Validation after the fix:32/32 API/security tests pass; production build/typecheck and boundary checks pass (112files;15public modules). The local public-flow suite passes80 responsive route/theme cases plus the new failed-save focus and retry assertion. Dedicated tests/browser/recovery.mjs passes8 combinations (contact/partners × light/dark ×320/1440), each with two mocked503 failures, alert focus, Tab-to-retry, retained email/consent and identical retry request IDs. Direct-contact validation retains message-help before/after correction. Evidence: ignored work/recovery-browser/results.json and work/recovery-focus/results.json. No real submissions in these runs; no fresh private-record or authenticated-owner claim. Actual screen-reader behavior remains unverified.
+
+The React review of this change found a module-level shared component, primitive effect dependency, semantic alert/ref focus, no new dependency or network operation, and unchanged public/admin import boundary. No broad React refactor was added.

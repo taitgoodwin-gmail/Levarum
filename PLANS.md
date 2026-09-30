@@ -1,80 +1,39 @@
-# Levarum UX correction and preview delivery
+# Levarum design-to-launch execution record
 
-Current execution baseline: 2026-09-30. The user approved implementation and explicitly authorized changing design and flow wherever it improves clarity and reduces effort for users/operator. Requirements, user journeys and UI decisions are coordinated across senior business-analysis, UX and engineering agent roles. This is a project execution record; OpenAI’s archived ExecPlans article is an optional recipe, not a mandatory standard.
+Updated 2026-09-30. The active objective is [AUTONOMOUS-LAUNCH-PLAN.md](docs/AUTONOMOUS-LAUNCH-PLAN.md), including production launch after the reserved owner visual approval and service/security gates. This file is a project convention; OpenAI’s archived ExecPlans recipe is optional guidance.
 
-The [exact previous migration plan](docs/archive/2026-09-30-pre-redesign/PLANS.md) preserves all historical progress, discoveries, decisions and evidence. Its stale milestones and provider-blocked statements are superseded below. [Current requirements](docs/REQUIREMENTS.md), [journeys](docs/WORKFLOWS.md), [design traceability](docs/UX-REDESIGN.md), [verification](docs/verification.md) and [operations](docs/OPERATIONS.md) are the working handoff.
+The [previous record](docs/archive/2026-09-30-before-evidence-sync/PLANS.md) is preserved verbatim as historical evidence. Its old questionnaire, no-API-change, earlier-preview and pending-redeployment statements are superseded here. Paths inside that archived copy are relative to its original repository-root location.
 
-## Purpose and constraints
+## Current application and evidence
 
-Help a business owner understand the service, get useful starting points without surrendering contact details, and optionally request a human reply or call. Help partners express interest and the owner reliably review/respond. Use one coherent warm design system with clear task-specific interfaces. Preserve unfinished source work, stored records, endpoint compatibility and immutable owner authorization. Manual email scheduling remains the default; no automated delivery or confirmed booking is implied.
+- Source `8989c1c0d6853c608baf3c424edd34e9a99fe334`, tree `0252f14aab8690f0f2b56dc982f3ebb0703fca61`, is deployed at [the tested preview](https://levarum-k09ohnt2g-mind-lever-gmail.vercel.app), deployment `dpl_DF4zfACeg4HahJwDZ6CWAa3gG5Tr`. [PR4](https://github.com/taitgoodwin-gmail/Levarum/pull/4) remains draft. Production is unchanged.
+- Immediate task exploration requires no questionnaire or email. A ready visitor can use /contact directly. Email/call/partner requests require explicit consent and acknowledge only durable private saving. Scheduling and correspondence remain manual.
+- [Lead v2](docs/LEAD-V2-CONTRACT.md) was specified before implementation. Genuine optional context and free-text messages replace invented defaults; unversioned legacy validation, canonical bytes and hashes remain compatible.
+- 32 API/security tests, typecheck/build and public/admin boundary checks pass. Local and hosted public suites each passed80 route/width/theme cases plus consent, errors, pending controls, retries and receipts. Three exact synthetic private records verified v2/privacy version/no invented context and transactional concurrent status behavior. [Verification](docs/verification.md) defines the exact scope; it does not prove redesigned authenticated owner operation.
+- Separate Axe scans reported zero violations on8 public routes in both themes. Automated results are not WCAG conformance or actual screen-reader testing. [Design QA](docs/REIMAGINATION-DESIGN-QA.md) records further scoped keyboard, reflow and reduced-motion checks.
+- [Performance evidence](docs/PERFORMANCE-BASELINE.md) separates the frozen local baseline, local candidate and exact hosted checks. Lab scores do not prove field Core Web Vitals or a causal performance improvement.
 
-Production remains the earlier pilot. Source work, PR updates and preview deployment are authorized. Select routine decisions autonomously, but provide a tested preview for owner visual review before production replacement. Production authentication/resource/recovery and remaining security probes are independent release gates.
+## Current design decisions
 
-## Active launch execution
+[Editable Figma](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L) retains historical sources. Concepts16:3/16:4 are editorial;16:5/16:6 are task-led. Selected direction combines editorial marketing with immediate exploration. Page18:2 specifies task/contact/recovery/operator states; remaining gaps and subsequent refinements belong in design QA. The concept frames are not blanket pixel-parity evidence.
 
-The user requested a comprehensive autonomous plan followed by an active goal. [Autonomous launch plan](docs/AUTONOMOUS-LAUNCH-PLAN.md) governs the next execution cycle, including preview delivery and gated production promotion. Earlier progress below is retained as baseline evidence.
+[Three refined logo directions](docs/BRAND-REFINEMENT.md) now have native component variants and header/mobile/favicon/monochrome contexts. Wordmark-first is the current expert recommendation; the deployed preview still uses earlier Lift. Owner review of concrete visual alternatives remains open.
 
-## New direction requested 2026-09-30
+Use Figma, Google/web.dev/Lighthouse and W3C guidance; no GOV.UK authority. Product decisions and untested hypotheses remain identified. AI-assisted BA/UX/engineering walkthroughs are not research with representative users.
 
-The user rejects GOV.UK as a UI/UX design source and requests deeper Figma/Google guidance and reimagination. [Figma-led reimagination brief](docs/FIGMA-REIMAGINATION.md) records the new source policy, proposed direction and ordered work. Prior redesign evidence below remains historical baseline, not acceptance of the next design. Research/brief complete; Lighthouse baseline and new Figma alternatives pending.
+## Follow-up work in the current checkout
 
-## Progress
+2026-09-30: manual keyboard review found focus fell to document.body after failed async saves. Shared SubmissionError now focuses the alert, with retry next in keyboard order, on contact and partner forms. Validation preserves pre-existing help-text descriptions.32 tests/build/boundary and the80-case local public suite pass after this change; dedicated repeated-failure coverage is tracked in verification before saving/deploying. These local changes are not yet claimed for the hosted8989 preview.
 
-- [x] Preserve and inspect existing implementation and historical design provenance.
-- [x] Establish current working preview baseline: separate public/admin entries; consented plan/call/partner private saves; Clerk verified owner; Neon index/status/history; isolated preview Blob.
-- [x] Record baseline build/typecheck, public/owner browser checks and cloud persistence/reconciliation/concurrency. See dated verification for exact scope; these do not verify redesigned UI.
-- [x] Coordinate BA/UX/engineering review; reconcile stale requirements, workflows, admin interfaces and provider status; archive previous documentation.
-- [x] Evaluate two intake structures; select guidance before optional contact. No public API change is needed.
-- [x] Create Figma wireframes, compare three logo directions, select Lift, and construct editable prototype reference frames. Agent design review is complete enough to implement; owner visual approval remains pending.
-- [x] Expand meaningful API tests to 21 passing tests, including direct call without prior plan, explicit consent, delayed durable acknowledgement and purpose-separated deduplication.
-- [x] Implement shared design/copy/navigation, ungated task-specific guidance, optional purpose-specific contact and clearer owner labels; authenticated redesigned admin still needs a fresh owner session.
-- [x] Run fresh build/typecheck/boundary and 21 API/security tests; local/hosted 72-check public suites, targeted keyboard/failure/consent flows and exact synthetic storage/concurrency checks pass. Hosted missing/fabricated admin token 401/no-store, disabled draft 404 and reduced-motion visibility pass. Accessibility/comparison limitations recorded.
-- [ ] Complete redesigned authenticated owner browser checks, live negative-session probes and incomplete manual accessibility checks.
-- [x] Save application source commit `700a85075152c2c8411609b5de30738376619560` and deploy review preview `dpl_Vkpo5Y2hLJFrHf9zNz5QZp3zDshW`.
-- [ ] Finish source/PR evidence synchronization and give the review report; documentation evidence updates follow the application commit.
-- [ ] Obtain visual review; close production identity/resources/recovery/manual-review and remaining authorization gates before replacing the homepage.
+The UX agent owns core public Figma state completion on page18:2. Engineering owns hosted performance evidence. Root coordinates implementation, brand and launch gates. No concurrent ownership of edited files; keep .agents/, skills-lock.json, original ZIP and unfinished work intact.
 
-## Design references and decisions
+## Remaining release work
 
-Current source: [Levarum UX redesign](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L). Use native editable components/variables/layout, not a screenshot as the only specification.
+1. Complete and compare responsive/theme/interaction specifications, including operator loading/empty/conflict/session states; apply reviewed brand consistently.
+2. Finish current authenticated owner walkthrough and live denied/expired/revoked checks using synthetic records. Owner sign-in request is pending; never extract credentials or weaken authorization.
+3. Correct any reproducible accessibility defects, document real AT/zoom/representative-user limitations, and verify the exact final preview after changes.
+4. Save/push source and evidence; update attached PR and preview report. Deployment-specific results belong to their exact commit/deployment.
+5. Close production Clerk/domain/origin/immutable-owner, separate resource scopes, backup/restore/recovery, manual review/privacy operations and rollback gates. Verify configuration without printing secrets or enumerating customer records. No paid commitment is authorized implicitly.
+6. Obtain explicit visual approval of the concrete tested preview. Promote only after required gates close, then verify levarum.com and a synthetic saved record. Code rollback must preserve records.
 
-- Wireframe comparison page `2:51`: choice B, questionnaire → useful guidance → optional contact → saved receipt. The alternatives and reasoning are in UX-REDESIGN.md.
-- Logo comparison page `2:52`: three directions considered; selected Lift component `4:2`. Warm approachable direction retained, with a clearer scalable brand mark.
-- Prototype Home desktop `6:2`, Home mobile `6:46`, Questionnaire `6:88`, Guidance `6:112`, Contact `6:137`, Receipt `6:159`, Owner inbox `6:173`.
-- Supporting frames: dark Home `8:43`, How `10:48`, FAQ `10:66`, Partners `10:82`, owner detail `10:102`, automation examples `10:125`.
-- Comparison limitation: editable reviewed reference is not pixel-perfect across the application; desktop two-column hero, five task cards versus three in an earlier draft and native form styling differ. Owner visual review remains open.
-
-These are autonomous project choices under the user’s broad redesign authorization, not claims that OpenAI/Figma prescribes this logo or funnel. Conversion/comprehension improvements remain hypotheses until real users are observed. Selection of a design for implementation is not production visual approval.
-
-## Implementation and acceptance
-
-Keep routes and server schemas backward-compatible. Local questionnaire/guidance never saves a lead. Optional email follow-up uses existing intent plan; call uses intent call. Both require explicit unchecked consent and saved:true before acknowledgement. Switching purpose must reflect matching copy and fresh consent. Preserve retained values, stable unchanged retry identity, pending locks and truthful failure/success states. Print useful guidance without contact controls.
-
-Use task-specific recommendations and human-review boundaries; remove unsupported numerical savings, invented proof and arbitrary first-task ranking. Use compact accessible mobile navigation, consistent public controls and operationally clear admin labels/status messages. Preserve public/admin import separation and every server authorization check. No destructive database migration is required.
-
-Final verification covers routes/Back/refresh; questionnaire validation/edit/no-save behavior; both follow-up purposes; consent/error/retry/pending/receipts; partner save; owner filters/details/status/sync/logout; four viewport widths and both themes; keyboard/focus/contrast/reduced motion; real synthetic persistence and relevant concurrency. Actual screen-reader and representative-user tests must be distinguished from automation and reported unverified if not performed. Update the traceability matrix using evidence from the final preview, not inferred passes.
-
-## Discoveries and role review
-
-**BA observation:** current documents incorrectly described provisioned services and deployed endpoints as proposals. Exact historical copies are retained; current requirements map need → journey → screen/state → API → acceptance → status. **BA hypothesis:** separating exploration from contact better matches the user’s intent; lead quality/volume impact is unknown.
-
-**UX observation:** seven intake states and surprise email gate conflict with a simple-question promise; generic repeated advice and catalog-first ranking overstate relevance; hypothetical Home hours conflict with qualitative recommendations; mobile header, metaphorical copy and raw operator labels obscure tasks. **UX decision:** choose ungated useful advice, clear terminology, compact navigation, shared design foundations and the Lift mark. These are reviewed design judgments, not measured user preferences.
-
-**Engineering observation:** no API schema change is necessary; server already supports direct call requests and durable consented saves. Owner authorization and transactional index/history can be preserved. **Engineering evidence:** 21 tests/build/typecheck/boundary pass; local and hosted public suites each pass 72 responsive/theme checks plus guidance-before-contact, purpose-consent reset, injected failure/retry, receipts and keyboard interactions. Three exact hosted synthetic private saves and concurrent stale-version/idempotence checks pass. Redesigned authenticated owner UI still needs a fresh session. Per-instance throttling, manual correspondence and outstanding production/session probes remain documented limitations.
-
-## Recovery and release
-
-Keep original ZIP snapshot and old design gallery archival. Preserve all current uncommitted work. Use synthetic data only for test records; do not enumerate unrelated customer records or publish credentials. Preview uses isolated storage/development identity. Source rollback changes code, never deletes stored leads or index/history. Before production promotion, record the known-good deployment, complete the production gates and inspect actual release routes and identified synthetic saves.
-
-## Outcomes
-
-Application commit `700a85075152c2c8411609b5de30738376619560` (tree `5743424959207b8db3741825528c7841c715e4ca`) is deployed at the [current redesign preview](https://levarum-6n8z4iohc-mind-lever-gmail.vercel.app), deployment `dpl_Vkpo5Y2hLJFrHf9zNz5QZp3zDshW`. Public journeys and targeted persistence/concurrency checks passed as detailed in [verification](docs/verification.md#ux-redesign-verification--2026-09-30); this is not full requirement closure or production acceptance. Current source review PR is [#4](https://github.com/taitgoodwin-gmail/Levarum/pull/4). Authenticated redesigned admin, manual accessibility/provider contrast review, real-user testing, visual approval and production operational/security gates remain explicit. Production is unchanged.
-
-
-## Active goal checkpoint — task-first implementation
-
-2026-09-30: Figma concepts16:3/16:4 (editorial) and16:5/16:6 (explorer) constructed using existing native components, styles, theme variables and Auto Layout; existing designs preserved. Selected A marketing+B exploration. Page18:2 holds exploration/contact/receipt/error/operator specifications; task prototype links connect five task states (18:3,23:33,23:54,23:75,23:96). These are conceptual state references; full visual parity and new logo refinement remain open.
-
-Implemented immediate task exploration, direct/contact contextual v2 requests, optional genuine business context, exception-aware invoice demo and compact marketing. Spec docs/LEAD-V2-CONTRACT.md preceded server work. Legacy hashes preserved by golden tests; 32 API/security tests and build/type/boundary pass. Local updated browser suite passes80route/theme/width checks with mocked submission flows; separate axe scans report zero violations on8publicroutes in both themes. Actual screen-reader, livev2private readback and fresh authenticated owner remain pending. Duplicate GoogleFonts import removed; local baseline and predeployment comparison belong in PERFORMANCE-BASELINE.md, not a claim of hosted/field speed.
-
-First Vercel preview emitted Object.hasOwn compatibility compiler diagnostics; replaced with hasOwnProperty.call preserving tested semantics. Redeploy is in progress. No production change. Source/PR sync and final hosted verification remain unfinished.
+The full goal remains active. Preview delivery alone is not completion.
