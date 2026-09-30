@@ -1,6 +1,6 @@
 # Implementation decisions and verification boundaries
 
-Current baseline: UX correction, 2026-09-30. [Earlier work packages](archive/2026-09-30-pre-redesign/IMPLEMENTATION-DETAILS.md) are historical. This document describes the existing architecture and selected redesign, not a claim that its new UI is verified.
+Current baseline: UX correction, 2026-09-30. [Earlier work packages](archive/2026-09-30-pre-redesign/IMPLEMENTATION-DETAILS.md) are historical. This document describes the implemented architecture and redesign. Public browser/build/storage evidence is now recorded in [verification](verification.md#ux-redesign-verification--2026-09-30); authenticated redesigned-admin, manual accessibility and production gates remain open.
 
 ## Application and design handoff
 
@@ -37,4 +37,4 @@ The new intake has four conceptual states: questionnaire → guidance → option
 3. Production readiness: live negative-session/revocation probes; production Clerk/domain and database isolation; recovery/backup procedure; agreed manual review cadence and privacy operations.
 4. Owner visual review of the final preview before homepage replacement. Record rollback deployment before promotion. A rollback changes code, not the stored records.
 
-Baseline results are in [verification](verification.md); they must not be reused as proof of changed UI. A failing or unperformed check stays visible in the evidence record.
+Both historical baseline and fresh redesign results are in [verification](verification.md); only explicitly repeated checks support the changed UI. A failing, incomplete or unperformed check stays visible. The Figma reference has documented hero/card-count/native-control differences; it is not application-wide pixel-perfect acceptance.

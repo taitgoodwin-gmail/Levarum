@@ -167,3 +167,10 @@ This table reports evidence from the implemented preview. Original findings abov
 | UX15 | Native form submission, retained failure values, associated validation and focused step headings verified for intake. Partner save verified. Manual screen-reader testing remains outstanding. |
 
 Additional implemented correction: Home's long brand badge wrapped after browser checks exposed 320px overflow. Axe 4.12.1 found zero settled-state violations across eight pages in both themes, including only the admin setup screen—not the populated dashboard. The new editable Figma redesign and selected alternatives are linked in [UX-REDESIGN.md](UX-REDESIGN.md); owner visual review and final browser comparison remain pending. The old gallery stays archival.
+
+
+## Redesign evidence update — 2026-09-30
+
+The original UX01–UX15 observations and migration checkpoint remain historical. Fresh source commit `700a85075152c2c8411609b5de30738376619560` is deployed at the [redesign preview](https://levarum-6n8z4iohc-mind-lever-gmail.vercel.app). [Current verification](verification.md#ux-redesign-verification--2026-09-30) records 21 passing API/security tests, build/typecheck/public boundary, 72 local/hosted route-width-theme checks, ungated guidance, explicit purpose-specific consent, truthful durable receipts, retained failed input, stable retry and exact synthetic private storage/concurrency evidence. These update the applicable UX02/03/05–13/15 checks without claiming full accessibility or production acceptance.
+
+For UX01/04/14, previous authenticated owner verification and new private transaction checks remain valid evidence for their tested scope. Redesigned authenticated inbox/detail/status/logout still requires owner sign-in and fresh browser checks. Live negative-session/revocation probes and production recovery remain gates. Separate public Axe scans reported zero violations; admin sign-in landmarks were fixed, but three provider contrast items still need manual review and no screen-reader conformance is claimed. The selected editable Figma design has documented implementation differences and awaits owner visual approval.

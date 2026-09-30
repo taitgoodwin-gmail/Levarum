@@ -1,6 +1,6 @@
 # User and operator journeys
 
-Current target: UX correction, 2026-09-30. [Requirements](REQUIREMENTS.md) define acceptance; [traceability](UX-REDESIGN.md) links journeys to evidence. These flows describe the selected design; fresh implementation/testing status is recorded separately. Pre-redesign gated flows are [archived](archive/2026-09-30-pre-redesign/WORKFLOWS.md).
+Current target: UX correction, 2026-09-30. [Requirements](REQUIREMENTS.md) define acceptance; [traceability](UX-REDESIGN.md) links journeys to evidence. These flows describe the selected implemented design. The redesigned public flows have fresh hosted/local evidence; authenticated redesigned owner interaction remains pending. Exact scope and limitations are in [verification](verification.md#ux-redesign-verification--2026-09-30). Pre-redesign gated flows are [archived](archive/2026-09-30-pre-redesign/WORKFLOWS.md).
 
 ## W01 — Understand the service and choose a next step
 

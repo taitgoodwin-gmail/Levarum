@@ -1,6 +1,6 @@
 # Requirements and acceptance criteria
 
-Current baseline: UX correction, 2026-09-30. This document supersedes the [archived migration requirements](archive/2026-09-30-pre-redesign/REQUIREMENTS.md). Requirement IDs are retained for traceability; R03/R05/R06/R14 now reflect the authorized redesign. A requirement is not proof of completion. See [traceability/status](UX-REDESIGN.md) and [dated verification](verification.md).
+Current baseline: UX correction, 2026-09-30. This document supersedes the [archived migration requirements](archive/2026-09-30-pre-redesign/REQUIREMENTS.md). Requirement IDs are retained for traceability; R03/R05/R06/R14 now reflect the authorized redesign. Fresh public/browser/storage evidence now exists, but no blanket R01–R14 completion is claimed: authenticated redesigned admin, manual accessibility, visual approval and production gates remain open. A requirement is not proof of completion. See [traceability/status](UX-REDESIGN.md) and [dated verification](verification.md).
 
 ## Product requirements
 
