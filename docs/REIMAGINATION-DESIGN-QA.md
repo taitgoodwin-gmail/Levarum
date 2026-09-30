@@ -191,3 +191,24 @@ Inspected screenshots of desktop routine and dark mobile missing-data states. Th
 Ledger: chat work `work/levarum-reimagination/home-scenario-node-ledger.json`; construction source `home-scenario-spec.js`. QA2–QA4 additions total 104 frames. Counts are inventory, not a completeness or usability score.
 
 Remaining bounded gaps: whole-page shell integration into QA2 contact states; other task variants across the full width/theme matrix; exact comparison against the final hosted preview; real browser UI zoom and assistive-technology checks; authenticated owner tests; representative-user research. Existing test evidence retains its own version and date. This design extension performs no API submission, authentication, email or live owner operation.
+
+## QA5 — Complete Home page composition (2026-09-30)
+
+Created two complete native editable Home frames from the current `Pages.tsx`, `Shell.tsx`, guidance content and styles at the parent-reported `bfa506e` source revision. Earlier frames remain unchanged.
+
+- [Desktop 1440px light, routine scenario](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L?node-id=52-719): `52:719`.
+- [Mobile 390px dark, routine scenario](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L?node-id=52-857): `52:857`.
+
+Both include header, hero and its two actions, worked invoice example, human boundary, all five task rows with current guidance copy, engagement section and footer including the scheduling notice. Desktop includes the editorial aside; mobile omits it as the application does. These are full-page routine-state compositions. The earlier QA4 frames still specify the two exception scenarios; the cloned scenario controls retain navigation into those excerpts, not full-page interactive state changes.
+
+Structural read-back: desktop 63 frames, 5 instances, 64 text nodes and 3 ellipses; mobile 55 frames, 4 instances, 58 text nodes and 3 ellipses. Total 255 nodes including the two roots. Both use only Schibsted Grotesk and Instrument Sans, matching the product font families, and contain zero image-filled nodes. Related containers use native Auto Layout. Wordmark and buttons reuse existing components; colors use the existing semantic variables. No screenshot is embedded in the deliverable.
+
+### Screenshot comparison and limits
+
+Inspected the actual application reference files `work/isolation-hosted/light-1440-home.png` (1440×2763) and `work/isolation-hosted/dark-320-home.png` (320×3742). Compared complete Figma composition screenshots, corrected mobile action spacing, desktop lead width and human-boundary layout, then corrected the semantic-overlay paint order/opacity and inspected final screenshots of both frames. Final samples show all page sections without cropped or overlapping text. The available narrow reference is 320px, so its wrapping and height are not claimed to match the requested 390px frame.
+
+Intentional prototype scope differences: the default scenario is represented in the full-page frames, with exceptions linked to the retained QA4 excerpts; header/footer/task text is a design specification rather than a fully connected route prototype; no focus/hover/browser semantics are simulated. Browser radio appearance is represented by editable ellipse/text layers.
+
+Remaining visual differences, **not approved product changes**: full-width scenario-option spacing instead of the browser's content-sized desktop labels; approximate section tints using layered semantic paints (3.5% ink for example,16% secondary for engagement) rather than the CSS mode-specific mixes; omitted decorative desktop flow arrows and the aside's short accent stroke; simplified theme control; shared button variant background, text weight, line-height and vertical spacing differ in places. The desktop task rows are more compact because text wrapping differs. Consequently this is a complete source-informed composition, not pixel-perfect parity or a final visual-approval claim. No application files were changed to match these differences.
+
+Ledger: chat work `work/levarum-reimagination/full-home-node-ledger.json`; construction script `full-home-spec.js`. The ledger records construction counts; later targeted paint/spacing adjustments preserve these node counts. QA2–QA5 inventory totals106 frames. Remaining stage4 work includes the documented visual reconciliation and complete cross-route prototype wiring, separate from accessibility, live owner verification and representative-user research gates.

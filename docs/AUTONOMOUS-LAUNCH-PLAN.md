@@ -102,4 +102,4 @@ When blocked, state the precise unresolved gate and continue unrelated authorize
 - [ ] Production readiness and owner visual approval complete.
 - [ ] Production promotion, smoke checks and launch handoff complete.
 
-Milestone evidence as of 2026-09-30: source8989 and protected preview k09 are recorded in verification.md. Local follow-up accessibility fixes are tracked separately until deployed. Completed preview milestones do not imply full prototype, owner session, production or visual approval completion.
+Milestone evidence as of 2026-09-30: current application source6b9a0f7 and the tested post-scope preview84663f5 are recorded in verification.md; documentation-only commitbfa506e also deployed successfully. Wordmark and failed-submission focus fixes are deployed. Local SQL recovery and selected-record cloud Blob recovery have passed their separate scopes; combined target-only application restoration also passed for three matching synthetic records/two events, as recorded in RECOVERY-PLAN.md. Completed preview milestones do not imply full prototype, owner session, production or visual approval completion.
