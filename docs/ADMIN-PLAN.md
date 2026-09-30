@@ -1,63 +1,36 @@
-# Secure owner dashboard — first-release plan
+# Secure owner dashboard — implemented preview and release criteria
 
-> Implementation checkpoint (2026-09-30): public flows are implemented and browser-tested. Preview Clerk/Neon and isolated private Blob are provisioned; the verified owner ID is bound. Cloud persistence, reconciliation and concurrent status changes pass. Owner inbox/details/status/filter/reconciliation/logout browser checks passed. Production configuration/recovery and remaining negative-session probes remain gates. Production is unchanged. [Verification](verification.md) and [operations](OPERATIONS.md) supersede historical planning-state statements below.
+Current baseline: 2026-09-30. The separate admin application, Clerk development account, Neon index/history and isolated private Blob are implemented. The owner has verified taitgoodwin@gmail.com and is bound by immutable server-only ID. This supersedes [historical provider proposals](archive/2026-09-30-pre-redesign/ADMIN-PLAN.md). Production setup is separate and remains gated.
 
+## Authorization and privacy invariants
 
-User decision: include a secure dashboard with a login for the owner/admin. This supersedes the earlier admin deferral. Owner login email is taitgoodwin@gmail.com (user-confirmed); public contact remains hello@levarum.com regardless of that choice. No accounts have been provisioned and no invitations sent.
+Every /api/admin action verifies a bearer Clerk session token with authorized parties, immutable ADMIN_OWNER_USER_ID, active online session and verified exact primary owner email. Missing/invalid session is denied; authenticated non-owner is denied; incomplete configuration fails closed. Client navigation and enrollment email restrictions are not authorization. Secrets stay server-side. Public customers do not need accounts.
 
-## Account and authorization
+Sign-in/recovery uses Clerk; no custom password storage or demo credentials. /admin/sign-in and /admin/enroll are private-owner entry surfaces, /admin is inbox, and /admin/leads/:id shows details. Logout/session denial clears records; Back must not resurrect private content. Admin is separately built, noindex and absent from public navigation/sitemap. API responses are private/no-store.
 
-Recommend Clerk for authentication, using its React integration in the separate Vite admin entry and its backend verification on every private endpoint. This retains the current application stack. Clerk documents React/Vite support and server verification; provider setup, available sign-in methods and costs must be checked during implementation, not assumed free.
+## Owner task design
 
-Implemented preview enrollment uses an exact owner-email allowlist with subaddresses blocked. After the owner verifies their chosen email, record their immutable provider user ID in a server-only owner allowlist. Authorization is based on that ID, not a client-provided role, email suffix or hidden navigation. An authenticated non-owner gets 403. Missing/invalid/expired credentials get 401. Public marketing, intake and partner submissions do not require accounts. Do not add public customer sign-up.
+The owner identifies request intent, reads the relevant answers, replies manually, and records progress. Use clear labels for email follow-up (stored kind plan), call and partner interest. Avoid exposing raw internal field names where a plain label helps. Display type/status/time, useful empty/error states and current index coverage. A shared warm visual foundation does not require promotional marketing layouts in admin.
 
-Use provider-managed sign-in and account recovery, not custom password storage. Prefer passwordless email verification for the selected inbox, with an additional factor or passkey where supported and configured. User enters credentials/codes directly. Confirm production account ownership, domains, verification/recovery access and session policy before launch. Require server session verification that enforces revocation, not merely a client redirect; verify replay after sign-out fails.
+New, Contacted and Done apply to every type; Booked is restricted to call requests and means an appointment was actually agreed. Status updates do not send email or calendar invitations. Mail correspondence uses hello@levarum.com through Apple/iCloud. Review cadence must be explicitly established before accepting launch traffic.
 
-Authenticate same-origin admin requests with provider session tokens, accept only session tokens and verify issuer, expiry and authorized party/origin through the official SDK. Reject unexpected origins, fail closed if verification is unavailable and keep secret keys server-side. Distinct development and production environments must not share real lead fixtures.
+## Actual API and storage
 
-## Screens and behavior
+The deployed single function uses GET /api/admin?action=list with kind/status/page; GET action=detail&id=<opaque ID>; POST action=status with id/status/version/mutationId; POST action=sync for a page of 50 Blob keys. POST enforces same-origin JSON and 4 KB body maximum. Every action is independently authorized.
 
-`/admin/sign-in`: branded sign-in with safe return URL restricted to the admin application. Signed-in non-owners see access denied, never a dashboard flash.
+Blob is durable submission content. PostgreSQL holds index/current status/audit events/sync state. Best-effort indexing never turns a durable public save into false failure. Reconciliation idempotently upserts source records. Status and history commit in one transaction; stale version returns 409 and mutation replay does not duplicate history. Do not merge separate plan/call records merely by email or accept arbitrary Blob URLs from clients.
 
-`/admin`: inbox with customer/partner type, status and pagination; counters must match the indexed dataset or explicitly indicate partial synchronization. Show loading, empty, error and session-expired states. No browser-local seeded data in production.
+## Acceptance and evidence status
 
-`/admin/leads/:id`: selected intake/partner details, call preferences and a mailto reply action. Status actions support New, Contacted, Booked and Done, with correction and history. Partner applications are not forced through a booking step. A status change does not send an email or create a calendar event. “Booked” means a meeting actually arranged by the owner.
+| ID | Criterion | Current status |
+|---|---|---|
+| A01 | Owner enrolls/verifies/signs in; production ownership/recovery verified. | Preview enrollment and sign-in passed; production/recovery pending. |
+| A02 | Anonymous, expired and non-owner cannot read/mutate, including direct APIs. | Injected authorization tests and hosted missing/fabricated-token denial passed; live non-owner/expired-token probes pending. |
+| A03 | Synthetic plan/call/partner and reconciliation are persistent/idempotent. | Isolated preview Blob/Neon baseline passed; preserve and rerun relevant checks after changes. |
+| A04 | Status/history persist; concurrency yields 409; successful retry creates no duplicate. | Local PostgreSQL and Neon baseline passed. |
+| A05 | Logout clears private UI, Back does not reveal it, revoked token rejected. | Owner browser clearing and Clerk session removal passed; pre-logout JWT replay still pending. |
+| A06 | Responsive readable operational UI, keyboard controls, useful errors, no demo auth. | Baseline owner checks and CSS overflow fix recorded; any redesigned UI needs fresh verification. |
+| A07 | Public boundary, secrets and private-cache protections hold. | Baseline boundary/security checks passed; rerun on final assets. |
+| A08 | Production identity/resources/recovery/backup/rollback and review routine documented/tested. | Outstanding release gate; preview service provisioning is not production acceptance. |
 
-Sign-out clears visible records and cached responses. Back navigation after sign-out must not reveal private content. Admin pages are noindex, omitted from public sitemap/navigation and served with private/no-store API responses. These are supporting protections; authorization remains server-enforced.
-
-## Storage and API architecture
-
-Keep existing private Blob lead records as immutable submission evidence. Recommend a small managed PostgreSQL database for the admin index, current status and transactional audit trail; provider selection/provisioning and cost are still implementation prerequisites. This avoids pretending concurrent status updates in overwritten Blob JSON are atomic.
-
-Proposed tables: `lead_index` (opaque ID, unique source Blob key, type, received_at, status, version), `lead_status_events` (event ID, lead ID, old/new status, actor user ID, timestamp, unique mutation ID), and `sync_state` (source cursor and last successful synchronization). Do not duplicate personal content into audit logs. Read details from the allowlisted private Blob key after authorization; never accept arbitrary Blob URLs from the browser.
-
-Existing public saves remain successful once Blob storage succeeds. Index each successful write best-effort; a repeatable server-side reconciliation scans private lead prefixes and upserts by unique source key, so an indexing failure cannot lose a saved lead. Backfill existing records through this same process without deleting or changing them. Show last sync time and indexing problems to the owner; complete reconciliation is a launch check. Do not merge separate plan/call submissions solely by email; preserve the original records and label their type.
-
-Proposed private endpoints: GET `/api/admin/leads` with bounded page cursor/type/status; GET `/api/admin/leads/:id`; PATCH `/api/admin/leads/:id/status` with validated status, expected version and mutation ID. Implement the route mechanism supported by the existing Vercel Functions deployment. Status update and audit insertion occur in one transaction. A stale version returns 409 and asks the UI to refresh; a retry with the same mutation ID returns the recorded result. GET routes and details are authorized independently of UI state. Mutation requests also enforce content type, size and origin restrictions.
-
-## Acceptance criteria
-
-| ID | Observable pass condition |
-|---|---|
-| A01 | The selected owner can enroll, verify the account and log in to production; recovery path is verified without exposing credentials. |
-| A02 | Anonymous, expired-session and authenticated non-owner requests cannot list, view or change records, including direct API requests. |
-| A03 | Synthetic plan, call and partner records plus existing records appear after idempotent reconciliation; duplicate indexing does not duplicate leads. |
-| A04 | Status survives refresh; history identifies actor/time; stale concurrent update returns 409; retry does not create duplicate events. |
-| A05 | Logging out clears private UI and the old session cannot fetch data; changing the URL to another lead ID never bypasses authorization. |
-| A06 | Mobile/desktop dashboard matches the admin kit's design intent, with keyboard-operable controls, useful empty/error states and no demo passwords. |
-| A07 | Public bundle excludes admin/auth data paths; secrets and private records never appear in assets, logs, screenshots or caches. |
-| A08 | Production-only settings, owner allowlist, provider recovery, datastore backup/recovery and deployment rollback are documented and tested appropriately. |
-
-## Delivery sequence
-
-First validate the chosen identity setup and account ownership in development, then implement owner-only API protection using synthetic records. Build the separate admin entry and inbox/detail screens. Add the transactional status store, idempotent index and audit workflow. Backfill and reconcile in a controlled preview environment, then run the authorization and session test matrix. Enroll the production owner through the provider's normal flow, deploy and verify actual owner access before the combined launch is declared complete.
-
-Do not make new paid commitments or accept provider terms on the user's behalf merely because this plan recommends a provider. Routine reversible implementation can proceed when implementation is requested; required account setup should be brought to the user only at the concrete setup step.
-
-## References checked
-
-- [Clerk React/Vite quickstart](https://clerk.com/docs/react/getting-started/quickstart)
-- [Clerk backend request authentication](https://clerk.com/docs/reference/backend/authenticate-request)
-- [Clerk access restriction modes](https://clerk.com/docs/guides/secure/restricting-access)
-
-These establish candidate provider capabilities. They do not establish that Levarum has an account, keys, an approved plan or a completed integration.
+See [verification](verification.md) for evidence limitations and [operations](OPERATIONS.md) for secure configuration names and recovery. No credentials, account IDs, real customer fixtures, paid service commitments or destructive migrations belong in this redesign documentation.

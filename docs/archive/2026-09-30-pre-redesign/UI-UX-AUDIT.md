@@ -1,7 +1,5 @@
 # Levarum design-package UI/UX audit
 
-> Historical source-package audit. The user has since authorized a broader redesign; its original “keep the visual direction” verdict is superseded by [current UX decisions](UX-REDESIGN.md). The [exact pre-redesign audit](archive/2026-09-30-pre-redesign/UI-UX-AUDIT.md) preserves the original text/checkpoint. Current evidence and remaining gates are in [verification](verification.md); source findings are not proof that the redesigned UI has passed.
-
 Date: 2026-09-29. Scope: the supplied Levarum Design System ZIP, not a claim about defects in the currently deployed pilot. The ZIP is a prototype reference; intentional simulation becomes a blocker only if carried into production.
 
 Method: source inspection of the marketing, intake, admin and shared components; local browser walkthrough of Home, theme toggle/reload, demo admin sign-in, mobile admin layout, intake steps and keyboard controls. Mobile viewport was 390 × 844. No real leads were read, no messages sent, no accounts provisioned, and no live website code changed. This is a manual design/interaction audit, not an axe/Lighthouse report, penetration test or accessibility conformance certification. Full responsive, screen-reader and performance verification remains a preview-stage gate.
@@ -144,7 +142,7 @@ First, fix production truthfulness and security: UX01–03, UX09–10, UX14. Nex
 
 Implementation evidence should include before/after screenshots where useful, the exact reproduction steps above, relevant tests and the commit containing the fix. Run automated accessibility/performance checks on the implemented preview, then manual keyboard/screen-reader checks. Do not assign invented axe scores or Lighthouse scores to this source audit.
 
-## Migration retest checkpoint — reconciled 2026-09-30
+## Implementation retest checkpoint — 2026-09-29
 
 This table reports evidence from the implemented preview. Original findings above remain the historical audit. “Implemented” alone is not a verified fix. See [verification](verification.md) for exact test scope and remaining release gates.
 
@@ -152,8 +150,8 @@ This table reports evidence from the implemented preview. Original findings abov
 |---|---|
 | UX01 | Server ID allowlist, verified owner email and live session checks implemented; negative paths tested with injected provider responses. Real owner enrollment/verification and immutable ID binding passed. Owner inbox/details/status updates and logout/Back clearing passed in a real browser; provider confirms the session ended. Recovery and remaining negative-session probes are tracked in verification.md. **Open release gate.** |
 | UX02 | Hosted synthetic plan/call/partner saves privately retrieved; failed plan submission retains inputs; call receipt explicitly unbooked. Public fix verified. |
-| UX03 | Personalized calculated savings removed in the migration. Current redesign also removes hypothetical marketing-hour figures because illustrative labels alone do not resolve the UX inconsistency. Fresh copy/results verification is required; no numeric estimator is in scope. |
-| UX04 | Populated owner detail inspected at 390/320px and inbox at desktop. Long actor-ID overflow corrected; built-CSS regression passed 320/390/768/1440. Final CSS-only follow-up did not receive another owner login. Any redesigned admin requires fresh browser checks. |
+| UX03 | Personalized savings numbers removed. Qualitative opportunities cannot exceed reported hours. Static design figures are explicitly illustrative, not customer outcomes. |
+| UX04 | New stacked admin CSS implemented; setup page passes mobile overflow checks. Populated owner inbox awaits real authentication/data. **Not fully verified.** |
 | UX05 | Intake Email has a persistent associated label; native invalid state gets aria-invalid and associated error text. Browser correction verified. |
 | UX06 | Native Back button activates with Enter; reset/add-another use working navigation links. No inert role-button actions in the new flow. |
 | UX07 | Home Online shop choice arrived selected in intake during local and hosted tests. |
@@ -163,7 +161,7 @@ This table reports evidence from the implemented preview. Original findings abov
 | UX11 | Public routes, deep links and unknown-route recovery loaded at four widths. Skip link focuses main; admin has a separate entry. |
 | UX12 | Numeric FAQ count removed from headline/link copy; nine actual questions remain. |
 | UX13 | Native radios support ArrowRight selection; verified in browser. |
-| UX14 | Local PostgreSQL and isolated Neon concurrency/persistence/mutation replay passed; private Blob reconciliation recovered a synthetic missing index row. Owner inbox/details/status/history/filter/reconciliation/logout browser checks passed. Production resources/recovery and remaining negative-session/replay probes remain gates; redesigned labels/layout need fresh tests. |
+| UX14 | Transactional status/history, reconciliation, conflict UI and pending/error/session states implemented. Local PostgreSQL concurrency, persistence and mutation retry tests passed. Provider/cloud reconciliation and populated admin tests remain pending. **Open release gate.** |
 | UX15 | Native form submission, retained failure values, associated validation and focused step headings verified for intake. Partner save verified. Manual screen-reader testing remains outstanding. |
 
-Additional implemented correction: Home's long brand badge wrapped after browser checks exposed 320px overflow. Axe 4.12.1 found zero settled-state violations across eight pages in both themes, including only the admin setup screen—not the populated dashboard. The new editable Figma redesign and selected alternatives are linked in [UX-REDESIGN.md](UX-REDESIGN.md); owner visual review and final browser comparison remain pending. The old gallery stays archival.
+Additional implemented correction: Home's long brand badge wrapped after browser checks exposed 320px overflow. Axe 4.12.1 found zero settled-state violations across eight pages in both themes, including only the admin setup screen—not the populated dashboard. Figma/gallery updates await visual review.

@@ -1,42 +1,39 @@
-# Product and operating workflows
+# User and operator journeys
 
-> Implementation checkpoint (2026-09-30): public flows are implemented and browser-tested. Preview Clerk/Neon and isolated private Blob are provisioned; the verified owner ID is bound. Cloud persistence, reconciliation and concurrent status changes pass. Owner inbox/details/status/filter/reconciliation/logout browser checks passed. Production configuration/recovery and remaining negative-session probes remain gates. Production is unchanged. [Verification](verification.md) and [operations](OPERATIONS.md) supersede historical planning-state statements below.
+Current target: UX correction, 2026-09-30. [Requirements](REQUIREMENTS.md) define acceptance; [traceability](UX-REDESIGN.md) links journeys to evidence. These flows describe the selected design; fresh implementation/testing status is recorded separately. Pre-redesign gated flows are [archived](archive/2026-09-30-pre-redesign/WORKFLOWS.md).
 
+## W01 — Understand the service and choose a next step
 
-These describe target launch behavior, not completed implementation. Requirements are in REQUIREMENTS.md.
+A busy small-business operator arrives on Home, identifies whether Levarum can help with repetitive administrative work, sees concrete task examples, and can read how the service works. Consistent navigation provides Home, How it works, What we automate, Questions and Partners; the primary action starts the questionnaire. Mobile navigation is compact and explicitly labeled. Theme choice persists. Unknown URLs provide a clear route home. No invented proof, technical implementation detail or unexplained branded term is needed to understand the offer. (R01/R02/R10/R12)
 
-## W01 — Explore and start (R01, R02, R10, R12)
+## W02 — Get useful guidance without contacting Levarum
 
-An owner arrives on Home, understands the offer, and can explore How it works, What we automate or Questions. Navigation and footer remain consistent; theme choice persists without storing lead data. “Build my Game Plan” opens `/start`. The FAQ opens and closes using keyboard controls and reports its state. Contact opens hello@levarum.com. A broken or unknown URL presents a route back to Home. No CTA may end at a static prototype file in production.
+At /start, the visitor selects business type, back-office hours and one or more tasks in one questionnaire. No task is silently selected. Submission validates those answers locally and shows task-specific guidance without email, consent or a network save. The page explains that guidance is a starting point, not a quantified saving or fully assessed plan. Each selected task has a relevant approach, information to gather, and a human-review boundary. No fixed catalog order is described as a personalized priority.
 
-## W02 — Complete intake and obtain a plan (R03–R06)
+The visitor can edit answers, print/save the guidance locally, leave, or optionally request follow-up. Edit preserves choices; results update after resubmission. Print must exclude navigation, contact forms and unrelated controls. Drafts do not survive refresh by promise. Validation identifies the problem and moves focus appropriately; results/edit transitions focus the new heading. (R03/R05/R06/R12)
 
-Start with explicit business and hours selection; select one or more of five known challenges; continue to the explanation step; review a summary and enter email plus consent. Back navigation retains answers. The email gate is a storage/contact consent point, not a claim of automatic email delivery.
+## W03 — Optionally request email follow-up or a call
 
-On submit, validate client-side, disable repeat submission while pending and POST to `/api/leads` with intent plan. The server normalizes/validates and saves a private record. Only saved:true advances to the plan. The plan names selected opportunities and the first recommended job, with reviewed estimates if R06 is satisfied. Customers can print/save the plan; delivery by email is not promised.
+From guidance, the visitor chooses email follow-up or a 15-minute call. Neither is required to access guidance. The form explains what will be stored and why, collects email, and requires an unchecked consent box. Call requests may include availability and timezone. Back returns to guidance without losing answers.
 
-For missing selections or invalid email, remain on the step and identify the field. For timeout, offline, throttle or storage failure, keep the answers and show a retry action plus contact alternative. Reuse the request identifier for an unchanged retry. Notification failure after a successful save must not misreport the lead as lost. Refresh behavior is explicit: current in-memory draft is not guaranteed to survive refresh.
+Submit sends /api/leads with intent plan for email follow-up or call for a call request. Disable parallel actions while pending. Only saved:true leads to a saved-request confirmation. Email follow-up confirmation promises manual review, not an automatically delivered plan. Call confirmation explicitly states that no appointment is booked.
 
-## W03 — Request and arrange a call (R07, R09)
+Offline, timeout, validation, 429 or storage failure retains entries and offers retry plus hello@levarum.com. Unchanged retries reuse identity; changed content cannot overwrite another request. A saved request remains saved even if optional indexing/notification fails. The owner replies manually, agrees a time/timezone if appropriate, and only then records a call as Booked. (R04/R07/R09/R10/R13)
 
-From a saved plan, the prospect supplies optional availability including timezone, then explicitly submits a call request. Send the accepted intake fields with intent call and preferences. Durable save leads to “Call request received; nothing is booked yet.” No fake calendar slot or invite is shown.
+## W04 — Express partner interest
 
-The owner reviews the private call request or receives a verified notification, replies from hello@levarum.com, agrees a time/timezone and sends an invitation through their calendar. Only this agreement creates an appointment. Apple Mail handles correspondence; it is not evidence of a website booking integration. If a real scheduler is later added, document availability, timezone conversion, conflicts, cancellation, rescheduling and webhook retry handling before changing the confirmation copy.
+A potential implementation partner reads who the collaboration is for and submits name, work description, category and email with explicit storage/contact consent. /api/partners privately saves before acknowledgement. Invalid, pending, failure and retry states follow W03. Acknowledgement explains that interest is not an offer of work and terms are agreed separately. Adding another application creates a new request identity. (R08/R09/R10/R12)
 
-## W04 — Apply as a partner (R08–R10)
+## W05 — Review and respond as the owner
 
-Visitor opens Partners, enters name, work description, contribution category and email, and consents to storage/contact. Submit calls the proposed `/api/partners`. Show an acknowledgement only after private save. Resetting the form starts a new request ID. Invalid input, failure, duplicate retry and pending behavior follow W02. The owner receives or retrieves a separate partner-type record and follows up manually; do not promise work or finalized terms merely because the form was accepted.
+Anonymous visitors to /admin see sign-in without records. Clerk verifies the account; each API request requires the immutable configured owner ID, active session and verified exact primary email. A non-owner is denied even if they reach a deep link. The owner filters inbox by request type/status, opens details, understands the request, and uses email to reply. Counts explicitly refer to indexed records; reconciliation recovers missing index entries from durable Blob records.
 
-## W05 — Review and respond to leads (R09, R11; secure UI required)
+New, Contacted and Done support all types; Booked applies only to calls. Changing status does not send messages or create appointments. Expected-version conflicts prompt refresh; successful updates and history commit atomically. Logout or session denial clears visible/cached private records. Browser Back must not restore them. Review cadence, recovery and production resource setup are release gates, not inferred from a working preview. (R09/R11; A01–A08)
 
-Launch operation uses the secure dashboard; an authorized Vercel private-store administrator provides a recovery path. Filter by known plan/call/partner path, inspect only relevant records, reply privately and avoid copying personal data into design artifacts. Assign a review owner and cadence before inviting traffic. A synthetic record of each type proves access and follow-up. Notifications, if configured, supplement storage; they do not replace it.
+## W06 — Privacy and operational recovery
 
-Required admin: unauthenticated visitor sees sign-in without records; server verifies identity and owner authorization; authorized owner sees an inbox and detail; status moves New → Contacted → Booked → Done, with an explicit ability to correct status. “Booked” requires an actual agreed appointment. Each update records actor/time, persists on refresh and rejects unauthorized/stale updates. Expired sessions and sign-out immediately revoke read/write access. Demo seeded records and browser-only authentication do not satisfy this workflow.
+The owner receives access/deletion requests at hello@levarum.com, verifies the requester privately, and handles Blob content, database index/history and correspondence consistently. No unimplemented retention/deletion job is promised. Investigate failures with redacted logs. If the owner cannot retrieve leads, pause affected acquisition until recovery; never make storage public to debug it. (R10/R13; A08)
 
-## W06 — Privacy and failure operations (R10, R13)
+## W07 — Review and release
 
-For access/deletion requests to hello@levarum.com, the owner verifies the requester, locates matching records privately, handles copies/notifications consistently and records completion without publishing personal data. Define retention before adding a promise to the notice. If saves fail, do not display success; investigate storage/configuration using redacted logs. Pause affected acquisition routes if the owner cannot receive/retrieve leads. Never solve a storage issue by making the store public.
-
-## W07 — Change, preview and release (R01–R14)
-
-Maintain requirements and the execution plan as the handoff between planning in ChatGPT and implementation in Codex. Work from a branch; connect each change to requirement IDs; update decisions and evidence as they change. Build a reviewable preview using synthetic data and screenshots for desktop/mobile. Review fidelity and functioning journeys before replacing Home. Publish the tested commit, then run public smoke checks and privately verify only the identified synthetic submissions. Record deployment and rollback IDs. If production breaks, restore the last known-good deployment; do not delete leads as part of a rollback.
+Maintain the mapping from need → journey → requirement → screen/state → API → verification. Review wireframes, logo contexts and editable responsive Figma screens before coding the selected direction. Review the implemented preview with synthetic data before production replacement. Record remaining limitations honestly; automated audits and AI walkthroughs do not establish real-user usability or screen-reader conformance. Deployment rollback preserves stored customer records. (R01–R14; A01–A08)

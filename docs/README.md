@@ -1,31 +1,26 @@
-# Levarum implementation handoff
+# Levarum — current product and delivery baseline
 
-> Implementation checkpoint (2026-09-29): public flows are implemented and verified in a hosted preview; private admin code is implemented but Clerk/Neon setup and live admin tests remain incomplete. Production is unchanged. [Verification](verification.md) and [operations](OPERATIONS.md) supersede historical planning-state statements below.
+Current working baseline: UX correction initiated 2026-09-30. The user authorized substantial changes to design, flow and branding to simplify both customer and operator tasks. The supplied ZIP remains preserved source provenance, not a constraint against those authorized changes. Production remains the earlier pilot; no preview is approval to replace production.
 
+## Read in this order
 
-Status: planning baseline, 2026-09-29 America/New_York. The user supplied the current design package, requested a revised plan, and then requested documented workflows and requirements. No new design implementation or production change is part of this documentation task.
+1. [UX redesign and traceability](UX-REDESIGN.md): audience needs, audit, selected flow, design decisions and evidence status.
+2. [Requirements](REQUIREMENTS.md): observable acceptance criteria and stable requirement IDs.
+3. [Workflows](WORKFLOWS.md): complete customer, partner and owner journeys, including recovery.
+4. [Implementation details](IMPLEMENTATION-DETAILS.md) and [admin architecture](ADMIN-PLAN.md): actual interfaces and boundaries.
+5. [Verification](verification.md) and [operations](OPERATIONS.md): recorded test results and remaining release gates.
+6. [Execution plan](../PLANS.md): dated implementation progress. Its current milestones supersede the preserved historical migration plan.
 
-Read [implementation details](IMPLEMENTATION-DETAILS.md) for the remaining technical decisions, release gates and testing matrix. Read [requirements](REQUIREMENTS.md) for scope and observable acceptance criteria, [workflows](WORKFLOWS.md) for user/system behavior and failure paths, and the [execution plan](../PLANS.md) for milestones, progress, decisions and verification. [AGENTS.md](../AGENTS.md) carries concise repository working guidance. The existing [README](../README.md) describes the current pilot.
+## What is established, and what is not
 
-## Source of truth and provenance
+The previous preview has working public plan/call/partner saves, separate Clerk owner admin, Neon index/status history, and isolated private Blob storage. The verified owner is bound by immutable ID and verified exact primary email. Recorded baseline evidence includes 17 API/security tests, build/typecheck, synthetic cloud persistence/reconciliation/concurrency, and owner inbox/detail/status/filter/logout checks. These results belong to the previous interface; they do not verify the redesign.
 
-User choice: `Levarum Design System.zip`, supplied from `/Users/tag-mba-2066/Downloads/Levarum Design System.zip`. SHA-256: `5e8c75bfc2ceb504d3eeee60470bb28d375aabd79098c0d2e0d9b25066c5b0f3`. Extracted local reference: `../levarum-design-system/` relative to the repository. This folder is outside the repository and is NOT available in a fresh clone; importing a reviewed source snapshot is milestone 1. Do not rely on its bundled SKILL.md as a separately authorized skill.
+Current UX changes require fresh browser, accessibility and journey verification. Live non-owner/expired-token/revoked-token replay probes, production identity/datastore/recovery setup, manual review cadence, and visual approval remain release gates. Automatic email delivery, confirmed calendar bookings, AI drafting and customer accounts are not implemented promises.
 
-The archive has 149 entries: design tokens, brand assets, React component sources and marketing/intake/admin UI kits. Key sources: `readme.md`, `tokens/`, `components/`, `ui_kits/marketing_site/`, `ui_kits/intake/IntakeApp.jsx`, and `ui_kits/admin/AdminApp.jsx`. The kit is a visual/interaction reference, not a working production backend. `readme.md` mentions original source pages that are not in this ZIP; use the supplied kit and flag fidelity gaps rather than inventing unseen source.
+## Provenance and guidance
 
-User-confirmed contact: hello@levarum.com; disregard the kit's .co address. Hosting is Vercel; domain is managed through Cloudflare. Existing gallery and Figma captures contain the older designs and have not yet been updated to this ZIP.
+The original Levarum Design System.zip checksum is `5e8c75bfc2ceb504d3eeee60470bb28d375aabd79098c0d2e0d9b25066c5b0f3`; reviewed source is retained in `design/current/`. The local extracted source is outside the repository at `../levarum-design-system/`. Older `/designs/` and Figma captures are historical. The [15-finding source audit](UI-UX-AUDIT.md) does not substitute for the current-preview audit. [Pre-redesign documents](archive/2026-09-30-pre-redesign/PROVENANCE.md) preserve previous wording and evidence.
 
-## Guidance used
+Current editable design work: [Levarum UX redesign in Figma](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L). Its existence is not evidence of user approval or complete visual parity.
 
-OpenAI describes AGENTS.md as durable project instructions and execution plans as living documents with observable acceptance, decisions, progress and recovery. We adopt those practices here; these filenames and the Levarum-specific requirements are project choices, not a universal ChatGPT compliance requirement.
-
-- [OpenAI: custom instructions with AGENTS.md](https://learn.chatgpt.com/docs/agent-configuration/agents-md)
-- [OpenAI: using PLANS.md for multi-hour problem solving](https://developers.openai.com/cookbook/articles/codex_exec_plans)
-
-## Planning assumptions needing resolution
-
-Email-based call requests remain the launch default; automated calendar booking is deferred unless a real provider is selected. Secure admin is confirmed for the first release. The administrator email is taitgoodwin@gmail.com; provider setup is a launch dependency. See [admin plan](ADMIN-PLAN.md). Notification delivery is not configured today: before traffic, establish and test either owner notifications or an explicit private-store review routine. Business claims, industry sources, partner terms, retention wording and numerical estimates need content review. These are requirements and pending choices, not approved service commitments.
-
-## Design audit
-
-[UI/UX audit](UI-UX-AUDIT.md) records 15 source/browser findings with priorities, fixes and retest criteria. It audits the supplied kit, not the currently deployed pilot.
+[AGENTS.md](../AGENTS.md) is a supported Codex instruction mechanism. [OpenAI AGENTS guidance](https://learn.chatgpt.com/docs/agent-configuration/agents-md) and [frontend guidance](https://learn.chatgpt.com/use-cases/frontend-designs) inform implementation. The [ExecPlans article](https://developers.openai.com/cookbook/articles/codex_exec_plans) is an archived optional recipe; PLANS.md and this documentation structure are project conventions, not a universal OpenAI standard. [Figma file structure guidance](https://developers.figma.com/docs/figma-mcp-server/structure-figma-file/) informs component/variable/Auto Layout handoff. Specific flow and branding choices are project decisions, not OpenAI/Figma mandates.

@@ -60,3 +60,55 @@ test('throttles repeated requests on an instance', async () => {
     assert.equal(res.statusCode, i < 10 ? 200 : 429)
   }
 })
+
+test('a direct call request can be saved without a preceding plan submission', async () => {
+  const input = { ...valid(), intent: 'call', preferences: 'Weekday mornings, Eastern time' }
+  const records = []
+  const handler = createLeadHandler(deps({ save: async lead => { records.push(lead) } }))
+  const res = response()
+  await handler(request(input), res)
+  assert.equal(res.statusCode, 200)
+  assert.deepEqual(res.body, { saved: true, reference: input.requestId })
+  assert.equal(records.length, 1)
+  assert.equal(records[0].intent, 'call')
+  assert.equal(records[0].preferences, input.preferences)
+})
+
+test('neither follow-up purpose saves or notifies without explicit consent', async () => {
+  for (const intent of ['plan', 'call']) for (const consent of [false, undefined, 'true']) {
+    let touched = false
+    const handler = createLeadHandler(deps({ save: async () => { touched = true }, notify: async () => { touched = true } }))
+    const res = response()
+    await handler(request({ ...valid(), intent, consent }), res)
+    assert.equal(res.statusCode, 400)
+    assert.equal(touched, false)
+    assert.notEqual(res.body.saved, true)
+  }
+})
+
+test('pending storage cannot acknowledge or notify a request before it is durable', async () => {
+  let releaseSave
+  let notifyCalled = false
+  const saveGate = new Promise(resolve => { releaseSave = resolve })
+  const handler = createLeadHandler(deps({ save: () => saveGate, notify: async () => { notifyCalled = true } }))
+  const res = response()
+  const pending = handler(request(valid()), res)
+  await new Promise(resolve => setImmediate(resolve))
+  assert.equal(res.body, undefined)
+  assert.equal(notifyCalled, false)
+  releaseSave()
+  await pending
+  assert.equal(res.body.saved, true)
+  assert.equal(notifyCalled, true)
+})
+
+test('follow-up and call remain separate records while equivalent answer retries keep their identity', () => {
+  const input = { ...valid(), pains: ['invoices', 'booking'] }
+  const plan = parseLead(input)
+  const equivalentRetry = parseLead({ ...input, pains: ['booking', 'invoices'], preferences: 'Not applicable to a follow-up request' })
+  assert.equal(leadPath(plan), leadPath(equivalentRetry))
+  const call = parseLead({ ...input, intent: 'call', preferences: 'Eastern mornings' })
+  assert.notEqual(leadPath(plan), leadPath(call))
+  assert.equal(call.preferences, 'Eastern mornings')
+  assert.notEqual(leadPath(call), leadPath(parseLead({ ...call, preferences: 'Pacific afternoons' })))
+})

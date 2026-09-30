@@ -1,92 +1,40 @@
-# Remaining implementation and release decisions
+# Implementation decisions and verification boundaries
 
-> Implementation checkpoint (2026-09-30): public flows are implemented and browser-tested. Preview Clerk/Neon and isolated private Blob are provisioned; the verified owner ID is bound. Cloud persistence, reconciliation and concurrent status changes pass. Owner inbox/details/status/filter/reconciliation/logout browser checks passed. Production configuration/recovery and remaining negative-session probes remain gates. Production is unchanged. [Verification](verification.md) and [operations](OPERATIONS.md) supersede historical planning-state statements below.
+Current baseline: UX correction, 2026-09-30. [Earlier work packages](archive/2026-09-30-pre-redesign/IMPLEMENTATION-DETAILS.md) are historical. This document describes the existing architecture and selected redesign, not a claim that its new UI is verified.
 
+## Application and design handoff
 
-Status: planning only. Confirmed first release includes the public marketing site, intake, partner form, manual call requests AND a secure dashboard with a private owner/admin login. The administrator email is user-confirmed as taitgoodwin@gmail.com. This document supplements PLANS.md and does not authorize execution.
+React 19, strict TypeScript, Vite, Node 24 and the existing npm lockfile remain. Separate public/admin HTML entries and the import-boundary check protect public assets. Retain /, /how-it-works, /what-we-automate, /questions, /partners, /start, /privacy, /designs/ and /admin routes; the historical gallery stays labeled. Preserve direct loading, refresh and Back behavior. No router migration is necessary merely to change the design.
 
-## Recommended defaults
+Use shared public primitives and design variables for typography, spacing, controls, surfaces and focus. Create editable Figma frames with components, variables, Auto Layout, mobile/desktop sizes and annotations for interactions not visible in static screenshots. Prototype and logo choices are reviewed as product decisions; Figma-to-code tooling does not validate them automatically. The original source snapshot is preserved.
 
-Use the existing React/TypeScript/Vite stack and Vercel project. Do not replatform to Next.js or add an AI dependency for the visual migration. Convert the supplied JSX to typed modules; use the source component definitions and token values, not the opaque prebuilt bundle. Preserve deliberate design details and document changes needed for accessibility or truthful behavior.
+The new intake has four conceptual states: questionnaire → guidance → optional contact → saved request. Contact distinguishes plan/email-follow-up from call intent. Guidance is local, qualitative and task-specific; it does not invoke the API or claim saving. Editing returns to the questionnaire with answers retained. Printing outputs only useful guidance. No savings estimator or arbitrary ranked first recommendation is introduced.
 
-Keep the existing private Blob store and the plan/call endpoint. Add a separate partner endpoint with shared validation and storage utilities where appropriate. Keep the public and admin code paths separate, but release them together. Existing authorized private-store access is a recovery path; the secure dashboard is required for first-release acceptance.
+## Current interface and data architecture
 
-Manual scheduling through hello@levarum.com is the first-release default. Automated email notifications are optional until an owner review routine is established; plan-email delivery is deferred. No new paid service is needed merely to preview the design.
+- Public saves: POST /api/leads and POST /api/partners, same schemas and saved:true semantics as [requirements](REQUIREMENTS.md). Keep the existing timeout/request-ID/retry helper and locked pending controls.
+- Owner API: GET /api/admin?action=list with kind/status/page; GET /api/admin?action=detail&id=<opaque ID>; POST /api/admin?action=status with id, status, version, mutationId; POST /api/admin?action=sync. The previous proposed REST endpoint shapes were never the deployed contract.
+- Every owner action authenticates independently. Server verifies Clerk session token, immutable owner ID, active online session, exact verified owner primary email and allowed origin. Private API responses are no-store. Server keys never enter public assets.
+- Private Blob is immutable submission evidence. Neon PostgreSQL stores index/status/history. Successful Blob save remains success if indexing fails; reconciliation upserts missing index entries without altering content. Transactional status/history writes use version checks and mutation replay protection.
+- Preview uses isolated Blob and development Clerk/Neon. Production resources and identity setup are separately gated. No destructive migration or data cleanup is part of the UX change.
 
-Until numerical assumptions are reviewed, use qualitative personalized opportunities and label static design-example figures as illustrative. Remove unsupported industry percentages from release copy or replace them with independently verified, precisely attributed evidence. Retain the visual section structure. Never turn a source comment or a README assertion into proof of a business outcome.
+## Verification matrix
 
-## Page and state inventory
+| Area | Required fresh evidence |
+|---|---|
+| Questionnaire | Missing field/task validation; every selected task has relevant content; guidance needs neither contact nor a save; edit retains answers; no numerical savings; no browser-input persistence claim. |
+| Contact | plan and call intents; consent unchecked; pending lock; invalid email; failed save retains input; unchanged retry identity; durable success; call explicitly unbooked. |
+| Partner | Required fields/bounds/categories/consent; failed and successful private save; truthful acknowledgement. |
+| Routes and layouts | Direct entry, refresh, Back and recovery; 320/390/768/1440px; both themes; mobile menu open/close; logo at favicon scale; screenshots compared with reviewed design. |
+| Accessibility | Keyboard and focus order; labels/errors/landmarks; semantic menu/accordion state; contrast; reduced motion; theme persistence; distinguish automated scans from actual screen-reader checks. |
+| Admin and privacy | Boundary check; direct authorization failures; owner inbox/detail/status/history; stale concurrent update; retry idempotence; reconciliation; logout/Back; no private data in screenshots/logs/assets. |
+| Commands | npm test; npm run build including boundary/typecheck; meaningful browser/security checks. Record commit/deployment and test limitations. |
 
-| Surface | Required states | Production connection |
-|---|---|---|
-| Home | Hero/example, problem band, before/after examples, proof placeholder, closing CTA; both themes | Start links to /start; example selector has clear illustrative behavior and does not imply a saved intake |
-| How it works | Three steps, handover explanation, boundaries and CTA | Claims match actual offer; links work directly and on refresh |
-| What we automate | Five jobs, ranked examples, clear call to action | No internal lead data or operator-only implementation catalog |
-| Questions | Actual number of FAQ items; open/closed; keyboard focus | Count matches items; no promise of functionality not implemented |
-| Partners | Empty, invalid, submitting, saved, failed, reset | POST /api/partners; privacy/contact consent; acknowledgement only after durable save |
-| Intake | Business/hours, challenge selection, explanation, email gate | Explicit choices; retained answers on Back; shared schema |
-| Game Plan | Pending, saved plan, retryable error | POST /api/leads intent plan; reviewed calculations only; printable content |
-| Call request | Preferences, pending, saved, failed | POST /api/leads intent call; no confirmed appointment until human agreement |
-| Privacy | Current collection/use/storage/contact information | Includes partner data and actual providers; no invented retention commitment |
-| Not found | Clear recovery action | Unknown path does not silently display the intake |
-| Design gallery | Current reference and archived versions, demo labels | Only synthetic data; link to matching Figma version |
+## Release gates
 
-## File-level work packages
+1. Design evidence: alternatives, selected flow, logo contexts and editable responsive frames; decisions and assumptions labeled.
+2. Preview evidence: implemented public/operator journeys, successful build/tests, fresh browser/accessibility results and exact synthetic storage checks.
+3. Production readiness: live negative-session/revocation probes; production Clerk/domain and database isolation; recovery/backup procedure; agreed manual review cadence and privacy operations.
+4. Owner visual review of the final preview before homepage replacement. Record rollback deployment before promotion. A rollback changes code, not the stored records.
 
-P1 — Source and tokens: add `design/current/README.md` with source checksum and reviewed source snapshot; add `src/styles/levarum/` for base, color, typography, spacing, layout, motion and theme tokens. Keep legacy tokens until the pilot is replaced; prevent accidental global CSS overrides during comparison.
-
-P2 — Components: add typed core, forms, navigation, feedback and patterns under `src/ui/`. Prioritize Logo, Button, Card, Eyebrow, SectionBand, NavBar, Footer, ThemeToggle, TextField, SelectField, ChoiceChip, CheckRow, ProgressSteps, Accordion and opportunity/number components. Import only what the production screens use. Keep browser APIs inside effects or handlers, clean up observers and timers, and avoid `window.LevarumDesignSystem_*` globals. Do not loosen strict TypeScript to accommodate the bundle.
-
-P3 — Marketing/routing: implement page modules in `src/marketing/`, with shared public shell. Keep normal anchors and pathname routing in `src/App.tsx` initially, which supports direct entry and browser Back without a new router dependency. Use native in-page anchors for sections. If client-side navigation is introduced, add route focus and scroll restoration deliberately. Map known old hash links (#home/#how/#what/#questions/#partners) to canonical paths; preserve unrelated section hashes. Update `vercel.json` without intercepting API or static gallery requests.
-
-P4 — Intake: add the new public flow under `src/prospect/`, using `step1`, `step2`, `step3`, `gate`, `plan`, `call`, and `confirmed` states. “confirmed” means the request was saved, not a booked meeting. Isolate API calls in a public request helper with a timeout, stable per-intent request IDs, pending state and explicit saved:true check. Keep input in memory, not URLs or browser lead storage. Do not mount old prototype auth or browser submission stores.
-
-P5 — Data contracts: preserve existing records and parse old input values. Extend the business allowlist with the exact new kit labels while accepting old labels; new UI submits the new labels and server keeps the submitted accepted value. Existing pain IDs remain stable. Do not reinterpret historical numeric estimates. Add partners as a separate record type and endpoint with the bounds in REQUIREMENTS.md. Keep versioned privacy and server-generated timestamps. Add no public listing/read endpoint.
-
-P6 — Boundaries and verification: extend `scripts/check-boundary.mjs` to cover public entrypoints, marketing and shared public UI so moving a file cannot evade the rule. Verify reachable public imports exclude operator modules, `src/store/submissions.ts` and `src/domain/catalog.ts`; review domain helpers for accidentally exposing internal fields. Add meaningful tests for the import boundary and changed input contracts. Keep generic visual primitives free of operator data. Do not enforce an obsolete visual rule when it conflicts with the user-supplied current design; document any intentional policy revision.
-
-P7 — Content and discoverability: prepare a page-by-page copy audit, canonical URLs, titles, descriptions, social preview, favicon and sitemap. Public previews and admin pages must not be included in the sitemap. Do not index result states or expose user input in metadata. Use the supplied brand assets; inspect actual assets before creating substitutes. Confirm content is readable if fonts load slowly and that reduced motion leaves meters/figures visible.
-
-P8 — Review/release: assemble preview screenshots, behavior evidence and a change summary, then update Figma from the reviewed implementation. Keep Figma fidelity work distinct from functional verification. The approved public pages replace the pilot only after review. Archive old visual references with clear labels rather than removing provenance.
-
-## Testing matrix
-
-| Area | Required check | Pass condition |
-|---|---|---|
-| Contracts | Old and new accepted business labels; unknown enum values; partner bounds; consent | Valid supported inputs save; invalid/oversized inputs do not |
-| Retry | Double click, lost response, identical retry, changed answers | UI prevents parallel submission; identical request/content deduplicates; changed content cannot overwrite a different lead |
-| Failures | Missing storage, rejected save, timeout, notification failure, 429 | No false success; inputs preserved; saved lead remains saved if notification fails |
-| Rendering | All routes at 320, 390, 768 and 1440px, both themes | No unintended overflow, clipping or hidden essential actions |
-| Interaction | Keyboard navigation, step Back, FAQ, theme, validation focus | No traps; visible focus; state communicated semantically |
-| Motion | Reduced motion and observer fallback | Content/figures remain visible and meaningful |
-| Privacy | Production assets and network requests | No secret, lead object, operator store or unsanctioned AI call exposed |
-| Estimation | 31 nonempty pain subsets × 4 bands, if enabled | Bounds valid, documented cap enforced, rows reconcile, stable tie-breaking |
-| Release | Deep links, HTTPS, synthetic plan/call/partner save + private retrieval | Matching records and truthful public confirmations verified |
-
-Unit and API tests use isolated fakes for storage and notification. Browser verification uses synthetic data. Do not repeatedly send production messages or enumerate real records for tests. Add automated browser testing only when it meaningfully protects the changed flows; the current npm test/build pipeline remains the minimum required CI check. Documentation edits alone do not need application tests.
-
-## Release gates and sequencing
-
-Gate A, source readiness: current ZIP imported and inventory complete; field mappings and source defects documented. Deliverable: design inventory and implementation file map. No service/provider decision blocks this gate.
-
-Gate B, visual readiness: marketing pages and complete intake states rendered at mobile and desktop sizes with demo status made clear. Deliverable: preview URL, comparison screenshots and a short deviations list. New forms must not claim real saves during this stage.
-
-Gate C, operational readiness: real private saves and owner follow-up established; failure tests pass; privacy matches actual processing. Deliverable: verification matrix tied to commit and redacted synthetic record references. No database or email credential appears in the document.
-
-Gate D, user review: user can inspect the supplied design as a working preview; review changes are recorded and resolved. Deliverable: accepted visual direction and final scope. This gate comes from the prior preview-before-replacement plan, not from a blanket Codex permission requirement.
-
-Gate E, production readiness: deploy reviewed commit, inspect required routes, verify the three synthetic submission types, record rollback and reopen the public site for review. Deliverable: release record and updated Figma/gallery. If the existing production deployment continues receiving pilot traffic during work, do not disrupt it merely to stage the preview.
-
-Each gate should yield a usable artifact in order; avoid promising all gates in one 30-minute window. Produce a schedule after Gate A based on actual component conversion effort and available integrations. Authentication and email-provider setup can introduce user-dependent elapsed time, which is separate from implementation effort.
-
-## Secure admin — required in first release
-
-Add milestone M3A before Gates C–E. Recommended identity provider: Clerk using its React SDK for the Vite admin entry and backend SDK for server verification. Account availability and any cost must be checked before provisioning; the owner account must belong to the user. Use server-verified sessions and an explicit owner allowlist, not domain-wide implicit access. Deny access by default. Keep admin in a separate entry/build so its layout and code do not enter the public bundle.
-
-Admin needs private paginated reads, typed customer/partner details, persisted status changes and an audit trail; exact storage for status history must be chosen before implementation. Test login, logout, expired sessions, direct unauthorized API requests, status correction and stale updates. Introduce no migration that loses existing Blob records. Decide whether initial records are read in place or copied through a reversible migration, then document reconciliation. No client-side owner/levarum credential check is acceptable.
-
-## Decisions that actually require owner input
-
-First-release admin scope is confirmed; owner/admin login email is confirmed as taitgoodwin@gmail.com. Before production promotion, settle who reviews leads and how often, confirm any delivery/partner commitments in copy, and determine whether numerical estimates are sufficiently supportable to publish. A calendar provider is needed only if manual scheduling is replaced. Authentication setup is now on the critical path. Provider credentials are entered through the service's normal secure flow, never pasted into planning documents.
-
-Until provider setup is resolved, preview preparation can continue, but secure-admin acceptance cannot be claimed. Manual scheduling remains the first-release default. Independent design review, component mapping and preview preparation can proceed once implementation is requested; elapsed time does not approve a pending decision.
+Baseline results are in [verification](verification.md); they must not be reused as proof of changed UI. A failing or unperformed check stays visible in the evidence record.

@@ -2,15 +2,12 @@ import React from 'react';
 
 const SHAPES = ['lift', 'tile', 'badge', 'rule', 'word', 'stack'];
 
-/* The mark is a filled half-dome on a bar — a lever at rest on its fulcrum.
-   Two shapes, copied verbatim from the product. Always currentColor. */
+/* Reviewed Lift direction: an L and rising diagonal. Always currentColor. */
 function Mark({ size, color, animate }) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden="true" focusable="false"
       style={{ display: 'block', flex: 'none', color }}>
-      <path d="M6 44 A26 26 0 0 1 58 44 Z" fill="currentColor"
-        style={animate ? { animation: 'lvLift .62s var(--lv-ease-lift) both', transformOrigin: 'center' } : undefined} />
-      <rect x="6" y="52" width="52" height="9" fill="currentColor" />
+      <path d="M10 8H22V42H38V54H10Z M28 32L48 12H34V2H62V30H52V20L36 36Z" fill="currentColor" />
     </svg>
   );
 }
