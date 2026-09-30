@@ -15,7 +15,13 @@ export function useSubmission() {
    const result=await response.json()
    if(result.saved!==true)throw new Error('Your request was not confirmed. Please try again.')
    return true
-  }catch(e){setError(e instanceof Error&&e.name!=='TimeoutError'?e.message:'The request timed out. Your answers are still here; you can retry safely.');return false}
+  }catch(e){
+   if(e instanceof Error&&e.name==='TimeoutError')setError('The request timed out. Your answers are still here; you can retry safely.')
+   else if(e instanceof TypeError)setError('We could not connect. Your answers are still here. Check your connection and try again, or email hello@levarum.com.')
+   else if(e instanceof SyntaxError)setError('We could not confirm whether your request was saved. Your answers are still here; you can retry safely.')
+   else setError(e instanceof Error?e.message:'We could not confirm your request. Your answers are still here; please try again.')
+   return false
+  }
   finally{active.current=false;setBusy(false)}
  }
  return {submit,busy,error,setError}

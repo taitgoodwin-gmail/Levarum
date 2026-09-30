@@ -13,6 +13,8 @@ Current working baseline: UX correction initiated 2026-09-30. The user authorize
 
 ## Current verified preview and remaining work
 
+A subsequent [public release follow-up](PUBLIC-RELEASE-CHECKS.md) fixes offline/uncertain-save copy, dark-theme print contrast and route metadata, with33 local tests/build and bounded browser checks passing. The older hosted evidence below remains explicitly scoped until the new deployment is checked. [Acceptance matrix](LAUNCH-ACCEPTANCE-MATRIX.md) identifies remaining work.
+
 The [current tested preview](https://levarum-msfizuxea-mind-lever-gmail.vercel.app) runs commit `84663f5` (deployment `dpl_ENBZ1wqd2anRwmnBZNyCqKmNCubH`), with unchanged application source `6b9a0f7`. It combines immediate task guidance, optional direct contact, shared wordmark, accessible recovery and a fail-closed non-production storage selector. Production remains the earlier pilot.
 
 [Verification](verification.md#hosted-isolation-fix-checkpoint) records 33 passing API/security tests, TypeScript/build/boundary checks, 80 hosted route/width/theme cases with real synthetic saves, exact private readback, and direct server-function concurrency/idempotence. [Performance](PERFORMANCE-BASELINE.md) records eight current-source audits with baseline-matched settings: Home mobile median98 and desktop100. Earlier hosted recovery and anonymous/fabricated denial tests remain tied to source8e80; no fresh valid owner, expired/revoked session or real screen-reader test is claimed.

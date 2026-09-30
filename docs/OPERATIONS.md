@@ -12,7 +12,7 @@ Server configuration: CLERK_SECRET_KEY, ADMIN_OWNER_USER_ID, ADMIN_ALLOWED_ORIGI
 
 Preview authorization also trusts Vercel's platform-supplied immutable VERCEL_URL. It never derives trusted origins from request headers. A deployment hostname change requires a fresh browser sign-in. Configure explicit stable production origins before release.
 
-The isolated production database is connected and schema-tested. Clerk DNS and certificates are verified, while its production project connection and owner binding remain incomplete. Owner recovery and provider backup/restore verification remain release gates. Do not promote a development Clerk instance as the production authentication setup.
+The isolated production database is connected and schema-tested. Clerk DNS and certificates are verified, while its production project connection and owner binding remain incomplete. Synthetic combined recovery is verified in [RECOVERY-PLAN.md](RECOVERY-PLAN.md); owner account recovery, ongoing backup custody/routine and production acceptance remain release gates. Do not promote a development Clerk instance as the production authentication setup.
 
 ## Admin API
 
@@ -27,3 +27,8 @@ Blob is the durable submission record. PostgreSQL stores the index and status hi
 Local PostgreSQL transactional behavior passed the opt-in test in tests/postgres.integration.mjs. Neon persistence, concurrent updates and private Blob reconciliation now also pass with isolated synthetic records. Do not promote until browser admin verification, production authentication/resources, recovery, manual review cadence and visual review pass. Before promotion record the previous production deployment ID. A rollback changes application code, not customer records. Do not delete Blob data or drop tables during rollback.
 
 Confirm provider backup/restore availability and retention on the selected plan before production. There is no verified automated retention/deletion job. For a deletion request, verify identity privately and remove matching content, index and associated records consistently using an audited procedure; do not publish personal data in tickets or logs.
+
+
+## Recovery procedure scope
+
+The tested procedure exports exact private object bytes and matching SQL index/history together, restores SQL before reconciliation, and verifies target-only detail reads and status continuity. Original SQL receipt dates and Blob JSON receipt dates are independently preserved. A Blob-only rebuild is not equivalent: it loses status history and may use new upload dates. [Recovery evidence](RECOVERY-PLAN.md) records the three-record synthetic drill and its limits. No automated customer backup schedule, retention period or account-loss recovery guarantee is configured by that test.

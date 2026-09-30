@@ -24,13 +24,13 @@ Blob is durable submission content. PostgreSQL holds index/current status/audit 
 
 | ID | Criterion | Current status |
 |---|---|---|
-| A01 | Owner enrolls/verifies/signs in; production ownership/recovery verified. | Preview enrollment and sign-in passed; production/recovery pending. |
+| A01 | Owner enrolls/verifies/signs in; production ownership/recovery verified. | Historical preview enrollment/sign-in passed. Fresh redesigned owner walkthrough, production ownership and account recovery remain pending. |
 | A02 | Anonymous, expired and non-owner cannot read/mutate, including direct APIs. | Injected authorization tests and fresh hosted missing/fabricated-token 401/no-store denial passed; live non-owner/expired-token probes pending. |
 | A03 | Synthetic plan/call/partner and reconciliation are persistent/idempotent. | Redesign hosted synthetic follow-up/call/partner exact private reads pass; reconciliation baseline passed. New authenticated dashboard rendering still pending. |
 | A04 | Status/history persist; concurrency yields 409; successful retry creates no duplicate. | Redesign isolated-preview concurrent stale-version 409, status persistence and idempotent retry pass; earlier local/Neon evidence retained. |
-| A05 | Logout clears private UI, Back does not reveal it, revoked token rejected. | Owner browser clearing and Clerk session removal passed; pre-logout JWT replay still pending. |
+| A05 | Logout clears private UI, Back does not reveal it, revoked token rejected. | Historical owner browser clearing and Clerk session removal passed. Fresh redesigned logout/Back and live pre-logout JWT replay remain pending. |
 | A06 | Responsive readable operational UI, keyboard controls, useful errors, no demo auth. | Redesigned anonymous entry passes responsive checks; sign-in landmark fixed, dark Axe retest zero violations with three incomplete Clerk contrast items. Authenticated redesigned UI still awaits owner sign-in. |
-| A07 | Public boundary, secrets and private-cache protections hold. | Redesign build/boundary and 21-test suite pass; public graph has 14 modules with no auth/private dependency. No broader penetration-test claim. |
-| A08 | Production identity/resources/recovery/backup/rollback and review routine documented/tested. | Outstanding release gate; preview service provisioning is not production acceptance. |
+| A07 | Public boundary, secrets and private-cache protections hold. | Application source6b9a0f7 passes33 tests, build/typecheck/boundary; public graph has15 reachable modules and no auth/private dependency. No broader penetration-test claim. |
+| A08 | Production identity/resources/recovery/backup/rollback and review routine documented/tested. | Isolated production Neon/schema and Clerk DNS/certificates verified; synthetic combined SQL/Blob recovery passed. Production Clerk binding/owner operation, backup custody/routine, rollback and operating commitments remain open. |
 
 See [verification](verification.md) for evidence limitations and [operations](OPERATIONS.md) for secure configuration names and recovery. No credentials, account IDs, real customer fixtures, paid service commitments or destructive migrations belong in this redesign documentation.
