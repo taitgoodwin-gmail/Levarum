@@ -4,7 +4,7 @@ Updated 2026-09-30. The active objective is [AUTONOMOUS-LAUNCH-PLAN.md](docs/AUT
 
 The [previous record](docs/archive/2026-09-30-before-evidence-sync/PLANS.md) is preserved verbatim as historical evidence. Its old questionnaire, no-API-change, earlier-preview and pending-redeployment statements are superseded here. Paths inside that archived copy are relative to its original repository-root location.
 
-The latest verified application is the [wordmark preview](#latest-checkpoint--wordmark-preview), source `8e80f5de339cdd62bdb01cfcdb257f183cb50e87` at [9tv](https://levarum-9tvocbmhj-mind-lever-gmail.vercel.app). Earlier source 8989 and local-follow-up sections below are historical evidence, not the current deployment. Production is unchanged.
+The current tested preview is commit `84663f5` at [msf preview](https://levarum-msfizuxea-mind-lever-gmail.vercel.app), with application source `6b9a0f7`. [Current status](docs/README.md) and [verification](docs/verification.md) separate exact deployment evidence. Earlier checkpoints below are historical. Production remains unchanged.
 
 ## Task-first application checkpoint — historical source 8989
 
@@ -19,7 +19,7 @@ The latest verified application is the [wordmark preview](#latest-checkpoint--wo
 
 [Editable Figma](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L) retains historical sources. Concepts16:3/16:4 are editorial;16:5/16:6 are task-led. Selected direction combines editorial marketing with immediate exploration. Page18:2 specifies task/contact/recovery/operator states; remaining gaps and subsequent refinements belong in design QA. The concept frames are not blanket pixel-parity evidence.
 
-[Three refined logo directions](docs/BRAND-REFINEMENT.md) now have native component variants and header/mobile/favicon/monochrome contexts. Wordmark-first is the current expert recommendation; the deployed preview still uses earlier Lift. Owner review of concrete visual alternatives remains open.
+[Three refined logo directions](docs/BRAND-REFINEMENT.md) now have native component variants and header/mobile/favicon/monochrome contexts. Wordmark-first is the current expert recommendation; the current deployed preview implements Wordmark-first. Owner review of concrete visual alternatives remains open.
 
 Use Figma, Google/web.dev/Lighthouse and W3C guidance; no GOV.UK authority. Product decisions and untested hypotheses remain identified. AI-assisted BA/UX/engineering walkthroughs are not research with representative users.
 
@@ -41,10 +41,19 @@ The UX agent owns core public Figma state completion on page18:2. Engineering ow
 The full goal remains active. Preview delivery alone is not completion.
 
 
-## Latest checkpoint — wordmark preview
+## Historical checkpoint — wordmark preview
 
 Source8e80f5d is automatically deployed by Vercel Git integration at [9tv preview](https://levarum-9tvocbmhj-mind-lever-gmail.vercel.app), deploymentdpl_5oxtDaZnuyTp9iBceQjos1i1R7mP. Wordmark-first is implemented in public/admin layouts with matching favicon and legacy compatibility.32tests/build/boundary,80local+hosted checks,8hosted repeated-failure cases and8live absent/fabricated admin denials pass. Actual owner access, new source private-record readback and a new Lighthouse run are not claimed. Existing8989 API/storage/performance evidence remains intact.
 
 Figma contact/explorer and shell/partner/operator state refinements are indexed in design QA. Code Connect was actually queried and requires a paid eligible Figma seat; the source map is documented without introducing a launch dependency or payment.
 
 The owner explicitly approved the isolated Neon production connection, and it succeeded. Production-only resource/variable scopes and distinct preview/production Neon projects/endpoints are verified. Exact application DDL initializes idempotently; a synthetic status/event transaction verified defaults, row locking, update and mutation uniqueness, then rolled back with no retained test rows. This is not an authenticated production API/concurrency or backup/restore test. The earlier approval rejection is resolved, not a pending gate. Existing pilot and production Blob remain unchanged. Clerk production provisioning and actual identity/recovery gates remain open; see [provisioning evidence](docs/PRODUCTION-PROVISIONING.md). [Production release gates](docs/PRODUCTION-RELEASE-GATES.md) records the inspected pilot rollback candidate and environment names/scopes.
+
+
+## Current checkpoint — isolated preview storage
+
+Application source6b9a0f7 fails closed when non-production lacks its dedicated Blob credential.33 tests, build/typecheck/boundary and80 hosted responsive checks pass. Exact synthetic readback/concurrency/idempotence and eight baseline-matched Lighthouse runs pass; Home median mobile98/desktop100. Documentation commit84663f5 triggered a fresh post-scope deployment; bounded real saves/retry/private readback/concurrency passed there using preview-only credentials. Provider and local Blob scopes are corrected; old deployments are not claimed revoked.
+
+Clerk DNS and certificates are verified. The separate production Clerk connection awaits action-time approval; immutable production owner enrollment/binding and authenticated journeys remain incomplete. Neon production connection is already approved and complete. Recovery execution status belongs in [RECOVERY-PLAN.md](docs/RECOVERY-PLAN.md); owner operating commitments and visual approval remain open.
+
+Local SQL recovery now passes: official-checksum PostgreSQL18.4 tools exported/restored an actual custom archive preserving three synthetic index records, three status events, original dates, constraints and mutation IDs. Actual storage logic retained retry idempotence and stale-version conflicts after restore. No cloud/Blob/customer access occurred; full recovery remains open.

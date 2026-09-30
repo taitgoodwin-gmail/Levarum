@@ -1,12 +1,12 @@
 # Recovery plan and isolated drill specification
 
-Prepared 2026-09-30. **Research and proposed procedure only: no export/restore drill was executed by this work.** No production writes, customer reads, service configuration changes or paid commitments occurred. This supports existing release gate G06; it does not add an approval stage. Read alongside [operations](OPERATIONS.md), [production provisioning](PRODUCTION-PROVISIONING.md), [Blob isolation](BLOB-ISOLATION.md) and [release gates](PRODUCTION-RELEASE-GATES.md).
+Prepared 2026-09-30. **Current scope: provider research plus a completed local synthetic PostgreSQL archive/restore drill, recorded below. Cloud/Blob recovery remains untested.** No production writes, customer reads, service configuration changes or paid commitments occurred. This supports existing release gate G06; it does not add an approval stage. Read alongside [operations](OPERATIONS.md), [production provisioning](PRODUCTION-PROVISIONING.md), [Blob isolation](BLOB-ISOLATION.md) and [release gates](PRODUCTION-RELEASE-GATES.md).
 
 ## What is known, and what is not
 
 Provider inspection records both Levarum Neon resources as Free `free_v3`: production-only `levarum-production` and preview/development `levarum-admin-preview`. Their distinct endpoints/projects and production schema were verified. The rolled-back synthetic SQL transaction proves constraints and schema behavior, **not recovery**. Earlier synthetic private persistence and status-conflict checks also do not constitute backup restoration.
 
-Blob identity inspection distinguishes production `levarum-leads` from `levarum-preview-private`; the scope findings and correction status belong to BLOB-ISOLATION.md. Do not infer safe credentials from store names or assume every local/deployment environment has the latest correction. No actual Neon history setting, available restore timestamp, snapshot entitlement, customer-accessible Blob recovery, or completed recovery time was verified here.
+Blob identity inspection distinguishes production `levarum-leads` from `levarum-preview-private`; the scope findings and correction status belong to BLOB-ISOLATION.md. Do not infer safe credentials from store names or assume every local/deployment environment has the latest correction. No actual Neon history setting, available restore timestamp, snapshot entitlement, customer-accessible Blob recovery, or production recovery time was verified here. The later local SQL drill is separately scoped below.
 
 | Capability | Official documentation checked | Consequence for Levarum |
 |---|---|---|
@@ -92,10 +92,32 @@ Before relying on backups for customer data, the owner must choose only the actu
 
 Production replacement still follows visual review and existing release gates. Data recovery does not replace the recorded application rollback candidate, owner account recovery, manual inbox review or Apple/iCloud correspondence access. None of those capabilities is newly verified by this document.
 
-## Local drill preflight — actual evidence, 2026-09-30
+## Historical local drill preflight — 2026-09-30; tooling subsequently resolved
 
 At `2026-09-30T06:56:46.786Z`, source HEAD `6b9a0f7f90079ca8dedbe9d5a39b6f5cfe737d21`, inspected the existing embedded PostgreSQL runtime referenced by `work/run-postgres.mjs`. The installed `@embedded-postgres/darwin-arm64` package version is `18.4.0-beta.17`; its native binary directory contains only `initdb`, `pg_ctl` and `postgres`. **Both `pg_dump` and `pg_restore` are absent.** Executable checks also found neither tool on the current PATH or in the bundled runtime fallback/override directories. A runtime file search found no copy; conventional `/opt/homebrew/opt` and `/usr/local/bin` directories are absent.
 
 The ignored repeatable preflight is `work/local-recovery/check-tools.mjs`; machine-readable results are `work/local-recovery/preflight-results.json`. The bundled Node executable ran that preflight successfully. It stopped before creating databases because genuine archive tooling is a prerequisite: zero databases/records were created, no cloud/customer data was accessed, no package was installed, and no archive export/import occurred. There was no substitute JSON roundtrip.
 
-**Scope still unverified:** receipt-date fidelity after restore, statuses/versions, events/mutation IDs, restored constraints and continued idempotence, as well as all Blob restore behavior. The precise next dependency is compatible PostgreSQL `pg_dump` and `pg_restore` executables; the database engine itself is already available. Once those tools are available within authorized scope, run the two fresh localhost databases and assertions above. This is an executable-availability result, not a failed data restore or proof of recovery.
+**Scope unverified at that preflight:** receipt-date fidelity after restore, statuses/versions, events/mutation IDs, restored constraints and continued idempotence, as well as all Blob restore behavior. The precise next dependency is compatible PostgreSQL `pg_dump` and `pg_restore` executables; the database engine itself is already available. Once those tools are available within authorized scope, run the two fresh localhost databases and assertions above. This is an executable-availability result, not a failed data restore or proof of recovery.
+
+
+## Completed local SQL archive/restore drill — 2026-09-30
+
+**Passed, narrowly scoped to localhost synthetic PostgreSQL.** Ran from `2026-09-30T07:07:26.543Z` through `07:07:28.224Z`, against source HEAD `84663f563e849a7050801ece2fb859565f968ab9`. The exact DDL was extracted from `server/admin-store.ts`; its SHA-256 was `3994573dd17dcc8aa4f605620149f942f7fa79ecb614257b7b3267c0a139885f`. The entire storage module hash is retained in the evidence. Two fresh, uniquely named databases used a new local cluster bound only to `127.0.0.1`. No application source, environment binding or existing database was changed.
+
+Engineering resolved the missing clients by building PostgreSQL 18.4 tools under ignored `work/local-recovery/tools/install` from the [official source archive](https://ftp.postgresql.org/pub/source/v18.4/postgresql-18.4.tar.bz2), checked against its [vendor SHA-256](https://ftp.postgresql.org/pub/source/v18.4/postgresql-18.4.tar.bz2.sha256): `81a81ec695fb0c7901407defaa1d2f7973617154cf27ba74e3a7ab8e64436094`. `pg_dump`, `pg_restore` and the embedded server all reported 18.4. These isolated clients have no TLS/compression support and are **for localhost only**, not Neon or any remote database. No system or application dependency was installed or changed. The ordinary sandbox blocked local socket binding; the authorized escalated run then completed.
+
+The harness used the actual application's `indexLead` and `updateStatus` functions to create three synthetic plan/call/partner index rows and three status events. It set distinct original receipt dates and microsecond timestamps before capture. Genuine `pg_dump --format=custom --compress=none` produced a 6,379-byte archive; `pg_restore --exit-on-error --single-transaction --no-owner --no-privileges` restored it into the verified-empty target. Archive SHA-256: `fd87f831fb7aaf064d7990f8d26efa692ceb24fe4337ce7a980edb9bf32edc04`.
+
+Verified assertions:
+
+- Exact restored index IDs, source keys, kinds, receipt dates including microseconds, statuses and versions; all event timestamps, actors, old/new statuses, versions and mutation UUIDs; sync row and schema constraint definitions.
+- A deliberately altered archive **copy** failed checksum validation before any restore. The original archive retained its hash.
+- A repeat restore refused the now-nonempty SQL target before invoking `pg_restore`.
+- Actual restored application logic accepted the original successful mutation retry without adding an event, applied one new mutation/version, and accepted its unchanged retry without duplication. Three restored events became exactly four after that single new mutation.
+- Stale versions and conflicting reuse of an existing mutation ID returned conflicts. Non-call Booked was rejected. Restored primary-key uniqueness and foreign-key enforcement rejected invalid inserts.
+- Target sync cursor/completion were explicitly reset to null after fidelity comparison. Source database snapshot and original archive remained unchanged; the cluster was stopped successfully. No broad deletion occurred.
+
+Ignored reproducibility/evidence: `work/local-recovery/drill.mjs`, `work/local-recovery/tools/tool-manifest.json`, `work/local-recovery/latest-results.json`, and `work/local-recovery/run-9f272d550b68475aae1101d57c2eaf79/` (fixtures, baseline, archive, corrupted copy, stopped cluster and results). Fixture content is synthetic. The original blocked preflight remains preserved as historical evidence.
+
+**Not verified by this drill:** Blob content export/restore/private access, JSON consent/notice fidelity, cross-provider consistency, Neon export/import or provider point-in-time recovery, authenticated owner/browser recovery, production rollback, automated backup execution/retention, or account-loss recovery. There were zero cloud requests, Blob operations and customer reads. This local result completes the SQL archive mechanics portion of G06; it does not close the full recovery gate. The observed short runtime for three records is not an RTO or production recovery estimate.
