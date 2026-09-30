@@ -30,6 +30,8 @@ No VoiceOver, NVDA, JAWS or other real assistive-technology session was conducte
 
 ## Actionable finding: asynchronous failure loses keyboard position
 
+> Historical finding, now fixed within a verified scope. Shared SubmissionError restores focus to the error after an async failure and preserves helper descriptions. The [wordmark/recovery checkpoint](verification.md#wordmark-and-recovery-preview--2026-09-30) records deployment on source 8e80/9tv and eight hosted repeated-failure cases covering contact/partner, both themes and 320/1440px, including Tab-to-retry, retained input/consent and stable IDs. This closes the reproduced keyboard-position defect for those tested flows; it is not screen-reader, authenticated-owner or universal failure-state certification. The reproduction below is retained as original evidence.
+
 Priority P2, high-confidence reproducible interaction defect. `ContactRequest` uses `SubmissionForm` with the form disabled during saving. In the observed flow, activating submit, entering the pending/disabled state and then receiving a503 leaves the document body focused after failure. Input is retained and the error is visible with `role=alert`, but keyboard users lose their place for retry. This is independent of whether a screen reader announces the alert.
 
 Reproduction:
@@ -122,3 +124,52 @@ The node/frame/count ledger is saved in the chat working directory at `work/leva
 - Partner and authenticated owner state matrices remain outside this pass; older owner mock is not verification of working authentication.
 - Shared reusable field/radio/checkbox component variants, complete focus/hover specifications, Code Connect mappings and all five task-responsive variants remain incomplete.
 - Browser keyboard/AT semantics cannot be established by static checkbox/radio illustrations. True zoom, real screen-reader and representative-user tests retain their previous unverified status.
+
+## Shared shell, partner and owner specification — subsequent checkpoint
+
+Added **20 representative QA3 frames** on the existing journey page18:2, with **958 native editable nodes, 71 reacting descendants and zero image-filled nodes**. This is a deliberately smaller representative set rather than another exhaustive responsive matrix. The previous QA2 and historical frames are preserved.
+
+The shared shell, partner screens and owner header instantiate the reviewed **Wordmark-first component29:25** (lowercase levarum,30px Schibsted Grotesk Bold,−3% tracking). This records the selected design direction for the next preview; it does not assert that a prior deployment already uses that wordmark.
+
+| State | Width/theme | Node |
+|---|---|---|
+| shell-closed | 390 / light | 40:493 |
+| shell-open | 390 / light | 40:529 |
+| partner-form | 390 / light | 40:576 |
+| partner-pending | 390 / light | 40:655 |
+| partner-receipt | 390 / light | 40:734 |
+| owner-empty | 390 / light | 40:777 |
+| owner-loading | 390 / light | 40:838 |
+| owner-logout | 390 / light | 40:862 |
+| shell-desktop | 1440 / light | 41:544 |
+| owner-inbox | 1440 / light | 41:588 |
+| owner-detail | 1440 / light | 41:654 |
+| owner-status-saved | 1440 / light | 41:705 |
+| partner-validation | 320 / light | 41:757 |
+| shell-open | 320 / dark | 41:837 |
+| partner-error | 320 / dark | 41:884 |
+| owner-expired | 320 / dark | 41:964 |
+| owner-denied | 320 / dark | 41:989 |
+| owner-conflict | 390 / dark | 41:1014 |
+| owner-maintenance | 1440 / dark | 41:1068 |
+| shell-closed | 320 / dark | 42:636 |
+
+[Mobile dark menu](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L?node-id=41-837), [partner failed save](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L?node-id=41-884), [owner inbox](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L?node-id=41-588), [owner conflict](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L?node-id=41-1014).
+
+### Reconciliation with current source
+
+- Shell includes desktop navigation, narrow open/closed menu, theme action, direct contact action, wordmark and footer destinations. Narrow menu overlays the underlying content as the application's native details menu does. Its keyboard Escape/focus return and skip-link behavior are annotated. Menu and outcome navigation work in the prototype; links unrelated to these state walkthroughs remain illustrative.
+- Partner states retain current labels and contribution choices, explicit consent, pending controls, validation, focused failed-save recovery and truthful receipt. Reuse of form controls and derived textarea composition matches the public-contact specification. No request or email is actually sent.
+- Owner states reproduce current request types/counts/filter controls, request reference/date, separate detail view, human-readable fields, reply action, allowed call statuses, status feedback/history, empty filtered results, maintenance, stale conflict and denied/expired/cleared-content cases. A synthetic call request is the representative detail because it exercises Booked and the non-booking disclaimer.
+- Source's optimistic-version behavior, immutable owner/session restrictions, private data boundaries, filter retention, maintenance semantics and logout clearing are explicit annotations. A disabled sign-out control and cleared content illustrate the transition before the real provider redirect. Clerk's actual sign-in widget is intentionally not drawn or simulated as successful authentication.
+- Owner reply links and maintenance actions are shown for review; Figma does not open private accounts, send messages or mutate a database. Review controls connect inbox/detail/status/conflict/empty/session scenarios using representative frames. Some review transitions change width/theme to the available representative target; this is a design-navigation aid, not responsive behavior performed by the web application.
+
+### Inspection and corrections
+
+Inspected narrow owner empty state,320px dark menu,320px dark partner error and1440px owner inbox screenshots. Corrected the initial button-like navigation links into underlined text, moved the mobile menu to an overlay, strengthened form-control outlines using semantic colors, added count-grid row gaps, centered owner content, moved the desktop View request action beside its summary, and grouped the owner label with the wordmark. Final narrow menu and desktop inbox screenshots were inspected after the major layout corrections; the final owner-label regrouping is structurally validated.
+
+These remain **source-informed specifications**, not pixel-perfect captures: native browser select/radio rendering, provider widgets, datetime localization, certain footer spacing and control states vary. No actual owner login, record review, status update or logout test was performed by this design task. Earlier owner evidence must retain its original version/date scope.
+
+Ledger: chat work `work/levarum-reimagination/shell-owner-node-ledger.json`; construction source `shell-owner-spec.js`. Combined QA2+QA3 additions total98 frames; counts alone do not establish completeness or usability.
+
+Remaining: Home's three scenario frames, full-shell integration into every QA2 contact frame, all task variants at all widths, real AT/zoom checks, exact final-preview visual comparison and authenticated owner testing. Static diagrams do not close those evidence gates.

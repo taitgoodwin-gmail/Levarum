@@ -7,6 +7,10 @@ const browser=await chromium.launch({executablePath:process.env.CHROME_PATH,head
 const context=await browser.newContext({viewport:{width:1440,height:1000},reducedMotion:'reduce'})
 const page=await context.newPage()
 const base=process.env.TEST_BASE_URL||'http://127.0.0.1:5174'
+if(process.env.TEST_ACCESS_URL_FILE){
+ try{await page.goto(readFileSync(process.env.TEST_ACCESS_URL_FILE,'utf8').trim())}
+ catch{throw Error('Could not open the temporary preview access link')}
+}
 if(process.env.TEST_COOKIE_FILE){
  const cookies=readFileSync(process.env.TEST_COOKIE_FILE,'utf8').split('\n').filter(line=>line.includes('\t')&&(!line.startsWith('#')||line.startsWith('#HttpOnly_'))).map(line=>{const p=line.replace('#HttpOnly_','').split('\t');return {domain:p[0],path:p[2],secure:p[3]==='TRUE',name:p[5],value:p[6],httpOnly:line.startsWith('#HttpOnly_')}})
  await context.addCookies(cookies)

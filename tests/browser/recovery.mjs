@@ -1,9 +1,13 @@
 import assert from 'node:assert/strict'
-import {mkdirSync,writeFileSync} from 'node:fs'
+import {mkdirSync,writeFileSync,readFileSync} from 'node:fs'
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE||'playwright')
 const browser=await chromium.launch({executablePath:process.env.CHROME_PATH,headless:true})
 const page=await browser.newPage()
 const base=process.env.TEST_BASE_URL||'http://127.0.0.1:5178'
+if(process.env.TEST_ACCESS_URL_FILE){
+ try{await page.goto(readFileSync(process.env.TEST_ACCESS_URL_FILE,'utf8').trim())}
+ catch{throw Error('Could not open the temporary preview access link')}
+}
 const out=process.env.TEST_OUT||'work/recovery-focus'
 mkdirSync(out,{recursive:true})
 const results=[]

@@ -1,6 +1,6 @@
 # Preview verification — migration and redesign evidence
 
-This is dated evidence for the design-migration/redesign branch, not production-release acceptance. Production remains the earlier pilot. The current review preview is protected by Vercel account access. The [task-first/v2 checkpoint](#task-first-and-v2-verification--2026-09-30) below is current and supersedes earlier interface/deployment results only where explicitly retested; earlier sections remain historical evidence.
+This is dated evidence for the design-migration/redesign branch, not production-release acceptance. Production remains the earlier pilot. The current review preview is protected by Vercel account access. The [wordmark/recovery checkpoint](#wordmark-and-recovery-preview--2026-09-30) is the latest verified application deployment and supersedes earlier results only for its explicitly repeated checks. Task-first/v2 private-record and Lighthouse results remain tied to source8989; all earlier sections retain their historical scope.
 
 ## Observed results
 
@@ -136,3 +136,16 @@ Scope: local source changes following deployed8989, not yet evidence for a new d
 Validation after the fix:32/32 API/security tests pass; production build/typecheck and boundary checks pass (112files;15public modules). The local public-flow suite passes80 responsive route/theme cases plus the new failed-save focus and retry assertion. Dedicated tests/browser/recovery.mjs passes8 combinations (contact/partners × light/dark ×320/1440), each with two mocked503 failures, alert focus, Tab-to-retry, retained email/consent and identical retry request IDs. Direct-contact validation retains message-help before/after correction. Evidence: ignored work/recovery-browser/results.json and work/recovery-focus/results.json. No real submissions in these runs; no fresh private-record or authenticated-owner claim. Actual screen-reader behavior remains unverified.
 
 The React review of this change found a module-level shared component, primitive effect dependency, semantic alert/ref focus, no new dependency or network operation, and unchanged public/admin import boundary. No broad React refactor was added.
+
+
+## Wordmark and recovery preview — 2026-09-30
+
+Exact application source8e80f5de339cdd62bdb01cfcdb257f183cb50e87, treee2aa24f9d82729e541f23121ebc086c78a925d42. Vercel Git integration automatically deployed dpl_5oxtDaZnuyTp9iBceQjos1i1R7mP, Ready, at https://levarum-9tvocbmhj-mind-lever-gmail.vercel.app . No manual production promotion occurred. Branch pushes also created previews for bcc1bb2 and3d5bac4; earlier statements that those changes were not deployed meant no verified deployment had yet been recorded, and are superseded by this inspected Git-deployment evidence.
+
+Changes: reviewed Wordmark-first default shared across public and owner interfaces, matching theme-aware L favicon, corrected legacy logo type documentation, contact included in sitemap, consistent partner voice without unverified location claim, plus the prior failed-save focus/help-text fix. Legacy explicit logo variants and supplied design history remain preserved.
+
+Current validation:32/32 API/security tests, build/typecheck/boundary pass (112files,15public modules). Local and exact-hosted public suites each pass80 route/width/theme cases and interaction checks. Hosted recovery suite passes8 contact/partner×light/dark×320/1440 cases with repeated mocked503 responses, error focus, Tab-to-retry, retained input/consent and stable request ID. No live submissions in those suites.
+
+Hosted security probes exercise list/detail/status/sync with absent and fabricated authorization:8/8 return401, private/no-store and error-only JSON. Disabled /api/draft returns404. These are actual preview API probes but NOT valid non-owner, expired or revoked-session tests. No private records or owner session accessed. Fresh authenticated-owner testing remains pending.
+
+Evidence: ignored work/wordmark-tests.log, work/wordmark-build.log, work/wordmark-browser/, work/wordmark-hosted/, work/wordmark-hosted-recovery/results.json and work/wordmark-admin-negative/results.json. Narrow light-mobile and dark-desktop screenshots inspected after the wordmark change. Temporary preview access came from the Vercel connector into an ignored file; no bearer URL/cookie appears in public evidence. Earlier8989 private-record and Lighthouse results retain their exact scope; they are not silently relabeled as8e80 results. API/storage implementation is unchanged by this source follow-up.
