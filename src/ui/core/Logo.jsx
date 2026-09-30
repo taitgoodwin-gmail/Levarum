@@ -13,7 +13,7 @@ function Mark({ size, color, animate }) {
 }
 
 export function Logo({
-  shape = 'lift',
+  shape = 'word',
   color = 'var(--lv-ink)',
   wordColor,
   size = 30,
@@ -23,7 +23,7 @@ export function Logo({
   style,
   ...rest
 }) {
-  const s = SHAPES.includes(shape) ? shape : 'lift';
+  const s = SHAPES.includes(shape) ? shape : 'word';
   const stacked = s === 'stack';
   const knock = { width: size + 2, height: size + 2, borderRadius: s === 'badge' ? 'var(--lv-r-round)' : 'var(--lv-r-control)', background: color, display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' };
 
@@ -58,13 +58,13 @@ export function Logo({
       {mark}
       <span style={{
         fontFamily: 'var(--lv-f-display)',
-        fontWeight: s === 'word' ? 800 : 700,
-        fontSize: s === 'word' ? '21px' : '19px',
-        letterSpacing: s === 'word' ? '-0.04em' : 'var(--lv-track-head)',
+        fontWeight: 700,
+        fontSize: s === 'word' ? `${size}px` : '19px',
+        letterSpacing: s === 'word' ? '-0.03em' : 'var(--lv-track-head)',
         textTransform: s === 'rule' ? 'uppercase' : 'none',
         color: wordColor || color,
         lineHeight: 1.1,
-      }}>Levarum</span>
+      }}>{s === 'word' ? 'levarum' : 'Levarum'}</span>
     </Tag>
   );
 }
