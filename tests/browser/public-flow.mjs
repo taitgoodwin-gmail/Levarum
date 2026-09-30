@@ -107,6 +107,10 @@ try{
  assert.equal(submissions.length,0);checks.consentPurposeReset=true
  await page.locator('#consent').check();mode='failure'
  await page.getByRole('button',{name:'Send my follow-up request',exact:true}).click();await page.getByRole('alert').waitFor()
+ await page.waitForFunction(()=>document.activeElement?.getAttribute('role')==='alert')
+ await page.keyboard.press('Tab')
+ assert.equal(await page.evaluate(()=>document.activeElement?.textContent),'Send my follow-up request')
+ checks.failedSaveFocusRecovery=true
  assert.equal(await page.locator('#email').inputValue(),syntheticEmail)
  assert.ok(await page.locator('#consent').isChecked());assert.ok(await heading('Discuss your work.').isVisible())
  assert.equal(submissions.length,1);assert.equal(submissions[0].body.preferences,'')

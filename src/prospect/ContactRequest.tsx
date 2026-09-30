@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState, type FormEvent} from 'react'
 import {CURRENT_BUSINESSES} from '../domain/public'
 import {GUIDANCE} from '../domain/guidance'
-import {SubmissionForm} from './SubmissionForm'
+import {SubmissionError,SubmissionForm} from './SubmissionForm'
 import {useSubmission} from './useSubmission'
 export type TaskId = keyof typeof GUIDANCE
 export function ContactRequest({tasks=[],visible=true,onBack}:{tasks?:TaskId[];visible?:boolean;onBack?:()=>void}) {
@@ -30,7 +30,7 @@ export function ContactRequest({tasks=[],visible=true,onBack}:{tasks?:TaskId[];v
    {intent==='call'&&<div className="lv-field"><label htmlFor="preferences">Availability and timezone <span className="lv-muted">(Optional)</span></label><textarea id="preferences" maxLength={500} value={preferences} onChange={e=>setPreferences(e.target.value)}/><p className="lv-small lv-muted">A request does not book an appointment. We arrange calls by email.</p></div>}
    <label className="lv-consent"><input id="consent" type="checkbox" required checked={consent} onChange={e=>setConsent(e.target.checked)}/>I agree that Levarum can store these details and contact me about this {intent==='call'?'call':'follow-up'} request. <a href="/privacy" target="_blank" rel="noreferrer">Privacy notice (opens a new tab)</a>.</label>
    <label className="lv-honeypot" aria-hidden="true">Website<input tabIndex={-1} autoComplete="off" value={website} onChange={e=>setWebsite(e.target.value)}/></label>
-   {error&&<p role="alert" className="lv-error">{error}</p>}
+   <SubmissionError message={error}/>
    <button className="lv-button" disabled={busy}>{busy?'Saving your request…':intent==='call'?'Send my call request':'Send my follow-up request'}</button>
    <p className="lv-small lv-muted">Your request is saved privately for manual review. Drafts stay in this tab and clear when you refresh.</p>
    {onBack&&<button type="button" className="lv-button secondary" disabled={busy} onClick={onBack}>Back to task ideas</button>}
