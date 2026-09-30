@@ -10,6 +10,14 @@ Help a business owner understand the service, get useful starting points without
 
 Production remains the earlier pilot. Source work, PR updates and preview deployment are authorized. Select routine decisions autonomously, but provide a tested preview for owner visual review before production replacement. Production authentication/resource/recovery and remaining security probes are independent release gates.
 
+## Active launch execution
+
+The user requested a comprehensive autonomous plan followed by an active goal. [Autonomous launch plan](docs/AUTONOMOUS-LAUNCH-PLAN.md) governs the next execution cycle, including preview delivery and gated production promotion. Earlier progress below is retained as baseline evidence.
+
+## New direction requested 2026-09-30
+
+The user rejects GOV.UK as a UI/UX design source and requests deeper Figma/Google guidance and reimagination. [Figma-led reimagination brief](docs/FIGMA-REIMAGINATION.md) records the new source policy, proposed direction and ordered work. Prior redesign evidence below remains historical baseline, not acceptance of the next design. Research/brief complete; Lighthouse baseline and new Figma alternatives pending.
+
 ## Progress
 
 - [x] Preserve and inspect existing implementation and historical design provenance.
@@ -61,3 +69,12 @@ Keep original ZIP snapshot and old design gallery archival. Preserve all current
 ## Outcomes
 
 Application commit `700a85075152c2c8411609b5de30738376619560` (tree `5743424959207b8db3741825528c7841c715e4ca`) is deployed at the [current redesign preview](https://levarum-6n8z4iohc-mind-lever-gmail.vercel.app), deployment `dpl_Vkpo5Y2hLJFrHf9zNz5QZp3zDshW`. Public journeys and targeted persistence/concurrency checks passed as detailed in [verification](docs/verification.md#ux-redesign-verification--2026-09-30); this is not full requirement closure or production acceptance. Current source review PR is [#4](https://github.com/taitgoodwin-gmail/Levarum/pull/4). Authenticated redesigned admin, manual accessibility/provider contrast review, real-user testing, visual approval and production operational/security gates remain explicit. Production is unchanged.
+
+
+## Active goal checkpoint — task-first implementation
+
+2026-09-30: Figma concepts16:3/16:4 (editorial) and16:5/16:6 (explorer) constructed using existing native components, styles, theme variables and Auto Layout; existing designs preserved. Selected A marketing+B exploration. Page18:2 holds exploration/contact/receipt/error/operator specifications; task prototype links connect five task states (18:3,23:33,23:54,23:75,23:96). These are conceptual state references; full visual parity and new logo refinement remain open.
+
+Implemented immediate task exploration, direct/contact contextual v2 requests, optional genuine business context, exception-aware invoice demo and compact marketing. Spec docs/LEAD-V2-CONTRACT.md preceded server work. Legacy hashes preserved by golden tests; 32 API/security tests and build/type/boundary pass. Local updated browser suite passes80route/theme/width checks with mocked submission flows; separate axe scans report zero violations on8publicroutes in both themes. Actual screen-reader, livev2private readback and fresh authenticated owner remain pending. Duplicate GoogleFonts import removed; local baseline and predeployment comparison belong in PERFORMANCE-BASELINE.md, not a claim of hosted/field speed.
+
+First Vercel preview emitted Object.hasOwn compatibility compiler diagnostics; replaced with hasOwnProperty.call preserving tested semantics. Redeploy is in progress. No production change. Source/PR sync and final hosted verification remain unfinished.

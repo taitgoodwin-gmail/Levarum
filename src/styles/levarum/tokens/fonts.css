@@ -2,7 +2,6 @@
    The source build loads both families from Google Fonts; no binaries were
    supplied with the codebase, so the @font-face rules come from Google's
    hosted stylesheet rather than local files. See readme.md → Fonts. */
-@import url("https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap");
 
 :root{
   --lv-f-display:'Schibsted Grotesk','Trebuchet MS',sans-serif; /* @kind font */

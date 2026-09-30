@@ -17,7 +17,7 @@ export function Shell({ children }: { children: ReactNode }) {
   try { localStorage.setItem('levarum.theme.v1', next) } catch { /* Theme works without persistence. */ }
  }
  function navigation() {
-  return <>{links.map(link => <a key={link.href} href={link.href} aria-current={location.pathname === link.href ? 'page' : undefined}>{link.label}</a>)}<ThemeToggle theme={theme} onToggle={toggle}/><a className="lv-button" href="/start">Find my starting point</a></>
+  return <>{links.map(link => <a key={link.href} href={link.href} aria-current={location.pathname === link.href ? 'page' : undefined}>{link.label}</a>)}<ThemeToggle theme={theme} onToggle={toggle}/><a className="lv-button" href="/contact">Discuss your work</a></>
  }
  return <>
   <SkipLink href="#lv-main"/>
