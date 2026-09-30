@@ -212,3 +212,62 @@ Intentional prototype scope differences: the default scenario is represented in 
 Remaining visual differences, **not approved product changes**: full-width scenario-option spacing instead of the browser's content-sized desktop labels; approximate section tints using layered semantic paints (3.5% ink for example,16% secondary for engagement) rather than the CSS mode-specific mixes; omitted decorative desktop flow arrows and the aside's short accent stroke; simplified theme control; shared button variant background, text weight, line-height and vertical spacing differ in places. The desktop task rows are more compact because text wrapping differs. Consequently this is a complete source-informed composition, not pixel-perfect parity or a final visual-approval claim. No application files were changed to match these differences.
 
 Ledger: chat work `work/levarum-reimagination/full-home-node-ledger.json`; construction script `full-home-spec.js`. The ledger records construction counts; later targeted paint/spacing adjustments preserve these node counts. QA2–QA5 inventory totals106 frames. Remaining stage4 work includes the documented visual reconciliation and complete cross-route prototype wiring, separate from accessibility, live owner verification and representative-user research gates.
+
+## QA6 — Connected prospect and partner handoff (2026-09-30)
+
+This extension supersedes QA5's missing-route and excerpt-navigation limitations. It preserves every earlier QA frame and adds a separately labeled current review set on page `18:2`. Source inspection used the parent-reported `599d2f2` documentation head with application implementation `6b9`; the subsequently supplied offline/ambiguous-save copy correction is recorded separately below.
+
+### Review entry points and coverage
+
+- [Desktop light Home](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L?node-id=58-658),1440px, starts the named flow **Current prospect review · Desktop light**.
+- [Mobile dark Home](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L?node-id=58-1072),390px, starts **Current prospect review · Mobile dark**.
+
+| Route / state family | Desktop light | Mobile dark |
+|---|---|---|
+| Full Home routine / disputed / missing-data | `58:658` / `58:796` / `58:934` | `58:1072` / `58:1192` / `58:1312` |
+| How it works | `59:685` | `59:1680` |
+| What we automate | `59:765` | `59:1751` |
+| Questions, closed | `59:881` | `59:1858` |
+| Privacy | `59:1630` | `59:2517` |
+| Explorer, no task | `60:830` | `60:2578` |
+| Explorer, invoices | `60:901` | `60:2640` |
+| Direct email / direct call | `60:1296` / `61:1874` | `60:2990` / `61:2547` |
+| Invoice email / invoice call | `60:1373` / `60:1453` | `60:3058` / `60:3129` |
+| Email / call receipts | `60:2039` / `60:2096` | `60:3652` / `60:3700` |
+| Partner entry / failure / receipt | `60:2153` / `60:2430` / `60:2523` | `60:3748` / `60:3998` / `60:4082` |
+
+Both cohorts additionally contain all five task guidance states, task-specific email/call entry contexts, nine individual FAQ disclosure states, and representative validation/pending/failure/receipt fixtures. All full-page states include shared header/footer. Home scenario controls navigate to full Home counterparts at the same width/theme. Header, footer, task rows, direct-contact actions, FAQ controls and back links have native reactions. Menu and print-review overlays have close actions. Email links open a mail client; they do not send anything. No owner authentication flow is simulated or claimed by this public extension; the separate QA3 owner specifications remain historical, explicitly synthetic references.
+
+Submission controls intentionally open **synthetic outcome review** overlays. These say explicitly that Figma does not read, validate or submit fields. Contact outcome fixtures use the invoice example; selecting a review fixture may change that example context. Desktop and mobile outcomes stay in their respective viewport cohort. This avoids presenting a receipt as the result of completing a working Figma form. Actual consent, retention, retry and save behavior belongs to the application verification record.
+
+### Verified structural evidence
+
+Read actual node reactions after wiring, rather than inferring success from script intent:
+
+- 103 registered QA6 frames/overlays; all103 reachable from the two Home entries.
+- 1,653 node-navigation reactions; zero destinations outside the registered set; zero unreachable states; zero unregistered QA6 top-level frames.
+- 48 theme-mode actions,98 mail-client URL actions and8 close actions were present in the inspected graph. These counts reflect duplicated full-page shells, not unique functions.
+- 7,374 nodes:2,957 frames,734 component instances,3,558 editable text nodes,3 rectangles and122 ellipses. Zero image-filled nodes. Every text family is Schibsted Grotesk or Instrument Sans.
+- Native Auto Layout, existing wordmark/button components and semantic color bindings remain in use. The dark exception background includes the source rust hue at26% over the bound page color; it is an editable paint, not an image.
+
+Graph reachability validates targets and connections. It is not a claim that every reaction was manually executed in Figma Present mode, or that keyboard, screen-reader, form, theme persistence or browser navigation semantics run inside Figma.
+
+### Visual corrections and inspected samples
+
+Compared Home composition against the actual `work/isolation-hosted/light-1440-home.png` and `dark-320-home.png` references already inspected in QA5. Refined content-sized desktop scenario controls,390px wrapped options, source-derived section tint proportions, selected control treatment, the desktop flow arrows, aside accent stroke, theme-control outline and hero button family/weight. Corrected a Figma paint-binding fallback/opacity defect revealed by screenshots; semantic fallback colors are now resolved explicitly before paint opacity is assigned. Fixed stale invoice selection styling in the other task explorers and improved partner-label contrast and heading line-height.
+
+Final representative screenshots inspected after relevant corrections: desktop routine Home `58:658`; mobile missing-data Home `58:1312`; mobile automation page `59:1751`; desktop call form `60:1453`; mobile partner failure `60:3998`; mobile expanded privacy FAQ `59:2385`; desktop customer-question explorer `60:980`; menu `61:2623`; failure specification `70:1510`. All show editable content without obvious clipping or overlap in those samples. This is sample-based expert inspection, not an assertion that every frame has screenshot parity.
+
+### Failure copy and remaining scope limits
+
+[Failure/retry implementation notes](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L?node-id=70-1510) record the parent's distinct offline and malformed-200 messages, retained input, stable submission ID, pending locks, error focus and durable-save-only receipt contract. The note expressly states that an ambiguous response is not proof of data loss. It records supplied implementation changes; this Figma task did not test network behavior.
+
+The public route/state handoff is now connected for the selected desktop-light/mobile-dark cohorts. Remaining genuine limitations:
+
+- Figma fields, consent, business selectors, print and network states are static fixtures with annotations. They do not emulate browser input, validation, native keyboard behavior, storage, session expiry, email delivery or authentication.
+- Figma FAQ review presents one open answer at a time; the application supports independent native disclosures. The default Figma overlay position differs from the application's anchored mobile menu. Theme-mode actions exist but Present-mode execution, reciprocal label changes and persistence were not tested.
+- This extension does not duplicate the complete route set into every320/390/1440×light/dark combination. Earlier QA2 references cover the contact matrix; the current application browser suite is separate evidence for responsive behavior.
+- Smaller layout differences remain, including some field/card padding, font-weight interpolation, task-panel proportions, review-only annotations and menu button treatment. The320px hosted mobile reference cannot establish pixel parity at390px. No pixel-perfect, final visual-approval or real-user-research claim is made.
+- The actual website's tests, final hosted visual review, real assistive-technology/zoom checks and authenticated owner release gates remain governed by their own evidence records. Connecting this prototype does not close those gates.
+
+Ignored handoff files: chat work `work/levarum-reimagination/qa6-final-frames.json` (103-frame ledger), `qa6-final-graph.json` (actual reachability/adjacency evidence), source-derived `qa6-content.json`, and construction/correction scripts prefixed `qa6-`. QA2–QA6 inventory totals209 frames; inventory size is not a quality or completeness score. No application files or production settings were changed by this task.

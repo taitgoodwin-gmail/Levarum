@@ -1,6 +1,6 @@
 # Public release acceptance follow-up — 2026-09-30
 
-Local checkpoint after HEAD `599d2f2`: `src/App.tsx`, `src/prospect/useSubmission.ts`, `src/prospect/explorer.css` and `tests/browser/release-acceptance.mjs`. This page records a bounded follow-up; earlier hosted evidence is not relabeled as testing these changes. The next hosted checkpoint must identify its actual deployment.
+Application checkpoint `d3c0a8243633075fb7b3b3d94bbed99007eedb29`: `src/App.tsx`, `src/prospect/useSubmission.ts`, `src/prospect/explorer.css` and `tests/browser/release-acceptance.mjs`. This page records a bounded follow-up; earlier hosted evidence is not relabeled as testing these changes. The hosted checkpoint below identifies the actual tested deployment.
 
 ## Defects and corrections
 
@@ -19,3 +19,7 @@ The initial browser run reproduced four failures: offline and malformed-response
 After correction,33 API/security tests and build/TypeScript/public-admin boundary checks pass (`work/release-tests.log`, `work/release-build.log`;15 public modules). The bounded real-Chromium suite uses eight known routes plus unknown-route recovery, contextual Back/refresh, print/PDF and eight failure scenarios (Contact/Partners × offline, real20-second timeout,429, malformed HTTP200). It verifies alert focus, Tab-to-retry, retained email/consent, no premature receipt, and a successful unchanged-ID retry. All submissions are intercepted or browser-offline; no new stored request is claimed. The print assertions require at least4.5:1 contrast against white for guidance headings/body in both themes and hide the page prompt/navigation/actions. Raw results/screenshots/PDF are under ignored `work/release-acceptance/`.
 
 These checks do not prove screen-reader announcements, authenticated owner operation, actual rate-limit timing, real email delivery or production saving. They do exercise the browser's native offline state and timeout rather than accelerating timers or replacing the submission hook.
+
+## Hosted checkpoint
+
+The same suite passed on [the release preview](https://levarum-epjcu3fu0-mind-lever-gmail.vercel.app), deployment `dpl_Edn1UoLYzYPdNZpf2d9PzAaXVtD3`, exact application commit `d3c0a8243633075fb7b3b3d94bbed99007eedb29`. Vercel reports READY. Results are `work/release-hosted/results.json`; run log `work/release-hosted-run.log`. All eight route metadata checks, unknown recovery, contextual Back/refresh, both print themes and eight failure/retry cases passed. The dark print screenshot was visually inspected after the run: chosen guidance and human-review boundaries are legible without navigation or form controls. Submissions were intercepted/offline; this checkpoint adds no real persistence or authenticated-owner claim. Earlier actual private persistence and Lighthouse evidence retain their own source/deployment scope.
