@@ -161,7 +161,7 @@ This table reports evidence from the implemented preview. Original findings abov
 | UX11 | Public routes, deep links and unknown-route recovery loaded at four widths. Skip link focuses main; admin has a separate entry. |
 | UX12 | Numeric FAQ count removed from headline/link copy; nine actual questions remain. |
 | UX13 | Native radios support ArrowRight selection; verified in browser. |
-| UX14 | Transactional status/history, reconciliation, conflict UI and pending/error/session states implemented. Provider and database concurrency/persistence tests pending. **Open release gate.** |
+| UX14 | Transactional status/history, reconciliation, conflict UI and pending/error/session states implemented. Local PostgreSQL concurrency, persistence and mutation retry tests passed. Provider/cloud reconciliation and populated admin tests remain pending. **Open release gate.** |
 | UX15 | Native form submission, retained failure values, associated validation and focused step headings verified for intake. Partner save verified. Manual screen-reader testing remains outstanding. |
 
 Additional implemented correction: Home's long brand badge wrapped after browser checks exposed 320px overflow. Axe 4.12.1 found zero settled-state violations across eight pages in both themes, including only the admin setup screen—not the populated dashboard. Figma/gallery updates await visual review.

@@ -24,6 +24,6 @@ Blob is the durable submission record. PostgreSQL stores the index and status hi
 
 ## Release and recovery
 
-Do not promote this preview until owner login, real PostgreSQL behavior, mobile admin, manual review cadence and visual review pass. Before promotion record the previous production deployment ID. A rollback changes application code, not customer records. Do not delete Blob data or drop tables during rollback.
+Local PostgreSQL transactional behavior passed the opt-in test in tests/postgres.integration.mjs. Do not promote this preview until owner login, Neon integration/reconciliation, mobile admin, manual review cadence and visual review pass. Before promotion record the previous production deployment ID. A rollback changes application code, not customer records. Do not delete Blob data or drop tables during rollback.
 
 Confirm provider backup/restore availability and retention on the selected plan before production. There is no verified automated retention/deletion job. For a deletion request, verify identity privately and remove matching content, index and associated records consistently using an audited procedure; do not publish personal data in tickets or logs.
