@@ -92,3 +92,11 @@ Independent direct DNS queries to **both authoritative nameservers** returned ev
 Clerk's **Verify records** UI then showed overall Verified, Frontend API Verified, Account portal Verified, and Email 3/3 Verified. **SSL certificates were Issuing**, not ready, at that observation. The root agent captured `outputs/levarum-clerk-dns-verified.png` in the chat workspace as evidence. Domain verification is not evidence of completed TLS provisioning, production sign-in, or verified owner authorization.
 
 A subsequent independent HTTPS check with ordinary certificate verification (no bypass) returned `clerk.levarum.com` HTTP 200/TLS verification code 0 and `accounts.levarum.com` HTTP 403/TLS verification code 0. This confirms valid TLS for both checked hosts at that later moment; the account-portal 403 requires sign-in-route/provider testing and is not counted as a successful authentication journey. The provider UI certificate label was not rechecked by this subagent.
+
+## Certificate and connection follow-up
+
+Clerk subsequently reported **SSL Certificates Issued** for both the frontend API and account portal. This is provider certificate evidence, not a sign-in test.
+
+The CLI production-only connection attempt returned “Project levarum is already connected to resource levarum-auth” and proposed disconnecting first. No disconnect was performed. The existing Vercel **Update Project Connection** UI instead allows adding Production while retaining Preview and Development. That exact selection is prepared but not saved: browser-use policy requires action-time approval for expanding the authentication integration into production. The existing integration permission notice lists deployment/project reads and deployment-check/protection-bypass/domain writes. Production credentials and owner access remain unconfigured until the approved save and subsequent verification.
+
+Commit `9fa989f` saved the design handoff, tests and provisioning evidence; its automatic preview deployment `dpl_FMSRy5jRfmoozhRmHD3xGyZNboPC` is READY at https://levarum-7qppcwmz9-mind-lever-gmail.vercel.app. It changes only documentation/test harnesses relative to application `8e80f5d`; earlier browser results remain scoped to the tested `9tvocbmhj` deployment.

@@ -81,3 +81,27 @@ test('preview Blob credentials are never used by production',async()=>{
  delete process.env.VERCEL_ENV;assert.equal(blobToken(),'synthetic-preview')
  }finally{for(const [key,value] of Object.entries({VERCEL_ENV:saved.environment,PREVIEW_READ_WRITE_TOKEN:saved.preview,BLOB_READ_WRITE_TOKEN:saved.production})){if(value===undefined)delete process.env[key];else process.env[key]=value}}
 })
+
+test('missing preview credentials fail closed even when production storage is available',async()=>{
+ const {blobToken,blobConfigured}=await import('../server/blob-config.ts')
+ const keys=['VERCEL_ENV','PREVIEW_READ_WRITE_TOKEN','BLOB_READ_WRITE_TOKEN','BLOB_STORE_ID']
+ const saved=Object.fromEntries(keys.map(key=>[key,process.env[key]]))
+ try{
+  process.env.BLOB_READ_WRITE_TOKEN='synthetic-production'
+  process.env.BLOB_STORE_ID='synthetic-production-store'
+  for(const environment of ['preview','development',undefined]){
+   if(environment===undefined)delete process.env.VERCEL_ENV;else process.env.VERCEL_ENV=environment
+   for(const token of [undefined,'','   ']){
+    if(token===undefined)delete process.env.PREVIEW_READ_WRITE_TOKEN;else process.env.PREVIEW_READ_WRITE_TOKEN=token
+    assert.equal(blobConfigured(),false)
+    assert.throws(()=>blobToken(),/Dedicated preview Blob storage is not configured/)
+   }
+  }
+  process.env.VERCEL_ENV='production'
+  assert.equal(blobConfigured(),true)
+  assert.equal(blobToken(),'synthetic-production')
+  delete process.env.BLOB_READ_WRITE_TOKEN
+  assert.equal(blobConfigured(),true,'production store-ID authentication remains supported')
+  assert.equal(blobToken(),undefined)
+ }finally{for(const key of keys){if(saved[key]===undefined)delete process.env[key];else process.env[key]=saved[key]}}
+})

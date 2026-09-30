@@ -2,7 +2,7 @@
 
 ## Current environment
 
-Production remains the previous pilot. The review preview now has Clerk development authentication, Neon Free PostgreSQL, and a separate private preview Blob store. Preview/development writes use PREVIEW_READ_WRITE_TOKEN; production explicitly uses BLOB_READ_WRITE_TOKEN. No production lead reconciliation was performed. The public bundle cannot import the admin entry or server SDKs.
+Production remains the previous pilot. The review preview now has Clerk development authentication, Neon Free PostgreSQL, and a separate private preview Blob store. Current source requires PREVIEW_READ_WRITE_TOKEN for every non-production write/read and fails closed when it is missing; it never falls back to the production token. Production explicitly uses BLOB_READ_WRITE_TOKEN (or its supported store-ID authentication). Provider scope verification is recorded separately in BLOB-ISOLATION.md; source selection alone does not prove deployment configuration. No production lead reconciliation was performed. The public bundle cannot import the admin entry or server SDKs.
 
 ## Provisioned preview services
 
@@ -12,7 +12,7 @@ Server configuration: CLERK_SECRET_KEY, ADMIN_OWNER_USER_ID, ADMIN_ALLOWED_ORIGI
 
 Preview authorization also trusts Vercel's platform-supplied immutable VERCEL_URL. It never derives trusted origins from request headers. A deployment hostname change requires a fresh browser sign-in. Configure explicit stable production origins before release.
 
-Production Clerk/domain setup, production database isolation, owner recovery, and provider backup/restore verification remain release gates. Do not promote a development Clerk instance as the production authentication setup.
+The isolated production database is connected and schema-tested. Clerk DNS and certificates are verified, while its production project connection and owner binding remain incomplete. Owner recovery and provider backup/restore verification remain release gates. Do not promote a development Clerk instance as the production authentication setup.
 
 ## Admin API
 
