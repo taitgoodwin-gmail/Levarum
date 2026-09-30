@@ -1,0 +1,1 @@
+User-supplied Levarum Design System.zip. SHA-256 5e8c75bfc2ceb504d3eeee60470bb28d375aabd79098c0d2e0d9b25066c5b0f3. Source snapshot preserved for design provenance. Production adapters live in src/ui, src/marketing and src/prospect. Prototype credentials and simulations in this reference are not production behavior.

@@ -1,0 +1,24 @@
+/* Levarum motion.
+   One easing curve does almost everything. Three durations. Entrances are
+   staggered by 60-80ms down a page; nothing bounces, nothing spins. */
+:root{
+  --lv-ease:cubic-bezier(.2,.7,.2,1); /* @kind other */
+  --lv-ease-lift:cubic-bezier(.2,.8,.2,1); /* @kind other */
+  --lv-dur-1:.18s; /* @kind other */  /* control state change */
+  --lv-dur-2:.5s; /* @kind other */   /* fade, disclosure */
+  --lv-dur-3:.7s; /* @kind other */   /* entrance rise */
+  --lv-dur-meter:900ms; /* @kind other */ /* hours bar filling from zero on scroll-in */
+}
+
+/* Entrance keyframes, shipped with the tokens because the pages reference
+   them by name. lvLift is the logo dome; lvRise is section entrance;
+   lvFade is the nav band; lvOpen is accordion disclosure. */
+@keyframes lvLift{ from{ opacity:.35; transform:translateY(9px); } to{ opacity:1; transform:none; } }
+@keyframes lvRise{ from{ opacity:0; transform:translateY(18px); } to{ opacity:1; transform:none; } }
+@keyframes lvFade{ from{ opacity:0; } to{ opacity:1; } }
+@keyframes lvOpen{ from{ opacity:0; transform:translateY(-4px); } to{ opacity:1; transform:none; } }
+@keyframes lvPulse{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; }
+}

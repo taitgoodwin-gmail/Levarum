@@ -1,6 +1,8 @@
+import { CURRENT_BUSINESSES } from './public.ts'
 import type { HoursBand, Pain, PainId } from './types.ts'
 
 export const BUSINESS_TYPES = [
+  ...CURRENT_BUSINESSES,
   'Home services (plumbing, HVAC, electrical)',
   'Trades and contracting',
   'Health and wellness clinic',

@@ -1,0 +1,62 @@
+<!-- @dsCard group="Components" viewport="700x330" name="Core" subtitle="Logo, buttons, cards, eyebrow, pill, chip, figure, meter" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;padding:18px;background:var(--lv-page);font-family:var(--lv-f-body)}#root{display:flex;flex-direction:column;gap:16px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head><body>
+<div id="root"></div>
+<script type="text/babel">
+const { Logo, Button, LinkArrow, Card, Eyebrow, Pill, Chip, HoursFigure, Meter } = window.LevarumDesignSystem_13e0fb;
+function Demo(){
+  return (
+    <>
+      <div className="row" style={{gap:'26px'}}>
+        <Logo as="div" size={30} animate={false} />
+        <Logo as="div" shape="tile" color="var(--lv-brand-rust)" size={26} animate={false} />
+        <Logo as="div" shape="badge" color="var(--lv-brand-petrol)" size={26} animate={false} />
+        <Logo as="div" shape="rule" size={26} animate={false} />
+      </div>
+      <div className="row">
+        <Button>Build my Game Plan</Button>
+        <Button variant="ghost">Back</Button>
+        <Button variant="quiet">Put your name down</Button>
+        <Button size="sm">Start</Button>
+        <Button disabled>Disabled</Button>
+      </div>
+      <div className="row">
+        <Button variant="status" active>New</Button>
+        <Button variant="status">Contacted</Button>
+        <Pill tone="new">NEW</Pill>
+        <Pill tone="contacted">CONTACTED</Pill>
+        <Pill tone="booked">BOOKED</Pill>
+        <Pill tone="done">DONE</Pill>
+        <Chip>QuickBooks</Chip>
+        <Chip tone="quiet">Invoice chasing</Chip>
+        <LinkArrow href="#">See the five</LinkArrow>
+      </div>
+      <div className="grid">
+        <Card shadow="sm" padding="sm"><Eyebrow>STANDARD</Eyebrow><div style={{marginTop:8,fontFamily:'var(--lv-f-display)',fontWeight:700,fontSize:19,letterSpacing:'-0.02em'}}>White on paper</div></Card>
+        <Card variant="tinted" padding="sm"><Eyebrow>TINTED</Eyebrow><div style={{marginTop:8,fontFamily:'var(--lv-f-display)',fontWeight:700,fontSize:19,letterSpacing:'-0.02em'}}>Callout</div></Card>
+        <Card variant="reserved" padding="sm"><Eyebrow tone="quiet">RESERVED</Eyebrow><div style={{marginTop:8,fontFamily:'var(--lv-f-display)',fontWeight:700,fontSize:19,letterSpacing:'-0.02em'}}>Honestly empty</div></Card>
+        <Card variant="outlined" padding="sm"><Eyebrow tone="quiet">OUTLINED</Eyebrow><div style={{marginTop:8,fontFamily:'var(--lv-f-display)',fontWeight:700,fontSize:19,letterSpacing:'-0.02em'}}>Statement</div></Card>
+        <Card rank="lead" shadow="sm" padding="sm"><Eyebrow>RANKED · 01</Eyebrow><div style={{marginTop:8,fontFamily:'var(--lv-f-display)',fontWeight:700,fontSize:19,letterSpacing:'-0.02em'}}>Lead item</div></Card>
+        <Card variant="sunken" padding="sm"><Eyebrow tone="quiet">SUNKEN</Eyebrow><div style={{marginTop:8,fontFamily:'var(--lv-f-display)',fontWeight:700,fontSize:19,letterSpacing:'-0.02em'}}>Summary</div></Card>
+      </div>
+      <div className="row" style={{gap:'26px'}}>
+        <HoursFigure value="4" unit="h" size="sm" />
+        <HoursFigure value="9" unit={<>hours a week,<br/>across three jobs</>} size="md" block />
+        <div style={{flex:1,minWidth:180,display:'flex',flexDirection:'column',gap:8}}>
+          <Meter value={100} animate={false} />
+          <Meter value={75} animate={false} />
+          <Meter value={50} quiet animate={false} />
+        </div>
+      </div>
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body></html>

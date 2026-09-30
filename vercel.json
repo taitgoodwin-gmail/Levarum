@@ -2,6 +2,10 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
+      "source": "/admin/:path*",
+      "destination": "/admin.html"
+    },
+    {
       "source": "/designs",
       "destination": "/designs/index.html"
     },
@@ -10,7 +14,7 @@
       "destination": "/designs/index.html"
     },
     {
-      "source": "/((?!api/|designs(?:/|$)).*)",
+      "source": "/((?!api/|admin(?:/|$)|designs(?:/|$)).*)",
       "destination": "/index.html"
     }
   ],
@@ -30,6 +34,19 @@
         {
           "key": "X-Frame-Options",
           "value": "DENY"
+        }
+      ]
+    },
+    {
+      "source": "/admin/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "private, no-store"
         }
       ]
     }

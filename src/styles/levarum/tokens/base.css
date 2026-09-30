@@ -1,0 +1,21 @@
+/* Levarum element defaults. Kept deliberately thin — everything else is a
+   component decision, not a global one. */
+*{ box-sizing:border-box; }
+html{ color-scheme:light; background:var(--lv-page); }
+body{
+  margin:0;
+  background:var(--lv-page);
+  color:var(--lv-ink);
+  font-family:var(--lv-f-body);
+  font-size:var(--lv-t-body);
+  line-height:var(--lv-lead-body);
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4,h5,h6{ font-family:var(--lv-f-display); margin:0; }
+a{ color:var(--lv-link); text-decoration:none; }
+a:hover{ color:var(--lv-link-hover); }
+a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{
+  outline:2px solid var(--lv-accent);
+  outline-offset:3px;
+  border-radius:var(--lv-r-chip);
+}

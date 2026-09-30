@@ -1,0 +1,23 @@
+/* Levarum spacing.
+   Two scales. --lv-s-* are fixed component-level steps. --lv-g-* are fluid
+   gutters and section rhythm, so long pages breathe on wide screens. */
+:root{
+  --lv-s-1:2px;
+  --lv-s-2:6px;
+  --lv-s-3:10px;
+  --lv-s-4:12px;
+  --lv-s-5:16px;
+  --lv-s-6:20px;
+  --lv-s-7:26px;
+  --lv-s-8:34px;
+  --lv-s-9:54px;
+
+  --lv-g-1:clamp(22px,2.6vw,28px); /* @kind spacing */  /* card padding, small */
+  --lv-g-2:clamp(22px,3vw,34px); /* @kind spacing */    /* card padding, standard */
+  --lv-g-3:clamp(28px,4vw,44px); /* @kind spacing */    /* column gap */
+  --lv-g-4:clamp(32px,4.5vw,60px); /* @kind spacing */  /* grid gap, hero */
+  --lv-g-5:clamp(50px,6vw,78px); /* @kind spacing */    /* section padding, vertical */
+
+  --lv-tap:56px; /* @kind spacing */            /* control height — never below 44px */
+  --lv-tap-min:44px; /* @kind spacing */
+}
