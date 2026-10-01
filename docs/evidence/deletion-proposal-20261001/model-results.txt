@@ -1,0 +1,18 @@
+✔ proposal: repeated erase, unchanged retry and stale reconciliation cannot resurrect sealed content (15.995018ms)
+✔ proposal: an already-started write reaching storage after erasure cannot replace the marker (0.811583ms)
+✔ proposal: erasure waits for an in-flight index transaction, then removes its result (0.508965ms)
+✔ proposal: reconciliation waiting behind erasure re-reads the marker instead of trusting old list metadata (0.496039ms)
+✔ proposal: failure after marker persistence is resumable and never permits the original retry (1.120431ms)
+✔ proposal: restored old content is excluded only with a current, independently preserved marker manifest (0.844372ms)
+✔ proposal boundary: discarding a marker reopens the key; a new request ID is a separate submission (0.513211ms)
+✔ proposal: call and partner retries also cannot replace sealed exact keys (2.333659ms)
+✔ deletion limitation: removing an immutable key allows an unchanged retry to recreate it (1.842818ms)
+✔ deletion limitation: even a preflight suppression check races with an in-flight write (0.232343ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 289.318463

@@ -1,0 +1,17 @@
+{
+  "checkedAt": "2026-10-01T21:08:21.148Z",
+  "id": "dpl_3TrqqBBiRD8NNkTuaFDGZXVBinxc",
+  "url": "levarum-hrndh3v4g-mind-lever-gmail.vercel.app",
+  "readyState": "READY",
+  "source": "git",
+  "target": null,
+  "meta": {
+    "githubCommitRef": "codex/design-assessment-fixes-20261001",
+    "githubCommitSha": "78bb9a9d5cfa41ef1b7cdbf1e35bd0f91519920f",
+    "githubCommitMessage": "Fix owner dashboard session races and add isolated state coverage",
+    "githubRepo": "Levarum",
+    "githubOrg": "taitgoodwin-gmail"
+  },
+  "createdAt": 1790888403813,
+  "ready": 1790888434070
+}

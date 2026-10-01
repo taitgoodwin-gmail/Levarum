@@ -1,3 +1,7 @@
+## Coordinated deletion proposal — 2026-10-01
+
+Verified exact78bb9a9 Git-linked Ready preview provenance. Prepared a smaller same-key marker plus serialized-index protocol with eight passing synthetic model tests. [Concrete proposal, limitations and required marker-retention/restore decision](DELETION-COORDINATION-PROPOSAL.md). Application behavior remains unchanged; no live deletion or retention policy was introduced.
+
 ## Owner dashboard correctness — 2026-10-01
 
 Fixed a reproduced stale-response denial race, blocked automatic reads after denial/sign-out failure, and reset private state on session changes. Added isolated synthetic dashboard coverage and reproducible deletion-race characterization. [Changes, evidence and the still-open deletion coordination gap](ADMIN-CORRECTNESS-REVIEW.md). No branding, auth/access, retention or production changes.
