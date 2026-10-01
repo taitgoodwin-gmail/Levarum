@@ -1,0 +1,101 @@
+{
+  "results": [
+    {
+      "theme": "light",
+      "width": 320,
+      "labelsAtLeast13px": true,
+      "threeCards": true,
+      "originalRibbonGeometry": true,
+      "keyboardTabsAndDetails": true,
+      "noPost": true,
+      "reducedMotion": true,
+      "textEnlargement": true,
+      "axeScans": 3
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "labelsAtLeast13px": true,
+      "threeCards": true,
+      "originalRibbonGeometry": true,
+      "keyboardTabsAndDetails": true,
+      "noPost": true,
+      "reducedMotion": true,
+      "textEnlargement": true,
+      "axeScans": 3
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "labelsAtLeast13px": true,
+      "threeCards": true,
+      "originalRibbonGeometry": true,
+      "keyboardTabsAndDetails": true,
+      "noPost": true,
+      "reducedMotion": true,
+      "textEnlargement": true,
+      "axeScans": 3
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "labelsAtLeast13px": true,
+      "threeCards": true,
+      "originalRibbonGeometry": true,
+      "keyboardTabsAndDetails": true,
+      "noPost": true,
+      "reducedMotion": true,
+      "textEnlargement": true,
+      "axeScans": 3
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "labelsAtLeast13px": true,
+      "threeCards": true,
+      "originalRibbonGeometry": true,
+      "keyboardTabsAndDetails": true,
+      "noPost": true,
+      "reducedMotion": true,
+      "textEnlargement": true,
+      "axeScans": 3
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "labelsAtLeast13px": true,
+      "threeCards": true,
+      "originalRibbonGeometry": true,
+      "keyboardTabsAndDetails": true,
+      "noPost": true,
+      "reducedMotion": true,
+      "textEnlargement": true,
+      "axeScans": 3
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "labelsAtLeast13px": true,
+      "threeCards": true,
+      "originalRibbonGeometry": true,
+      "keyboardTabsAndDetails": true,
+      "noPost": true,
+      "reducedMotion": true,
+      "textEnlargement": true,
+      "axeScans": 3
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "labelsAtLeast13px": true,
+      "threeCards": true,
+      "originalRibbonGeometry": true,
+      "keyboardTabsAndDetails": true,
+      "noPost": true,
+      "reducedMotion": true,
+      "textEnlargement": true,
+      "axeScans": 3
+    }
+  ],
+  "errors": []
+}

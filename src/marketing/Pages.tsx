@@ -1,18 +1,14 @@
+import { WorkExample } from './WorkExample'
 import { GUIDANCE } from '../domain/guidance'
 import '../styles/reimagination.css'
 
 export function StartLink({ secondary = false }: { secondary?: boolean }) {
  return <a className={`lv-button${secondary ? ' secondary' : ''}`} href="/start">Explore a task</a>
 }
-function ContactLink() { return <a className="lv-button lv-r2-contact-link" href="/contact">Tell us what you need</a> }
+function ContactLink() { return <a className="lv-button lv-r2-contact-link" href="/contact">Tell us what you need<img src="/brand/work-arrow.svg" alt="" width="22" height="22"/></a> }
 function Closing() {
  return <section className="lv-r2-container lv-r2-invitation"><h2>Have a task in mind?</h2><ContactLink/></section>
 }
-const EXAMPLES = [
- {id:'invoices', title:'Following up on invoices', today:'You check unpaid invoices and write reminders.', change:'Send reminders using agreed timing and wording.', control:'Disputed invoices go to a person before another reminder.'},
- {id:'information', title:'Moving information between tools', today:'You enter the same details in more than one place.', change:'Transfer agreed information between compatible systems.', control:'Failed updates and duplicates are flagged for review.'},
- {id:'enquiries', title:'Keeping track of new enquiries', today:'You check different inboxes and track who needs a reply.', change:'Bring enquiries together and make the next action clear.', control:'A person handles urgent requests and pricing decisions.'},
-]
 const STEPS = [
  ['Tell us what happens today.', 'Describe the task and tools you use. You do not need to choose new software first.'],
  ['Check what would help.', 'We review what could change, what your tools support and what stays with a person.'],
@@ -24,15 +20,18 @@ const BUYING_QUESTIONS = [
  ['What happens after I get in touch?', 'We review your request and reply by email. If you prefer a call, we arrange a time together.'],
  ['Who handles changes and support?', 'We agree handover, support and responsibility for changes before building.'],
 ]
-export function Home() { return <div className="lv-round2-home">
+export function Home() { return <div className="lv-round2-home lv-work-home">
  <section className="lv-r2-container lv-r2-hero" aria-labelledby="home-title">
-  <div className="lv-r2-offer"><p className="lv-eyebrow">AUTOMATION FOR SMALL BUSINESSES</p><h1 id="home-title">Spend less time<br/>on repeat admin.</h1><p className="lv-r2-intro">Levarum helps connect the tools and steps behind your everyday work—from following up on invoices to moving information between systems. We agree what to build before work starts.</p><ContactLink/><a className="lv-r2-examples-link" href="#examples">See examples</a></div>
-  <aside className="lv-r2-illustration" aria-label="A practical automation process"><h2>A clearer way through<br/>the everyday work.</h2><ol>{['Information arrives', 'The routine work moves', 'A person decides what matters'].map((step,i)=><li key={step}><span className="lv-r2-number" aria-hidden="true">0{i+1}</span>{i===2?<strong>{step}</strong>:<span>{step}</span>}</li>)}</ol><p>One task. A practical change.</p></aside>
+  <div className="lv-r2-offer"><p className="lv-eyebrow">AUTOMATION FOR SMALL BUSINESSES</p><h1 id="home-title">Less repeat.<br/>More room.</h1><p className="lv-r2-intro">Spend less time on repeat admin.<br/>Make space for the work that needs you.</p><p className="lv-work-description">Levarum connects the tools and steps behind your everyday work. Start with one task. We’ll agree what to build before work starts.</p><ContactLink/><a className="lv-r2-examples-link" href="#examples">Explore a few possibilities ↓</a></div>
+  <figure className="lv-work-figure"><div className="lv-work-diagram"><p className="lv-work-label">ILLUSTRATIVE WORKFLOW</p><img className="lv-work-ribbon" src="/brand/work-ribbon.svg" alt="" width="622" height="530"/><ol>{[
+   ['An enquiry arrives', '“Can you help with this?”'], ['The routine moves', 'Details go to the right place.'], ['You take it from here', 'A person in control.'],
+  ].map(([label, text], index) => <li key={label}><span className="lv-work-label">0{index + 1} · {label}</span><strong>{text}</strong></li>)}</ol></div><figcaption>A possible enquiry handoff, illustrated. Every workflow starts with your tools and your process.</figcaption></figure>
  </section>
- <section className="lv-r2-container lv-r2-examples" id="examples" aria-labelledby="examples-title"><h2 id="examples-title">What could we make easier?</h2><p className="lv-r2-section-intro">A few examples. We check your tools and process before recommending a change.</p><div className="lv-r2-example-grid">{EXAMPLES.map((example,i)=><article className="lv-r2-example" id={`example-${example.id}`} key={example.id}><span className="lv-r2-number" aria-hidden="true">0{i+1}</span><h3>{example.title}</h3><p className="lv-r2-label">TODAY</p><p>{example.today}</p><p className="lv-r2-label lv-r2-change-label">POSSIBLE CHANGE</p><p className="lv-r2-change">{example.change}</p><p className="lv-r2-control">{example.control}</p></article>)}</div></section>
- <section className="lv-r2-container lv-r2-how" id="how-we-work" aria-labelledby="how-title"><h2 id="how-title">Start with one task.</h2><ol>{STEPS.map(([title,body],i)=><li key={title}><span className="lv-r2-number" aria-hidden="true">0{i+1}</span><h3>{title}</h3><p>{body}</p></li>)}</ol></section>
- <section className="lv-r2-questions" id="questions" aria-labelledby="questions-title"><div className="lv-r2-container"><h2 id="questions-title">A few things<br/>you may be wondering.</h2><div className="lv-r2-answers">{BUYING_QUESTIONS.map(([question,answer])=><article key={question}><h3>{question}</h3><p>{answer}</p></article>)}</div></div></section>
- <section className="lv-r2-container lv-r2-invitation"><h2>Have a task in mind?</h2><ContactLink/></section>
+ <div className="lv-work-commitments"><div className="lv-r2-container"><p>Your tools, connected.</p><p>The routine, simplified.</p><p>People, in control.</p></div></div>
+ <WorkExample/>
+ <section className="lv-r2-container lv-r2-how" id="how-we-work" aria-labelledby="how-title"><div><p className="lv-eyebrow">START WITH ONE TASK</p><h2 id="how-title">Start small.<br/>Make room.</h2><p className="lv-work-description">You don’t need to choose new software first. Tell us where the work gets stuck.</p></div><ol>{STEPS.map(([title,body],i)=><li key={title}><span className="lv-r2-number" aria-hidden="true">0{i+1}</span><h3>{title}</h3><p>{body}</p></li>)}</ol></section>
+ <section className="lv-r2-questions" id="questions" aria-labelledby="questions-title"><div className="lv-r2-container"><h2 id="questions-title">Good <br/>questions.</h2><div className="lv-r2-answers">{BUYING_QUESTIONS.map(([question,answer],index)=><details key={question} open={index===0}><summary>{question}</summary><p>{answer}</p></details>)}</div></div></section>
+ <section className="lv-work-invitation"><div className="lv-r2-container lv-r2-invitation"><h2>Make the everyday<br/>a little easier.</h2><ContactLink/></div></section>
  </div> }
 export function How() { return <><section className="lv-container lv-page-intro"><p className="lv-eyebrow">HOW IT WORKS</p><h1>One useful improvement.<br/>Clearly agreed.</h1><p className="lv-lead">You do not need to choose the software first. Begin with the work you want to make easier.</p></section><section className="lv-container lv-process">{[
  ['Explore a task—or come straight to us','Browse practical ideas without an account, email or questionnaire. If you already know what you need, use Tell us what you need to get in touch directly.'],

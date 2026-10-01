@@ -1,0 +1,64 @@
+{
+  "base": "http://127.0.0.1:5174",
+  "configuration": "intentionally unconfigured; exact 503 setup guard",
+  "results": [
+    {
+      "credentials": "absent",
+      "action": "list",
+      "status": 503,
+      "noStore": true,
+      "errorOnly": true
+    },
+    {
+      "credentials": "absent",
+      "action": "detail",
+      "status": 503,
+      "noStore": true,
+      "errorOnly": true
+    },
+    {
+      "credentials": "absent",
+      "action": "status",
+      "status": 503,
+      "noStore": true,
+      "errorOnly": true
+    },
+    {
+      "credentials": "absent",
+      "action": "sync",
+      "status": 503,
+      "noStore": true,
+      "errorOnly": true
+    },
+    {
+      "credentials": "fabricated",
+      "action": "list",
+      "status": 503,
+      "noStore": true,
+      "errorOnly": true
+    },
+    {
+      "credentials": "fabricated",
+      "action": "detail",
+      "status": 503,
+      "noStore": true,
+      "errorOnly": true
+    },
+    {
+      "credentials": "fabricated",
+      "action": "status",
+      "status": 503,
+      "noStore": true,
+      "errorOnly": true
+    },
+    {
+      "credentials": "fabricated",
+      "action": "sync",
+      "status": 503,
+      "noStore": true,
+      "errorOnly": true
+    }
+  ],
+  "disabledDraftStatus": 404,
+  "limits": "No valid owner, non-owner, expired or revoked Clerk session was exercised."
+}

@@ -44,7 +44,7 @@ try{
    await p.locator(email).fill('synthetic-release@example.com')
    if(partner){await p.locator('#partner-name').fill('Synthetic release check');await p.locator('#craft').fill('Synthetic failure recovery only. Do not contact.');await p.locator('input[name="contribution"]').first().check()}
    else await p.locator('#message').fill('Synthetic failure recovery only. Do not contact.')
-   await p.locator('#consent').check();const button=p.getByRole('button',{name:partner?'Send partner interest':'Send request',exact:true})
+   await p.locator('#consent').check();const button=p.getByRole('button',{name:partner?'Send partner interest':/^(Send request|Try again)$/,exact:true})
    if(mode==='offline')await c.setOffline(true)
    const started=Date.now();await button.click();await p.waitForFunction(()=>document.activeElement?.getAttribute('role')==='alert',{},{timeout:30000});const elapsed=Date.now()-started,text=await p.getByRole('alert').innerText()
    if(mode==='timeout'){assert.ok(elapsed>=19000);assert.match(text,/confirm/i)}

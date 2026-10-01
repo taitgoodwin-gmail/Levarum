@@ -1,0 +1,55 @@
+{
+  "baseline": "be7df2b9e17e7b286c4834fa169b90d017f4c27e",
+  "branch": "codex/design-assessment-fixes-20261001",
+  "date": "2026-10-01",
+  "environment": {
+    "node": "24.19.0",
+    "browser": "system Chromium via Playwright 1.57.0",
+    "axe": "4.13.0",
+    "base": "localhost built Vite preview; admin guards via local Vite middleware"
+  },
+  "suites": {
+    "public-flow": {
+      "passed": true,
+      "output": "PASS: 80 responsive route/theme checks; static service Home; task-first guidance; direct contact; consent; failed/pending saves; stable retries; receipts; partner; keyboard. Saves: MOCKED."
+    },
+    "recovery": {
+      "passed": true,
+      "output": "PASS: 8 contact/partner keyboard recovery cases, repeated failures, retained input, stable retries and contact whitespace-to-valid error cleanup and help-text association. No real submissions."
+    },
+    "release-acceptance": {
+      "passed": true,
+      "output": "PASS route metadata, print, context Back/refresh and ten browser failure/retry cases. All submissions mocked."
+    },
+    "round2-contact-matrix": {
+      "passed": true,
+      "output": "PASS: 16 Home\u2192Contact maximum-content, pending/payload, privacy and receipt cases. All submissions mocked."
+    },
+    "work-in-motion": {
+      "passed": true,
+      "output": "PASS: 8 responsive/theme illustration, keyboard, content, reduced-motion and 200% text cases; 32 Axe scans (including invalid/error forms); finite motion check. No submissions."
+    },
+    "admin-negative": {
+      "passed": true,
+      "output": "PASS: 8 unconfigured fail-closed 503 guards with no-store/error-only responses; draft endpoint404. No valid owner session or private records accessed."
+    }
+  },
+  "axe": {
+    "scans": 57,
+    "violations": 0
+  },
+  "unit": {
+    "tests": 33,
+    "passed": 33,
+    "failed": 0
+  },
+  "typecheck": "passed",
+  "build": "passed",
+  "boundary": "passed",
+  "limitations": [
+    "Public submissions mocked; no live storage or email delivery exercised.",
+    "Google Fonts blocked in environment; screenshots use declared fallback fonts.",
+    "No Safari, Firefox, actual screen reader, representative user, authenticated owner or hosted production checks.",
+    "No push, PR, merge or deployment."
+  ]
+}

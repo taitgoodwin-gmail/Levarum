@@ -1,0 +1,143 @@
+/* Figma 123:36–39. Public palette; private owner foundations remain unchanged. */
+.lv-round2-shell{
+ --lv-page:#f8f7f2;--lv-surface:#fff;--lv-ink:#103d39;--lv-ink-quiet:#49615b;
+ --lv-line:#9bb7a8;--lv-line-control:#647d73;--lv-accent:#103d39;--lv-action-ink:#fff;
+ --lv-accent-hover:#20544c;--lv-accent-tint:#e4f0d9;--lv-sec:#103d39;--lv-link:#103d39;
+ --work-teal:#103d39;--work-mint:#e4f0d9;--work-coral:#ff785f;
+}
+[data-theme="dark"] .lv-round2-shell{
+ --lv-page:#0d2927;--lv-surface:#163c37;--lv-ink:#f3f7ee;--lv-ink-quiet:#bbcec4;
+ --lv-line:#53786a;--lv-line-control:#9bb7a8;--lv-accent:#e4f0d9;--lv-action-ink:#103d39;
+ --lv-accent-hover:#cfdfc3;--lv-accent-tint:#214b43;--lv-sec:#e4f0d9;--lv-link:#e4f0d9;
+}
+.lv-round2-shell .lv-eyebrow,.lv-r2-number{color:var(--lv-ink-quiet);font-size:13px;line-height:1.5}
+.lv-work-home h1,.lv-work-home h2,.lv-r2-contact h1{letter-spacing:-.045em;text-wrap:balance}
+.lv-work-home .lv-r2-hero{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:center;padding-block:54px 40px}
+.lv-work-home .lv-r2-offer{gap:26px}
+.lv-work-home .lv-r2-offer h1{font-size:clamp(54px,6.4vw,92px);line-height:.99}
+.lv-work-home .lv-r2-intro{font-size:25px;line-height:1.4}
+.lv-work-description{font-size:18px;line-height:1.55;color:var(--lv-ink-quiet);max-width:490px;margin:0}
+.lv-work-home .lv-r2-contact-link{width:270px;min-height:58px;background:var(--work-coral);color:var(--work-teal);justify-content:space-between}
+.lv-work-home .lv-r2-contact-link:hover{background:#ff947e}
+.lv-r2-contact-link img{flex:none}
+.lv-r2-examples-link{align-items:center}
+.lv-work-figure{margin:0;min-width:0}
+.lv-work-diagram{position:relative;isolation:isolate;overflow:hidden;border-radius:64px 0 64px 0;background:var(--work-mint);color:var(--work-teal);padding:30px 32px}
+.lv-work-label{font:600 13px/1.5 var(--lv-f-body);margin:0;letter-spacing:.015em}
+.lv-work-diagram>.lv-work-label{position:relative;z-index:1;margin-bottom:26px}
+/* Original exported geometry is preserved; the clipped artwork is decorative.
+   Cards reflow independently so text is never scaled down with the ribbon. */
+.lv-work-ribbon{position:absolute;z-index:-1;max-width:none;left:50%;top:38px;transform:translateX(-50%)}
+.lv-work-diagram ol{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:38px}
+.lv-work-diagram li{display:flex;flex-direction:column;gap:10px;background:#fff;color:var(--work-teal);border-radius:8px;padding:20px;max-width:290px;width:80%;box-shadow:0 8px 22px #103d3914;animation:work-arrive .5s ease-out both}
+.lv-work-diagram li:nth-child(2){align-self:flex-end;animation-delay:160ms}
+.lv-work-diagram li:last-child{align-self:center;max-width:360px;width:90%;background:var(--work-teal);color:#fff;animation-delay:320ms}
+.lv-work-diagram strong{font:600 23px/1.25 var(--lv-f-body)}
+.lv-work-figure figcaption{font-size:14px;line-height:1.5;color:var(--lv-ink-quiet);margin-top:18px}
+.lv-work-commitments,.lv-work-invitation{background:var(--work-coral);color:var(--work-teal)}
+.lv-work-commitments>.lv-r2-container{display:flex;justify-content:space-between;gap:24px;padding-block:28px;font:600 23px/1.4 var(--lv-f-body)}
+.lv-work-commitments p{margin:0}
+.lv-work-examples{background:var(--work-teal);color:#fff;padding-block:80px;scroll-margin-top:24px;--lv-sec:var(--work-mint)}
+.lv-work-section-intro{display:grid;grid-template-columns:1.3fr 1fr;gap:80px;align-items:center}
+.lv-work-section-intro h2,.lv-work-home .lv-r2-how h2{font-size:64px;line-height:1.03;margin:0}
+.lv-work-section-intro>p{font-size:18px;line-height:1.55;color:var(--work-mint);margin:0}
+.lv-work-tabs{display:flex;gap:32px;margin-block:40px}
+.lv-work-tabs button{flex:1;min-width:0;min-height:52px;border:0;border-bottom:2px solid #7e9e8f;background:transparent;color:var(--work-mint);font:600 17px/1.4 var(--lv-f-body);padding:12px 4px;text-align:left;cursor:pointer}
+.lv-work-tabs button[aria-selected=true]{color:var(--work-coral);border-bottom-color:var(--work-coral)}
+.lv-work-panel{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:40px 72px;animation:work-arrive .24s ease-out}
+.lv-work-example-card{padding:32px;background:var(--work-mint);color:var(--work-teal);border-radius:8px;display:flex;flex-direction:column;gap:22px;align-self:start}
+.lv-work-example-card h3{display:flex;justify-content:space-between;border-bottom:1px solid #9bb7a8;padding-bottom:20px;font-size:30px;line-height:1.3;margin:0}
+.lv-work-example-card p{margin:0}
+.lv-work-example-card>strong{display:block;background:#fff;padding:18px;font-size:20px;line-height:1.4}
+.lv-work-caption{font-size:14px;line-height:1.5}
+.lv-work-explanation{display:flex;flex-direction:column;gap:18px}
+.lv-work-explanation h3{font-size:42px;line-height:1.12;margin:0 0 8px;letter-spacing:-.035em}
+.lv-work-explanation>p{margin:0;font-size:19px;line-height:1.5;color:var(--work-mint)}
+.lv-work-explanation .lv-work-label{font-size:13px;color:var(--work-coral)}
+.lv-work-detail{grid-column:1/-1;border-top:1px solid #7e9e8f;border-bottom:1px solid #7e9e8f}
+.lv-work-detail summary,.lv-r2-answers summary{min-height:52px;padding-block:18px;cursor:pointer;font-weight:600;font-size:18px;line-height:1.5}
+.lv-work-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;padding-bottom:28px;line-height:1.6;color:var(--work-mint)}
+.lv-work-detail h4{font-size:18px;color:#fff;margin:20px 0 8px}
+.lv-work-detail p{margin:0 0 14px}
+.lv-work-detail ol{padding-left:24px;margin:0}.lv-work-detail li+li{margin-top:12px}
+.lv-work-detail a{color:var(--work-mint);display:inline-flex;align-items:center;min-height:44px}
+.lv-work-home .lv-r2-how{display:grid;grid-template-columns:1fr 1.3fr;gap:80px;padding-block:100px}
+.lv-work-home .lv-r2-how>div{display:flex;flex-direction:column;gap:24px}
+.lv-work-home .lv-r2-how ol{display:flex;flex-direction:column;gap:28px;margin:0}
+.lv-work-home .lv-r2-how li{border-bottom:1px solid var(--lv-line);padding-bottom:24px}
+.lv-work-home .lv-r2-how h3{font-size:24px;line-height:1.3}
+.lv-work-home .lv-r2-questions{padding-block:80px}
+.lv-work-home .lv-r2-questions h2{font-size:52px;line-height:1.05}
+.lv-r2-answers{gap:0}.lv-r2-answers details{border-bottom:1px solid var(--lv-line)}
+.lv-r2-answers details p{color:var(--lv-ink-quiet);padding-bottom:22px}
+.lv-work-invitation .lv-r2-invitation{align-items:center;padding-block:64px}
+.lv-work-invitation h2{font-size:54px;line-height:1.05}
+.lv-work-invitation .lv-r2-contact-link{background:var(--work-teal);color:#fff}
+.lv-work-invitation .lv-r2-contact-link:hover{background:#20544c}
+.lv-work-invitation .lv-r2-contact-link img{filter:brightness(0) invert(1)}
+.lv-r2-contact{max-width:1280px;grid-template-columns:minmax(0,1fr) minmax(0,1.36fr);gap:64px;padding-block:90px}
+.lv-r2-contact h1{font-size:64px;line-height:1.05}
+.lv-r2-contact .lv-lead{font-size:20px;line-height:1.5;color:var(--lv-ink-quiet)}
+.lv-work-contact-note{padding:24px;background:var(--lv-accent-tint);border-radius:24px 0 24px 0;margin-top:8px}
+.lv-work-contact-note h2{font-size:25px;line-height:1.3;margin:16px 0}
+.lv-work-contact-note>p:last-child{font-size:16px;line-height:1.5;margin:0}
+.lv-r2-contact .lv-card{padding:36px;background:var(--lv-surface);border-radius:8px}
+.lv-r2-contact .lv-stack{gap:24px}.lv-r2-contact .lv-field{gap:10px}
+.lv-r2-contact input:not([type=checkbox]),.lv-r2-contact textarea{background:var(--lv-page);font-size:16px}
+.lv-r2-contact .lv-button{width:100%;justify-content:space-between}
+.lv-r2-contact .lv-error{color:var(--lv-ink);background:var(--lv-accent-tint)}
+.lv-r2-checkbox input{width:22px;height:22px;margin-top:1px;flex:none}
+.lv-round2-shell :focus-visible{outline:3px solid var(--lv-sec);outline-offset:4px}
+.lv-work-example-card:focus-visible{outline-color:var(--work-teal)}
+@keyframes work-arrive{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:1199px){
+ .lv-work-home .lv-r2-hero{gap:32px}.lv-work-home .lv-r2-offer h1{font-size:68px}
+ .lv-work-diagram{padding:28px 24px}.lv-work-diagram li{padding:18px;width:90%}
+ .lv-work-section-intro,.lv-work-home .lv-r2-how{gap:40px}.lv-work-panel{column-gap:40px}
+ .lv-r2-contact{gap:40px}.lv-r2-contact h1{font-size:54px}.lv-r2-contact .lv-card{padding:28px}
+}
+@media(max-width:899px){
+ .lv-work-home .lv-r2-hero{grid-template-columns:minmax(0,1fr);gap:40px}
+ .lv-work-figure{max-width:622px;width:100%;justify-self:center}
+ .lv-work-diagram li{width:75%}.lv-work-diagram li:last-child{width:85%}
+ .lv-work-commitments>.lv-r2-container{flex-direction:column;gap:0}
+ .lv-work-section-intro,.lv-work-panel,.lv-work-home .lv-r2-how,.lv-work-detail-grid{grid-template-columns:minmax(0,1fr);gap:28px}
+ .lv-work-detail-grid{gap:0}.lv-work-home .lv-r2-how{padding-block:64px}
+ .lv-r2-contact{grid-template-columns:minmax(0,1fr);max-width:680px;padding-block:40px}
+ .lv-work-contact-note{background:none;padding:0;margin:0}
+ .lv-work-contact-note>.lv-work-label,.lv-work-contact-note>h2{display:none}
+ .lv-r2-contact .lv-card{padding:0;background:transparent}
+ .lv-work-invitation .lv-r2-invitation{align-items:flex-start}
+}
+@media(max-width:600px){
+ .lv-work-home .lv-r2-hero{padding-block:28px 32px}
+ .lv-work-home .lv-r2-offer{gap:22px}.lv-work-home .lv-r2-offer h1{font-size:clamp(44px,14.8vw,64px)}
+ .lv-work-home .lv-r2-intro{font-size:22px;line-height:1.4}.lv-work-description{font-size:16px}
+ .lv-work-home .lv-r2-contact-link{width:100%}
+ .lv-work-diagram{border-radius:40px 0 40px 0;padding:24px 20px}
+ .lv-work-diagram ol{gap:26px}.lv-work-diagram li{width:92%;padding:16px;max-width:280px}
+ .lv-work-diagram li:last-child{width:96%}.lv-work-diagram strong{font-size:21px}
+ .lv-work-commitments>.lv-r2-container{font-size:22px;padding-block:26px}
+ .lv-work-examples{padding-block:48px}
+ .lv-work-section-intro h2,.lv-work-home .lv-r2-how h2{font-size:46px;line-height:1.04}
+ .lv-work-section-intro>p{font-size:16px}
+ .lv-work-tabs{gap:8px;margin-block:28px}
+ .lv-work-tabs button{font-size:14px;text-align:center;padding:12px 4px;border:1px solid #7e9e8f;border-radius:4px}
+ .lv-work-tabs button[aria-selected=true]{background:var(--work-coral);color:var(--work-teal);border-color:var(--work-coral)}
+ .lv-work-example-card{padding:24px;gap:18px}.lv-work-example-card h3{font-size:27px}
+ .lv-work-explanation h3{font-size:32px}.lv-work-explanation>p{font-size:16px}
+ .lv-work-home .lv-r2-how{padding-block:48px}.lv-work-home .lv-r2-how h3{font-size:22px}
+ .lv-work-home .lv-r2-questions{padding-block:48px}.lv-work-home .lv-r2-questions h2{font-size:40px}
+ .lv-work-home .lv-r2-questions h2 br{display:none}
+ .lv-work-invitation .lv-r2-invitation{padding-block:48px}.lv-work-invitation h2{font-size:40px}
+ .lv-r2-contact h1{font-size:46px}.lv-r2-contact .lv-lead{font-size:18px}
+ .lv-r2-contact .lv-r2-contact-intro{gap:22px}.lv-r2-footer nav{width:100%}
+}
+@media(prefers-reduced-motion:reduce){.lv-work-diagram li,.lv-work-panel{animation:none}}
+@media print{.lv-work-detail{display:block}.lv-work-home .lv-r2-how{display:block}}
+/* Long words and enlarged text wrap rather than escaping narrow layouts. */
+.lv-work-home h1,.lv-work-home h2,.lv-work-home h3,.lv-r2-contact h1,
+.lv-work-home p,.lv-work-detail,.lv-r2-footer a{overflow-wrap:anywhere;min-width:0;max-width:100%}
+.lv-work-example-card h3{flex-wrap:wrap;gap:12px}
+.lv-work-invitation{--lv-sec:var(--work-teal)}
+.lv-work-home .lv-r2-offer>.lv-r2-contact-link:focus-visible{outline-color:var(--lv-ink)}

@@ -1,0 +1,152 @@
+{
+  "metadata": [
+    {
+      "path": "/",
+      "title": "Practical automation for small businesses · Levarum",
+      "description": "Spend less time on repeat admin. Levarum connects everyday tools and tasks, with scope agreed before work starts.",
+      "canonicals": [
+        "https://levarum.com/"
+      ]
+    },
+    {
+      "path": "/how-it-works",
+      "title": "How it works · Levarum",
+      "description": "See how Levarum reviews a repeated task, agrees what to build and keeps important decisions with a person.",
+      "canonicals": [
+        "https://levarum.com/how-it-works"
+      ]
+    },
+    {
+      "path": "/what-we-automate",
+      "title": "What we automate · Levarum",
+      "description": "Explore practical ideas for customer questions, invoices, moving information, bookings and new enquiries, with clear human-review boundaries.",
+      "canonicals": [
+        "https://levarum.com/what-we-automate"
+      ]
+    },
+    {
+      "path": "/questions",
+      "title": "Questions · Levarum",
+      "description": "Answers about working with Levarum, exploring automation ideas and arranging follow-up by email.",
+      "canonicals": [
+        "https://levarum.com/questions"
+      ]
+    },
+    {
+      "path": "/partners",
+      "title": "Partners · Levarum",
+      "description": "Express interest in working with Levarum on practical automation. Introduce your work and the contribution you could make.",
+      "canonicals": [
+        "https://levarum.com/partners"
+      ]
+    },
+    {
+      "path": "/start",
+      "title": "Explore a task · Levarum",
+      "description": "Choose a repeated task and see useful starting points immediately. No contact details are needed to explore.",
+      "canonicals": [
+        "https://levarum.com/start"
+      ]
+    },
+    {
+      "path": "/contact",
+      "title": "Tell us what you need · Levarum",
+      "description": "Describe the work you want to simplify and request email follow-up or a call. Calls are arranged by email, not booked here.",
+      "canonicals": [
+        "https://levarum.com/contact"
+      ]
+    },
+    {
+      "path": "/privacy",
+      "title": "Privacy · Levarum",
+      "description": "Learn what Levarum collects when you request follow-up or express partner interest, and how to contact us about your information.",
+      "canonicals": [
+        "https://levarum.com/privacy"
+      ]
+    }
+  ],
+  "recovery": [
+    {
+      "path": "/contact",
+      "mode": "offline",
+      "elapsed": 267,
+      "errorFocused": true,
+      "retainedInputAndConsent": true,
+      "stableSuccessfulRetry": true
+    },
+    {
+      "path": "/contact",
+      "mode": "timeout",
+      "elapsed": 20121,
+      "errorFocused": true,
+      "retainedInputAndConsent": true,
+      "stableSuccessfulRetry": true
+    },
+    {
+      "path": "/contact",
+      "mode": "429",
+      "elapsed": 254,
+      "errorFocused": true,
+      "retainedInputAndConsent": true,
+      "stableSuccessfulRetry": true
+    },
+    {
+      "path": "/contact",
+      "mode": "invalid-json",
+      "elapsed": 297,
+      "errorFocused": true,
+      "retainedInputAndConsent": true,
+      "stableSuccessfulRetry": true
+    },
+    {
+      "path": "/contact",
+      "mode": "saved-false",
+      "elapsed": 288,
+      "errorFocused": true,
+      "retainedInputAndConsent": true,
+      "stableSuccessfulRetry": true
+    },
+    {
+      "path": "/partners",
+      "mode": "offline",
+      "elapsed": 310,
+      "errorFocused": true,
+      "retainedInputAndConsent": true,
+      "stableSuccessfulRetry": true
+    },
+    {
+      "path": "/partners",
+      "mode": "timeout",
+      "elapsed": 20134,
+      "errorFocused": true,
+      "retainedInputAndConsent": true,
+      "stableSuccessfulRetry": true
+    },
+    {
+      "path": "/partners",
+      "mode": "429",
+      "elapsed": 286,
+      "errorFocused": true,
+      "retainedInputAndConsent": true,
+      "stableSuccessfulRetry": true
+    },
+    {
+      "path": "/partners",
+      "mode": "invalid-json",
+      "elapsed": 265,
+      "errorFocused": true,
+      "retainedInputAndConsent": true,
+      "stableSuccessfulRetry": true
+    },
+    {
+      "path": "/partners",
+      "mode": "saved-false",
+      "elapsed": 306,
+      "errorFocused": true,
+      "retainedInputAndConsent": true,
+      "stableSuccessfulRetry": true
+    }
+  ],
+  "print": true,
+  "contextBackAndRefresh": true
+}

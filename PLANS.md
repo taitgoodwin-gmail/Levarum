@@ -1,5 +1,10 @@
 # Levarum design-to-launch execution record
 
+## Current design-assessment continuation — 2026-10-01
+
+The separate local branch `codex/design-assessment-fixes-20261001` continues exact checkpoint `be7df2b` and implements Figma123:36–39: coral-ribbon Home, readable mobile diagram, both themes, keyboard examples/FAQs, synthetic worked examples and enquiry-state refinements. [Implementation, Adobe-criteria review and final evidence](docs/DESIGN-ASSESSMENT-FIXES.md) records33 tests, typecheck/build/boundaries, six local browser suites and57 zero-violation Axe scans. Google Fonts are blocked here; screenshot typography uses declared fallbacks. Real AT, hosted/authenticated/live-storage and production checks remain open. No push, PR, merge or deployment;77/100 remains a provisional earlier assessment. This record supersedes the presentation status below, not the preserved backend/security gates.
+
+
 ## Active checkpoint — provisional Round2 cloud implementation, 2026-10-01
 
 The owner has requested a stronger modern design, including movement, modern colors and layout. Preserve this functional checkpoint while a new Figma direction is reviewed; do not treat Round2 as final visual approval.

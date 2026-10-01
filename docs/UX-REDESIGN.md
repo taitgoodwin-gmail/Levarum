@@ -1,5 +1,10 @@
 # Levarum UX redesign — current decisions and traceability
 
+## Current design-assessment continuation — 2026-10-01
+
+The separate local branch `codex/design-assessment-fixes-20261001` continues exact checkpoint `be7df2b` and implements Figma123:36–39: coral-ribbon Home, readable mobile diagram, both themes, keyboard examples/FAQs, synthetic worked examples and enquiry-state refinements. [Implementation, Adobe-criteria review and final evidence](DESIGN-ASSESSMENT-FIXES.md) records33 tests, typecheck/build/boundaries, six local browser suites and57 zero-violation Axe scans. Google Fonts are blocked here; screenshot typography uses declared fallbacks. Real AT, hosted/authenticated/live-storage and production checks remain open. No push, PR, merge or deployment;77/100 remains a provisional earlier assessment. This record supersedes the presentation status below, not the preserved backend/security gates.
+
+
 ## Current implementation — 2026-10-01
 
 The latest refined page08 Home/Contact frames are now implemented on the separate cloud review branch. [Round2 implementation](UX-ROUND-2-IMPLEMENTATION.md) records source frames, actual behavior, intentional compatibility, design differences and test limits. The service-first Home→Contact journey is primary; existing task guidance routes remain functional. Earlier task-first and reopened-review records below are preserved chronology. Final concrete preview review remains required before production replacement.

@@ -1,0 +1,28 @@
+import { useRef, useState, type KeyboardEvent } from 'react'
+
+// Editorial examples grounded in domain/guidance.ts; never customer evidence.
+const examples = [
+ { id: 'invoices', label: 'Invoices', title: 'A reminder, without the remembering.', today: 'You check unpaid invoices and write reminders.', change: 'Send reminders using agreed timing and wording. Disputed invoices go to a person before another reminder.', trigger: 'Invoice due', rule: 'Agreed timing + agreed wording', outcome: 'Reminder moves on. Disputes go to a person.', tools: 'Your accounting tool, an agreed reminder workflow and your email service.', steps: ['Read the due date and payment status from the accounting tool—the agreed source of truth.', 'Check for a payment, dispute or sensitive account before preparing a reminder.', 'Use the wording and timing you approved. Record the result so the next check can avoid a duplicate.'], human: 'You approve the rules and exclusions. A named person handles disputes, uncertain payment status and failed sends.', boundary: 'No payment collection or dispute decisions. Compatibility, permissions, duplicate handling and failure alerts must be checked before building.' },
+ { id: 'information', label: 'Information', title: 'Enter it once. Keep the next step clear.', today: 'You enter the same details in more than one place.', change: 'Transfer agreed information between compatible systems. Failed updates and duplicates are flagged for review.', trigger: 'Details updated', rule: 'Agreed fields + one source of truth', outcome: 'Details move. Exceptions go to a person.', tools: 'Your existing source system, a compatible destination tool and an agreed sync workflow.', steps: ['Identify the source record and the fields agreed for transfer.', 'Check for an existing matching record before updating the destination.', 'Record the outcome and flag failed or ambiguous updates for review.'], human: 'You decide which system is authoritative. A person resolves duplicates, conflicting values and failed updates.', boundary: 'No blanket access or automatic merging of ambiguous records. Compatibility, field mapping and recovery must be agreed first.' },
+ { id: 'enquiries', label: 'Enquiries', title: 'A clear next step for each enquiry.', today: 'You check different inboxes and track who needs a reply.', change: 'Bring enquiries together and make the next action clear. A person handles urgent requests and pricing decisions.', trigger: 'Enquiry arrives', rule: 'Agreed routing + a named owner', outcome: 'The next step is clear. A person replies.', tools: 'Your enquiry form or inbox, an agreed request tracker and your email service.', steps: ['Bring the agreed enquiry details into the request tracker.', 'Assign the next response to the person responsible and flag urgent or uncertain requests.', 'Let that person review the details and follow up using the agreed process.'], human: 'A person owns the reply, handles urgent requests and makes pricing decisions.', boundary: 'No automatic quotes or appointments. Check access, routing, duplicate handling and who reviews failures before building.' },
+] as const
+
+export function WorkExample() {
+ const [selected, setSelected] = useState(0)
+ const tabs = useRef<(HTMLButtonElement | null)[]>([])
+ const example = examples[selected]
+ function navigate(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+  const next = event.key === 'ArrowRight' ? (index + 1) % examples.length : event.key === 'ArrowLeft' ? (index + examples.length - 1) % examples.length : event.key === 'Home' ? 0 : event.key === 'End' ? examples.length - 1 : null
+  if (next === null) return
+  event.preventDefault(); setSelected(next); tabs.current[next]?.focus()
+ }
+ return <section className="lv-work-examples" id="examples" aria-labelledby="examples-title"><div className="lv-r2-container">
+  <div className="lv-work-section-intro"><h2 id="examples-title">What keeps<br/>coming back?</h2><p>A few possibilities. We check your tools and process before recommending a change.</p></div>
+  <div className="lv-work-tabs" role="tablist" aria-label="Illustrative workflows">{examples.map((item, index) => <button key={item.id} ref={el => {tabs.current[index] = el}} type="button" role="tab" id={`tab-${item.id}`} aria-selected={selected === index} aria-controls="workflow-panel" tabIndex={selected === index ? 0 : -1} onKeyDown={event => navigate(event, index)} onClick={() => setSelected(index)}>{item.label}</button>)}</div>
+  <div key={example.id} className="lv-work-panel" role="tabpanel" id="workflow-panel" aria-labelledby={`tab-${example.id}`} tabIndex={0}>
+   <div className="lv-work-example-card"><p className="lv-work-label">ILLUSTRATIVE WORKFLOW / 0{selected + 1}</p><h3>{example.trigger} <span aria-hidden="true">→</span></h3><p>{example.rule}</p><strong>{example.outcome}</strong><p className="lv-work-caption">Synthetic example. No real customer data or measured results.</p></div>
+   <div className="lv-work-explanation"><h3>{example.title}</h3><p className="lv-work-label">TODAY</p><p>{example.today}</p><p className="lv-work-label">POSSIBLE CHANGE</p><p>{example.change}</p></div>
+   <details className="lv-work-detail"><summary>Walk through this example</summary><div className="lv-work-detail-grid"><div><h4>Tools involved</h4><p>{example.tools}</p><h4>Steps to agree</h4><ol>{example.steps.map(step => <li key={step}>{step}</li>)}</ol></div><div><h4>Human oversight</h4><p>{example.human}</p><h4>Boundaries</h4><p>{example.boundary}</p><p className="lv-work-caption">An illustrative starting point, not a delivered integration or customer case study.</p><a href="/contact">Tell us about your tools →</a></div></div></details>
+  </div>
+ </div></section>
+}

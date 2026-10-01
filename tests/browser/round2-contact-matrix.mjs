@@ -42,7 +42,7 @@ try {
     await route.fulfill({status: 200, contentType: 'application/json', body: JSON.stringify({saved: true, reference: requests[0].requestId})})
    })
    await page.goto(base + '/')
-   await page.getByRole('heading', {name: 'Spend less time on repeat admin.', exact: true}).waitFor()
+   await page.getByRole('heading', {name: 'Less repeat. More room.', exact: true}).waitFor()
    // Home's visible primary action always opens the genuine contact form.
    const headerContact = page.locator('header a[href="/contact"]:visible').first()
    if (await headerContact.count()) await headerContact.click()
@@ -51,7 +51,7 @@ try {
     await page.keyboard.press('Enter')
     await page.locator('header a[href="/contact"]:visible').first().click()
    }
-   await page.getByRole('heading', {name: 'Tell us what you need.', exact: true}).waitFor()
+   await page.getByRole('heading', {name: 'Tell us what needs a hand.', exact: true}).waitFor()
    assert.equal(new URL(page.url()).pathname, '/contact')
    assert.equal(await page.locator('html').getAttribute('data-theme'), theme)
    assert.equal(await page.locator('#business, input[name="hours"]').count(), 0)
@@ -118,7 +118,7 @@ try {
    if ([320, 1440].includes(width)) await page.screenshot({path: `${out}/${theme}-${width}-${intent}-receipt.png`, fullPage: true})
    await audit(page, theme, width, intent, 'receipt')
    await page.getByRole('link', {name: 'Back to Levarum', exact: true}).click()
-   await page.getByRole('heading', {name: 'Spend less time on repeat admin.', exact: true}).waitFor()
+   await page.getByRole('heading', {name: 'Less repeat. More room.', exact: true}).waitFor()
    results.push({theme, width, intent, maxLengthForm: true, privacyRetainsDraft: true, pendingLocked: true, exactPayload: true, noOverflow: true, receiptFocused: true})
   } finally {
    releasePending?.()

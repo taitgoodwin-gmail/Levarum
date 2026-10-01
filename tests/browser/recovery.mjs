@@ -22,13 +22,13 @@ try{
   requests=[];await page.setViewportSize({width,height:900});await page.goto(base+path)
   await page.evaluate(theme=>localStorage.setItem('levarum.theme.v1',theme),theme);await page.reload()
   const partner=path==='/partners'
-  const submit=page.getByRole('button',{name:partner?'Send partner interest':'Send request',exact:true})
+  const submit=page.getByRole('button',{name:partner?'Send partner interest':/^(Send request|Try again)$/,exact:true})
   await page.locator(partner?'#partner-email':'#email').fill('levarum-keyboard-test@example.com')
   if(partner){await page.locator('#partner-name').fill('Synthetic keyboard test');await page.locator('#craft').fill('Synthetic verification only. Do not contact.');await page.locator('input[name="contribution"]').first().check()}
   else{
    await submit.click()
    const ids=(await page.locator('#message').getAttribute('aria-describedby')).split(' ')
-   assert.ok(ids.includes('message-help'));assert.ok(ids.includes('message-validation'))
+   assert.ok(ids.includes('message-help') && ids.includes('message-limit'));assert.ok(ids.includes('message-validation'))
    await page.locator('#message').fill('  \n  ')
    await submit.click()
    assert.equal(requests.length,0,'Whitespace never submits a request')
@@ -39,7 +39,7 @@ try{
    assert.ok(await page.locator('#message').evaluate(input=>input.validity.valid))
    assert.equal(await page.locator('#message').getAttribute('aria-invalid'),null)
    assert.equal(await page.locator('#message-validation').count(),0)
-   assert.equal(await page.locator('#message').getAttribute('aria-describedby'),'message-help')
+   assert.equal(await page.locator('#message').getAttribute('aria-describedby'),'message-limit message-help')
   }
   await page.locator('#consent').check()
   for(let attempt=0;attempt<2;attempt++){

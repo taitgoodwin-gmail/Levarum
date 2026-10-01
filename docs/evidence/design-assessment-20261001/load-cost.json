@@ -1,0 +1,43 @@
+{
+  "fonts": [],
+  "failed": [
+    {
+      "url": "https://fonts.googleapis.com",
+      "error": "net::ERR_TUNNEL_CONNECTION_FAILED"
+    }
+  ],
+  "baseline": [
+    {
+      "file": "public-DWlRJp6a.css",
+      "bytes": 19012,
+      "gzip": 4105
+    },
+    {
+      "file": "public-DrTPrQNS.js",
+      "bytes": 32246,
+      "gzip": 9619
+    }
+  ],
+  "candidate": [
+    {
+      "file": "public-BTKjevf7.css",
+      "bytes": 29933,
+      "gzip": 6039
+    },
+    {
+      "file": "public-DRCl6nve.js",
+      "bytes": 38012,
+      "gzip": 11366
+    }
+  ],
+  "assets": [
+    {
+      "file": "public/brand/work-ribbon.svg",
+      "bytes": 520
+    },
+    {
+      "file": "public/brand/work-arrow.svg",
+      "bytes": 261
+    }
+  ]
+}

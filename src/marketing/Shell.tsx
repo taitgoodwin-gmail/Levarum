@@ -3,6 +3,7 @@ import { Logo } from '../ui/core/Logo.jsx'
 import { ThemeToggle } from '../ui/navigation/ThemeToggle.jsx'
 import { SkipLink } from '../ui/navigation/SkipLink.jsx'
 import '../styles/round2.css'
+import '../styles/work-in-motion.css'
 
 export function Shell({ children }: { children: ReactNode }) {
  const [theme, setTheme] = useState<'light' | 'dark'>(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light')
