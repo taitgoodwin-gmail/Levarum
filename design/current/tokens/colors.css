@@ -1,0 +1,86 @@
+/* Levarum colour — light (default) theme.
+   Naming: --lv-{role}-{variant}. Roles, never appearances.
+   Everything derives from the eight brand hues plus ink and paper. */
+:root{
+  /* Brand hues — the closed set. Petrol is the working secondary; the rest
+     are available to logo and illustration, not to UI chrome. */
+  --lv-brand-ink:#1A1A1A;
+  --lv-brand-rust:#BF4F1F;
+  --lv-brand-petrol:#2E5C74;
+  --lv-brand-forest:#3E6B4A;
+  --lv-brand-plum:#5B4B8A;
+  --lv-brand-sand:#A67C4E;
+  --lv-brand-slate:#4A5B7A;
+  --lv-brand-teal:#1F5C57;
+
+  /* Surfaces */
+  --lv-page:#FBF6F2;
+  --lv-surface:#FFFFFF;
+  --lv-band:#E4E0DA;
+  --lv-dark:#1A1A1A;
+  --lv-dark-surface:#242422;
+
+  /* Rungs — the four-step ladder of section bands down a long page */
+  --lv-rung-1:var(--lv-page);
+  --lv-rung-2:color-mix(in srgb, var(--lv-brand-petrol) 5%, var(--lv-page));
+  --lv-rung-3:color-mix(in srgb, var(--lv-brand-petrol) 9%, var(--lv-page));
+  --lv-rung-4:color-mix(in srgb, var(--lv-brand-petrol) 14%, var(--lv-page));
+
+  /* Dark petrol band — the one dark section per page */
+  --lv-dark-petrol:color-mix(in srgb, var(--lv-brand-petrol) 32%, var(--lv-dark));
+  --lv-dark-petrol-surface:color-mix(in srgb, var(--lv-brand-petrol) 24%, var(--lv-dark-surface));
+  --lv-dark-petrol-line:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-dark-line));
+
+  /* Text */
+  --lv-ink:#1A1A1A;
+  --lv-ink-hover:#333330;
+  --lv-ink-quiet:#5C5A56;
+  --lv-ink-placeholder:#73706C;
+  --lv-dark-ink:#EDE6D6;
+  --lv-dark-quiet:#B9B6B1;
+
+  /* Lines */
+  --lv-line:#E9E6E1;
+  --lv-line-control:#8F8C88;
+  --lv-dark-line:#3A3A38;
+  --lv-dark-line-control:#7F7C74;
+
+  /* Action — rust family. --lv-accent is the button fill and the focus ring. */
+  --lv-accent:#8F3D14;
+  --lv-accent-hover:color-mix(in srgb, var(--lv-accent) 80%, var(--lv-ink));
+  --lv-accent-tint:color-mix(in srgb, var(--lv-accent) 7%, var(--lv-page));
+  --lv-spark:#D4622A;
+  --lv-spark-deep:#B5511F;
+  --lv-spark-soft:#E08A5C;
+
+  /* Secondary — petrol. Eyebrows, chips, meters, selected state, links. */
+  --lv-sec:var(--lv-brand-petrol);
+  --lv-sec-tint:color-mix(in srgb, var(--lv-brand-petrol) 20%, var(--lv-page));
+  --lv-sec-on-dark:color-mix(in srgb, var(--lv-brand-petrol) 45%, var(--lv-dark-ink));
+  --lv-tint:color-mix(in srgb, var(--lv-brand-petrol) 12%, var(--lv-page));
+
+  /* Links */
+  --lv-link:var(--lv-sec);
+  --lv-link-hover:color-mix(in srgb, var(--lv-sec) 74%, var(--lv-ink));
+  --lv-link-on-dark:var(--lv-sec-on-dark);
+
+  /* Positive — forest. Used for the Booked status only. */
+  --lv-ok:var(--lv-brand-forest);
+  --lv-ok-tint:color-mix(in srgb, var(--lv-brand-forest) 9%, var(--lv-page));
+  --lv-ok-on-dark:color-mix(in srgb, var(--lv-brand-forest) 40%, var(--lv-dark-ink));
+
+  /* Alert — the failure card that sits inside a dark band */
+  --lv-alert-surface:#2A1712;
+  --lv-alert-line:#7A3524;
+  --lv-alert-ink:#F3D9CF;
+  --lv-alert-quiet:#E8C9BE;
+  --lv-alert-detail:#B08A7E;
+  --lv-alert-on-ink:#5A1E10;
+  --lv-alert-btn-line:#C97A63;
+
+  /* Meters — the hours bar. One scale everywhere: 4 h/week fills a bar. */
+  --lv-meter-track:color-mix(in srgb, var(--lv-brand-petrol) 16%, var(--lv-page));
+  --lv-meter-fill:var(--lv-sec);
+  --lv-meter-fill-quiet:color-mix(in srgb, var(--lv-brand-petrol) 85%, var(--lv-page));
+  --lv-meter-track-dark:color-mix(in srgb, var(--lv-brand-petrol) 30%, var(--lv-dark-surface));
+}

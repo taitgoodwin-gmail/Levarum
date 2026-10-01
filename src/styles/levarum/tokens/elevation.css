@@ -1,0 +1,7 @@
+/* Levarum elevation.
+   The system is flat. Depth comes from surface colour and 1px lines; shadow
+   is reserved for the card that must sit above the page. Two values only. */
+:root{
+  --lv-shadow-sm:0 10px 30px rgba(26,26,26,.06);
+  --lv-shadow-lg:0 26px 60px rgba(26,26,26,.10);
+}

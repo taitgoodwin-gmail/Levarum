@@ -1,0 +1,9 @@
+work/
+.env*
+.git/
+design/current/
+docs/
+tests/
+
+.agents/
+skills-lock.json

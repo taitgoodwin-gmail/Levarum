@@ -57,8 +57,8 @@ visitors can print or save it directly from their browser.
 - An 8 KB body limit, honeypot, origin check, and best-effort per-instance throttle.
   Add a platform-wide rate rule before scaling traffic; an in-memory counter is
   not a distributed rate limiter.
-- Repeat requests use the same opaque content-addressed path. A retry can update
-  the receipt timestamp but cannot overwrite different intake content.
+- Repeat requests use the same opaque content-addressed path. A retry preserves
+  the first receipt timestamp and cannot overwrite different intake content.
 - Internal AI generation is off. No speculative hours or money savings appear.
 - No advertising tracking or persistent browser lead store in the public pilot.
 - Privacy notice and contact link are available throughout the flow.
@@ -73,3 +73,14 @@ The pilot is not a full CRM. Authenticated operator access, plan email delivery,
 calendar integration, automated retention, and distributed abuse controls remain
 follow-up work. Keep the private store under routine review and handle access or
 deletion requests through hello@levarum.com.
+
+## Current design migration plan
+
+The user-supplied Levarum Design System ZIP supersedes the older visual references.
+See [documentation index](docs/README.md), [requirements](docs/REQUIREMENTS.md),
+[user and operator workflows](docs/WORKFLOWS.md), and [execution plan](PLANS.md).
+These describe planned work; the pilot behavior above remains the current baseline.
+
+## Design-review preview checkpoint
+
+This branch implements the supplied marketing/intake design, working partner submissions and a separate owner dashboard entry. Production remains the earlier pilot. Admin is deliberately unavailable until the requested Clerk/Neon services and verified owner allowlist are configured. See [tested results and remaining gates](docs/verification.md) and [setup/operations](docs/OPERATIONS.md). Run `npm test`, `npm run typecheck`, and `npm run build` with Node 24.

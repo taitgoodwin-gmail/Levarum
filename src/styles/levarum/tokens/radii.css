@@ -1,0 +1,15 @@
+/* Levarum radii and border widths.
+   Four radii, no others. Borders are 1px by default; 1.5px means "selected,
+   open, or asking for attention"; 3-4px on one edge means "ranked". */
+:root{
+  --lv-r-chip:8px;      /* chip, tick box, small tag */
+  --lv-r-control:13px;  /* button, field, select, status button */
+  --lv-r-card:20px;     /* every card and band-inset block */
+  --lv-r-round:50%;     /* numeral circles, dots, toggle dot */
+  --lv-r-pill:100px;    /* status pill, meter track */
+
+  --lv-bw:1px; /* @kind other */
+  --lv-bw-strong:1.5px; /* @kind other */
+  --lv-bw-rank:3px; /* @kind other */
+  --lv-bw-rank-lead:4px; /* @kind other */
+}

@@ -1,0 +1,15 @@
+/* Levarum webfonts.
+   The source build loads both families from Google Fonts; no binaries were
+   supplied with the codebase, so the @font-face rules come from Google's
+   hosted stylesheet rather than local files. See readme.md → Fonts. */
+
+:root{
+  --lv-f-display:'Schibsted Grotesk','Trebuchet MS',sans-serif; /* @kind font */
+  --lv-f-body:'Instrument Sans',system-ui,-apple-system,sans-serif; /* @kind font */
+  --lv-t-mono:ui-monospace,SFMono-Regular,Menlo,monospace; /* @kind font */
+  --lv-fw-body:400; /* @kind other */
+  --lv-fw-medium:500; /* @kind other */
+  --lv-fw-semibold:600; /* @kind other */
+  --lv-fw-bold:700; /* @kind other */
+  --lv-fw-black:800; /* @kind other */
+}

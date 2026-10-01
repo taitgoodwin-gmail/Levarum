@@ -1,0 +1,170 @@
+# Preview verification — migration and redesign evidence
+
+This is dated evidence for the design-migration/redesign branch, not production-release acceptance. Production remains the earlier pilot. The current tested application is d3c0a824 at https://levarum-epjcu3fu0-mind-lever-gmail.vercel.app; see [current public release checks](PUBLIC-RELEASE-CHECKS.md) and [current baseline](README.md). Earlier sections below retain their own source/deployment scope, including real persistence and Lighthouse evidence. A later documentation commit does not relabel an earlier test run.
+
+## Observed results
+
+- Node 24.19.0: initial build and 8 baseline tests passed. Expanded API/security suite: 17 tests passed; final build and explicit typecheck passed. One additional opt-in integration test passed against real local PostgreSQL 18.4.
+- Public import graph: 41 modules reachable from `src/main.tsx`; no admin/operator module, private store, Clerk, Blob or PostgreSQL SDK reachable. Separate `index.html` and `admin.html` assets are generated.
+- Local and hosted Chrome: Home, How, What, Questions, Partners, Start, Privacy, admin setup screen and unknown route each loaded at 320, 390, 768 and 1440px (36 checks per environment), with no horizontal overflow or page exceptions.
+- Home selection transfers into intake. Native radio arrows, Enter on Back, Space on FAQ and the skip link work. Theme reload persists and its next-action label agrees with the rendered theme.
+- Invalid email exposes persistent associated validation text. Missing challenge selection prevents advancement. A deliberately failed save keeps answers and shows an error; the subsequent successful retry reuses the request ID. Fields lock while a save is pending.
+- Real synthetic plan, call and partner submissions succeeded locally and on the hosted preview. Each was retrieved by its exact content-addressed key using private Blob access; no customer listing or unrelated record was read. Each anonymous Blob read returned 403. Re-saving identical content preserved receivedAt. Test addresses use example.com and clearly identify verification records.
+- Call success explicitly says the request is not a confirmed appointment. Partner success follows saved:true. No email delivery was tested or claimed.
+- Axe 4.12.1: zero violations after entrance animations settled on eight routes in light and dark (16 scans). The admin scan covers only its setup screen. This is not screen-reader testing or a certification. Early scans during opacity animation produced transient contrast findings; settled-state reruns passed.
+- Real isolated localhost PostgreSQL 18.4: duplicate indexing remained one row; two concurrent version-0 updates produced one success and one 409; audit and status committed together; identical mutation retries created no duplicate event; a new connection read persisted status/history; partners could not be marked Booked. The temporary cluster was stopped after testing. The subsequent isolated Neon run also passed persistence, concurrent conflict, retry idempotence and Blob reconciliation; cloud backup recovery remains unverified.
+- The 320px Home badge initially overflowed; wrapping fixed it, and the complete responsive check then passed.
+- Earlier unconfigured hosted `/api/admin` returned 503 without records; the configured preview now returns 401 for missing and fabricated tokens. `/api/draft` returns 404. Live non-owner and expired-token probes remain outstanding. Dependency-injected tests exercise those authorization paths, exact owner ID, verified owner email, session token policy and live-session rejection.
+
+## Provider continuation — 2026-09-30
+
+- Clerk Hobby and Neon Free provisioning succeeded after owner terms acceptance. The exact verified owner account was bound by immutable server-side ID. The provider is currently a development instance; production setup is separate.
+- A separate private Blob store is connected to preview/development. A regression test verifies that production ignores the preview token.
+- Real synthetic plan/call/partner records saved into isolated Blob and Neon. Exact detail reads succeeded. Removing only a newly created synthetic index row and running reconciliation restored its index from Blob; a full pass completed.
+- Two concurrent Neon version-0 updates produced one success and one 409. Mutation replay did not duplicate history. Persisted version 2 and two history events were read back.
+- Node 24 build/typecheck, public dependency boundary, and all 17 API/security tests pass.
+- Real owner browser session loaded the inbox and private synthetic partner details. Keyboard status update persisted after reload with one history event. Type/status filters returned the expected single row. Owner-triggered reconciliation completed.
+- Logout returned to sign-in; browser Back did not restore private details. Clerk API confirmed the active session changed to removed. No pre-logout JWT was retained for replay testing.
+- Anonymous reads of all three exact isolated Blob fixtures returned 403.
+- Refreshed public suite: all 36 route/viewport checks, keyboard/theme/validation/failure/retry flows and real synthetic plan/call/partner saves passed on the configured preview.
+- Populated detail was inspected at 390 and 320px and inbox at desktop. Long actor ID caused 320px overflow; added history wrapping. Built-CSS regression fixture passes at 320/390/768/1440. The final CSS-only follow-up has not had a second owner login.
+- Final preview: https://levarum-moq3w4uv1-mind-lever-gmail.vercel.app (dpl_6bNR8R7f5Z2Aeub47RVNvn5xmXwU). Production remains unchanged.
+
+## Migration release gates recorded before redesign
+
+1. Complete live non-owner/expired-token probes and replay of a pre-logout JWT. Injected tests cover these rejection paths; provider logout and browser clearing have passed.
+2. Configure production Clerk/domain and separate production database; verify account recovery and provider backup/restore.
+3. Owner visual review before replacing the production homepage. At this historical checkpoint Figma had not been refreshed; the redesign checkpoint below now records editable frames and comparison limitations. The gallery remains archival; production approval is still pending.
+4. Confirm lead review cadence and privacy retention operations. Apple/iCloud correspondence remains manual; email delivery has not been tested.
+
+## Repeating browser checks
+
+`tests/browser/public-flow.mjs` uses Playwright and an explicitly selected browser. Its default mode mocks submission responses and does not save real records. Set RUN_LIVE_SUBMISSIONS=1 only for the opt-in integration mode that intentionally saves three synthetic records. Set TEST_BASE_URL to the preview, TEST_OUT to an ignored evidence directory, CHROME_PATH if using system Chrome, and PLAYWRIGHT_MODULE if using a bundled runtime. For protected previews, an optional TEST_COOKIE_FILE accepts a locally obtained curl cookie jar; never commit that file. Keep any preview access tokens out of logs and reports.
+
+Screenshots and synthetic request manifests live in ignored `work/` directories. They contain no customer data. Test rows are retained as identified verification records; there is no bulk-delete cleanup.
+
+## Published review artifacts
+
+- Draft PR: https://github.com/taitgoodwin-gmail/Levarum/pull/4
+- Committed application: cf088592685b8bd39443d82b984d535ca837eec2
+- Initial preview: https://levarum-l8p152zh0-mind-lever-gmail.vercel.app
+- Deployment: dpl_86fx5d4AmN8YueQw8qAvZPhvKdwj — READY, preview target.
+- Final preview smoke covers public/admin routes, both themes, reduced-motion visibility, admin 503 setup gate, draft API 404 and no page exceptions. Production has not been promoted.
+
+Final smoke on the CSS follow-up passed routes, both themes, reduced-motion visibility, admin anonymous 401, disabled draft 404 and no page exceptions.
+
+
+## UX redesign verification — 2026-09-30
+
+### Version and artifacts
+
+- Application source commit: `700a85075152c2c8411609b5de30738376619560`; source tree `5743424959207b8db3741825528c7841c715e4ca`.
+- Current Vercel review preview: [Levarum redesign](https://levarum-6n8z4iohc-mind-lever-gmail.vercel.app); deployment `dpl_Vkpo5Y2hLJFrHf9zNz5QZp3zDshW`.
+- Review source: [PR #4](https://github.com/taitgoodwin-gmail/Levarum/pull/4). Production has not been promoted.
+- Browser evidence: ignored `work/redesign-hosted/results.json` and `work/redesign-hosted/submissions.json`; private synthetic verification: ignored `work/redesign-private-results.json`. Test record identifiers stay in these local artifacts, not public documentation. They contain synthetic examples, not customer data.
+
+### Verified public and storage behavior
+
+- All 21 API/security tests pass. Build, TypeScript and public import-boundary checks pass. The public entry reaches 14 modules and no authentication/operator/private-data dependency; admin remains a separate entry.
+- Local and hosted `tests/browser/public-flow.mjs` runs each pass 72 route/viewport/theme checks: nine routes at 320/390/768/1440px in light and dark, without unintended horizontal overflow or page exceptions. The /admin checks cover unauthenticated entry, not a newly authenticated dashboard session.
+- Guidance is reached with zero submission POSTs before optional contact. Two selected tasks produce distinct guidance, and editing retains questionnaire answers. These checks do not prove exhaustive content quality across every task/band combination or real-user usefulness.
+- Changing follow-up purpose resets consent. An injected 503 retains input; pending submission disables changes; unchanged retry retains request ID. Email follow-up and call receipts reflect the submitted purpose; call receipt explicitly remains a request rather than a booking. Partner acknowledgement passes.
+- Hosted security smoke rejects missing/fabricated admin credentials with 401 and no-store; disabled /api/draft returns 404. Reduced-motion content remains visible. Evidence: ignored `work/redesign-security-results.json`. These probes do not replace live non-owner/expired/revoked-session checks.
+- Review screenshots were exported to the chat output directory as `levarum-redesign-mobile.png` and `levarum-redesign-desktop.png`; they show the preview, not customer records.
+- Theme reload persists; mobile menu works with Enter/Escape; native FAQ responds to Space; the skip link works. The suite also exercises native radio keyboard behavior. These are specific keyboard checks, not a complete assistive-technology certification.
+- Three real hosted synthetic submissions—follow-up, call and partner—were privately retrieved by their exact known references from isolated preview storage. No unrelated customer records were needed. Concurrent stale update returns 409, persisted status reads back, and successful mutation retry is idempotent. This is persistence/transaction evidence, not proof of the new authenticated dashboard rendering.
+
+### Accessibility checks and limits
+
+A separate Axe 4.12.1 run found zero violations on seven public routes in both themes and on guidance/contact states in light theme. The public-flow harness itself reports its optional Axe installation unavailable; the findings above come from the separate audit and must not be attributed to that harness.
+
+Admin sign-in initially produced two landmark findings; adding a main landmark corrected them. Its dark-theme retest reports zero violations, with three Clerk-provider items still requiring manual contrast review. Zero reported violations does not clear those incomplete checks or establish WCAG conformance. No actual screen-reader or representative-user session is claimed. Authenticated redesigned admin accessibility and interaction checks remain pending owner sign-in.
+
+### Figma comparison
+
+The [editable Figma reference](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L) records the reviewed hierarchy, chosen Lift mark, choice-B intake, components and responsive intent. [UX-REDESIGN.md](UX-REDESIGN.md) links core and supporting frames, including dark Home `8:43`, How `10:48`, FAQ `10:66`, Partners `10:82`, owner detail `10:102`, and automation examples `10:125`.
+
+The implementation is not a pixel-perfect reproduction of every draft frame: the desktop hero uses two columns; the application includes five task cards where an earlier draft showed three; native form control styling differs. These are recorded implementation differences, not claimed fidelity passes. Final owner visual review must assess the whole preview. The frame set is not evidence that every state/theme has a matching design frame.
+
+### Remaining gates after this checkpoint
+
+1. Owner sign-in and fresh browser verification of the redesigned authenticated inbox/details/status/sync/logout flow. Earlier owner tests remain valid historical evidence, not proof of the changed UI.
+2. Live non-owner/expired-token and pre-logout JWT replay probes; injected tests cover their rejection logic but do not replace live-session evidence.
+3. Production Clerk/domain, isolated production database, account recovery, provider backup/restore and recorded rollback target.
+4. Owner visual approval before production homepage replacement; no approval is inferred from the implemented preview or design selection.
+5. Manual lead-review cadence and privacy retention/deletion operations; automatic email delivery and booking remain outside the implemented workflow.
+6. Manual review of the three incomplete Clerk contrast items, actual screen-reader checks and representative-user task testing. No certification or experimentally measured UX improvement is claimed.
+
+
+## Task-first and v2 verification — 2026-09-30
+
+### Exact tested source and deployment
+
+- Source commit `8989c1c0d6853c608baf3c424edd34e9a99fe334`, tree `0252f14aab8690f0f2b56dc982f3ebb0703fca61`.
+- [Current task-first review preview](https://levarum-k09ohnt2g-mind-lever-gmail.vercel.app), deployment `dpl_DF4zfACeg4HahJwDZ6CWAa3gG5Tr`.
+- Draft [PR #4](https://github.com/taitgoodwin-gmail/Levarum/pull/4) updated; no production promotion.
+- Local/hosted browser evidence includes ignored repository `work/reimagination-hosted/results.json` and synthetic submission manifest. Exact private checks are in `work/reimagination-private-results.json`; no record identifiers or customer content are copied into this document.
+
+### Passed at this checkpoint
+
+1. **API and build:** 32 tests pass, with build/TypeScript/boundary checks. Boundary scan covers 112 files; public graph has 15 reachable modules and no auth/private dependency.
+2. **Rendering:** local and hosted runs each pass 80 route/width/theme cases: ten routes, four widths (320/390/768/1440px), light and dark. No page exceptions reported. This includes unauthenticated admin entry, not an authenticated owner walkthrough.
+3. **Task-first exploration:** scenario keyboard operation and no POST; guidance before contact; task-specific content; valid task deep link; invalid-task recovery. Changing task context resets consent; returning to exploration/contact retains the existing draft; refreshing clears it as disclosed.
+4. **Contact:** direct contact requires a genuine message when no task is selected; payload check confirms no fabricated context. Purpose change resets consent; injected failure retains input; pending disables changes; retry preserves ID. Follow-up/call receipts match purpose; no booking/automatic email is asserted.
+5. **Shared interactions:** mobile menu keyboard, theme persistence, native FAQ keyboard and skip link pass; partner acknowledgement passes.
+6. **Real private storage:** three hosted synthetic requests—follow-up, call and partner—were retrieved by exact known references from isolated preview storage. V2 lead records use schemaVersion 2, privacyVersion 2026-09-30 and contain no invented business/hours. Concurrent stale status update produces 409; status persists; successful mutation retry is idempotent. This proves the checked storage/transaction behavior, not new owner UI operation.
+7. **Separate automated accessibility:** Axe 4.12.1 reports zero violations on eight public routes in both themes. Evidence is in the chat working directory’s ignored `work/levarum-reimagination/a11y.json`. The browser-flow harness reports its optional Axe installation unavailable; do not attribute the separate scan to that harness. No screen-reader, authenticated-owner or complete conformance claim follows.
+
+### Design reference and limits
+
+Current editable [Figma](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L) includes concept alternatives 16:3/16:4 and 16:5/16:6, journey page 18:2, contact 18:4, receipt 18:5, error 18:6 and operator 18:7. Task references are questions 23:33, invoices 18:3, copying 23:54, booking 23:75 and leads 23:96. These are conceptual visual/interaction references, not pixel-perfect browser parity. Full-state alignment and further logo refinement remain open; frame availability does not prove every theme/viewport/state is designed or matched.
+
+The recorded [performance baseline](PERFORMANCE-BASELINE.md) remains a frozen previous local build. Final hosted performance comparison is still open; no current Lighthouse score or field Core Web Vitals result is inferred from the 80 browser cases.
+
+### Remaining work and release gates
+
+- Fresh authenticated owner inbox/detail/filter/status/sync/logout walkthrough, plus live non-owner/expired/revoked-session probes not yet evidenced. Earlier provider/owner checks remain historical.
+- Logo refinement, complete design-state alignment and final hosted performance comparison.
+- Manual accessibility/contrast follow-up, actual screen-reader checks and representative-user testing; automated zero violations does not close these.
+- Owner visual approval, production Clerk/domain/storage isolation, recovery/backup/rollback, manual lead-review cadence and privacy retention/deletion operation. These remain production gates; no deadline, paid package, automatic delivery or appointment is promised.
+
+
+## Keyboard recovery follow-up — 2026-09-30
+
+Scope: local source changes following deployed8989, not yet evidence for a new deployment. Manual review reproduced loss of keyboard focus after a failed asynchronous save. Shared SubmissionError focuses the failure alert after controls re-enable; Tab reaches the retry button. Contact and partner use the same component. Native validation now appends/removes only its own aria-describedby token, preserving message-help.
+
+Validation after the fix:32/32 API/security tests pass; production build/typecheck and boundary checks pass (112files;15public modules). The local public-flow suite passes80 responsive route/theme cases plus the new failed-save focus and retry assertion. Dedicated tests/browser/recovery.mjs passes8 combinations (contact/partners × light/dark ×320/1440), each with two mocked503 failures, alert focus, Tab-to-retry, retained email/consent and identical retry request IDs. Direct-contact validation retains message-help before/after correction. Evidence: ignored work/recovery-browser/results.json and work/recovery-focus/results.json. No real submissions in these runs; no fresh private-record or authenticated-owner claim. Actual screen-reader behavior remains unverified.
+
+The React review of this change found a module-level shared component, primitive effect dependency, semantic alert/ref focus, no new dependency or network operation, and unchanged public/admin import boundary. No broad React refactor was added.
+
+
+## Wordmark and recovery preview — 2026-09-30
+
+Exact application source8e80f5de339cdd62bdb01cfcdb257f183cb50e87, treee2aa24f9d82729e541f23121ebc086c78a925d42. Vercel Git integration automatically deployed dpl_5oxtDaZnuyTp9iBceQjos1i1R7mP, Ready, at https://levarum-9tvocbmhj-mind-lever-gmail.vercel.app . No manual production promotion occurred. Branch pushes also created previews for bcc1bb2 and3d5bac4; earlier statements that those changes were not deployed meant no verified deployment had yet been recorded, and are superseded by this inspected Git-deployment evidence.
+
+Changes: reviewed Wordmark-first default shared across public and owner interfaces, matching theme-aware L favicon, corrected legacy logo type documentation, contact included in sitemap, consistent partner voice without unverified location claim, plus the prior failed-save focus/help-text fix. Legacy explicit logo variants and supplied design history remain preserved.
+
+Current validation:32/32 API/security tests, build/typecheck/boundary pass (112files,15public modules). Local and exact-hosted public suites each pass80 route/width/theme cases and interaction checks. Hosted recovery suite passes8 contact/partner×light/dark×320/1440 cases with repeated mocked503 responses, error focus, Tab-to-retry, retained input/consent and stable request ID. No live submissions in those suites.
+
+Hosted security probes exercise list/detail/status/sync with absent and fabricated authorization:8/8 return401, private/no-store and error-only JSON. Disabled /api/draft returns404. These are actual preview API probes but NOT valid non-owner, expired or revoked-session tests. No private records or owner session accessed. Fresh authenticated-owner testing remains pending.
+
+Evidence: ignored work/wordmark-tests.log, work/wordmark-build.log, work/wordmark-browser/, work/wordmark-hosted/, work/wordmark-hosted-recovery/results.json and work/wordmark-admin-negative/results.json. Narrow light-mobile and dark-desktop screenshots inspected after the wordmark change. Temporary preview access came from the Vercel connector into an ignored file; no bearer URL/cookie appears in public evidence. Earlier8989 private-record and Lighthouse results retain their exact scope; they are not silently relabeled as8e80 results. API/storage implementation is unchanged by this source follow-up.
+
+## Non-production Blob isolation regression — 2026-09-30
+
+Source inspection found that missing PREVIEW_READ_WRITE_TOKEN allowed non-production code to fall back to BLOB_READ_WRITE_TOKEN. The selector now throws before any SDK call in that configuration; public readiness checks return false even if a production token or BLOB_STORE_ID is available. Production selection and store-ID authentication remain supported. No public request schema or successful-save contract changed.
+
+Local verification: 33 tests pass, including missing/empty/whitespace preview tokens in preview, development and unset local environments with production credentials present; build, TypeScript and public/admin boundary pass. Raw logs: ignored work/blob-isolation-tests.log and work/blob-isolation-build.log. This section is a local checkpoint until a deployment is named; previous hosted evidence is not relabeled. Provider isolation and credential scopes are audited separately in BLOB-ISOLATION.md.
+
+### Hosted isolation-fix checkpoint
+
+Source 6b9a0f7 at https://levarum-cjhcj1631-mind-lever-gmail.vercel.app (dpl_352C2wYRW8uVsbcU5irXd3DJTeBm) passed 80 responsive route/theme checks and targeted public flows with **real synthetic saves**. Four attempts resolved to three unique saved content keys. Exact private readback using fresh preview credentials verified consent, v2 notice, absent fabricated context and all request kinds; direct server-function concurrency produced one success/one409, and repeated mutation retained version/event count. This is not a fresh logged-in owner API/browser test. Evidence: work/isolation-hosted, work/isolation-private-results.json. Narrow mobile Start and dark desktop Home screenshots were visually inspected without overflow.
+
+Eight current-source Lighthouse audits completed with matched baseline configSettings; Home mobile median98, desktop100. See PERFORMANCE-BASELINE.md for all metrics and scope limits. Provider scope correction may have completed after this deployment began, so historical credential snapshots are not claimed revoked. A fresh post-correction deployment remains necessary; BLOB-ISOLATION.md records verified live scopes and local-file correction.
+
+
+### Post-scope deployment checkpoint — 2026-09-30
+
+Commit `84663f563e849a7050801ece2fb859565f968ab9`, deployment `dpl_ENBZ1wqd2anRwmnBZNyCqKmNCubH`, [fresh preview](https://levarum-msfizuxea-mind-lever-gmail.vercel.app), was built after the provider credential-scope correction. Its application source is unchanged from6b9a0f7; this documentation-only commit does not claim another complete browser/Lighthouse run.
+
+A bounded live API smoke saved three new synthetic request types; an unchanged fourth retry reused its reference. Exact private reads verified all three fixtures using freshly pulled preview-only credentials with production Blob credentials explicitly absent. Direct server-function concurrent updates and mutation retries passed. No customer listing or owner session was used. Evidence: ignored `work/post-scope-hosted/results.json`, `work/post-scope-private-results.json`, `work/post-scope-smoke.mjs` and `work/verify-post-scope.ts`. This closes the fresh-build environment checkpoint above, not authenticated owner or production end-to-end acceptance.

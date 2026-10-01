@@ -1,0 +1,15 @@
+/* Levarum layout.
+   One container width for everything wide; two narrower measures for reading
+   and for forms. Prose never runs past 60-62ch. */
+:root{
+  --lv-w-page:1180px; /* @kind spacing */    /* nav, footer, wide grids */
+  --lv-w-read:820px; /* @kind spacing */     /* FAQ, single-column reading page */
+  --lv-w-form:760px; /* @kind spacing */     /* intake and partner form column */
+  --lv-w-narrow:520px; /* @kind spacing */   /* sign-in card, hero form card */
+  --lv-w-prose:62ch; /* @kind spacing */     /* body copy measure */
+  --lv-w-lead:560px; /* @kind spacing */     /* lead paragraph measure */
+
+  --lv-bp-nav:680px; /* @kind other */     /* below this the nav stacks */
+  --lv-bp-wide:900px; /* @kind other */    /* below this two columns become one */
+  --lv-bp-min:320px; /* @kind other */     /* nothing clips or side-scrolls here */
+}

@@ -1,0 +1,43 @@
+<!-- @dsCard group="Components" viewport="700x360" name="Forms" subtitle="Field, select, choice chips, check rows and their states" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;padding:18px;background:var(--lv-page);font-family:var(--lv-f-body)}#root{display:grid;grid-template-columns:1fr 1fr;gap:16px}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head><body>
+<div id="root"></div>
+<script type="text/babel">
+const { TextField, SelectField, ChoiceChip, CheckRow } = window.LevarumDesignSystem_13e0fb;
+function Demo(){
+  const [band, setBand] = React.useState('5 to 15');
+  const [pains, setPains] = React.useState(['invoices']);
+  const toggle = (id) => setPains(p => p.includes(id) ? p.filter(x => x !== id) : p.concat(id));
+  return (
+    <>
+      <div style={{display:'flex',flexDirection:'column',gap:16}}>
+        <SelectField id="biz" label="What kind of business is this?" options={['Trades & home services','Medical, dental or vet practice','Salon, barber or studio']} />
+        <TextField id="e1" label="Email" type="email" placeholder="you@yourbusiness.com" />
+        <TextField id="e2" type="email" defaultValue="you@yourbusiness" error="That does not look like an email yet. Mind checking it?" />
+        <TextField id="e3" label="Not editable" defaultValue="Prototype value" disabled />
+      </div>
+      <div style={{display:'flex',flexDirection:'column',gap:16}}>
+        <div>
+          <div style={{fontSize:'var(--lv-t-md)',fontWeight:500,marginBottom:10}}>About how many hours a week go to back-office work?</div>
+          <div role="radiogroup" aria-label="Hours a week" style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:10}}>
+            {['Under 5','5 to 15','15 to 30','30 plus'].map(h =>
+              <ChoiceChip key={h} label={h + ' hrs'} selected={h === band} onSelect={() => setBand(h)} />)}
+          </div>
+        </div>
+        <div style={{display:'flex',flexDirection:'column',gap:10}}>
+          <CheckRow label="Chasing invoices and payments" checked={pains.includes('invoices')} onToggle={() => toggle('invoices')} />
+          <CheckRow label="Booking people in and sending reminders" checked={pains.includes('booking')} onToggle={() => toggle('booking')} />
+        </div>
+      </div>
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body></html>

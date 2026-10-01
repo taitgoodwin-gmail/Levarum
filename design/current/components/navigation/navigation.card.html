@@ -1,0 +1,32 @@
+<!-- @dsCard group="Components" viewport="700x330" name="Navigation" subtitle="Nav bar, theme toggle, progress steps, footer, skip link" -->
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="../../styles.css">
+<style>body{margin:0;background:var(--lv-page);font-family:var(--lv-f-body)}#root{display:flex;flex-direction:column;gap:16px}.pad{padding:0 18px}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head><body>
+<div id="root"></div>
+<script type="text/babel">
+const { NavBar, Footer, ProgressSteps, ThemeToggle, SkipLink, Pill } = window.LevarumDesignSystem_13e0fb;
+const LINKS = [{label:'How it works',href:'#'},{label:'What we automate',href:'#'},{label:'Questions',href:'#'}];
+function Demo(){
+  return (
+    <>
+      <NavBar links={LINKS} current="How it works" cta={{label:'Start',href:'#'}} />
+      <NavBar links={[{label:'Back to site',href:'#'},{label:'Intake form',href:'#'}]} badge={<Pill>ADMIN</Pill>} theme={false} />
+      <div className="pad" style={{display:'flex',gap:26,alignItems:'flex-end',flexWrap:'wrap'}}>
+        <ProgressSteps step={2} total={3} note="About 90 seconds in total" style={{flex:1,minWidth:240}} />
+        <ProgressSteps step={2} total={3} form="bars" label="Step 2 of 3" style={{flex:1,minWidth:240}} />
+        <ThemeToggle />
+        <SkipLink href="#root" />
+      </div>
+      <Footer tagline="Back-office automation for owner-run businesses."
+        links={[{label:'How it works',href:'#'},{label:'Questions',href:'#'},{label:'hello@levarum.co',href:'#'},{label:'Admin',href:'#'}]} />
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<Demo />);
+</script>
+</body></html>

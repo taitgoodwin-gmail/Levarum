@@ -1,6 +1,8 @@
+import { blobConfigured } from '../server/blob-config.ts'
+import { indexLead } from '../server/admin-store.ts'
 import type { IncomingMessage, ServerResponse } from 'node:http'
 import { createHash } from 'node:crypto'
-import { put } from '@vercel/blob'
+import { savePrivateRecord } from '../server/private-save.ts'
 import { LeadInputError, leadPath, parseLead, type Lead } from '../server/leads.ts'
 
 const MAX_BYTES = 8 * 1024
@@ -28,6 +30,17 @@ async function readBody(req: IncomingMessage & { body?: unknown }) {
   return JSON.parse(Buffer.concat(chunks).toString('utf8'))
 }
 
+export function leadNotificationText(lead: Lead): string {
+  return [
+    `Email: ${lead.email}`,
+    ...(lead.business !== undefined ? [`Business: ${lead.business}`] : []),
+    ...(lead.hours !== undefined ? [`Hours: ${lead.hours}`] : []),
+    `Challenges: ${lead.pains.length ? lead.pains.join(', ') : 'No task category selected'}`,
+    ...('schemaVersion' in lead && lead.message ? [`Message: ${lead.message}`] : []),
+    `Preferences: ${lead.preferences || 'Not supplied'}`,
+    `Reference: ${lead.requestId}`,
+  ].join('\n')
+}
 async function notify(lead: Lead) {
   if (!process.env.RESEND_API_KEY || !process.env.LEAD_EMAIL_FROM) return
   const response = await fetch('https://api.resend.com/emails', {
@@ -36,7 +49,7 @@ async function notify(lead: Lead) {
     body: JSON.stringify({
       from: process.env.LEAD_EMAIL_FROM, to: ['hello@levarum.com'], reply_to: lead.email,
       subject: lead.intent === 'call' ? 'Levarum: new call request' : 'Levarum: new Game Plan intake',
-      text: `Email: ${lead.email}\nBusiness: ${lead.business}\nHours: ${lead.hours}\nChallenges: ${lead.pains.join(', ')}\nPreferences: ${lead.preferences || 'Not supplied'}\nReference: ${lead.requestId}`,
+      text: leadNotificationText(lead),
     }),
   })
   if (!response.ok) throw new Error('Notification failed')
@@ -48,12 +61,10 @@ type LeadDependencies = {
   notify: (lead: Lead) => Promise<void>
 }
 const defaults: LeadDependencies = {
-  configured: () => Boolean(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID),
+  configured: blobConfigured,
   save: async lead => {
-    await put(leadPath(lead), JSON.stringify({ ...lead, receivedAt: new Date().toISOString(), privacyVersion: '2026-09-29' }), {
-      access: 'private', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true,
-      abortSignal: AbortSignal.timeout(12000),
-    })
+    await savePrivateRecord(leadPath(lead), lead, 'schemaVersion' in lead ? '2026-09-30' : '2026-09-29')
+    if (process.env.DATABASE_URL) { try { await indexLead(leadPath(lead)) } catch { console.error('Lead saved; dashboard indexing pending reconciliation') } }
   },
   notify,
 }

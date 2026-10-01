@@ -1,0 +1,41 @@
+/* Levarum type.
+   Two families. Schibsted Grotesk for anything structural — headings,
+   figures, buttons, eyebrows, labels. Instrument Sans for prose and fields.
+   Fixed steps (--lv-t-*) for UI text; fluid clamps (--lv-d-*) for display. */
+:root{
+  /* UI steps — fixed px, never scale with viewport */
+  --lv-t-cap:13px;   /* tracked caps eyebrow, status pill, chip */
+  --lv-t-xs:14px;    /* footer links, meta, microcopy */
+  --lv-t-sm:15px;    /* nav links, helper text, card body-small */
+  --lv-t-md:16px;    /* field labels, list rows */
+  --lv-t-body:17px;  /* body prose floor */
+  --lv-t-lg:19px;    /* primary button label, card title */
+  --lv-t-xl:22px;    /* link-card title */
+
+  /* Display steps — fluid, clamp(min, vw, max) */
+  --lv-d-hero:clamp(44px,6.2vw,84px); /* @kind font */  /* home hero only */
+  --lv-d-1:clamp(36px,5vw,68px); /* @kind font */       /* page h1 */
+  --lv-d-2:clamp(32px,4.2vw,52px); /* @kind font */     /* intake h1, closing CTA */
+  --lv-d-3:clamp(30px,3.4vw,44px); /* @kind font */     /* section h2, big figures */
+  --lv-d-4:clamp(22px,2.4vw,28px); /* @kind font */     /* card h3, row figures */
+  --lv-d-5:clamp(19px,2vw,22px); /* @kind font */       /* card title */
+  --lv-d-6:clamp(17px,1.5vw,20px); /* @kind font */     /* lead paragraph */
+  --lv-d-7:clamp(16px,1.4vw,18px); /* @kind font */     /* section lead, secondary lead */
+
+  /* Tracking — display type is tightened hard, caps are opened */
+  --lv-track-hero:-0.04em; /* @kind other */
+  --lv-track-display:-0.035em; /* @kind other */
+  --lv-track-head:-0.025em; /* @kind other */
+  --lv-track-tight:-0.02em; /* @kind other */
+  --lv-track-label:-0.01em; /* @kind other */
+  --lv-track-caps:0.06em; /* @kind other */
+  --lv-track-caps-wide:0.08em; /* @kind other */
+
+  /* Leading */
+  --lv-lead-hero:.96; /* @kind other */
+  --lv-lead-display:1.02; /* @kind other */
+  --lv-lead-head:1.06; /* @kind other */
+  --lv-lead-title:1.15; /* @kind other */
+  --lv-lead-body:1.55; /* @kind other */
+  --lv-lead-prose:1.6; /* @kind other */
+}

@@ -1,0 +1,37 @@
+/* Levarum dark theme.
+   Set data-theme="dark" on <html>. The dark page is not neutral grey: it is
+   petrol mixed into ink, so the brand hue carries through. Tokens are
+   swapped, never dimmed with opacity. */
+[data-theme="dark"]{
+  color-scheme:dark;
+  --lv-page:color-mix(in srgb, var(--lv-brand-petrol) 22%, var(--lv-dark));
+  --lv-surface:color-mix(in srgb, var(--lv-brand-petrol) 26%, var(--lv-dark-surface));
+  --lv-band:color-mix(in srgb, var(--lv-dark-ink) 10%, var(--lv-page));
+  --lv-ink:var(--lv-dark-ink);
+  --lv-ink-hover:color-mix(in srgb, var(--lv-dark-ink) 80%, var(--lv-page));
+  --lv-ink-quiet:var(--lv-dark-quiet);
+  --lv-ink-placeholder:color-mix(in srgb, var(--lv-dark-ink) 62%, var(--lv-page));
+  --lv-line:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-dark-line));
+  --lv-line-control:var(--lv-dark-line-control);
+  --lv-accent:color-mix(in srgb, var(--lv-brand-rust) 45%, var(--lv-dark-ink));
+  --lv-accent-hover:color-mix(in srgb, var(--lv-accent) 82%, var(--lv-dark-ink));
+  --lv-accent-tint:color-mix(in srgb, var(--lv-brand-rust) 26%, var(--lv-page));
+  --lv-sec:color-mix(in srgb, var(--lv-brand-petrol) 38%, var(--lv-dark-ink));
+  --lv-sec-tint:color-mix(in srgb, var(--lv-brand-petrol) 34%, var(--lv-page));
+  --lv-link:var(--lv-sec);
+  --lv-link-hover:color-mix(in srgb, var(--lv-brand-petrol) 22%, var(--lv-dark-ink));
+  --lv-tint:color-mix(in srgb, var(--lv-dark-ink) 8%, var(--lv-page));
+  --lv-rung-1:var(--lv-page);
+  --lv-rung-2:color-mix(in srgb, var(--lv-dark-ink) 4%, var(--lv-page));
+  --lv-rung-3:color-mix(in srgb, var(--lv-dark-ink) 8%, var(--lv-page));
+  --lv-rung-4:color-mix(in srgb, var(--lv-dark-ink) 13%, var(--lv-page));
+  --lv-dark-petrol:color-mix(in srgb, var(--lv-dark-ink) 10%, var(--lv-page));
+  --lv-dark-petrol-surface:color-mix(in srgb, var(--lv-dark-ink) 15%, var(--lv-page));
+  --lv-dark-petrol-line:color-mix(in srgb, var(--lv-dark-ink) 24%, var(--lv-page));
+  --lv-meter-track:color-mix(in srgb, var(--lv-dark-ink) 16%, var(--lv-page));
+  --lv-meter-fill:var(--lv-sec);
+  --lv-meter-fill-quiet:color-mix(in srgb, var(--lv-brand-petrol) 52%, var(--lv-dark-ink));
+  --lv-ok:color-mix(in srgb, var(--lv-brand-forest) 38%, var(--lv-dark-ink));
+  --lv-ok-tint:color-mix(in srgb, var(--lv-brand-forest) 22%, var(--lv-page));
+  --lv-spark-deep:color-mix(in srgb, var(--lv-spark) 60%, var(--lv-dark-ink));
+}
