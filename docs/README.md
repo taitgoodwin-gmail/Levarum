@@ -11,13 +11,19 @@ Current working baseline: UX correction initiated 2026-09-30. The user authorize
 5. [Verification](verification.md) and [operations](OPERATIONS.md): recorded test results and remaining release gates.
 6. [Execution plan](../PLANS.md): dated implementation progress. Its current milestones supersede the preserved historical migration plan.
 
+## Owner review: further UI/UX work required
+
+The owner has rejected the current preview as not ready. Design selection and journey quality are reopened; earlier QA7 handoff completion is historical, not visual approval. See the new owner-feedback section in [UX-REDESIGN](UX-REDESIGN.md). The technical evidence below remains valid only for the existing implementation.
+
+Current proposals: [Round 2 content](UX-ROUND-2-CONTENT.md), [Round 2 Figma prototype](UX-ROUND-2-PROTOTYPE.md), [palette rationale and sources](UX-PALETTE-EXPLORATION.md), and [palette Figma evidence](UX-PALETTE-FIGMA.md). These are unapproved design proposals, not application changes. Next: reconcile requirements and journeys, complete public/partner/owner prototypes and recovery states, review the whole experience, then implement and verify the reviewed design.
+
 ## Current verified preview and remaining work
 
 The [current tested preview](https://levarum-epjcu3fu0-mind-lever-gmail.vercel.app) runs application commit `d3c0a8243633075fb7b3b3d94bbed99007eedb29`, deployment `dpl_Edn1UoLYzYPdNZpf2d9PzAaXVtD3`. It provides immediate task guidance before optional contact, a shared wordmark, truthful save/retry behavior and separate private owner access. Production remains the earlier pilot.
 
 [Public release checks](PUBLIC-RELEASE-CHECKS.md) records33 tests/build/TypeScript/boundary checks; hosted route metadata, contextual Back/refresh, both print themes and eight failure/retry cases;64 route/width/theme link inventories,13 destinations,16 maximum-content forms, sitemap/robots/headers and eight absent/fabricated admin denials. No real saves were made in these bounded follow-ups. [Earlier verification](verification.md) retains actual synthetic save/readback/concurrency evidence on84663f5 and80 responsive cases on application6b9a0f7. [Performance](PERFORMANCE-BASELINE.md) is scoped to6b9a0f7: Home mobile median98/desktop100, not a fresh audit of d3c0a824.
 
-[Design QA](REIMAGINATION-DESIGN-QA.md) closes design selection/specification: connected public/partner journeys, owner state references, shared foundations, requirement-to-code mapping and matched1440px light/390px dark Home comparison. Figma remains a static form/state prototype with disclosed spacing/overlay/theme-execution differences; no pixel-parity or owner-approval claim. [Acceptance matrix](LAUNCH-ACCEPTANCE-MATRIX.md) separates completed scope from release gates.
+[Historical design QA](REIMAGINATION-DESIGN-QA.md) recorded the earlier design handoff, now reopened following owner review: connected public/partner journeys, owner state references, shared foundations, requirement-to-code mapping and matched1440px light/390px dark Home comparison. Figma remains a static form/state prototype with disclosed spacing/overlay/theme-execution differences; no pixel-parity or owner-approval claim. [Acceptance matrix](LAUNCH-ACCEPTANCE-MATRIX.md) separates completed scope from release gates.
 
 [Blob isolation](BLOB-ISOLATION.md) records separate production/preview stores and credential scopes; current non-production fails closed without its dedicated credential. Old deployment snapshots are not revoked by scope changes. [Provisioning](PRODUCTION-PROVISIONING.md) records the approved isolated production Neon connection/schema and verified Clerk DNS/certificates. The separate Clerk production connection still awaits its pending action-time approval, followed by verified production owner binding.
 

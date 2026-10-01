@@ -69,3 +69,7 @@ Figma QA6 connects103 public frames with1653 verified navigation reactions and n
 ## Design and operational closeout
 
 QA7 completes stages3/4: matching hosted Home1440light/390dark comparison, actual menu/favicon/monochrome inspection and requirements→frames→code→acceptance mapping. Prototype forms and Present-mode behavior retain explicit limits. Public navigation/long-content/header checks and live anonymous/fabricated admin denials pass on d3c0a824. The operations runbook includes a tested localhost exact-record deletion procedure and copy/backup-custody handling; no cloud deletion or owner retention commitment is claimed.
+
+## Owner review — reopen design
+
+The owner states the current UI/UX is not ready. Reopen offer, journey and visual identity rather than advancing production setup as the immediate priority. Existing tests and QA7 document technical/design-artifact consistency only; they do not prove compelling usability or acceptance. Preserve current app and history, perform fresh critical BA/UX review, then present materially revised prototypes before application changes.
