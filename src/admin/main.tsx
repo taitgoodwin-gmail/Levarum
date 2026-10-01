@@ -42,10 +42,13 @@ function Dashboard() {
  const hideContent = useCallback(() => { generation.current++; setInbox(null); setDetail(null) },[])
  const clear = useCallback(() => { hideContent(); pendingMutation.current=null },[hideContent])
  const api = useCallback(async <T,>(action:string, body?:unknown):Promise<T> => {
+  const epoch = generation.current
   const token = await getToken()
+  if(epoch!==generation.current)throw new Error('Request superseded')
   if (!token) { clear();setDenied(true);setBusy(false);setError('Session ended. Sign out, then sign in again.');throw new Error('Session ended. Please sign in again.') }
   const response = await fetch(`/api/admin?${action}`, {method:body===undefined?'GET':'POST',cache:'no-store',headers:{Authorization:`Bearer ${token}`,...(body===undefined?{}:{'Content-Type':'application/json'})},body:body===undefined?undefined:JSON.stringify(body),signal:AbortSignal.timeout(20000)})
   const data = await response.json()
+  if(epoch!==generation.current)throw new Error('Request superseded')
   if (!response.ok) {
    if(response.status===401||response.status===403){clear();setDenied(true);setBusy(false);setError(data.error||'Access denied. Please sign in again.')}
    throw new Error(data.error||'Could not complete the request. Please retry.')
@@ -55,13 +58,13 @@ function Dashboard() {
  useEffect(() => {clear();setDenied(false);setNotice('')},[userId,isSignedIn,clear])
  useEffect(() => {history.replaceState(null,'',`${location.pathname}?${filterQuery}${location.hash}`)},[filterQuery])
  useEffect(() => {
-  if(!isSignedIn||signingOut)return
+  if(!isSignedIn||signingOut||denied)return
   let lastRefresh=0
   const refresh=()=>{if(document.visibilityState!=='visible'||Date.now()-lastRefresh<300)return;lastRefresh=Date.now();hideContent();setRevision(v=>v+1)}
   const visibility=()=>{if(document.visibilityState==='hidden')hideContent();else refresh()}
   window.addEventListener('focus',refresh);document.addEventListener('visibilitychange',visibility)
   return()=>{window.removeEventListener('focus',refresh);document.removeEventListener('visibilitychange',visibility)}
- },[isSignedIn,signingOut,hideContent])
+ },[isSignedIn,signingOut,denied,hideContent])
  useEffect(() => {
   const hide=()=>clear()
   const show=()=>setRevision(v=>v+1)
@@ -69,14 +72,14 @@ function Dashboard() {
   return()=>{window.removeEventListener('pagehide',hide);window.removeEventListener('pageshow',show)}
  },[clear])
  useEffect(() => {
-  if(!isSignedIn||signingOut)return
+  if(!isSignedIn||signingOut||denied)return
   const epoch=++generation.current
   setBusy(true);setError('');setInbox(null);setDetail(null)
   const id=location.pathname.match(/^\/admin\/leads\/([a-f\d]{64})\/?$/)?.[1]
   const load=id?api<Detail>(`action=detail&id=${id}`).then(value=>{if(epoch===generation.current)setDetail(value)}):api<Inbox>(`page=${page}&kind=${kind}&status=${status}`).then(value=>{if(epoch===generation.current)setInbox(value)})
   void load.catch(e=>{if(epoch===generation.current)setError(e instanceof Error?e.message:'Request failed')}).finally(()=>{if(epoch===generation.current){setBusy(false);heading.current?.focus()}})
   return()=>{generation.current++}
- },[isSignedIn,signingOut,page,kind,status,revision,api])
+ },[isSignedIn,signingOut,denied,page,kind,status,revision,api])
  async function logout(){setSigningOut(true);clear();setError('');try{await signOut();location.replace('/admin/sign-in')}catch{setError('Sign-out could not complete. Retry to end your session.');setSigningOut(false);setDenied(true)}}
  async function mutate(action:'sync'|'status',next?:Status){
   if(active.current)return
@@ -102,7 +105,12 @@ function Dashboard() {
  {detail&&<section className="lv-card lv-admin-detail"><a href={`/admin?${filterQuery}`}>← Back to requests</a><h2>{kinds[detail.record.kind]}</h2><p>{detail.record.status} · Received {date(detail.record.received_at)}</p><dl>{['name','email','business','hours','pains','message','craft','contribution','preferences','consent'].filter(key=>detail.lead[key]!==undefined).map(key=><div key={key}><dt>{fieldLabels[key]}</dt><dd>{fieldValue(key,detail.lead[key])}</dd></div>)}</dl>{typeof detail.lead.email==='string'&&<p><a href={`mailto:${encodeURIComponent(detail.lead.email)}`}>Reply by email</a></p>}<h3>Update status</h3><p>Status changes do not send email or create a meeting. Use Booked only after agreeing an appointment.</p><div className="lv-actions">{statuses.filter(s=>s!=='Booked'||detail.record.kind==='call').map(s=><button key={s} className="lv-button secondary" disabled={busy||s===detail.record.status} onClick={()=>void mutate('status',s)}>{s}</button>)}</div><h3>Status history</h3>{!detail.events.length?<p>No status changes yet.</p>:<ol className="lv-admin-history">{detail.events.map(event=><li key={event.version}>{event.old_status} → {event.new_status}<br/>{date(event.created_at)} · {event.actor}</li>)}</ol>}</section>}
  </>}</main></>
 }
+// Remount all private state when the authenticated account/session changes.
+function SessionDashboard(){
+ const {userId,sessionId,isSignedIn}=useAuth()
+ return <Dashboard key={`${userId||''}:${sessionId||''}:${Boolean(isSignedIn)}`}/>
+}
 try { const theme=localStorage.getItem('levarum.theme.v1'); document.documentElement.dataset.theme=theme==='dark'||theme==='light'?theme:matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light' } catch {}
 const root=document.getElementById('root')!
 const key=import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
-createRoot(root).render(<StrictMode>{key?<ClerkProvider publishableKey={key} signInUrl="/admin/sign-in" afterSignOutUrl="/admin/sign-in"><Dashboard/></ClerkProvider>:<main className="lv-form-page"><p className="lv-eyebrow">PRIVATE OWNER ACCESS</p><h1>Admin setup is in progress.</h1><p>Secure sign-in is not configured for this environment yet. No requests are available here.</p><a href="/">Back to Levarum</a></main>}</StrictMode>)
+createRoot(root).render(<StrictMode>{key?<ClerkProvider publishableKey={key} signInUrl="/admin/sign-in" afterSignOutUrl="/admin/sign-in"><SessionDashboard/></ClerkProvider>:<main className="lv-form-page"><p className="lv-eyebrow">PRIVATE OWNER ACCESS</p><h1>Admin setup is in progress.</h1><p>Secure sign-in is not configured for this environment yet. No requests are available here.</p><a href="/">Back to Levarum</a></main>}</StrictMode>)

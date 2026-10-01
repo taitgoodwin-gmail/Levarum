@@ -1,3 +1,7 @@
+## Owner dashboard correctness — 2026-10-01
+
+Fixed a reproduced stale-response denial race, blocked automatic reads after denial/sign-out failure, and reset private state on session changes. Added isolated synthetic dashboard coverage and reproducible deletion-race characterization. [Changes, evidence and the still-open deletion coordination gap](docs/ADMIN-CORRECTNESS-REVIEW.md). No branding, auth/access, retention or production changes.
+
 ## Connected output clarity — 2026-10-01
 
 The Connected state now exposes the existing synthetic captured-details/draft preview, and mobile human approval is a distinct readable panel. [Implementation, before/after screenshots and verification](docs/OUTPUT-CLARITY-REVIEW.md). This is the current focused refinement; existing launch and authenticated-preview gates remain open.
