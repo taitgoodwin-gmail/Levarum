@@ -48,7 +48,7 @@ jobs:
           export TEST_ADMIN_ROUTE=/admin.html
           ./node_modules/.bin/vite preview --host 127.0.0.1 --port 4173 --strictPort > "$OUT/preview.log" 2>&1 &
           preview_pid=$!
-          # The dev middleware provides real handlers for anonymous/fabricated-token denial checks only.
+          # The dev middleware provides real handlers for exact fail-closed setup checks, without credentials.
           ./node_modules/.bin/vite --host 127.0.0.1 --port 5174 --strictPort > "$OUT/api-middleware.log" 2>&1 &
           api_pid=$!
           trap 'kill "$preview_pid" "$api_pid" 2>/dev/null || true' EXIT
@@ -71,7 +71,7 @@ jobs:
             if [ "$result" -ne 0 ]; then status=1; fi
           done
           mkdir -p "$OUT/admin-negative"
-          TEST_BASE_URL=http://127.0.0.1:5174 TEST_OUT="$OUT/admin-negative" node tests/browser/admin-negative.mjs 2>&1 | tee "$OUT/admin-negative.log"
+          TEST_ADMIN_EXPECT_UNCONFIGURED=1 TEST_BASE_URL=http://127.0.0.1:5174 TEST_OUT="$OUT/admin-negative" node tests/browser/admin-negative.mjs 2>&1 | tee "$OUT/admin-negative.log"
           result=${PIPESTATUS[0]}
           printf 'admin-negative: %s\n' "$result" >> "$OUT/exit-codes.txt"
           if [ "$result" -ne 0 ]; then status=1; fi

@@ -48,6 +48,15 @@ try{
      assert.equal(await appHeading.count(),1,'One admin application heading')
      assert.match(await appHeading.innerText(),/^(Sign in\.|Requests|Admin setup is in progress\.)$/)
     }else assert.equal(await page.locator('h1:visible').count(),1,`Single visible main heading ${path}`)
+    if(['/','/contact'].includes(path)){
+     const marks=page.locator('img[src="/brand/round2-joined-l.svg"]')
+     assert.equal(await marks.count(),2,`Header and footer joined logos ${path} ${width} ${theme}`)
+     const geometry=await marks.evaluateAll(images=>images.map(img=>{const rect=img.getBoundingClientRect();return {complete:img.complete,naturalWidth:img.naturalWidth,naturalHeight:img.naturalHeight,width:rect.width,height:rect.height}}))
+     for(const mark of geometry)assert.deepEqual(mark,{complete:true,naturalWidth:26,naturalHeight:36,width:26,height:36},`Loaded natural and rendered logo geometry ${path} ${width} ${theme}`)
+     const resourceUrls=await page.evaluate(()=>[...Array.from(document.querySelectorAll('[src],[srcset],[href]')).flatMap(el=>['src','srcset','href'].map(attr=>el.getAttribute(attr)||'')),...performance.getEntriesByType('resource').map(entry=>entry.name)])
+     assert.ok(resourceUrls.every(url=>!/https?:\/\/[^\s,]*(?:figma\.com|figma-alpha-api)/i.test(url)),`No temporary Figma asset URLs ${path}`)
+     checks.joinedLogoGeometry=(checks.joinedLogoGeometry||0)+1
+    }
     if(axePath&&['/','/contact'].includes(path)&&[320,1440].includes(width)){
      await page.addScriptTag({path:axePath})
      const violations=await page.evaluate(async()=>{const result=await window.axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}});return result.violations})

@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict'
 import {readFileSync,mkdirSync,writeFileSync} from 'node:fs'
 const {chromium}=await import(process.env.PLAYWRIGHT_MODULE||'playwright')
+const unconfigured=process.env.TEST_ADMIN_EXPECT_UNCONFIGURED==='1'
+const expectedStatus=unconfigured?503:401
 const base=process.env.TEST_BASE_URL
 if(!base)throw Error('TEST_BASE_URL is required')
 const browser=await chromium.launch({executablePath:process.env.CHROME_PATH,headless:true})
@@ -18,13 +20,14 @@ try{
    method:mutation?'POST':'GET',headers:{...(credentials==='fabricated'?{Authorization:'Bearer synthetic-invalid-token'}:{}),...(mutation?{'Content-Type':'application/json',Origin:base}:{})},
    ...(mutation?{data:{id:'0'.repeat(64),status:'contacted',expectedVersion:0,mutationId:'00000000-0000-4000-8000-000000000000'}}:{})
   })
-  assert.equal(response.status(),401,credentials+' '+action)
+  assert.equal(response.status(),expectedStatus,credentials+' '+action)
   assert.match(response.headers()['cache-control'],/no-store/)
   const body=await response.json();assert.deepEqual(Object.keys(body),['error'])
+  if(unconfigured)assert.deepEqual(body,{error:'Admin setup is incomplete'},'Only the known fail-closed configuration response is accepted')
   results.push({credentials,action,status:response.status(),noStore:true,errorOnly:true})
  }
  const draft=await context.request.post(base+'/api/draft',{data:{}})
  assert.equal(draft.status(),404)
- writeFileSync(out+'/results.json',JSON.stringify({base,results,disabledDraftStatus:draft.status(),limits:'No valid owner, non-owner, expired or revoked Clerk session was exercised.'},null,2))
- console.log('PASS: 8 live anonymous/fabricated admin action denials with no-store/error-only responses; draft endpoint404. No valid owner session or private records accessed.')
+ writeFileSync(out+'/results.json',JSON.stringify({base,configuration:unconfigured?'intentionally unconfigured; exact 503 setup guard':'configured; exact 401 authentication denial',results,disabledDraftStatus:draft.status(),limits:'No valid owner, non-owner, expired or revoked Clerk session was exercised.'},null,2))
+ console.log(`PASS: 8 ${unconfigured?'unconfigured fail-closed 503 guards':'anonymous/fabricated-token 401 denials'} with no-store/error-only responses; draft endpoint404. No valid owner session or private records accessed.`)
 }finally{await browser.close()}

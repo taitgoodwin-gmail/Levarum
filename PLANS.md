@@ -6,7 +6,7 @@ The owner has requested a stronger modern design, including movement, modern col
 
 - Latest PR4 tip9e65a576 was cloned cleanly; its parent72f01fd is retained. Initial33 tests/typecheck/build passed before application edits. Work proceeds on a separate review branch; PR4 and production are not overwritten.
 - Implemented latest page08 Home/Contact Figma refinement, exact joined-L asset, service-first action hierarchy, real static examples, simpler contact and truthful receipts. Kept the legacy task routes and all private/partner/backend contracts. [Current implementation record](docs/UX-ROUND-2-IMPLEMENTATION.md) records differences and limits.
-- Current33 backend tests, TypeScript/build and public/private import boundaries pass. Local Chromium socket restriction prevented browser execution; exact-commit CI browser evidence is the next verification step, then preview inspection. No browser pass is inferred from compilation.
+- Current33 backend tests, TypeScript/build and public/private import boundaries pass. Exact-commit CI on2d7c600 passes all four public browser suites:80 responsive cases,8 keyboard recoveries,10 failure/retries,16 max-content forms and25 zero-violation Axe scans. Screenshots were inspected. A separate credential-free admin harness mismatch is corrected without changing auth; aggregate rerun remains to be checked. Protected preview access does not yet allow hosted interaction QA. See the implementation record for exact run/artifact links.
 - Authenticated owner/production identity/recovery/operating commitments and final visual review remain release gates. Root coordinates production promotion only after those checks.
 
 
