@@ -159,3 +159,7 @@
  .lv-signature-review strong{font-size:14px}
  .lv-signature-output{scroll-margin-top:20px}
 }
+@media(max-width:599px){
+ .lv-signature-output dl{grid-template-columns:minmax(0,1fr);gap:4px}
+ .lv-signature-output dd{margin-bottom:12px}
+}

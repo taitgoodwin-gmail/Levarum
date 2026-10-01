@@ -127,5 +127,6 @@
       "sha256": "45e3d6e9c1cb8539b099efca13729ad8196afab53ad236f21b45ceb5b331934e",
       "paths": 0
     }
-  ]
+  ],
+  "followup": "Mobile captured-detail fields stack; verified non-overlap at 200% text."
 }

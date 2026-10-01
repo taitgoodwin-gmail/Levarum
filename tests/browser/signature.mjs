@@ -44,6 +44,8 @@ try{
   await page.setViewportSize({width,height:1000})
   await page.evaluate(()=>{const sizes=[...document.querySelectorAll('body *')].map(el=>[el,getComputedStyle(el).fontSize]);for(const [el,size] of sizes)el.style.fontSize=`${parseFloat(size)*2}px`})
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'200% text reflow')
+  await page.locator('.lv-signature-output summary').click()
+  if(width<600){const fields=await page.locator('.lv-signature-output dl>*').evaluateAll(xs=>xs.map(x=>({top:x.getBoundingClientRect().top,bottom:x.getBoundingClientRect().bottom})));assert.ok(fields.every((x,i)=>i===0||x.top>=fields[i-1].bottom),'Enlarged detail fields do not overlap')}
   assert.equal(writes,0);results.push({theme,width,states:true,keyboard:true,reducedMotion:true,originalGeometry:true,noWrite:true,axeScans:process.env.AXE_CORE_PATH?2:0})
   await context.close()
  }
