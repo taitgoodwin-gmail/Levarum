@@ -2,6 +2,10 @@
 
 2026-10-01. The authorized cloud-workspace continuation implements the refined service-first Home and Contact design on a separate review branch. Production and PR4's branch remain unchanged. Final preview review and existing production release gates still apply.
 
+## Owner feedback: further design work required
+
+The owner has asked for a substantially more modern, distinctive layout, color and motion direction for both MVPs. This Round2 application is a provisional technical checkpoint, not the selected final design. Further Figma exploration is underway before visual finalization. Existing implementation, tests and source history are preserved.
+
 ## Design source and scope
 
 Latest native editable references are on **08 Round 2 · Implementation handoff** in the [Levarum Figma file](https://www.figma.com/design/OWG4WbjbMmMILS4LKHzL6L):

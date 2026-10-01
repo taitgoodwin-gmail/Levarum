@@ -1,6 +1,8 @@
 # Levarum design-to-launch execution record
 
-## Active checkpoint — Round2 cloud implementation, 2026-10-01
+## Active checkpoint — provisional Round2 cloud implementation, 2026-10-01
+
+The owner has requested a stronger modern design, including movement, modern colors and layout. Preserve this functional checkpoint while a new Figma direction is reviewed; do not treat Round2 as final visual approval.
 
 - Latest PR4 tip9e65a576 was cloned cleanly; its parent72f01fd is retained. Initial33 tests/typecheck/build passed before application edits. Work proceeds on a separate review branch; PR4 and production are not overwritten.
 - Implemented latest page08 Home/Contact Figma refinement, exact joined-L asset, service-first action hierarchy, real static examples, simpler contact and truthful receipts. Kept the legacy task routes and all private/partner/backend contracts. [Current implementation record](docs/UX-ROUND-2-IMPLEMENTATION.md) records differences and limits.
