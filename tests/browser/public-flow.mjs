@@ -50,7 +50,7 @@ try{
     }else assert.equal(await page.locator('h1:visible').count(),1,`Single visible main heading ${path}`)
     if(['/','/contact'].includes(path)){
      const marks=page.locator('img[src="/brand/round2-joined-l.svg"]')
-     assert.equal(await marks.count(),2,`Header and footer joined logos ${path} ${width} ${theme}`)
+     assert.equal(await marks.count(),path==='/'?1:2,`Header and footer joined logos ${path} ${width} ${theme}`)
      const geometry=await marks.evaluateAll(images=>images.map(img=>{const rect=img.getBoundingClientRect();return {complete:img.complete,naturalWidth:img.naturalWidth,naturalHeight:img.naturalHeight,width:rect.width,height:rect.height}}))
      for(const mark of geometry)assert.deepEqual(mark,{complete:true,naturalWidth:26,naturalHeight:36,width:26,height:36},`Loaded natural and rendered logo geometry ${path} ${width} ${theme}`)
      const resourceUrls=await page.evaluate(()=>[...Array.from(document.querySelectorAll('[src],[srcset],[href]')).flatMap(el=>['src','srcset','href'].map(attr=>el.getAttribute(attr)||'')),...performance.getEntriesByType('resource').map(entry=>entry.name)])
@@ -71,10 +71,10 @@ try{
  }
  checks.responsiveRoutes=evidence.length
  await page.setViewportSize({width:320,height:900});await page.goto(base+'/')
- const mobileContact=page.locator('header').getByRole('link',{name:'Tell us what you need',exact:true})
+ const mobileContact=page.locator('header').getByRole('link',{name:/Start with one task|Let’s talk/})
  await mobileContact.focus();await page.keyboard.press('Enter');await heading('Tell us what needs a hand.').waitFor()
  const mobileBack=page.locator('header').getByRole('link',{name:'Back to Home',exact:true})
- await mobileBack.focus();await page.keyboard.press('Enter');await heading('Less repeat. More room.').waitFor();checks.mobileHeaderKeyboard=true
+ await mobileBack.focus();await page.keyboard.press('Enter');await heading('Make work flow.').waitFor();checks.mobileHeaderKeyboard=true
  await page.setViewportSize({width:1440,height:1000})
  await page.goto(base+'/')
  await page.getByRole('button',{name:'Switch to light theme'}).click();await page.reload()
@@ -83,7 +83,7 @@ try{
  assert.equal(await page.locator('html').getAttribute('data-theme'),'dark');checks.themePersistence=true
  await page.getByRole('button',{name:'Switch to light theme'}).click()
  // Home's examples are keyboard-operable illustrations, with no submissions.
- await heading('Less repeat. More room.').waitFor()
+ await heading('Make work flow.').waitFor()
  const tabs=page.getByRole('tab')
  assert.equal(await tabs.count(),3)
  for(const name of ['Invoices','Information','Enquiries']) {
@@ -98,11 +98,11 @@ try{
   assert.ok(await question.locator('..').locator('p').isVisible())
  }
  assert.equal(await page.locator('#questions details').count(),4)
- const primary=page.locator('header').getByRole('link',{name:'Tell us what you need',exact:true})
+ const primary=page.locator('header').getByRole('link',{name:/Start with one task|Let’s talk/})
  assert.equal(await primary.getAttribute('href'),'/contact');await primary.click()
  await heading('Tell us what needs a hand.').waitFor()
  const backHome=page.locator('header').getByRole('link',{name:'Back to Home',exact:true})
- assert.equal(await backHome.getAttribute('href'),'/');await backHome.click();await heading('Less repeat. More room.').waitFor()
+ assert.equal(await backHome.getAttribute('href'),'/');await backHome.click();await heading('Make work flow.').waitFor()
  assert.equal(submissions.length,0);checks.staticHomeAndDirectNavigation=true
  // Guidance is available immediately, without business/hours/email collection.
  await page.goto(base+'/start')
@@ -215,7 +215,7 @@ try{
  const faq=page.locator('details').filter({has:page.locator('summary',{hasText:'What does it cost?'})}).first()
  await faq.locator('summary').focus();await page.keyboard.press('Space');assert.equal(await faq.getAttribute('open'),'')
  await page.keyboard.press('Space');assert.equal(await faq.getAttribute('open'),null);checks.nativeFaqKeyboard=true
- await page.goto(base+'/');await heading('Less repeat. More room.').waitFor();await page.keyboard.press('Tab');await page.keyboard.press('Enter')
+ await page.goto(base+'/');await heading('Make work flow.').waitFor();await page.keyboard.press('Tab');await page.keyboard.press('Enter')
  assert.equal(await page.evaluate(()=>document.activeElement?.id),'lv-main');checks.skipLink=true
  if(axePath){
   await page.addScriptTag({path:axePath})

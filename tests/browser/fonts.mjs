@@ -19,7 +19,7 @@ try {
   await client.send('DOM.enable');await client.send('CSS.enable')
   const {root}=await client.send('DOM.getDocument')
   const rendered=[]
-  for(const [selector,family] of [['h1','Schibsted Grotesk'],[path==='/'?'.lv-r2-intro':'.lv-lead','Instrument Sans']]){
+  for(const [selector,family] of [...(path==='/'? [['h1>span','Bricolage Grotesque 96pt ExtraBold'],['h1>em','Instrument Serif'],['.lv-signature-eyebrow','Space Mono']] : [['h1','Schibsted Grotesk']]),[path==='/'?'.lv-signature-message>p':'.lv-lead','Instrument Sans']]){
    const {nodeId}=await client.send('DOM.querySelector',{nodeId:root.nodeId,selector})
    const {fonts}=await client.send('CSS.getPlatformFontsForNode',{nodeId})
    assert.ok(fonts.some(f=>f.isCustomFont&&f.familyName===family&&f.glyphCount>0),`${path}/${theme}/${width}: actual ${family} glyphs`)
@@ -54,7 +54,7 @@ try {
   return faces
  })
  assert.ok(faces.every(f=>f.loaded.length>0&&f.loaded.every(x=>x.status==='loaded')))
- for(const family of ['schibsted-grotesk','instrument-sans']){
+ for(const family of ['schibsted-grotesk','instrument-sans','bricolage-grotesque','instrument-serif','space-mono']){
   const response=await page.request.get(base+`/fonts/${family}-OFL.txt`)
   assert.equal(response.status(),200);assert.match(await response.text(),/SIL OPEN FONT LICENSE Version 1.1/)
  }

@@ -1,3 +1,7 @@
+## Current focused opening — 2026-10-01
+
+The supplied “Make work flow” opening and reversible enquiry illustration are implemented, with subsequent panel clarity/mobile refinements. See [signature implementation and launch decisions](docs/SIGNATURE-OPENING-REVIEW.md). This supersedes the old opening; remaining page content and functional routes are preserved. Working-branch publication and previews are approved; main/production remain excluded.
+
 ## Creative direction handoff — 2026-10-01
 
 Owner feedback supersedes the earlier composition as a creative target. Keep this functional/font checkpoint ready for the new Figma opening and signature interaction. Do not expand the current page composition; no push, PR, merge or deployment is authorized. Continue to assess under Adobe’s five exact Design headings.

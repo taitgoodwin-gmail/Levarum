@@ -1,3 +1,4 @@
+import { SignatureOpening } from './SignatureOpening'
 import { WorkExample } from './WorkExample'
 import { GUIDANCE } from '../domain/guidance'
 import '../styles/reimagination.css'
@@ -21,12 +22,7 @@ const BUYING_QUESTIONS = [
  ['Who handles changes and support?', 'We agree handover, support and responsibility for changes before building.'],
 ]
 export function Home() { return <div className="lv-round2-home lv-work-home">
- <section className="lv-r2-container lv-r2-hero" aria-labelledby="home-title">
-  <div className="lv-r2-offer"><p className="lv-eyebrow">AUTOMATION FOR SMALL BUSINESSES</p><h1 id="home-title">Less repeat.<br/>More room.</h1><p className="lv-r2-intro">Spend less time on repeat admin.<br/>Make space for the work that needs you.</p><p className="lv-work-description">Levarum connects the tools and steps behind your everyday work. Start with one task. We’ll agree what to build before work starts.</p><ContactLink/><a className="lv-r2-examples-link" href="#examples">Explore a few possibilities ↓</a></div>
-  <figure className="lv-work-figure"><div className="lv-work-diagram"><p className="lv-work-label">ILLUSTRATIVE WORKFLOW</p><img className="lv-work-ribbon" src="/brand/work-ribbon.svg" alt="" width="622" height="530"/><ol>{[
-   ['An enquiry arrives', '“Can you help with this?”'], ['The routine moves', 'Details go to the right place.'], ['You take it from here', 'A person in control.'],
-  ].map(([label, text], index) => <li key={label}><span className="lv-work-label">0{index + 1} · {label}</span><strong>{text}</strong></li>)}</ol></div><figcaption>A possible enquiry handoff, illustrated. Every workflow starts with your tools and your process.</figcaption></figure>
- </section>
+ <SignatureOpening/>
  <div className="lv-work-commitments"><div className="lv-r2-container"><p>Your tools, connected.</p><p>The routine, simplified.</p><p>People, in control.</p></div></div>
  <WorkExample/>
  <section className="lv-r2-container lv-r2-how" id="how-we-work" aria-labelledby="how-title"><div><p className="lv-eyebrow">START WITH ONE TASK</p><h2 id="how-title">Start small.<br/>Make room.</h2><p className="lv-work-description">You don’t need to choose new software first. Tell us where the work gets stuck.</p></div><ol>{STEPS.map(([title,body],i)=><li key={title}><span className="lv-r2-number" aria-hidden="true">0{i+1}</span><h3>{title}</h3><p>{body}</p></li>)}</ol></section>

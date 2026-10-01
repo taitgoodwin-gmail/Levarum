@@ -15,15 +15,9 @@ try {
   let posts = 0
   await page.route(/\/api\/(leads|partners)$/,async route => {posts++;await route.abort()})
   await page.goto(base)
-  await page.getByRole('heading',{name:'Less repeat. More room.',exact:true}).waitFor()
-  const diagram = page.locator('.lv-work-diagram')
-  assert.ok(await diagram.isVisible())
-  const labels = await diagram.locator('.lv-work-label').evaluateAll(elements => elements.map(el => ({size:parseFloat(getComputedStyle(el).fontSize),height:el.clientHeight,scrollHeight:el.scrollHeight})))
-  assert.ok(labels.every(label => label.size >= 13 && label.height >= label.scrollHeight),'Labels readable and not clipped')
-  assert.equal(await diagram.locator('li').count(),3)
-  assert.ok((await diagram.locator('li').evaluateAll(elements => elements.map(el => getComputedStyle(el).animationName))).every(name => name==='none'),'Reduced motion disables card animation')
-  const ribbon = await page.locator('.lv-work-ribbon').evaluate(img => ({loaded:img.complete,width:img.naturalWidth,height:img.naturalHeight,renderWidth:img.getBoundingClientRect().width,renderHeight:img.getBoundingClientRect().height}))
-  assert.deepEqual(ribbon,{loaded:true,width:622,height:530,renderWidth:622,renderHeight:530})
+  await page.getByRole('heading',{name:'Make work flow.',exact:true}).waitFor()
+  const labels = await page.locator('.lv-signature-opening .signal:visible').evaluateAll(elements => elements.map(el => ({size:parseFloat(getComputedStyle(el).fontSize)})))
+  assert.ok(labels.every(label => label.size >= 12),'Signature labels at least 12px')
   const invoices = page.getByRole('tab',{name:'Invoices',exact:true})
   await invoices.focus();await page.keyboard.press('ArrowRight')
   assert.equal(await page.getByRole('tab',{name:'Information',exact:true}).getAttribute('aria-selected'),'true')
@@ -58,7 +52,7 @@ try {
   // Text-only enlargement, separate from viewport/reflow cases.
   await page.evaluate(() => {const sizes=[...document.querySelectorAll('body *')].map(el=>[el,getComputedStyle(el).fontSize]);for(const [el,size] of sizes)el.style.fontSize=`${parseFloat(size)*2}px`})
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth),false,`200% text overflow ${width}/${theme}`)
-  results.push({theme,width,labelsAtLeast13px:true,threeCards:true,originalRibbonGeometry:true,keyboardTabsAndDetails:true,noPost:true,reducedMotion:true,textEnlargement:true,axeScans:process.env.AXE_CORE_PATH?3:0})
+  results.push({theme,width,signatureLabelsAtLeast12px:true,signatureLabels:true,keyboardTabsAndDetails:true,noPost:true,reducedMotion:true,textEnlargement:true,axeScans:process.env.AXE_CORE_PATH?3:0})
   await context.close()
  }
  for (const theme of ['light','dark']) for (const width of [320,1440]) {
@@ -89,15 +83,8 @@ try {
   }
   await context.close()
  }
- const page = await browser.newPage({reducedMotion:'no-preference'})
- await page.goto(base)
- const animation = await page.locator('.lv-work-diagram li').evaluateAll(elements => elements.map(el => ({name:getComputedStyle(el).animationName,count:getComputedStyle(el).animationIterationCount})))
- assert.ok(animation.every(a => a.name==='work-arrive' && a.count==='1'),'Finite animation only')
- await page.waitForTimeout(1000)
- assert.ok((await page.locator('.lv-work-diagram li').evaluateAll(elements => elements.map(el => getComputedStyle(el).opacity))).every(value => value==='1'))
- await page.close()
  assert.deepEqual(errors,[])
- console.log(`PASS: ${results.length} responsive/theme illustration, keyboard, content, reduced-motion and 200% text cases; 32 Axe scans (including invalid/error forms); finite motion check. No submissions.`)
+ console.log(`PASS: ${results.length} responsive/theme illustration, keyboard, content, reduced-motion and 200% text cases; 32 Axe scans (including invalid/error forms); signature motion covered by its dedicated suite. No submissions.`)
 } finally {
  writeFileSync(out+'/results.json',JSON.stringify({results,errors},null,2));await browser.close()
 }
