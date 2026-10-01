@@ -1,5 +1,10 @@
 # Levarum UX redesign — current decisions and traceability
 
+## Current implementation — 2026-10-01
+
+The latest refined page08 Home/Contact frames are now implemented on the separate cloud review branch. [Round2 implementation](UX-ROUND-2-IMPLEMENTATION.md) records source frames, actual behavior, intentional compatibility, design differences and test limits. The service-first Home→Contact journey is primary; existing task guidance routes remain functional. Earlier task-first and reopened-review records below are preserved chronology. Final concrete preview review remains required before production replacement.
+
+
 ## Owner feedback — design reopened (2026-09-30)
 
 The owner reviewed the current d3c0a824 preview and stated: “The UI/UX needs more work. It's not ready yet.” This supersedes QA7's design-selection/specification closeout as a basis for release readiness. QA7 remains historical evidence of matching artifacts and mechanics, not owner acceptance or proof of design quality. Production replacement is not approved.

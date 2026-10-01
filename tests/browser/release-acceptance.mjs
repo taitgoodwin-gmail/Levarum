@@ -28,13 +28,14 @@ try{
  results.print=true;await p.emulateMedia({media:'screen'})
  await p.reload();assert.equal(await p.getByRole('button',{name:'Invoices and payments'}).getAttribute('aria-pressed'),'false');results.contextBackAndRefresh=true
  await c.close()
- const checks=await Promise.allSettled(['/contact','/partners'].flatMap(path=>['offline','timeout','429','invalid-json'].map(async mode=>{
+ const checks=await Promise.allSettled(['/contact','/partners'].flatMap(path=>['offline','timeout','429','invalid-json','saved-false'].map(async mode=>{
   const c=await context(),p=await c.newPage(),requests=[];let retry=false
   p.on('request',r=>{if(r.method()==='POST'&&/\/api\/(leads|partners)$/.test(r.url()))requests.push(r.postDataJSON())})
   await p.route(/\/api\/(leads|partners)$/,async route=>{
    if(retry)return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({saved:true,reference:route.request().postDataJSON().requestId})})
    if(mode==='offline')return route.continue()
    if(mode==='timeout')return
+   if(mode==='saved-false')return route.fulfill({status:200,contentType:'application/json',body:'{"saved":false}'})
    if(mode==='429')return route.fulfill({status:429,contentType:'application/json',body:'{"error":"Too many requests"}'})
    return route.fulfill({status:200,contentType:'application/json',body:'not-json'})
   })
@@ -43,19 +44,19 @@ try{
    await p.locator(email).fill('synthetic-release@example.com')
    if(partner){await p.locator('#partner-name').fill('Synthetic release check');await p.locator('#craft').fill('Synthetic failure recovery only. Do not contact.');await p.locator('input[name="contribution"]').first().check()}
    else await p.locator('#message').fill('Synthetic failure recovery only. Do not contact.')
-   await p.locator('#consent').check();const button=p.getByRole('button',{name:partner?'Send partner interest':'Send my follow-up request',exact:true})
+   await p.locator('#consent').check();const button=p.getByRole('button',{name:partner?'Send partner interest':'Send request',exact:true})
    if(mode==='offline')await c.setOffline(true)
    const started=Date.now();await button.click();await p.waitForFunction(()=>document.activeElement?.getAttribute('role')==='alert',{},{timeout:30000});const elapsed=Date.now()-started,text=await p.getByRole('alert').innerText()
-   if(mode==='timeout'){assert.ok(elapsed>=19000);assert.match(text,/timed out/i)}
-   if(mode==='429')assert.match(text,/wait a minute/i)
+   if(mode==='timeout'){assert.ok(elapsed>=19000);assert.match(text,/confirm/i)}
+   if(mode==='429')assert.match(text,/wait a moment/i)
    if(mode==='offline')assert.match(text,/connection|connect/i)
-   if(mode==='invalid-json')assert.match(text,/confirm/i)
-   assert.equal(await p.locator(email).inputValue(),'synthetic-release@example.com');assert.ok(await p.locator('#consent').isChecked());assert.ok(await button.isEnabled());assert.ok(!await p.getByRole('heading',{name:/request is saved|interest is saved/i}).count())
-   await p.keyboard.press('Tab');assert.ok(await button.evaluate(el=>el===document.activeElement));await c.setOffline(false);retry=true;await button.click();await p.getByRole('heading',{name:/saved/i}).waitFor();assert.equal(requests.length,2);assert.equal(requests[0].requestId,requests[1].requestId)
+   if(mode==='invalid-json'||mode==='saved-false')assert.match(text,/confirm/i)
+   assert.equal(await p.locator(email).inputValue(),'synthetic-release@example.com');assert.ok(await p.locator('#consent').isChecked());assert.ok(await button.isEnabled());assert.ok(!await p.getByRole('heading',{name:/request is saved|interest is saved|received your request/i}).count())
+   await p.keyboard.press('Tab');assert.ok(await button.evaluate(el=>el===document.activeElement));await c.setOffline(false);retry=true;await button.click();await p.getByRole('heading',{name:/saved|received your request/i}).waitFor();assert.equal(requests.length,2);assert.equal(requests[0].requestId,requests[1].requestId)
    return {path,mode,elapsed,errorFocused:true,retainedInputAndConsent:true,stableSuccessfulRetry:true}
   }finally{await c.close()}
  })))
  for(const check of checks){if(check.status==='fulfilled')results.recovery.push(check.value);else results.recovery.push({failed:String(check.reason)})}
  writeFileSync(out+'/results.json',JSON.stringify(results,null,2));assert.equal(checks.filter(x=>x.status==='rejected').length,0,JSON.stringify(results.recovery))
- console.log('PASS route metadata, print, context Back/refresh and eight browser failure/retry cases. All submissions mocked.')
+ console.log('PASS route metadata, print, context Back/refresh and ten browser failure/retry cases. All submissions mocked.')
 }finally{await browser.close()}

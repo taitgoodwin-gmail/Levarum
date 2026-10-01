@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SHAPES = ['lift', 'tile', 'badge', 'rule', 'word', 'stack'];
+const SHAPES = ['lift', 'tile', 'badge', 'rule', 'word', 'stack', 'joined'];
 
 /* Reviewed Lift direction: an L and rising diagonal. Always currentColor. */
 function Mark({ size, color, animate }) {
@@ -24,6 +24,12 @@ export function Logo({
   ...rest
 }) {
   const s = SHAPES.includes(shape) ? shape : 'word';
+  if (s === 'joined') {
+    const Tag = as;
+    return <Tag href={as === 'a' ? href : undefined} className="lv-joined-wordmark" aria-label="Levarum" style={style} {...rest}>
+      <span className="lv-joined-mark" aria-hidden="true"><img src="/brand/round2-joined-l.svg" alt="" /></span><span aria-hidden="true">evarum</span>
+    </Tag>;
+  }
   const stacked = s === 'stack';
   const knock = { width: size + 2, height: size + 2, borderRadius: s === 'badge' ? 'var(--lv-r-round)' : 'var(--lv-r-control)', background: color, display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' };
 

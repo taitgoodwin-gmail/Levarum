@@ -1,5 +1,10 @@
 # Requirements and acceptance criteria
 
+## Current Round2 presentation — 2026-10-01
+
+[Round2 implementation](UX-ROUND-2-IMPLEMENTATION.md) supersedes the older public presentation below: R02's primary path is Home→Contact, R04 requires a genuine description in every new UI request, R07 uses an optional unchecked call preference, and R10 omits business/hours. R03/R05 remain legacy route compatibility rather than the primary offer. R01/R12/R14 require fresh browser/design evidence for this change; older passes do not transfer automatically. Backend v1/v2 contracts and all owner/privacy requirements remain unchanged.
+
+
 Current delivery status and latest evidence are centralized in [README](README.md) and [verification](verification.md). The source8989 checkpoint below is retained as dated journey/contract evidence, not the latest deployment or a claim that later work remains undone.
 
 Current baseline: task-first exploration and direct contact, 2026-09-30. The [previous questionnaire baseline](archive/2026-09-30-before-task-first/REQUIREMENTS.md) preserves earlier requirements/evidence. Current explorer/contact/v2 source has passed 32 tests/build/boundary, 80 local/hosted rendering cases plus interaction checks and exact synthetic private-record verification at source 8989c1c0d6853c608baf3c424edd34e9a99fe334. See [current evidence](verification.md#task-first-and-v2-verification--2026-09-30). Earlier 21-test/72-case evidence remains historical. No blanket R01–R14 closure is claimed. See [offer/field review](OFFER-JOURNEY-REVIEW.md), [v2 contract](LEAD-V2-CONTRACT.md), [traceability](UX-REDESIGN.md) and [verification](verification.md).

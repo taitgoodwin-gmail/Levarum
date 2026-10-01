@@ -1,5 +1,7 @@
 name: Launch checks
 on: [push, pull_request]
+permissions:
+  contents: read
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -12,3 +14,72 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm run build
+
+  browser-qa:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/levarum-browsers
+      RUN_LIVE_SUBMISSIONS: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Install isolated pinned browser QA tools
+        run: |
+          npm install --prefix "$RUNNER_TEMP/levarum-browser-tools" --no-save --no-package-lock playwright@1.57.0 axe-core@4.13.0
+          "$RUNNER_TEMP/levarum-browser-tools/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify built public UI and fail-closed local APIs
+        shell: bash
+        run: |
+          set -uo pipefail
+          OUT="$GITHUB_WORKSPACE/work/ci-browser"
+          mkdir -p "$OUT"
+          printf '%s\n' "$GITHUB_SHA" > "$OUT/tested-commit.txt"
+          export PLAYWRIGHT_MODULE="$RUNNER_TEMP/levarum-browser-tools/node_modules/playwright/index.mjs"
+          export AXE_CORE_PATH="$RUNNER_TEMP/levarum-browser-tools/node_modules/axe-core/axe.min.js"
+          export TEST_BASE_URL=http://127.0.0.1:4173
+          # Static preview serves the actual separate admin entry; Vercel supplies /admin's rewrite in deployment.
+          export TEST_ADMIN_ROUTE=/admin.html
+          ./node_modules/.bin/vite preview --host 127.0.0.1 --port 4173 --strictPort > "$OUT/preview.log" 2>&1 &
+          preview_pid=$!
+          # The dev middleware provides real handlers for anonymous/fabricated-token denial checks only.
+          ./node_modules/.bin/vite --host 127.0.0.1 --port 5174 --strictPort > "$OUT/api-middleware.log" 2>&1 &
+          api_pid=$!
+          trap 'kill "$preview_pid" "$api_pid" 2>/dev/null || true' EXIT
+          for port in 4173 5174; do
+            ready=0
+            for attempt in $(seq 1 100); do
+              if curl --fail --silent "http://127.0.0.1:$port/" > /dev/null; then ready=1; break; fi
+              sleep 0.2
+            done
+            if [ "$ready" -ne 1 ]; then cat "$OUT/preview.log" "$OUT/api-middleware.log"; exit 1; fi
+          done
+          # Keep all suites running after an individual failure so the artifact contains the full outcome.
+          status=0
+          set +e
+          for suite in public-flow recovery release-acceptance round2-contact-matrix; do
+            mkdir -p "$OUT/$suite"
+            TEST_OUT="$OUT/$suite" node "tests/browser/$suite.mjs" 2>&1 | tee "$OUT/$suite.log"
+            result=${PIPESTATUS[0]}
+            printf '%s: %s\n' "$suite" "$result" >> "$OUT/exit-codes.txt"
+            if [ "$result" -ne 0 ]; then status=1; fi
+          done
+          mkdir -p "$OUT/admin-negative"
+          TEST_BASE_URL=http://127.0.0.1:5174 TEST_OUT="$OUT/admin-negative" node tests/browser/admin-negative.mjs 2>&1 | tee "$OUT/admin-negative.log"
+          result=${PIPESTATUS[0]}
+          printf 'admin-negative: %s\n' "$result" >> "$OUT/exit-codes.txt"
+          if [ "$result" -ne 0 ]; then status=1; fi
+          exit "$status"
+      - name: Keep synthetic browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: synthetic-browser-evidence-${{ github.sha }}
+          path: work/ci-browser/
+          if-no-files-found: warn
+          retention-days: 14

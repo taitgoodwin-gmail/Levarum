@@ -1,5 +1,10 @@
 # Levarum — current product and delivery baseline
 
+## Current continuation — 2026-10-01
+
+The authorized cloud-workspace continuation implements the latest page08 Figma Home and Contact refinement on a separate review branch. See [Round2 implementation and current evidence](UX-ROUND-2-IMPLEMENTATION.md). This new service-first primary journey supersedes the explorer-led presentation below; old routes, APIs and private owner capabilities remain compatible. Production remains unchanged. The older preview and QA records below are historical, not fresh verification of this implementation.
+
+
 Current working baseline: UX correction initiated 2026-09-30. The user authorized substantial changes to design, flow and branding to simplify both customer and operator tasks. The supplied ZIP remains preserved source provenance, not a constraint against those authorized changes. Production remains the earlier pilot; no preview is approval to replace production.
 
 ## Read in this order

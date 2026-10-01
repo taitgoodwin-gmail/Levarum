@@ -1,5 +1,10 @@
 # User and operator journeys
 
+## Current Round2 journey — 2026-10-01
+
+Home shows three practical examples, three engagement steps and four visible answers. Tell us what you need opens Contact directly; See examples scrolls within Home. Contact requires a genuine work description and email, offers an optional call checkbox and requires deliberate consent. Private saving, retained failure/retry, no automatic delivery and unbooked call receipts remain unchanged. Existing `/start` guidance/contextual Back remains compatible, with a required description at contact. [Implementation evidence](UX-ROUND-2-IMPLEMENTATION.md) supersedes older W01/W03 presentation details below; W04–W07 private/partner/release responsibilities remain in force.
+
+
 Current delivery status and latest evidence are centralized in [README](README.md) and [verification](verification.md). The source8989 checkpoint below is retained as dated journey/contract evidence, not the latest deployment or a claim that later work remains undone.
 
 Current target: task-first exploration and direct contact, 2026-09-30. [Requirements](REQUIREMENTS.md) and the [v2 contract](LEAD-V2-CONTRACT.md) define acceptance. The new public flows pass current API/build/browser/private-storage checks at the [recorded task-first deployment](verification.md#task-first-and-v2-verification--2026-09-30). Authenticated redesigned owner operation and manual accessibility remain unverified. The [previous questionnaire journeys](archive/2026-09-30-before-task-first/WORKFLOWS.md) preserve history; current evidence does not transfer between revisions or untested states.

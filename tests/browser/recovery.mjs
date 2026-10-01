@@ -22,29 +22,38 @@ try{
   requests=[];await page.setViewportSize({width,height:900});await page.goto(base+path)
   await page.evaluate(theme=>localStorage.setItem('levarum.theme.v1',theme),theme);await page.reload()
   const partner=path==='/partners'
-  const submit=page.getByRole('button',{name:partner?'Send partner interest':'Send my follow-up request',exact:true})
+  const submit=page.getByRole('button',{name:partner?'Send partner interest':'Send request',exact:true})
   await page.locator(partner?'#partner-email':'#email').fill('levarum-keyboard-test@example.com')
   if(partner){await page.locator('#partner-name').fill('Synthetic keyboard test');await page.locator('#craft').fill('Synthetic verification only. Do not contact.');await page.locator('input[name="contribution"]').first().check()}
   else{
    await submit.click()
    const ids=(await page.locator('#message').getAttribute('aria-describedby')).split(' ')
    assert.ok(ids.includes('message-help'));assert.ok(ids.includes('message-validation'))
+   await page.locator('#message').fill('  \n  ')
+   await submit.click()
+   assert.equal(requests.length,0,'Whitespace never submits a request')
+   assert.equal(await page.evaluate(()=>document.activeElement?.id),'message')
+   assert.equal(await page.locator('#message').getAttribute('aria-invalid'),'true')
+   assert.ok(await page.locator('#message-validation').isVisible())
    await page.locator('#message').fill('Synthetic keyboard recovery test. Do not contact.')
+   assert.ok(await page.locator('#message').evaluate(input=>input.validity.valid))
+   assert.equal(await page.locator('#message').getAttribute('aria-invalid'),null)
+   assert.equal(await page.locator('#message-validation').count(),0)
    assert.equal(await page.locator('#message').getAttribute('aria-describedby'),'message-help')
   }
   await page.locator('#consent').check()
   for(let attempt=0;attempt<2;attempt++){
    await submit.focus();await page.keyboard.press('Enter')
    await page.waitForFunction(()=>document.activeElement?.getAttribute('role')==='alert')
-   assert.match(await page.getByRole('alert').innerText(),/could not save/)
+   assert.match(await page.getByRole('alert').innerText(),/couldn’t confirm/)
    await page.keyboard.press('Tab')
    assert.ok(await submit.evaluate(el=>el===document.activeElement),'Tab reaches retry')
    assert.equal(await page.locator(partner?'#partner-email':'#email').inputValue(),'levarum-keyboard-test@example.com')
    assert.ok(await page.locator('#consent').isChecked())
   }
   assert.equal(requests.length,2);assert.equal(requests[0].requestId,requests[1].requestId)
-  results.push({path,theme,width,failures:2,errorFocused:true,tabToRetry:true,retainedInput:true,stableRetryId:true,helpTextPreserved:!partner})
+  results.push({path,theme,width,failures:2,errorFocused:true,tabToRetry:true,retainedInput:true,stableRetryId:true,helpTextPreserved:!partner,whitespaceToValidRecovery:!partner})
  }
  writeFileSync(out+'/results.json',JSON.stringify({mocked:true,results},null,2))
- console.log(`PASS: ${results.length} contact/partner keyboard recovery cases, repeated failures, retained input, stable retries and contact help-text association. No real submissions.`)
+ console.log(`PASS: ${results.length} contact/partner keyboard recovery cases, repeated failures, retained input, stable retries and contact whitespace-to-valid error cleanup and help-text association. No real submissions.`)
 }finally{await browser.close()}

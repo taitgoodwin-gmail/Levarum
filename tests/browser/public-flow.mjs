@@ -28,6 +28,9 @@ await page.route(/\/api\/(leads|partners)$/,async route=>{
 })
 const heading=name=>page.getByRole('heading',{name,exact:true})
 const syntheticEmail='levarum-reimagination-test@example.com'
+let axePath
+try{axePath=process.env.AXE_CORE_PATH||createRequire(import.meta.url).resolve('axe-core/axe.min.js')}catch{}
+checks.axeResponsive=[]
 try{
  await page.goto(base+'/')
  for(const theme of ['light','dark']){
@@ -35,7 +38,8 @@ try{
   for(const width of [320,390,768,1440]){
    await page.setViewportSize({width,height:900})
    for(const path of ['/','/how-it-works','/what-we-automate','/questions','/partners','/start','/contact','/privacy','/admin','/not-found']){
-    await page.goto(base+path);await page.locator('h1:visible').first().waitFor()
+    const renderedPath=path==='/admin'?(process.env.TEST_ADMIN_ROUTE||path):path
+    await page.goto(base+renderedPath);await page.locator('h1:visible').first().waitFor()
     await page.evaluate(()=>document.fonts.ready)
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`Overflow ${path} ${width} ${theme}`)
     assert.equal(await page.locator('html').getAttribute('data-theme'),theme,`Theme ${path}`)
@@ -44,17 +48,24 @@ try{
      assert.equal(await appHeading.count(),1,'One admin application heading')
      assert.match(await appHeading.innerText(),/^(Sign in\.|Requests|Admin setup is in progress\.)$/)
     }else assert.equal(await page.locator('h1:visible').count(),1,`Single visible main heading ${path}`)
-    evidence.push({path,width,theme,overflow:false})
-    if([320,1440].includes(width)&&['/','/partners','/admin','/start','/contact'].includes(path))await page.screenshot({path:`${out}/${theme}-${width}-${path==='/'?'home':path.slice(1)}.png`,fullPage:true})
+    if(axePath&&['/','/contact'].includes(path)&&[320,1440].includes(width)){
+     await page.addScriptTag({path:axePath})
+     const violations=await page.evaluate(async()=>{const result=await window.axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}});return result.violations})
+     writeFileSync(`${out}/axe-${theme}-${width}-${path==='/'?'home':'contact'}.json`,JSON.stringify(violations,null,2))
+     assert.equal(violations.length,0,`Axe ${path} ${width} ${theme}: ${violations.map(v=>v.id).join(', ')}`)
+     checks.axeResponsive.push({path,width,theme,violations:0})
+    }
+    evidence.push({path,renderedPath,width,theme,overflow:false})
+    if((['/','/contact'].includes(path)||[320,1440].includes(width)&&['/partners','/admin','/start'].includes(path)))await page.screenshot({path:`${out}/${theme}-${width}-${path==='/'?'home':path.slice(1)}.png`,fullPage:true})
    }
   }
  }
  checks.responsiveRoutes=evidence.length
  await page.setViewportSize({width:320,height:900});await page.goto(base+'/')
- const mobileMenu=page.locator('header details').first(),menuSummary=mobileMenu.locator('summary')
- await menuSummary.focus();await page.keyboard.press('Enter');assert.equal(await mobileMenu.getAttribute('open'),'')
- await page.keyboard.press('Escape');assert.equal(await mobileMenu.getAttribute('open'),null)
- assert.ok(await menuSummary.evaluate(el=>el===document.activeElement));checks.mobileMenuKeyboard=true
+ const mobileContact=page.locator('header').getByRole('link',{name:'Tell us what you need',exact:true})
+ await mobileContact.focus();await page.keyboard.press('Enter');await heading('Tell us what you need.').waitFor()
+ const mobileBack=page.locator('header').getByRole('link',{name:'Back to Home',exact:true})
+ await mobileBack.focus();await page.keyboard.press('Enter');await heading('Spend less time on repeat admin.').waitFor();checks.mobileHeaderKeyboard=true
  await page.setViewportSize({width:1440,height:1000})
  await page.goto(base+'/')
  await page.getByRole('button',{name:'Switch to light theme'}).click();await page.reload()
@@ -62,18 +73,25 @@ try{
  await page.getByRole('button',{name:'Switch to dark theme'}).click();await page.reload()
  assert.equal(await page.locator('html').getAttribute('data-theme'),'dark');checks.themePersistence=true
  await page.getByRole('button',{name:'Switch to light theme'}).click()
- // Native scenario radios expose meaningful different outcomes and never send data.
- await page.getByRole('radio',{name:'Routine invoice',exact:true}).focus()
- await heading('Use the approved reminder').waitFor()
- await page.keyboard.press('ArrowRight')
- assert.ok(await page.getByRole('radio',{name:'Disputed invoice',exact:true}).isChecked())
- await heading('Ask a person to review').waitFor()
- assert.match(await page.locator('.lv-human-boundary').innerText(),/human judgment/)
- await page.keyboard.press('ArrowRight')
- assert.ok(await page.getByRole('radio',{name:'Missing payment data',exact:true}).isChecked())
- await heading('Pause and flag the missing data').waitFor()
- assert.match(await page.locator('.lv-human-boundary').innerText(),/Missing information/)
- assert.equal(submissions.length,0);checks.scenarioKeyboardAndNoPost=true
+ // Home is a complete service page: static examples, steps and answers, with direct contact.
+ await heading('Spend less time on repeat admin.').waitFor()
+ assert.equal(await page.getByRole('radio').count(),0)
+ for(const name of ['Following up on invoices','Moving information between tools','Keeping track of new enquiries'])await page.getByRole('heading',{name,exact:true}).waitFor()
+ assert.equal(await page.locator('#examples article').count(),3)
+ assert.equal(await page.locator('#how-we-work ol>li').count(),3)
+ for(const name of ['What does it cost?','Can you work with my existing tools?','What happens after I get in touch?','Who handles changes and support?']){
+  const question=page.getByRole('heading',{name,exact:true});assert.ok(await question.isVisible())
+  const answer=question.locator('..').locator('p');assert.ok(await answer.isVisible())
+ }
+ assert.equal(await page.locator('#questions article').count(),4)
+ assert.equal(await page.getByRole('button',{name:/Print|Generate|Discuss this task/}).count(),0)
+ assert.equal(await page.getByRole('radio',{name:/invoice|payment/i}).count(),0)
+ const primary=page.locator('header').getByRole('link',{name:'Tell us what you need',exact:true})
+ assert.equal(await primary.getAttribute('href'),'/contact');await primary.click()
+ await heading('Tell us what you need.').waitFor()
+ const backHome=page.locator('header').getByRole('link',{name:'Back to Home',exact:true})
+ assert.equal(await backHome.getAttribute('href'),'/');await backHome.click();await heading('Spend less time on repeat admin.').waitFor()
+ assert.equal(submissions.length,0);checks.staticHomeAndDirectNavigation=true
  // Guidance is available immediately, without business/hours/email collection.
  await page.goto(base+'/start')
  await heading('One task. A clearer next step.').waitFor()
@@ -88,13 +106,21 @@ try{
  assert.equal(await page.getByRole('button',{name:'Invoices and payments',exact:true}).getAttribute('aria-pressed'),'false')
  assert.equal(submissions.length,0);checks.guidanceBeforeContact=true;checks.taskSpecificGuidance=true
  await page.goto(base+'/start?task=invoices');await heading('Keep invoice follow-up consistent.').waitFor();checks.taskDeepLink=true
- await page.getByRole('button',{name:'Discuss this task',exact:true}).click();await heading('Discuss your work.').waitFor()
- assert.equal(await page.locator('#message').getAttribute('required'),null)
- assert.equal(await page.locator('#business').getAttribute('required'),null)
- await page.getByRole('button',{name:'Send my follow-up request',exact:true}).click()
+ await page.getByRole('button',{name:'Discuss this task',exact:true}).click();await heading('Tell us what you need.').waitFor()
+ assert.notEqual(await page.locator('#message').getAttribute('required'),null)
+ assert.equal(await page.locator('#business').count(),0)
+ assert.deepEqual(await page.locator('form input:not([type=hidden]), form textarea, form select').evaluateAll(nodes=>nodes.filter(el=>el.offsetWidth||el.offsetHeight).slice(0,2).map(el=>el.id)),['message','email'])
+ await page.getByRole('button',{name:'Send request',exact:true}).click()
  assert.equal(await page.locator('#email').getAttribute('aria-invalid'),'true');assert.equal(submissions.length,0)
  await page.locator('#email').fill(syntheticEmail)
+ await page.locator('#consent').check()
+ await page.locator('#message').fill('  \n  ')
+ await page.getByRole('button',{name:'Send request',exact:true}).click()
+ assert.equal(await page.locator('#message').getAttribute('aria-invalid'),'true');assert.equal(submissions.length,0)
+ assert.equal(await page.evaluate(()=>document.activeElement?.id),'message');checks.contextualDescriptionRequired=true
  await page.locator('#message').fill('Synthetic verification only. Do not contact.')
+ assert.equal(await page.locator('#message').getAttribute('aria-invalid'),null)
+ assert.equal(await page.locator('#message').getAttribute('aria-describedby'),'message-help')
  await page.locator('#consent').check()
  await page.getByRole('button',{name:'Back to task ideas',exact:true}).click()
  await page.getByRole('button',{name:'Customer questions',exact:true}).click()
@@ -102,51 +128,62 @@ try{
  assert.equal(await page.locator('#email').inputValue(),syntheticEmail)
  assert.equal(await page.locator('#message').inputValue(),'Synthetic verification only. Do not contact.')
  assert.equal(await page.locator('#consent').isChecked(),false);checks.taskChangeConsentReset=true;checks.backRetainsDraft=true
- await page.locator('#consent').check();await page.getByRole('radio',{name:'Request a call',exact:true}).check()
+ await page.locator('#consent').check();await page.getByRole('checkbox',{name:/I[’']d prefer a call/}).check()
  assert.equal(await page.locator('#consent').isChecked(),false)
+ assert.ok(await page.locator('#preferences').isVisible())
  await page.locator('#preferences').fill('Synthetic verification only. Eastern time. Do not contact.')
- await page.locator('#consent').check();await page.getByRole('radio',{name:'Email follow-up',exact:true}).check()
+ await page.locator('#consent').check();await page.getByRole('checkbox',{name:/I[’']d prefer a call/}).uncheck()
+ assert.equal(await page.locator('#preferences').count(),0);checks.callAvailabilityConditional=true
  assert.equal(await page.locator('#consent').isChecked(),false)
- await page.getByRole('button',{name:'Send my follow-up request',exact:true}).click()
+ await page.getByRole('button',{name:'Send request',exact:true}).click()
  assert.equal(submissions.length,0);checks.consentPurposeReset=true
+ const privacyPromise=context.waitForEvent('page')
+ await page.getByRole('link',{name:/Privacy notice/}).click()
+ const privacy=await privacyPromise;await privacy.waitForLoadState();assert.equal(new URL(privacy.url()).pathname,'/privacy');await privacy.locator('h1').waitFor();await privacy.close()
+ assert.equal(await page.locator('#email').inputValue(),syntheticEmail)
+ assert.equal(await page.locator('#message').inputValue(),'Synthetic verification only. Do not contact.');checks.privacyRetainsDraft=true
  await page.locator('#consent').check();mode='failure'
- await page.getByRole('button',{name:'Send my follow-up request',exact:true}).click();await page.getByRole('alert').waitFor()
+ await page.getByRole('button',{name:'Send request',exact:true}).click();await page.getByRole('alert').waitFor()
  await page.waitForFunction(()=>document.activeElement?.getAttribute('role')==='alert')
  await page.keyboard.press('Tab')
- assert.equal(await page.evaluate(()=>document.activeElement?.textContent),'Send my follow-up request')
+ assert.equal(await page.evaluate(()=>document.activeElement?.textContent),'Send request')
  checks.failedSaveFocusRecovery=true
  assert.equal(await page.locator('#email').inputValue(),syntheticEmail)
- assert.ok(await page.locator('#consent').isChecked());assert.ok(await heading('Discuss your work.').isVisible())
+ assert.ok(await page.locator('#consent').isChecked());assert.ok(await heading('Tell us what you need.').isVisible())
  assert.equal(submissions.length,1);assert.equal(submissions[0].body.preferences,'')
  assert.equal(submissions[0].body.schemaVersion,2);assert.deepEqual(submissions[0].body.pains,['questions'])
  assert.equal('hours' in submissions[0].body,false);assert.equal('business' in submissions[0].body,false)
  checks.failedSaveRetainsInput=true;checks.noFabricatedContext=true
  mode='pending';const waiting=new Promise(resolve=>{requestPending=resolve})
- await page.getByRole('button',{name:'Send my follow-up request',exact:true}).click();await Promise.race([waiting,new Promise((_,reject)=>setTimeout(()=>reject(Error('Pending submission was not intercepted')),10000))])
- for(const id of ['email','message','business','consent'])assert.ok(await page.locator(`#${id}`).isDisabled(),`Pending lock ${id}`)
- assert.ok(await page.getByRole('radio',{name:'Request a call',exact:true}).isDisabled())
+ await page.getByRole('button',{name:'Send request',exact:true}).click();await Promise.race([waiting,new Promise((_,reject)=>setTimeout(()=>reject(Error('Pending submission was not intercepted')),10000))])
+ for(const id of ['email','message','consent'])assert.ok(await page.locator(`#${id}`).isDisabled(),`Pending lock ${id}`)
+ assert.ok(await page.getByRole('checkbox',{name:/I[’']d prefer a call/}).isDisabled())
  assert.ok(await page.getByRole('button',{name:'Back to task ideas',exact:true}).isDisabled())
- assert.ok(await page.getByRole('button',{name:'Saving your request…',exact:true}).isDisabled())
- assert.equal(await heading('Your request is saved.').count(),0)
+ assert.ok(await page.getByRole('button',{name:'Sending…',exact:true}).isDisabled())
+ assert.equal(await page.getByRole('heading',{name:/^Thanks.*received your request\.$/}).count(),0)
  assert.equal(submissions[0].body.requestId,submissions[1].body.requestId)
+ await page.locator('form').evaluate(form=>{form.requestSubmit();form.requestSubmit()});assert.equal(submissions.length,2);checks.duplicatePendingLocked=true
  checks.pendingDisablesChanges=true;checks.stableRetryId=true;releasePending();releasePending=undefined;mode='success'
- await heading('Your request is saved.').waitFor({timeout:30000})
- assert.match(await page.locator('main').innerText(),/email follow-up request is saved/)
- assert.match(await page.locator('main').innerText(),/No automatic email has been sent/);checks.followupReceipt=true
+ await page.getByRole('heading',{name:/^Thanks.*received your request\.$/}).waitFor({timeout:30000})
+ assert.match(await page.locator('main').innerText(),/review.*reply/i)
+ assert.ok((await page.locator('main').innerText()).includes(syntheticEmail));assert.doesNotMatch(await page.locator('main').innerText(),/email (?:has been|was) sent/i);checks.followupReceipt=true
  await page.screenshot({path:`${out}/followup-receipt.png`,fullPage:true})
  // Direct contact bypasses exploration but requires a real description.
  await page.goto(base+'/contact')
- await heading('Discuss your work.').waitFor()
+ await heading('Tell us what you need.').waitFor()
  await page.locator('#email').fill(syntheticEmail);await page.locator('#consent').check()
- await page.getByRole('button',{name:'Send my follow-up request',exact:true}).click()
+ await page.getByRole('button',{name:'Send request',exact:true}).click()
  assert.equal(await page.locator('#message').getAttribute('aria-invalid'),'true');assert.equal(submissions.length,2)
+ await page.locator('#message').fill('   ');await page.getByRole('button',{name:'Send request',exact:true}).click();assert.equal(submissions.length,2)
+ assert.equal(await page.evaluate(()=>document.activeElement?.id),'message')
  await page.locator('#message').fill('Synthetic direct-contact verification. Do not contact. Please test inquiry routing.')
- await page.getByRole('radio',{name:'Request a call',exact:true}).check();assert.equal(await page.locator('#consent').isChecked(),false)
+ await page.getByRole('checkbox',{name:/I[’']d prefer a call/}).check();assert.equal(await page.locator('#consent').isChecked(),false)
+ assert.ok(await page.locator('#preferences').isVisible())
  await page.locator('#preferences').fill('Synthetic verification. Eastern time; do not contact.')
- await page.locator('#consent').check();await page.getByRole('button',{name:'Send my call request',exact:true}).click()
- await heading('Your request is saved.').waitFor({timeout:30000})
- assert.match(await page.locator('main').innerText(),/call request is saved/)
- assert.match(await page.locator('main').innerText(),/not a confirmed appointment/)
+ await page.locator('#consent').check();await page.getByRole('button',{name:'Send request',exact:true}).click()
+ await page.getByRole('heading',{name:/^Thanks.*received your request\.$/}).waitFor({timeout:30000})
+ assert.match(await page.locator('main').innerText(),/call is not booked yet/i)
+ assert.ok((await page.locator('main').innerText()).includes(syntheticEmail))
  assert.equal(submissions[2].body.intent,'call');assert.deepEqual(submissions[2].body.pains,[])
  assert.notEqual(submissions[1].body.requestId,submissions[2].body.requestId);checks.callReceipt=true;checks.directContactMessageRequired=true
  await page.goto(base+'/partners')
@@ -168,8 +205,6 @@ try{
  await page.keyboard.press('Space');assert.equal(await faq.getAttribute('open'),null);checks.nativeFaqKeyboard=true
  await page.goto(base+'/');await page.keyboard.press('Tab');await page.keyboard.press('Enter')
  assert.equal(await page.evaluate(()=>document.activeElement?.id),'lv-main');checks.skipLink=true
- let axePath
- try{axePath=process.env.AXE_CORE_PATH||createRequire(import.meta.url).resolve('axe-core/axe.min.js')}catch{}
  if(axePath){
   await page.addScriptTag({path:axePath})
   const audit=await page.evaluate(()=>window.axe.run(document,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21aa']}}))
@@ -177,7 +212,7 @@ try{
  }else checks.axeHome='not installed; automated audit not run'
  assert.deepEqual(errors,[])
  writeFileSync(`${out}/results.json`,JSON.stringify({mode:live?'live synthetic saves':'mocked saves',routes:evidence,checks,errors},null,2))
- console.log(`PASS: ${evidence.length} responsive route/theme checks; scenario demo; task-first guidance; direct contact; consent; failed/pending saves; stable retries; receipts; partner; keyboard. Saves: ${live?'LIVE synthetic':'MOCKED'}.`)
+ console.log(`PASS: ${evidence.length} responsive route/theme checks; static service Home; task-first guidance; direct contact; consent; failed/pending saves; stable retries; receipts; partner; keyboard. Saves: ${live?'LIVE synthetic':'MOCKED'}.`)
 }finally{
  releasePending?.()
  writeFileSync(`${out}/submissions.json`,JSON.stringify(submissions,null,2))

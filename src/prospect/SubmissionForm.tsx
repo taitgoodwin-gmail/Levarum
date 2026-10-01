@@ -16,8 +16,9 @@ export function SubmissionForm({children,onSubmit,busy=false}:{children:ReactNod
   descriptions.add(`${id}-validation`)
   input.setAttribute('aria-invalid','true');input.setAttribute('aria-describedby',[...descriptions].join(' '))
   setErrors(values=>({...values,[id]:input.validationMessage}))
- }} onInput={event=>{
-  const input=event.target as HTMLInputElement
+ }} onChange={event=>{
+  const input=event.target
+  if(!(input instanceof HTMLInputElement||input instanceof HTMLTextAreaElement||input instanceof HTMLSelectElement))return
   const id=input.id||input.name
   if(id&&input.validity?.valid){
    input.removeAttribute('aria-invalid')

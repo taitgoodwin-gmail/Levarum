@@ -4,7 +4,7 @@ import type * as React from 'react';
  */
 export interface LogoProps {
   /** Lockup shape. `word` is the default public/admin wordmark. */
-  shape?: 'lift' | 'tile' | 'badge' | 'rule' | 'word' | 'stack';
+  shape?: 'lift' | 'tile' | 'badge' | 'rule' | 'word' | 'stack' | 'joined';
   /** Mark colour — any CSS colour, normally a `--lv-brand-*` token. */
   color?: string;
   /** Wordmark colour when it differs from the mark (two-tone lockup). */
