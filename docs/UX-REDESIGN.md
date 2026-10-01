@@ -1,3 +1,7 @@
+## Font metric reference — 2026-10-01
+
+Identical intended fonts/CSS produce different measured text advances in local Chromium 151 and CI Chromium 143. Use the pinned CI captures for Figma metrics; preserve natural wrapping. [Cause, controlled receipts and authoritative captures](FONT-METRICS-RECONCILIATION.md). No application layout change.
+
 ## Current focused opening — 2026-10-01
 
 The supplied “Make work flow” opening and reversible enquiry illustration are implemented, with subsequent panel clarity/mobile refinements. See [signature implementation and launch decisions](SIGNATURE-OPENING-REVIEW.md). This supersedes the old opening; remaining page content and functional routes are preserved. Working-branch publication and previews are approved; main/production remain excluded.

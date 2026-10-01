@@ -1,0 +1,160 @@
+{
+  "applicationCommit": "33176adb1589a7e89c5ec64ebf2a94d038df3493",
+  "diagnosticCommit": "571b84874732e65a83f5915ef7ca64e3ddd9d902",
+  "ciRun": "https://github.com/taitgoodwin-gmail/Levarum/actions/runs/36816958670",
+  "ciArtifact": 11141632214,
+  "ciConclusion": "success",
+  "applicationChanged": false,
+  "authoritativeReference": "ci-dark-390/1440-scattered/connected.png; pinned Playwright 1.57.0 Chromium 143.0.7499.4, en-US, DPR 1, reduced motion, 1400px viewport height",
+  "comparison": [
+    {
+      "width": 390,
+      "identicalCssAndFontHashes": true,
+      "localBrowser": "151.0.7922.173",
+      "ciBrowser": "143.0.7499.4",
+      "stableAfterReadyBoth": true,
+      "elements": [
+        {
+          "selector": "h1>span",
+          "computedStyleDifferences": {},
+          "localCanvasWidth": 290.7972412109375,
+          "ciCanvasWidth": 291,
+          "localTextRectCount": 1,
+          "ciTextRectCount": 1,
+          "localHeight": 62.71875,
+          "ciHeight": 62.71875
+        },
+        {
+          "selector": "h1>em",
+          "computedStyleDifferences": {},
+          "localCanvasWidth": 181.12503051757812,
+          "ciCanvasWidth": 181,
+          "localTextRectCount": 1,
+          "ciTextRectCount": 1,
+          "localHeight": 96,
+          "ciHeight": 96
+        },
+        {
+          "selector": ".lv-signature-message>p",
+          "computedStyleDifferences": {},
+          "localCanvasWidth": 898.788330078125,
+          "ciCanvasWidth": 925,
+          "localTextRectCount": 3,
+          "ciTextRectCount": 4,
+          "localHeight": 75.5625,
+          "ciHeight": 100.75
+        },
+        {
+          "selector": ".lv-signature-action",
+          "computedStyleDifferences": {},
+          "localCanvasWidth": 147.47232055664062,
+          "ciCanvasWidth": 150,
+          "localTextRectCount": 1,
+          "ciTextRectCount": 2,
+          "localHeight": 54,
+          "ciHeight": 70.375
+        },
+        {
+          "selector": ".lv-signature-brand",
+          "computedStyleDifferences": {
+            "width": [
+              "127.688px",
+              "129px"
+            ]
+          },
+          "localCanvasWidth": 97.47866821289062,
+          "ciCanvasWidth": 98,
+          "localTextRectCount": 0,
+          "ciTextRectCount": 0,
+          "localHeight": 26.4375,
+          "ciHeight": 26.4375
+        },
+        {
+          "selector": ".lv-signature-controls button",
+          "computedStyleDifferences": {},
+          "localCanvasWidth": 88.19500732421875,
+          "ciCanvasWidth": 90,
+          "localTextRectCount": 3,
+          "ciTextRectCount": 3,
+          "localHeight": 52,
+          "ciHeight": 52
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "identicalCssAndFontHashes": true,
+      "localBrowser": "151.0.7922.173",
+      "ciBrowser": "143.0.7499.4",
+      "stableAfterReadyBoth": true,
+      "elements": [
+        {
+          "selector": "h1>span",
+          "computedStyleDifferences": {},
+          "localCanvasWidth": 549.8079833984375,
+          "ciCanvasWidth": 551,
+          "localTextRectCount": 1,
+          "ciTextRectCount": 1,
+          "localHeight": 125.4375,
+          "ciHeight": 125.4375
+        },
+        {
+          "selector": "h1>em",
+          "computedStyleDifferences": {},
+          "localCanvasWidth": 324.2999267578125,
+          "ciCanvasWidth": 324,
+          "localTextRectCount": 1,
+          "ciTextRectCount": 1,
+          "localHeight": 168.390625,
+          "ciHeight": 168.390625
+        },
+        {
+          "selector": ".lv-signature-message>p",
+          "computedStyleDifferences": {},
+          "localCanvasWidth": 1048.5882568359375,
+          "ciCanvasWidth": 1046,
+          "localTextRectCount": 4,
+          "ciTextRectCount": 4,
+          "localHeight": 117.5625,
+          "ciHeight": 117.5625
+        },
+        {
+          "selector": ".lv-signature-action",
+          "computedStyleDifferences": {},
+          "localCanvasWidth": 147.47232055664062,
+          "ciCanvasWidth": 150,
+          "localTextRectCount": 1,
+          "ciTextRectCount": 1,
+          "localHeight": 58,
+          "ciHeight": 58
+        },
+        {
+          "selector": ".lv-signature-brand",
+          "computedStyleDifferences": {
+            "width": [
+              "144.844px",
+              "146px"
+            ]
+          },
+          "localCanvasWidth": 113.85394287109375,
+          "ciCanvasWidth": 116,
+          "localTextRectCount": 0,
+          "ciTextRectCount": 0,
+          "localHeight": 31.046875,
+          "ciHeight": 31.046875
+        },
+        {
+          "selector": ".lv-signature-controls button",
+          "computedStyleDifferences": {},
+          "localCanvasWidth": 88.19500732421875,
+          "ciCanvasWidth": 90,
+          "localTextRectCount": 3,
+          "ciTextRectCount": 3,
+          "localHeight": 52,
+          "ciHeight": 52
+        }
+      ]
+    }
+  ],
+  "limitation": "The environments differ in browser build/version and Linux stack. Their individual contributions were not isolated; downloading Chromium 143 locally returned HTTP 403."
+}

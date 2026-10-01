@@ -1,0 +1,1542 @@
+[
+  {
+    "browserVersion": "151.0.7922.173",
+    "node": "v24.19.0",
+    "platform": "linux",
+    "release": "6.18.44",
+    "arch": "x64",
+    "width": 390,
+    "environment": {
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "viewport": {
+        "width": 390,
+        "height": 1400,
+        "devicePixelRatio": 1
+      },
+      "visualViewport": {
+        "width": 390,
+        "height": 1400,
+        "scale": 1
+      },
+      "fontStatus": "loaded",
+      "faces": [
+        {
+          "family": "Schibsted Grotesk Variable",
+          "weight": "400 900",
+          "style": "normal",
+          "stretch": "normal",
+          "status": "loaded"
+        },
+        {
+          "family": "Instrument Sans Variable",
+          "weight": "400 700",
+          "style": "normal",
+          "stretch": "normal",
+          "status": "loaded"
+        },
+        {
+          "family": "Bricolage Grotesque Variable",
+          "weight": "200 800",
+          "style": "normal",
+          "stretch": "75% 100%",
+          "status": "loaded"
+        },
+        {
+          "family": "Instrument Serif",
+          "weight": "400",
+          "style": "italic",
+          "stretch": "normal",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Mono",
+          "weight": "400",
+          "style": "normal",
+          "stretch": "normal",
+          "status": "loaded"
+        }
+      ],
+      "resources": [
+        "/assets/ThemeToggle-CKHqMwfU.css",
+        "/assets/public-C72xyMtb.css",
+        "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+        "/assets/bricolage-grotesque-latin-standard-normal-C5Lc8Qmc.woff2",
+        "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+        "/assets/space-mono-latin-400-normal-Rg4St2Dn.woff2",
+        "/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2"
+      ]
+    },
+    "ready": [
+      {
+        "selector": "h1>span",
+        "text": "Make work",
+        "style": {
+          "fontFamily": "\"Bricolage Grotesque Variable\", sans-serif",
+          "fontSize": "56.004px",
+          "fontWeight": "800",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "\"opsz\" 14, \"wdth\" 100",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "-2.8002px",
+          "wordSpacing": "0px",
+          "lineHeight": "62.7245px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "346px",
+          "maxWidth": "none",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "gap": "normal",
+          "flexShrink": "1",
+          "display": "block"
+        },
+        "rect": {
+          "x": 22,
+          "y": 136.796875,
+          "width": 346,
+          "height": 62.71875
+        },
+        "textRects": [
+          {
+            "x": 22,
+            "y": 133.796875,
+            "width": 282.4375,
+            "height": 67
+          }
+        ],
+        "canvasTextWidth": 290.7972412109375
+      },
+      {
+        "selector": "h1>em",
+        "text": "flow.",
+        "style": {
+          "fontFamily": "\"Instrument Serif\", serif",
+          "fontSize": "105px",
+          "fontWeight": "400",
+          "fontStyle": "italic",
+          "fontStretch": "100%",
+          "fontVariationSettings": "normal",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "-3.15px",
+          "wordSpacing": "0px",
+          "lineHeight": "84px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "346px",
+          "maxWidth": "none",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "gap": "normal",
+          "flexShrink": "1",
+          "display": "block"
+        },
+        "rect": {
+          "x": 22,
+          "y": 199.515625,
+          "width": 346,
+          "height": 96
+        },
+        "textRects": [
+          {
+            "x": 22,
+            "y": 172.515625,
+            "width": 166.640625,
+            "height": 137
+          }
+        ],
+        "canvasTextWidth": 181.12503051757812
+      },
+      {
+        "selector": ".lv-signature-message>p",
+        "text": "Practical automation for small businesses. We connect your everyday tools. You keep the work that needs you.",
+        "style": {
+          "fontFamily": "\"Instrument Sans Variable\", system-ui, -apple-system, sans-serif",
+          "fontSize": "18px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "normal",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "normal",
+          "wordSpacing": "0px",
+          "lineHeight": "25.2px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "330px",
+          "maxWidth": "100%",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "gap": "normal",
+          "flexShrink": "1",
+          "display": "block"
+        },
+        "rect": {
+          "x": 22,
+          "y": 327.515625,
+          "width": 330,
+          "height": 75.5625
+        },
+        "textRects": [
+          {
+            "x": 22,
+            "y": 328.515625,
+            "width": 244.828125,
+            "height": 22
+          },
+          {
+            "x": 22,
+            "y": 353.703125,
+            "width": 318.703125,
+            "height": 22
+          },
+          {
+            "x": 22,
+            "y": 378.890625,
+            "width": 328.09375,
+            "height": 22
+          }
+        ],
+        "canvasTextWidth": 898.788330078125
+      },
+      {
+        "selector": ".lv-signature-action",
+        "text": "Tell us what repeats",
+        "style": {
+          "fontFamily": "\"Instrument Sans Variable\", system-ui, -apple-system, sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "normal",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "normal",
+          "wordSpacing": "0px",
+          "lineHeight": "19.2px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "242px",
+          "maxWidth": "100%",
+          "paddingLeft": "24px",
+          "paddingRight": "24px",
+          "gap": "25px",
+          "flexShrink": "1",
+          "display": "flex"
+        },
+        "rect": {
+          "x": 22,
+          "y": 423.078125,
+          "width": 242,
+          "height": 54
+        },
+        "textRects": [
+          {
+            "x": 46,
+            "y": 439.484375,
+            "width": 147.484375,
+            "height": 20
+          }
+        ],
+        "canvasTextWidth": 147.47232055664062
+      },
+      {
+        "selector": ".lv-signature-brand",
+        "text": "Levarum",
+        "style": {
+          "fontFamily": "\"Bricolage Grotesque Variable\", sans-serif",
+          "fontSize": "23px",
+          "fontWeight": "800",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "\"opsz\" 14, \"wdth\" 100",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "normal",
+          "wordSpacing": "0px",
+          "lineHeight": "26.45px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "127.688px",
+          "maxWidth": "none",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "gap": "9px",
+          "flexShrink": "1",
+          "display": "flex"
+        },
+        "rect": {
+          "x": 20,
+          "y": 34.78125,
+          "width": 127.6875,
+          "height": 26.4375
+        },
+        "textRects": [],
+        "canvasTextWidth": 97.47866821289062
+      },
+      {
+        "selector": ".lv-signature-controls button",
+        "text": "01   Scattered",
+        "style": {
+          "fontFamily": "\"Instrument Sans Variable\", system-ui, -apple-system, sans-serif",
+          "fontSize": "14px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "normal",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "normal",
+          "wordSpacing": "0px",
+          "lineHeight": "18.2px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "173px",
+          "maxWidth": "none",
+          "paddingLeft": "8px",
+          "paddingRight": "8px",
+          "gap": "normal",
+          "flexShrink": "1",
+          "display": "block"
+        },
+        "rect": {
+          "x": 22,
+          "y": 565.078125,
+          "width": 173,
+          "height": 52
+        },
+        "textRects": [
+          {
+            "x": 64.390625,
+            "y": 581.984375,
+            "width": 9.4375,
+            "height": 18
+          },
+          {
+            "x": 73.828125,
+            "y": 581.984375,
+            "width": 5.421875,
+            "height": 18
+          },
+          {
+            "x": 87.359375,
+            "y": 581.984375,
+            "width": 65.25,
+            "height": 18
+          }
+        ],
+        "canvasTextWidth": 88.19500732421875
+      }
+    ],
+    "settled": [
+      {
+        "selector": "h1>span",
+        "text": "Make work",
+        "style": {
+          "fontFamily": "\"Bricolage Grotesque Variable\", sans-serif",
+          "fontSize": "56.004px",
+          "fontWeight": "800",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "\"opsz\" 14, \"wdth\" 100",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "-2.8002px",
+          "wordSpacing": "0px",
+          "lineHeight": "62.7245px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "346px",
+          "maxWidth": "none",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "gap": "normal",
+          "flexShrink": "1",
+          "display": "block"
+        },
+        "rect": {
+          "x": 22,
+          "y": 136.796875,
+          "width": 346,
+          "height": 62.71875
+        },
+        "textRects": [
+          {
+            "x": 22,
+            "y": 133.796875,
+            "width": 282.4375,
+            "height": 67
+          }
+        ],
+        "canvasTextWidth": 290.7972412109375
+      },
+      {
+        "selector": "h1>em",
+        "text": "flow.",
+        "style": {
+          "fontFamily": "\"Instrument Serif\", serif",
+          "fontSize": "105px",
+          "fontWeight": "400",
+          "fontStyle": "italic",
+          "fontStretch": "100%",
+          "fontVariationSettings": "normal",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "-3.15px",
+          "wordSpacing": "0px",
+          "lineHeight": "84px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "346px",
+          "maxWidth": "none",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "gap": "normal",
+          "flexShrink": "1",
+          "display": "block"
+        },
+        "rect": {
+          "x": 22,
+          "y": 199.515625,
+          "width": 346,
+          "height": 96
+        },
+        "textRects": [
+          {
+            "x": 22,
+            "y": 172.515625,
+            "width": 166.640625,
+            "height": 137
+          }
+        ],
+        "canvasTextWidth": 181.12503051757812
+      },
+      {
+        "selector": ".lv-signature-message>p",
+        "text": "Practical automation for small businesses. We connect your everyday tools. You keep the work that needs you.",
+        "style": {
+          "fontFamily": "\"Instrument Sans Variable\", system-ui, -apple-system, sans-serif",
+          "fontSize": "18px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "normal",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "normal",
+          "wordSpacing": "0px",
+          "lineHeight": "25.2px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "330px",
+          "maxWidth": "100%",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "gap": "normal",
+          "flexShrink": "1",
+          "display": "block"
+        },
+        "rect": {
+          "x": 22,
+          "y": 327.515625,
+          "width": 330,
+          "height": 75.5625
+        },
+        "textRects": [
+          {
+            "x": 22,
+            "y": 328.515625,
+            "width": 244.828125,
+            "height": 22
+          },
+          {
+            "x": 22,
+            "y": 353.703125,
+            "width": 318.703125,
+            "height": 22
+          },
+          {
+            "x": 22,
+            "y": 378.890625,
+            "width": 328.09375,
+            "height": 22
+          }
+        ],
+        "canvasTextWidth": 898.788330078125
+      },
+      {
+        "selector": ".lv-signature-action",
+        "text": "Tell us what repeats",
+        "style": {
+          "fontFamily": "\"Instrument Sans Variable\", system-ui, -apple-system, sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "normal",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "normal",
+          "wordSpacing": "0px",
+          "lineHeight": "19.2px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "242px",
+          "maxWidth": "100%",
+          "paddingLeft": "24px",
+          "paddingRight": "24px",
+          "gap": "25px",
+          "flexShrink": "1",
+          "display": "flex"
+        },
+        "rect": {
+          "x": 22,
+          "y": 423.078125,
+          "width": 242,
+          "height": 54
+        },
+        "textRects": [
+          {
+            "x": 46,
+            "y": 439.484375,
+            "width": 147.484375,
+            "height": 20
+          }
+        ],
+        "canvasTextWidth": 147.47232055664062
+      },
+      {
+        "selector": ".lv-signature-brand",
+        "text": "Levarum",
+        "style": {
+          "fontFamily": "\"Bricolage Grotesque Variable\", sans-serif",
+          "fontSize": "23px",
+          "fontWeight": "800",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "\"opsz\" 14, \"wdth\" 100",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "normal",
+          "wordSpacing": "0px",
+          "lineHeight": "26.45px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "127.688px",
+          "maxWidth": "none",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "gap": "9px",
+          "flexShrink": "1",
+          "display": "flex"
+        },
+        "rect": {
+          "x": 20,
+          "y": 34.78125,
+          "width": 127.6875,
+          "height": 26.4375
+        },
+        "textRects": [],
+        "canvasTextWidth": 97.47866821289062
+      },
+      {
+        "selector": ".lv-signature-controls button",
+        "text": "01   Scattered",
+        "style": {
+          "fontFamily": "\"Instrument Sans Variable\", system-ui, -apple-system, sans-serif",
+          "fontSize": "14px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "normal",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "normal",
+          "wordSpacing": "0px",
+          "lineHeight": "18.2px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "173px",
+          "maxWidth": "none",
+          "paddingLeft": "8px",
+          "paddingRight": "8px",
+          "gap": "normal",
+          "flexShrink": "1",
+          "display": "block"
+        },
+        "rect": {
+          "x": 22,
+          "y": 565.078125,
+          "width": 173,
+          "height": 52
+        },
+        "textRects": [
+          {
+            "x": 64.390625,
+            "y": 581.984375,
+            "width": 9.4375,
+            "height": 18
+          },
+          {
+            "x": 73.828125,
+            "y": 581.984375,
+            "width": 5.421875,
+            "height": 18
+          },
+          {
+            "x": 87.359375,
+            "y": 581.984375,
+            "width": 65.25,
+            "height": 18
+          }
+        ],
+        "canvasTextWidth": 88.19500732421875
+      }
+    ],
+    "fonts": [
+      {
+        "selector": "h1>span",
+        "fonts": [
+          {
+            "familyName": "Bricolage Grotesque 96pt ExtraBold",
+            "postScriptName": "BricolageGrotesque-96ptExtraBold",
+            "isCustomFont": true,
+            "glyphCount": 9
+          }
+        ]
+      },
+      {
+        "selector": "h1>em",
+        "fonts": [
+          {
+            "familyName": "Instrument Serif",
+            "postScriptName": "InstrumentSerif-Italic",
+            "isCustomFont": true,
+            "glyphCount": 5
+          }
+        ]
+      },
+      {
+        "selector": ".lv-signature-message>p",
+        "fonts": [
+          {
+            "familyName": "Instrument Sans",
+            "postScriptName": "InstrumentSans-Regular",
+            "isCustomFont": true,
+            "glyphCount": 106
+          }
+        ]
+      },
+      {
+        "selector": ".lv-signature-action",
+        "fonts": [
+          {
+            "familyName": "Instrument Sans",
+            "postScriptName": "InstrumentSans-Regular",
+            "isCustomFont": true,
+            "glyphCount": 20
+          }
+        ]
+      },
+      {
+        "selector": ".lv-signature-brand",
+        "fonts": [
+          {
+            "familyName": "Bricolage Grotesque 96pt ExtraBold",
+            "postScriptName": "BricolageGrotesque-96ptExtraBold",
+            "isCustomFont": true,
+            "glyphCount": 7
+          }
+        ]
+      },
+      {
+        "selector": ".lv-signature-controls button",
+        "fonts": [
+          {
+            "familyName": "Instrument Sans",
+            "postScriptName": "InstrumentSans-Regular",
+            "isCustomFont": true,
+            "glyphCount": 14
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "path": "/assets/ThemeToggle-CKHqMwfU.css",
+        "bytes": 22937,
+        "sha256": "4a469b269ac82e4640e5a68a331d0e2573cc1014fb34f72e898112b4e60729ba"
+      },
+      {
+        "path": "/assets/public-C72xyMtb.css",
+        "bytes": 44993,
+        "sha256": "3c66f719355eef83b8e75daa8cae2dc579c7901f79b9c8bc976a1016183e8546"
+      },
+      {
+        "path": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+        "bytes": 46752,
+        "sha256": "4c8b93f431d462c696e12b9d6a033feb3394d36e66e781357c496b95d8a75e05"
+      },
+      {
+        "path": "/assets/bricolage-grotesque-latin-standard-normal-C5Lc8Qmc.woff2",
+        "bytes": 131548,
+        "sha256": "a756882d8a7802ebd4663b4544a62ebedafc7227c1c159ab95eea61393af3f8e"
+      },
+      {
+        "path": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+        "bytes": 30092,
+        "sha256": "2ee17598a98d8a59e4df8152d015bec9ab8e4d5672cc0ab42bef806b568e3971"
+      },
+      {
+        "path": "/assets/space-mono-latin-400-normal-Rg4St2Dn.woff2",
+        "bytes": 16520,
+        "sha256": "fb4a81a2d0a893e5c38c394a7e716a1cef0b24610a0af49c96f6d529bd66bf2b"
+      },
+      {
+        "path": "/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2",
+        "bytes": 22128,
+        "sha256": "5a51946dfffa82972bc98745359c46761515641fda557c25116459a9f83da4a7"
+      }
+    ],
+    "stable": true
+  },
+  {
+    "browserVersion": "151.0.7922.173",
+    "node": "v24.19.0",
+    "platform": "linux",
+    "release": "6.18.44",
+    "arch": "x64",
+    "width": 1440,
+    "environment": {
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/151.0.0.0 Safari/537.36",
+      "viewport": {
+        "width": 1440,
+        "height": 1400,
+        "devicePixelRatio": 1
+      },
+      "visualViewport": {
+        "width": 1440,
+        "height": 1400,
+        "scale": 1
+      },
+      "fontStatus": "loaded",
+      "faces": [
+        {
+          "family": "Schibsted Grotesk Variable",
+          "weight": "400 900",
+          "style": "normal",
+          "stretch": "normal",
+          "status": "loaded"
+        },
+        {
+          "family": "Instrument Sans Variable",
+          "weight": "400 700",
+          "style": "normal",
+          "stretch": "normal",
+          "status": "loaded"
+        },
+        {
+          "family": "Bricolage Grotesque Variable",
+          "weight": "200 800",
+          "style": "normal",
+          "stretch": "75% 100%",
+          "status": "loaded"
+        },
+        {
+          "family": "Instrument Serif",
+          "weight": "400",
+          "style": "italic",
+          "stretch": "normal",
+          "status": "loaded"
+        },
+        {
+          "family": "Space Mono",
+          "weight": "400",
+          "style": "normal",
+          "stretch": "normal",
+          "status": "loaded"
+        }
+      ],
+      "resources": [
+        "/assets/public-C72xyMtb.css",
+        "/assets/ThemeToggle-CKHqMwfU.css",
+        "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+        "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+        "/assets/bricolage-grotesque-latin-standard-normal-C5Lc8Qmc.woff2",
+        "/assets/space-mono-latin-400-normal-Rg4St2Dn.woff2",
+        "/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2"
+      ]
+    },
+    "ready": [
+      {
+        "selector": "h1>span",
+        "text": "Make work",
+        "style": {
+          "fontFamily": "\"Bricolage Grotesque Variable\", sans-serif",
+          "fontSize": "112px",
+          "fontWeight": "800",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "\"opsz\" 14, \"wdth\" 100",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "-5.6px",
+          "wordSpacing": "0px",
+          "lineHeight": "125.44px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "600px",
+          "maxWidth": "none",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "gap": "normal",
+          "flexShrink": "1",
+          "display": "block"
+        },
+        "rect": {
+          "x": 64,
+          "y": 184.796875,
+          "width": 600,
+          "height": 125.4375
+        },
+        "textRects": [
+          {
+            "x": 64,
+            "y": 179.796875,
+            "width": 564.859375,
+            "height": 134
+          }
+        ],
+        "canvasTextWidth": 549.8079833984375
+      },
+      {
+        "selector": "h1>em",
+        "text": "flow.",
+        "style": {
+          "fontFamily": "\"Instrument Serif\", serif",
+          "fontSize": "188px",
+          "fontWeight": "400",
+          "fontStyle": "italic",
+          "fontStretch": "100%",
+          "fontVariationSettings": "normal",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "-5.64px",
+          "wordSpacing": "0px",
+          "lineHeight": "150.4px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "600px",
+          "maxWidth": "none",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "gap": "normal",
+          "flexShrink": "1",
+          "display": "block"
+        },
+        "rect": {
+          "x": 64,
+          "y": 310.234375,
+          "width": 600,
+          "height": 168.390625
+        },
+        "textRects": [
+          {
+            "x": 64,
+            "y": 263.234375,
+            "width": 298.359375,
+            "height": 244
+          }
+        ],
+        "canvasTextWidth": 324.2999267578125
+      },
+      {
+        "selector": ".lv-signature-message>p",
+        "text": "Practical automation for small businesses. We connect your everyday tools. You keep the work that needs you.",
+        "style": {
+          "fontFamily": "\"Instrument Sans Variable\", system-ui, -apple-system, sans-serif",
+          "fontSize": "21px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "normal",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "normal",
+          "wordSpacing": "0px",
+          "lineHeight": "29.4px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "345px",
+          "maxWidth": "100%",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "gap": "normal",
+          "flexShrink": "1",
+          "display": "block"
+        },
+        "rect": {
+          "x": 64,
+          "y": 575.625,
+          "width": 345,
+          "height": 117.5625
+        },
+        "textRects": [
+          {
+            "x": 64,
+            "y": 577.625,
+            "width": 285.625,
+            "height": 25
+          },
+          {
+            "x": 64,
+            "y": 607.015625,
+            "width": 280.4375,
+            "height": 25
+          },
+          {
+            "x": 64,
+            "y": 636.40625,
+            "width": 323.578125,
+            "height": 25
+          },
+          {
+            "x": 64,
+            "y": 665.796875,
+            "width": 146.375,
+            "height": 25
+          }
+        ],
+        "canvasTextWidth": 1048.5882568359375
+      },
+      {
+        "selector": ".lv-signature-action",
+        "text": "Tell us what repeats",
+        "style": {
+          "fontFamily": "\"Instrument Sans Variable\", system-ui, -apple-system, sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "normal",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "normal",
+          "wordSpacing": "0px",
+          "lineHeight": "19.2px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "270px",
+          "maxWidth": "100%",
+          "paddingLeft": "24px",
+          "paddingRight": "24px",
+          "gap": "25px",
+          "flexShrink": "1",
+          "display": "flex"
+        },
+        "rect": {
+          "x": 64,
+          "y": 721.1875,
+          "width": 270,
+          "height": 58
+        },
+        "textRects": [
+          {
+            "x": 88,
+            "y": 739.59375,
+            "width": 147.484375,
+            "height": 20
+          }
+        ],
+        "canvasTextWidth": 147.47232055664062
+      },
+      {
+        "selector": ".lv-signature-brand",
+        "text": "Levarum",
+        "style": {
+          "fontFamily": "\"Bricolage Grotesque Variable\", sans-serif",
+          "fontSize": "27px",
+          "fontWeight": "800",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "\"opsz\" 14, \"wdth\" 100",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "normal",
+          "wordSpacing": "0px",
+          "lineHeight": "31.05px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "144.844px",
+          "maxWidth": "none",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "gap": "9px",
+          "flexShrink": "1",
+          "display": "flex"
+        },
+        "rect": {
+          "x": 64,
+          "y": 38.46875,
+          "width": 144.84375,
+          "height": 31.046875
+        },
+        "textRects": [],
+        "canvasTextWidth": 113.85394287109375
+      },
+      {
+        "selector": ".lv-signature-controls button",
+        "text": "01   Scattered",
+        "style": {
+          "fontFamily": "\"Instrument Sans Variable\", system-ui, -apple-system, sans-serif",
+          "fontSize": "14px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "normal",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "normal",
+          "wordSpacing": "0px",
+          "lineHeight": "18.2px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "210px",
+          "maxWidth": "none",
+          "paddingLeft": "8px",
+          "paddingRight": "8px",
+          "gap": "normal",
+          "flexShrink": "1",
+          "display": "block"
+        },
+        "rect": {
+          "x": 956,
+          "y": 197,
+          "width": 210,
+          "height": 52
+        },
+        "textRects": [
+          {
+            "x": 1016.890625,
+            "y": 213.90625,
+            "width": 9.4375,
+            "height": 18
+          },
+          {
+            "x": 1026.328125,
+            "y": 213.90625,
+            "width": 5.421875,
+            "height": 18
+          },
+          {
+            "x": 1039.859375,
+            "y": 213.90625,
+            "width": 65.25,
+            "height": 18
+          }
+        ],
+        "canvasTextWidth": 88.19500732421875
+      }
+    ],
+    "settled": [
+      {
+        "selector": "h1>span",
+        "text": "Make work",
+        "style": {
+          "fontFamily": "\"Bricolage Grotesque Variable\", sans-serif",
+          "fontSize": "112px",
+          "fontWeight": "800",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "\"opsz\" 14, \"wdth\" 100",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "-5.6px",
+          "wordSpacing": "0px",
+          "lineHeight": "125.44px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "600px",
+          "maxWidth": "none",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "gap": "normal",
+          "flexShrink": "1",
+          "display": "block"
+        },
+        "rect": {
+          "x": 64,
+          "y": 184.796875,
+          "width": 600,
+          "height": 125.4375
+        },
+        "textRects": [
+          {
+            "x": 64,
+            "y": 179.796875,
+            "width": 564.859375,
+            "height": 134
+          }
+        ],
+        "canvasTextWidth": 549.8079833984375
+      },
+      {
+        "selector": "h1>em",
+        "text": "flow.",
+        "style": {
+          "fontFamily": "\"Instrument Serif\", serif",
+          "fontSize": "188px",
+          "fontWeight": "400",
+          "fontStyle": "italic",
+          "fontStretch": "100%",
+          "fontVariationSettings": "normal",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "-5.64px",
+          "wordSpacing": "0px",
+          "lineHeight": "150.4px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "600px",
+          "maxWidth": "none",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "gap": "normal",
+          "flexShrink": "1",
+          "display": "block"
+        },
+        "rect": {
+          "x": 64,
+          "y": 310.234375,
+          "width": 600,
+          "height": 168.390625
+        },
+        "textRects": [
+          {
+            "x": 64,
+            "y": 263.234375,
+            "width": 298.359375,
+            "height": 244
+          }
+        ],
+        "canvasTextWidth": 324.2999267578125
+      },
+      {
+        "selector": ".lv-signature-message>p",
+        "text": "Practical automation for small businesses. We connect your everyday tools. You keep the work that needs you.",
+        "style": {
+          "fontFamily": "\"Instrument Sans Variable\", system-ui, -apple-system, sans-serif",
+          "fontSize": "21px",
+          "fontWeight": "400",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "normal",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "normal",
+          "wordSpacing": "0px",
+          "lineHeight": "29.4px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "345px",
+          "maxWidth": "100%",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "gap": "normal",
+          "flexShrink": "1",
+          "display": "block"
+        },
+        "rect": {
+          "x": 64,
+          "y": 575.625,
+          "width": 345,
+          "height": 117.5625
+        },
+        "textRects": [
+          {
+            "x": 64,
+            "y": 577.625,
+            "width": 285.625,
+            "height": 25
+          },
+          {
+            "x": 64,
+            "y": 607.015625,
+            "width": 280.4375,
+            "height": 25
+          },
+          {
+            "x": 64,
+            "y": 636.40625,
+            "width": 323.578125,
+            "height": 25
+          },
+          {
+            "x": 64,
+            "y": 665.796875,
+            "width": 146.375,
+            "height": 25
+          }
+        ],
+        "canvasTextWidth": 1048.5882568359375
+      },
+      {
+        "selector": ".lv-signature-action",
+        "text": "Tell us what repeats",
+        "style": {
+          "fontFamily": "\"Instrument Sans Variable\", system-ui, -apple-system, sans-serif",
+          "fontSize": "16px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "normal",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "normal",
+          "wordSpacing": "0px",
+          "lineHeight": "19.2px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "270px",
+          "maxWidth": "100%",
+          "paddingLeft": "24px",
+          "paddingRight": "24px",
+          "gap": "25px",
+          "flexShrink": "1",
+          "display": "flex"
+        },
+        "rect": {
+          "x": 64,
+          "y": 721.1875,
+          "width": 270,
+          "height": 58
+        },
+        "textRects": [
+          {
+            "x": 88,
+            "y": 739.59375,
+            "width": 147.484375,
+            "height": 20
+          }
+        ],
+        "canvasTextWidth": 147.47232055664062
+      },
+      {
+        "selector": ".lv-signature-brand",
+        "text": "Levarum",
+        "style": {
+          "fontFamily": "\"Bricolage Grotesque Variable\", sans-serif",
+          "fontSize": "27px",
+          "fontWeight": "800",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "\"opsz\" 14, \"wdth\" 100",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "normal",
+          "wordSpacing": "0px",
+          "lineHeight": "31.05px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "144.844px",
+          "maxWidth": "none",
+          "paddingLeft": "0px",
+          "paddingRight": "0px",
+          "gap": "9px",
+          "flexShrink": "1",
+          "display": "flex"
+        },
+        "rect": {
+          "x": 64,
+          "y": 38.46875,
+          "width": 144.84375,
+          "height": 31.046875
+        },
+        "textRects": [],
+        "canvasTextWidth": 113.85394287109375
+      },
+      {
+        "selector": ".lv-signature-controls button",
+        "text": "01   Scattered",
+        "style": {
+          "fontFamily": "\"Instrument Sans Variable\", system-ui, -apple-system, sans-serif",
+          "fontSize": "14px",
+          "fontWeight": "600",
+          "fontStyle": "normal",
+          "fontStretch": "100%",
+          "fontVariationSettings": "normal",
+          "fontOpticalSizing": "auto",
+          "fontKerning": "auto",
+          "fontFeatureSettings": "normal",
+          "fontSynthesis": "weight style small-caps",
+          "letterSpacing": "normal",
+          "wordSpacing": "0px",
+          "lineHeight": "18.2px",
+          "textRendering": "auto",
+          "textSizeAdjust": "auto",
+          "whiteSpace": "normal",
+          "textWrap": "wrap",
+          "boxSizing": "border-box",
+          "width": "210px",
+          "maxWidth": "none",
+          "paddingLeft": "8px",
+          "paddingRight": "8px",
+          "gap": "normal",
+          "flexShrink": "1",
+          "display": "block"
+        },
+        "rect": {
+          "x": 956,
+          "y": 197,
+          "width": 210,
+          "height": 52
+        },
+        "textRects": [
+          {
+            "x": 1016.890625,
+            "y": 213.90625,
+            "width": 9.4375,
+            "height": 18
+          },
+          {
+            "x": 1026.328125,
+            "y": 213.90625,
+            "width": 5.421875,
+            "height": 18
+          },
+          {
+            "x": 1039.859375,
+            "y": 213.90625,
+            "width": 65.25,
+            "height": 18
+          }
+        ],
+        "canvasTextWidth": 88.19500732421875
+      }
+    ],
+    "fonts": [
+      {
+        "selector": "h1>span",
+        "fonts": [
+          {
+            "familyName": "Bricolage Grotesque 96pt ExtraBold",
+            "postScriptName": "BricolageGrotesque-96ptExtraBold",
+            "isCustomFont": true,
+            "glyphCount": 9
+          }
+        ]
+      },
+      {
+        "selector": "h1>em",
+        "fonts": [
+          {
+            "familyName": "Instrument Serif",
+            "postScriptName": "InstrumentSerif-Italic",
+            "isCustomFont": true,
+            "glyphCount": 5
+          }
+        ]
+      },
+      {
+        "selector": ".lv-signature-message>p",
+        "fonts": [
+          {
+            "familyName": "Instrument Sans",
+            "postScriptName": "InstrumentSans-Regular",
+            "isCustomFont": true,
+            "glyphCount": 105
+          }
+        ]
+      },
+      {
+        "selector": ".lv-signature-action",
+        "fonts": [
+          {
+            "familyName": "Instrument Sans",
+            "postScriptName": "InstrumentSans-Regular",
+            "isCustomFont": true,
+            "glyphCount": 20
+          }
+        ]
+      },
+      {
+        "selector": ".lv-signature-brand",
+        "fonts": [
+          {
+            "familyName": "Bricolage Grotesque 96pt ExtraBold",
+            "postScriptName": "BricolageGrotesque-96ptExtraBold",
+            "isCustomFont": true,
+            "glyphCount": 7
+          }
+        ]
+      },
+      {
+        "selector": ".lv-signature-controls button",
+        "fonts": [
+          {
+            "familyName": "Instrument Sans",
+            "postScriptName": "InstrumentSans-Regular",
+            "isCustomFont": true,
+            "glyphCount": 14
+          }
+        ]
+      }
+    ],
+    "resources": [
+      {
+        "path": "/assets/public-C72xyMtb.css",
+        "bytes": 44993,
+        "sha256": "3c66f719355eef83b8e75daa8cae2dc579c7901f79b9c8bc976a1016183e8546"
+      },
+      {
+        "path": "/assets/ThemeToggle-CKHqMwfU.css",
+        "bytes": 22937,
+        "sha256": "4a469b269ac82e4640e5a68a331d0e2573cc1014fb34f72e898112b4e60729ba"
+      },
+      {
+        "path": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+        "bytes": 46752,
+        "sha256": "4c8b93f431d462c696e12b9d6a033feb3394d36e66e781357c496b95d8a75e05"
+      },
+      {
+        "path": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+        "bytes": 30092,
+        "sha256": "2ee17598a98d8a59e4df8152d015bec9ab8e4d5672cc0ab42bef806b568e3971"
+      },
+      {
+        "path": "/assets/bricolage-grotesque-latin-standard-normal-C5Lc8Qmc.woff2",
+        "bytes": 131548,
+        "sha256": "a756882d8a7802ebd4663b4544a62ebedafc7227c1c159ab95eea61393af3f8e"
+      },
+      {
+        "path": "/assets/space-mono-latin-400-normal-Rg4St2Dn.woff2",
+        "bytes": 16520,
+        "sha256": "fb4a81a2d0a893e5c38c394a7e716a1cef0b24610a0af49c96f6d529bd66bf2b"
+      },
+      {
+        "path": "/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2",
+        "bytes": 22128,
+        "sha256": "5a51946dfffa82972bc98745359c46761515641fda557c25116459a9f83da4a7"
+      }
+    ],
+    "stable": true
+  }
+]
