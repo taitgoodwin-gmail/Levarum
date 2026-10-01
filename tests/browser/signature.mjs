@@ -11,6 +11,8 @@ try{
   const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));let writes=0
   await page.route('**/api/**',route=>{if(route.request().method()!=='GET')writes++;return route.abort()})
   await page.goto(base);await page.locator('h1').waitFor();await page.evaluate(()=>document.fonts.ready)
+  assert.ok(await page.getByText('Illustrative example · not live',{exact:true}).isVisible())
+  const labelBox=await page.locator('.lv-signature-demo-label').boundingBox(),buttonsBox=await page.locator('.lv-signature-controls [role=group]').boundingBox();assert.ok(labelBox.y+labelBox.height<=buttonsBox.y,'Demo qualification precedes interaction')
   const scattered=page.getByRole('button',{name:'01 Scattered',exact:true}),connected=page.getByRole('button',{name:'02 Connected',exact:true})
   for(const state of [false,true,false,true]){
    await (state?connected:scattered).focus();await page.keyboard.press('Enter')

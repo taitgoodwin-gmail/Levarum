@@ -1,3 +1,24 @@
+## Four practical audit fixes — 2026-10-01
+
+Continues exact094e5fd52f2ef4746935bbbf3564a5f86e86f0f3. The focused coded audit's four findings are now addressed:
+
+- Authorized inbox rows show the supplied sender (partner name where present) and a short task/message cue. The API reads only the current SQL page's exact validated source keys: at most 25 records, five concurrent reads and a shared four-second abort deadline. No Blob listing, email search, new persistent PII column, new public endpoint or cache is added. Source paths and full records are omitted from responses. Authorization still happens before the inbox handler and responses remain private/no-store. Missing, malformed or failed sources show a per-row unavailable fallback without discarding the indexed page. Additional Blob reads/latency on owner page loads are the tradeoff; live provider latency remains unverified.
+- Contact and partner validation errors are specific and adjacent to their fields/groups. Native validation/focus and ARIA associations remain; correcting a radio selection clears the group's stale error associations. Server-error focus, keyboard retry, retained input and stable retry identity are preserved.
+- “Illustrative example · not live” appears above the demo controls in both states and at mobile/desktop widths, before the output claims.
+- Inbox cards explicitly describe all indexed requests regardless of filters. SQL count semantics are unchanged.
+
+| Coded comparison | Before | After |
+| --- | --- | --- |
+| Authorized inbox cues and global scope,1440px | [Before](evidence/practical-fixes-20261001/before-inbox-1440.png) | [After](evidence/practical-fixes-20261001/after-inbox-1440.png) |
+| Adjacent validation,390px | [Before](evidence/practical-fixes-20261001/before-validation-390.png) | [After](evidence/practical-fixes-20261001/after-validation-390.png) |
+| Demo qualification,390px | [Before](evidence/practical-fixes-20261001/before-demo-390.png) | [After](evidence/practical-fixes-20261001/after-demo-390.png) |
+
+[Mobile inbox after](evidence/practical-fixes-20261001/after-inbox-390.png). Captures use local Chromium151 at900px viewport height; inbox/validation captures are full-page. Both inbox datasets and all API responses are synthetic. The after inbox uses the new API projection shape; it is not a live owner/storage walkthrough. Native validation's temporary bubble was dismissed for the persistent-error comparison.
+
+Passed locally: 47 unit/model tests; TypeScript/build/public-private boundary; 12 signature width/theme cases with 24 Axe scans; six owner width/theme cases with six scans plus distinct-sender/unavailable/global-count regressions; four contact/partner width/theme cases with four scans. [Signature receipt](evidence/practical-fixes-20261001/signature.json), [owner receipt](evidence/practical-fixes-20261001/admin-states.json), [form receipt](evidence/practical-fixes-20261001/forms.json). Unit coverage verifies per-page read/concurrency bounds, source-path/ID validation, minimal response projection, legacy/partner fallbacks, aborted reads and authorization-before-read. Eight contact/partner recovery cases and ten failure/retry cases (including timeout) also pass locally. Final exact-commit CI runs all eleven browser suites; its terminal result and Ready preview are reported in the handoff.
+
+Remaining limits: real owner/provider readback and latency, authenticated hosted review and actual assistive technology are unrun. The separate deletion/retention decision is unchanged; no live data actions, retention/auth/access changes, logos, PR, main or production changes occurred. A capture attempt against an expired local dev-server process was rerun successfully against the built preview; this was not an application failure.
+
 # Owner dashboard correctness — 2026-10-01
 
 Continues cbef8fcd29194a9dad5b7c20ba1327553745a41b without branding, routes, server authorization, storage configuration or production changes.

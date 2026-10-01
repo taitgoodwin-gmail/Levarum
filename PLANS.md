@@ -1,3 +1,7 @@
+## Practical audit fixes — 2026-10-01
+
+Implemented authorized inbox sender/task cues from existing private records, adjacent specific field errors, a pre-interaction demo label and explicit global count scope. [Before/after evidence, bounded reads and verification](docs/ADMIN-CORRECTNESS-REVIEW.md). No new persistent personal-data storage, branding or retention changes.
+
 ## Coordinated deletion proposal — 2026-10-01
 
 Verified exact78bb9a9 Git-linked Ready preview provenance. Prepared a smaller same-key marker plus serialized-index protocol with eight passing synthetic model tests. [Concrete proposal, limitations and required marker-retention/restore decision](docs/DELETION-COORDINATION-PROPOSAL.md). Application behavior remains unchanged; no live deletion or retention policy was introduced.

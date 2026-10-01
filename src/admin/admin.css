@@ -9,3 +9,5 @@
 @media(max-width:480px){.admin-header{padding:16px;align-items:flex-start}.admin-brand{gap:8px}.admin-brand>span{flex-basis:100%}.admin-header>button{flex-shrink:0}.admin-counts{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
 .admin-header-actions,.admin-entry-brand{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.admin-entry-brand{margin-bottom:36px}@media(max-width:480px){.admin-header{flex-wrap:wrap}.admin-header-actions{width:100%}}
+
+.admin-sender{font-weight:600}.admin-sender,.admin-task{overflow-wrap:anywhere}.admin-task{max-width:65ch}

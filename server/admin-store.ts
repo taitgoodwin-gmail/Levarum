@@ -2,11 +2,12 @@ import { blobToken } from './blob-config.ts'
 import { Pool } from 'pg'
 import { createHash } from 'node:crypto'
 import { get, list } from '@vercel/blob'
+import {summarizeInboxRows,validLeadKey} from './inbox-summary.ts'
+export {validLeadKey} from './inbox-summary.ts'
 import { AdminError } from './admin-auth.ts'
 let pool:Pool|undefined, schema:Promise<void>|undefined
 export const STATUSES=['New','Contacted','Booked','Done'] as const
 export type Status=typeof STATUSES[number]
-export function validLeadKey(key:string){return /^leads\/(plan|call|partner)\/[a-f\d-]{36}-[a-f\d]{64}\.json$/i.test(key)}
 async function db(){
  if(!process.env.DATABASE_URL)throw new AdminError(503,'Dashboard storage is not configured')
  pool??=new Pool({connectionString:process.env.DATABASE_URL,max:3,connectionTimeoutMillis:5000,idleTimeoutMillis:10000})
@@ -30,8 +31,9 @@ export async function syncPage(){
 }
 export async function readInbox(page:number,kind:string,status:string){
  const d=await db();const filter="($1='' OR kind=$1) AND ($2='' OR status=$2)"
- const [rows,total,counts,sync]=await Promise.all([d.query(`SELECT id,kind,received_at,status,version FROM levarum_lead_index WHERE ${filter} ORDER BY received_at DESC,id LIMIT 25 OFFSET $3`,[kind,status,page*25]),d.query(`SELECT count(*)::int AS count FROM levarum_lead_index WHERE ${filter}`,[kind,status]),d.query('SELECT status,count(*)::int AS count FROM levarum_lead_index GROUP BY status'),d.query('SELECT last_complete,cursor IS NOT NULL AS in_progress FROM levarum_sync WHERE id=1')])
- return {leads:rows.rows,total:total.rows[0].count,counts:counts.rows,sync:sync.rows[0]}
+ const [rows,total,counts,sync]=await Promise.all([d.query(`SELECT id,source_key,kind,received_at,status,version FROM levarum_lead_index WHERE ${filter} ORDER BY received_at DESC,id LIMIT 25 OFFSET $3`,[kind,status,page*25]),d.query(`SELECT count(*)::int AS count FROM levarum_lead_index WHERE ${filter}`,[kind,status]),d.query('SELECT status,count(*)::int AS count FROM levarum_lead_index GROUP BY status'),d.query('SELECT last_complete,cursor IS NOT NULL AS in_progress FROM levarum_sync WHERE id=1')])
+ const leads=await summarizeInboxRows(rows.rows,async(key,signal)=>{const blob=await get(key,{token:blobToken(),access:'private',useCache:false,abortSignal:signal});if(!blob||blob.statusCode!==200)return null;return new Response(blob.stream).json()})
+ return {leads,total:total.rows[0].count,counts:counts.rows,sync:sync.rows[0]}
 }
 export async function readDetail(id:string){
  const d=await db();const {rows}=await d.query('SELECT * FROM levarum_lead_index WHERE id=$1',[id]);if(!rows[0])throw new AdminError(404,'Request not found')

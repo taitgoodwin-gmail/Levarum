@@ -10,7 +10,7 @@ const server=await createServer({configFile:false,envDir:false,plugins:[react(),
 await server.listen();const base=`http://127.0.0.1:${server.httpServer.address().port}`
 const browser=await chromium.launch({executablePath:process.env.CHROME_PATH,headless:true}),results=[],errors=[]
 const id='a'.repeat(64)
-const row={id,kind:'call',received_at:'2026-10-01T12:00:00Z',status:'New',version:0}
+const row={id,kind:'call',received_at:'2026-10-01T12:00:00Z',status:'New',version:0,summary:{sender:'alex@example.com',task:'Review invoice admin'}}
 const inbox={leads:[row],total:1,counts:[{status:'New',count:1}],sync:{last_complete:null,in_progress:false}}
 const detail={record:row,lead:{email:'synthetic@example.com',message:'Synthetic private fixture',consent:true},events:[]}
 const flush=page=>page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))))
@@ -39,12 +39,24 @@ try{
  assert.equal(await race.page.getByRole('alert').count(),0)
  results.push('late stale denial ignored');await race.context.close()
 
+ const identify=await setup()
+ identify.setHandler(route=>route.fulfill({json:{...inbox,leads:[row,{...row,id:'b'.repeat(64),summary:{sender:'blair@example.com',task:'Booking reminders'}},{...row,id:'c'.repeat(64),summary:null}],total:3,counts:[{status:'New',count:12}]}}))
+ await identify.page.goto(base+'/admin?kind=call');await identify.page.getByText('alex@example.com',{exact:true}).waitFor()
+ assert.equal(await identify.page.locator('article').filter({hasText:'alex@example.com'}).count(),1)
+ assert.equal(await identify.page.locator('article').filter({hasText:'blair@example.com'}).count(),1)
+ assert.ok(await identify.page.getByText('Summary unavailable. Open request for details.',{exact:true}).isVisible())
+ assert.match(await identify.page.locator('.admin-counts').innerText(),/12/)
+ assert.ok(await identify.page.getByText('All indexed requests · counts include every type and status, regardless of filters.',{exact:true}).isVisible())
+ results.push('recognizable independent senders/tasks, unavailable fallback and explicit global counts');await identify.context.close()
  for(const width of [320,390,1440])for(const theme of ['light','dark']){
  const {page,context,setHandler}=await setup(width,theme)
  await page.goto(`${base}/admin`);await page.getByRole('link',{name:'View request'}).waitFor()
  assert.equal(await page.evaluate(()=>!!document.querySelector('vite-error-overlay')),false)
  await page.getByLabel('Request type').selectOption('call');await page.getByRole('link',{name:'View request'}).waitFor()
  assert.match(page.url(),/kind=call/)
+ assert.ok(await page.getByText('alex@example.com',{exact:true}).isVisible())
+ assert.ok(await page.getByText('Review invoice admin',{exact:true}).isVisible())
+ assert.ok(await page.getByText('All indexed requests · counts include every type and status, regardless of filters.',{exact:true}).isVisible())
  await page.getByRole('link',{name:'View request'}).click();await page.getByText('Synthetic private fixture',{exact:true}).waitFor()
  assert.ok(await page.getByRole('button',{name:'Booked',exact:true}).isVisible())
  assert.ok(await page.locator('h1').evaluate(el=>el===document.activeElement))

@@ -21,6 +21,7 @@ export function SignatureOpening() {
    <p className="lv-signature-assurance">Built around your tools. Shaped around your people.</p>
   </div>
   <div className="lv-signature-controls">
+   <p className="lv-signature-demo-label">Illustrative example · not live</p>
    <p role="status" aria-live="polite" aria-atomic="true">{connected ? 'The routine is connected. You stay in control.' : 'See one enquiry become a clear next step.'}<span className="lv-sr-only">{connected ? ' Details filed. Reply drafted. You review and send; nothing sends until you say so.' : ' Enquiry received. Details to capture. Reply to write. You review and send.'}</span></p>
    <div role="group" aria-label="Compare enquiry workflow">{['Scattered','Connected'].map((label,index)=><button key={label} ref={el=>{controls.current[index]=el}} type="button" aria-pressed={connected === (index===1)} aria-controls="signature-scene" onClick={()=>setConnected(index===1)} onKeyDown={navigate}>0{index+1} &nbsp; {label}</button>)}</div>
   </div>

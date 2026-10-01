@@ -1,0 +1,76 @@
+{
+  "results": [
+    "late stale denial ignored",
+    "recognizable independent senders/tasks, unavailable fallback and explicit global counts",
+    {
+      "width": 320,
+      "theme": "light",
+      "loading": true,
+      "retry": true,
+      "conflict": true,
+      "focus": true,
+      "denial": true,
+      "logoutFailure": true,
+      "axeScans": 1
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "loading": true,
+      "retry": true,
+      "conflict": true,
+      "focus": true,
+      "denial": true,
+      "logoutFailure": true,
+      "axeScans": 1
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "loading": true,
+      "retry": true,
+      "conflict": true,
+      "focus": true,
+      "denial": true,
+      "logoutFailure": true,
+      "axeScans": 1
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "loading": true,
+      "retry": true,
+      "conflict": true,
+      "focus": true,
+      "denial": true,
+      "logoutFailure": true,
+      "axeScans": 1
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "loading": true,
+      "retry": true,
+      "conflict": true,
+      "focus": true,
+      "denial": true,
+      "logoutFailure": true,
+      "axeScans": 1
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "loading": true,
+      "retry": true,
+      "conflict": true,
+      "focus": true,
+      "denial": true,
+      "logoutFailure": true,
+      "axeScans": 1
+    },
+    "empty/error recovery, account change, pagehide/pageshow, logout",
+    "keyboard successful mutation, partial reconciliation, missing-token denial"
+  ],
+  "errors": [],
+  "limits": "Synthetic provider and API responses; not live authentication or storage verification."
+}
