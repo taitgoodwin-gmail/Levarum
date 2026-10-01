@@ -1,0 +1,296 @@
+{
+  "mocked": true,
+  "results": [
+    {
+      "theme": "light",
+      "width": 320,
+      "intent": "plan",
+      "maxLengthForm": true,
+      "privacyRetainsDraft": true,
+      "pendingLocked": true,
+      "exactPayload": true,
+      "noOverflow": true,
+      "receiptFocused": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "intent": "call",
+      "maxLengthForm": true,
+      "privacyRetainsDraft": true,
+      "pendingLocked": true,
+      "exactPayload": true,
+      "noOverflow": true,
+      "receiptFocused": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "intent": "plan",
+      "maxLengthForm": true,
+      "privacyRetainsDraft": true,
+      "pendingLocked": true,
+      "exactPayload": true,
+      "noOverflow": true,
+      "receiptFocused": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "intent": "call",
+      "maxLengthForm": true,
+      "privacyRetainsDraft": true,
+      "pendingLocked": true,
+      "exactPayload": true,
+      "noOverflow": true,
+      "receiptFocused": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "intent": "plan",
+      "maxLengthForm": true,
+      "privacyRetainsDraft": true,
+      "pendingLocked": true,
+      "exactPayload": true,
+      "noOverflow": true,
+      "receiptFocused": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "intent": "call",
+      "maxLengthForm": true,
+      "privacyRetainsDraft": true,
+      "pendingLocked": true,
+      "exactPayload": true,
+      "noOverflow": true,
+      "receiptFocused": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "intent": "plan",
+      "maxLengthForm": true,
+      "privacyRetainsDraft": true,
+      "pendingLocked": true,
+      "exactPayload": true,
+      "noOverflow": true,
+      "receiptFocused": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "intent": "call",
+      "maxLengthForm": true,
+      "privacyRetainsDraft": true,
+      "pendingLocked": true,
+      "exactPayload": true,
+      "noOverflow": true,
+      "receiptFocused": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "intent": "plan",
+      "maxLengthForm": true,
+      "privacyRetainsDraft": true,
+      "pendingLocked": true,
+      "exactPayload": true,
+      "noOverflow": true,
+      "receiptFocused": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "intent": "call",
+      "maxLengthForm": true,
+      "privacyRetainsDraft": true,
+      "pendingLocked": true,
+      "exactPayload": true,
+      "noOverflow": true,
+      "receiptFocused": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "intent": "plan",
+      "maxLengthForm": true,
+      "privacyRetainsDraft": true,
+      "pendingLocked": true,
+      "exactPayload": true,
+      "noOverflow": true,
+      "receiptFocused": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "intent": "call",
+      "maxLengthForm": true,
+      "privacyRetainsDraft": true,
+      "pendingLocked": true,
+      "exactPayload": true,
+      "noOverflow": true,
+      "receiptFocused": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "intent": "plan",
+      "maxLengthForm": true,
+      "privacyRetainsDraft": true,
+      "pendingLocked": true,
+      "exactPayload": true,
+      "noOverflow": true,
+      "receiptFocused": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "intent": "call",
+      "maxLengthForm": true,
+      "privacyRetainsDraft": true,
+      "pendingLocked": true,
+      "exactPayload": true,
+      "noOverflow": true,
+      "receiptFocused": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "intent": "plan",
+      "maxLengthForm": true,
+      "privacyRetainsDraft": true,
+      "pendingLocked": true,
+      "exactPayload": true,
+      "noOverflow": true,
+      "receiptFocused": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "intent": "call",
+      "maxLengthForm": true,
+      "privacyRetainsDraft": true,
+      "pendingLocked": true,
+      "exactPayload": true,
+      "noOverflow": true,
+      "receiptFocused": true
+    }
+  ],
+  "axeResults": [
+    {
+      "theme": "light",
+      "width": 320,
+      "intent": "plan",
+      "state": "filled",
+      "violations": 0
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "intent": "plan",
+      "state": "receipt",
+      "violations": 0
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "intent": "call",
+      "state": "filled",
+      "violations": 0
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "intent": "call",
+      "state": "receipt",
+      "violations": 0
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "intent": "plan",
+      "state": "filled",
+      "violations": 0
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "intent": "plan",
+      "state": "receipt",
+      "violations": 0
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "intent": "call",
+      "state": "filled",
+      "violations": 0
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "intent": "call",
+      "state": "receipt",
+      "violations": 0
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "intent": "plan",
+      "state": "filled",
+      "violations": 0
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "intent": "plan",
+      "state": "receipt",
+      "violations": 0
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "intent": "call",
+      "state": "filled",
+      "violations": 0
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "intent": "call",
+      "state": "receipt",
+      "violations": 0
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "intent": "plan",
+      "state": "filled",
+      "violations": 0
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "intent": "plan",
+      "state": "receipt",
+      "violations": 0
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "intent": "call",
+      "state": "filled",
+      "violations": 0
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "intent": "call",
+      "state": "receipt",
+      "violations": 0
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,647 @@
+{
+  "mode": "mocked saves",
+  "routes": [
+    {
+      "path": "/",
+      "renderedPath": "/",
+      "width": 320,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/how-it-works",
+      "renderedPath": "/how-it-works",
+      "width": 320,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/what-we-automate",
+      "renderedPath": "/what-we-automate",
+      "width": 320,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/questions",
+      "renderedPath": "/questions",
+      "width": 320,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/partners",
+      "renderedPath": "/partners",
+      "width": 320,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/start",
+      "renderedPath": "/start",
+      "width": 320,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/contact",
+      "renderedPath": "/contact",
+      "width": 320,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/privacy",
+      "renderedPath": "/privacy",
+      "width": 320,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/admin",
+      "renderedPath": "/admin.html",
+      "width": 320,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/not-found",
+      "renderedPath": "/not-found",
+      "width": 320,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/",
+      "renderedPath": "/",
+      "width": 390,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/how-it-works",
+      "renderedPath": "/how-it-works",
+      "width": 390,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/what-we-automate",
+      "renderedPath": "/what-we-automate",
+      "width": 390,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/questions",
+      "renderedPath": "/questions",
+      "width": 390,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/partners",
+      "renderedPath": "/partners",
+      "width": 390,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/start",
+      "renderedPath": "/start",
+      "width": 390,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/contact",
+      "renderedPath": "/contact",
+      "width": 390,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/privacy",
+      "renderedPath": "/privacy",
+      "width": 390,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/admin",
+      "renderedPath": "/admin.html",
+      "width": 390,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/not-found",
+      "renderedPath": "/not-found",
+      "width": 390,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/",
+      "renderedPath": "/",
+      "width": 768,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/how-it-works",
+      "renderedPath": "/how-it-works",
+      "width": 768,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/what-we-automate",
+      "renderedPath": "/what-we-automate",
+      "width": 768,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/questions",
+      "renderedPath": "/questions",
+      "width": 768,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/partners",
+      "renderedPath": "/partners",
+      "width": 768,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/start",
+      "renderedPath": "/start",
+      "width": 768,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/contact",
+      "renderedPath": "/contact",
+      "width": 768,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/privacy",
+      "renderedPath": "/privacy",
+      "width": 768,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/admin",
+      "renderedPath": "/admin.html",
+      "width": 768,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/not-found",
+      "renderedPath": "/not-found",
+      "width": 768,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/",
+      "renderedPath": "/",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/how-it-works",
+      "renderedPath": "/how-it-works",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/what-we-automate",
+      "renderedPath": "/what-we-automate",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/questions",
+      "renderedPath": "/questions",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/partners",
+      "renderedPath": "/partners",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/start",
+      "renderedPath": "/start",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/contact",
+      "renderedPath": "/contact",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/privacy",
+      "renderedPath": "/privacy",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/admin",
+      "renderedPath": "/admin.html",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/not-found",
+      "renderedPath": "/not-found",
+      "width": 1440,
+      "theme": "light",
+      "overflow": false
+    },
+    {
+      "path": "/",
+      "renderedPath": "/",
+      "width": 320,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/how-it-works",
+      "renderedPath": "/how-it-works",
+      "width": 320,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/what-we-automate",
+      "renderedPath": "/what-we-automate",
+      "width": 320,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/questions",
+      "renderedPath": "/questions",
+      "width": 320,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/partners",
+      "renderedPath": "/partners",
+      "width": 320,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/start",
+      "renderedPath": "/start",
+      "width": 320,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/contact",
+      "renderedPath": "/contact",
+      "width": 320,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/privacy",
+      "renderedPath": "/privacy",
+      "width": 320,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/admin",
+      "renderedPath": "/admin.html",
+      "width": 320,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/not-found",
+      "renderedPath": "/not-found",
+      "width": 320,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/",
+      "renderedPath": "/",
+      "width": 390,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/how-it-works",
+      "renderedPath": "/how-it-works",
+      "width": 390,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/what-we-automate",
+      "renderedPath": "/what-we-automate",
+      "width": 390,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/questions",
+      "renderedPath": "/questions",
+      "width": 390,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/partners",
+      "renderedPath": "/partners",
+      "width": 390,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/start",
+      "renderedPath": "/start",
+      "width": 390,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/contact",
+      "renderedPath": "/contact",
+      "width": 390,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/privacy",
+      "renderedPath": "/privacy",
+      "width": 390,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/admin",
+      "renderedPath": "/admin.html",
+      "width": 390,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/not-found",
+      "renderedPath": "/not-found",
+      "width": 390,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/",
+      "renderedPath": "/",
+      "width": 768,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/how-it-works",
+      "renderedPath": "/how-it-works",
+      "width": 768,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/what-we-automate",
+      "renderedPath": "/what-we-automate",
+      "width": 768,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/questions",
+      "renderedPath": "/questions",
+      "width": 768,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/partners",
+      "renderedPath": "/partners",
+      "width": 768,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/start",
+      "renderedPath": "/start",
+      "width": 768,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/contact",
+      "renderedPath": "/contact",
+      "width": 768,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/privacy",
+      "renderedPath": "/privacy",
+      "width": 768,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/admin",
+      "renderedPath": "/admin.html",
+      "width": 768,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/not-found",
+      "renderedPath": "/not-found",
+      "width": 768,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/",
+      "renderedPath": "/",
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/how-it-works",
+      "renderedPath": "/how-it-works",
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/what-we-automate",
+      "renderedPath": "/what-we-automate",
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/questions",
+      "renderedPath": "/questions",
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/partners",
+      "renderedPath": "/partners",
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/start",
+      "renderedPath": "/start",
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/contact",
+      "renderedPath": "/contact",
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/privacy",
+      "renderedPath": "/privacy",
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/admin",
+      "renderedPath": "/admin.html",
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false
+    },
+    {
+      "path": "/not-found",
+      "renderedPath": "/not-found",
+      "width": 1440,
+      "theme": "dark",
+      "overflow": false
+    }
+  ],
+  "checks": {
+    "axeResponsive": [
+      {
+        "path": "/",
+        "width": 320,
+        "theme": "light",
+        "violations": 0
+      },
+      {
+        "path": "/contact",
+        "width": 320,
+        "theme": "light",
+        "violations": 0
+      },
+      {
+        "path": "/",
+        "width": 1440,
+        "theme": "light",
+        "violations": 0
+      },
+      {
+        "path": "/contact",
+        "width": 1440,
+        "theme": "light",
+        "violations": 0
+      },
+      {
+        "path": "/",
+        "width": 320,
+        "theme": "dark",
+        "violations": 0
+      },
+      {
+        "path": "/contact",
+        "width": 320,
+        "theme": "dark",
+        "violations": 0
+      },
+      {
+        "path": "/",
+        "width": 1440,
+        "theme": "dark",
+        "violations": 0
+      },
+      {
+        "path": "/contact",
+        "width": 1440,
+        "theme": "dark",
+        "violations": 0
+      }
+    ],
+    "joinedLogoGeometry": 16,
+    "responsiveRoutes": 80,
+    "mobileHeaderKeyboard": true,
+    "themePersistence": true,
+    "staticHomeAndDirectNavigation": true,
+    "guidanceBeforeContact": true,
+    "taskSpecificGuidance": true,
+    "taskDeepLink": true,
+    "contextualDescriptionRequired": true,
+    "taskChangeConsentReset": true,
+    "backRetainsDraft": true,
+    "callAvailabilityConditional": true,
+    "consentPurposeReset": true,
+    "privacyRetainsDraft": true,
+    "failedSaveFocusRecovery": true,
+    "failedSaveRetainsInput": true,
+    "noFabricatedContext": true,
+    "duplicatePendingLocked": true,
+    "pendingDisablesChanges": true,
+    "stableRetryId": true,
+    "followupReceipt": true,
+    "callReceipt": true,
+    "directContactMessageRequired": true,
+    "partnerReceipt": true,
+    "refreshClearsDraft": true,
+    "invalidTaskRecovery": true,
+    "nativeFaqKeyboard": true,
+    "skipLink": true,
+    "axeHome": "passed"
+  },
+  "errors": []
+}

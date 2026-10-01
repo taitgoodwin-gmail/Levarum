@@ -1,0 +1,93 @@
+{
+  "results": [
+    {
+      "theme": "light",
+      "width": 320,
+      "signatureLabelsAtLeast12px": true,
+      "signatureLabels": true,
+      "keyboardTabsAndDetails": true,
+      "noPost": true,
+      "reducedMotion": true,
+      "textEnlargement": true,
+      "axeScans": 3
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "signatureLabelsAtLeast12px": true,
+      "signatureLabels": true,
+      "keyboardTabsAndDetails": true,
+      "noPost": true,
+      "reducedMotion": true,
+      "textEnlargement": true,
+      "axeScans": 3
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "signatureLabelsAtLeast12px": true,
+      "signatureLabels": true,
+      "keyboardTabsAndDetails": true,
+      "noPost": true,
+      "reducedMotion": true,
+      "textEnlargement": true,
+      "axeScans": 3
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "signatureLabelsAtLeast12px": true,
+      "signatureLabels": true,
+      "keyboardTabsAndDetails": true,
+      "noPost": true,
+      "reducedMotion": true,
+      "textEnlargement": true,
+      "axeScans": 3
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "signatureLabelsAtLeast12px": true,
+      "signatureLabels": true,
+      "keyboardTabsAndDetails": true,
+      "noPost": true,
+      "reducedMotion": true,
+      "textEnlargement": true,
+      "axeScans": 3
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "signatureLabelsAtLeast12px": true,
+      "signatureLabels": true,
+      "keyboardTabsAndDetails": true,
+      "noPost": true,
+      "reducedMotion": true,
+      "textEnlargement": true,
+      "axeScans": 3
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "signatureLabelsAtLeast12px": true,
+      "signatureLabels": true,
+      "keyboardTabsAndDetails": true,
+      "noPost": true,
+      "reducedMotion": true,
+      "textEnlargement": true,
+      "axeScans": 3
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "signatureLabelsAtLeast12px": true,
+      "signatureLabels": true,
+      "keyboardTabsAndDetails": true,
+      "noPost": true,
+      "reducedMotion": true,
+      "textEnlargement": true,
+      "axeScans": 3
+    }
+  ],
+  "errors": []
+}

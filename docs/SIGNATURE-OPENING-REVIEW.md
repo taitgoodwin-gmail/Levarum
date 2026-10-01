@@ -36,6 +36,8 @@ These implement the subsequent creative/UX panel instructions and should be reco
 
 ## Verification and limits
 
+**PASS:** 33 unit tests; typecheck, build and bundle-boundary checks; 80 public route/theme/width cases; 8 recovery cases; 10 failure/retry cases (including real 20-second timeout); 16 maximum-content cases; 8 existing example/form accessibility cases; 16 actual-font renders; 12 signature width/theme cases; 8 unconfigured admin guards. Across suites, 81 Axe scans reported zero violations. Finite motion, rapid reversal, keyboard/focus, resized-state retention and 200% text reflow pass. No final test failures. Initial stopped-server and font-name/geometry assertions were corrected and rerun.
+
 Final results and selected browser screenshots are in `docs/evidence/signature-20261001/`; full local artifacts remain in ignored `work/signature-qa/`. The CI workflow includes the signature suite alongside existing font, journey, recovery, failure, maximum-content and admin-guard suites. These are Chromium and automated-accessibility checks, not WCAG certification or a real-user study. All public submissions in these suites are intercepted synthetic fixtures.
 
 No production/live-storage/authenticated-owner journey is claimed. Safari, Firefox, actual assistive technology, current hosted performance and final hosted visual acceptance remain separate checks. The parent session coordinates the Vercel preview; this environment did not create a duplicate deployment for the preceding checkpoint.

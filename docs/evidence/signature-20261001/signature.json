@@ -1,0 +1,125 @@
+{
+  "results": [
+    {
+      "theme": "light",
+      "width": 320,
+      "states": true,
+      "keyboard": true,
+      "reducedMotion": true,
+      "originalGeometry": true,
+      "noWrite": true,
+      "axeScans": 2
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "states": true,
+      "keyboard": true,
+      "reducedMotion": true,
+      "originalGeometry": true,
+      "noWrite": true,
+      "axeScans": 2
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "states": true,
+      "keyboard": true,
+      "reducedMotion": true,
+      "originalGeometry": true,
+      "noWrite": true,
+      "axeScans": 2
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "states": true,
+      "keyboard": true,
+      "reducedMotion": true,
+      "originalGeometry": true,
+      "noWrite": true,
+      "axeScans": 2
+    },
+    {
+      "theme": "light",
+      "width": 1200,
+      "states": true,
+      "keyboard": true,
+      "reducedMotion": true,
+      "originalGeometry": true,
+      "noWrite": true,
+      "axeScans": 2
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "states": true,
+      "keyboard": true,
+      "reducedMotion": true,
+      "originalGeometry": true,
+      "noWrite": true,
+      "axeScans": 2
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "states": true,
+      "keyboard": true,
+      "reducedMotion": true,
+      "originalGeometry": true,
+      "noWrite": true,
+      "axeScans": 2
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "states": true,
+      "keyboard": true,
+      "reducedMotion": true,
+      "originalGeometry": true,
+      "noWrite": true,
+      "axeScans": 2
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "states": true,
+      "keyboard": true,
+      "reducedMotion": true,
+      "originalGeometry": true,
+      "noWrite": true,
+      "axeScans": 2
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "states": true,
+      "keyboard": true,
+      "reducedMotion": true,
+      "originalGeometry": true,
+      "noWrite": true,
+      "axeScans": 2
+    },
+    {
+      "theme": "dark",
+      "width": 1200,
+      "states": true,
+      "keyboard": true,
+      "reducedMotion": true,
+      "originalGeometry": true,
+      "noWrite": true,
+      "axeScans": 2
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "states": true,
+      "keyboard": true,
+      "reducedMotion": true,
+      "originalGeometry": true,
+      "noWrite": true,
+      "axeScans": 2
+    }
+  ],
+  "errors": []
+}

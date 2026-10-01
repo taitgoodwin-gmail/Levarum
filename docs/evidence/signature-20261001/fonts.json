@@ -1,0 +1,989 @@
+{
+  "results": [
+    {
+      "theme": "light",
+      "width": 320,
+      "path": "/",
+      "rendered": [
+        {
+          "selector": "h1>span",
+          "fonts": [
+            {
+              "familyName": "Bricolage Grotesque 96pt ExtraBold",
+              "postScriptName": "BricolageGrotesque-96ptExtraBold",
+              "isCustomFont": true,
+              "glyphCount": 9
+            }
+          ]
+        },
+        {
+          "selector": "h1>em",
+          "fonts": [
+            {
+              "familyName": "Instrument Serif",
+              "postScriptName": "InstrumentSerif-Italic",
+              "isCustomFont": true,
+              "glyphCount": 5
+            }
+          ]
+        },
+        {
+          "selector": ".lv-signature-eyebrow",
+          "fonts": [
+            {
+              "familyName": "Space Mono",
+              "postScriptName": "SpaceMono-Regular",
+              "isCustomFont": true,
+              "glyphCount": 23
+            }
+          ]
+        },
+        {
+          "selector": ".lv-signature-message>p",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 105
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 142.79999999981374
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 151.1999999997206
+        },
+        {
+          "url": "/assets/bricolage-grotesque-latin-standard-normal-C5Lc8Qmc.woff2",
+          "bytes": 131548,
+          "duration": 152.89999999990687
+        },
+        {
+          "url": "/assets/space-mono-latin-400-normal-Rg4St2Dn.woff2",
+          "bytes": 16520,
+          "duration": 150.39999999990687
+        },
+        {
+          "url": "/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2",
+          "bytes": 22128,
+          "duration": 152.70000000018626
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "path": "/contact",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 24
+            }
+          ]
+        },
+        {
+          "selector": ".lv-lead",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 86
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 62.1999999997206
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 62
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "path": "/",
+      "rendered": [
+        {
+          "selector": "h1>span",
+          "fonts": [
+            {
+              "familyName": "Bricolage Grotesque 96pt ExtraBold",
+              "postScriptName": "BricolageGrotesque-96ptExtraBold",
+              "isCustomFont": true,
+              "glyphCount": 9
+            }
+          ]
+        },
+        {
+          "selector": "h1>em",
+          "fonts": [
+            {
+              "familyName": "Instrument Serif",
+              "postScriptName": "InstrumentSerif-Italic",
+              "isCustomFont": true,
+              "glyphCount": 5
+            }
+          ]
+        },
+        {
+          "selector": ".lv-signature-eyebrow",
+          "fonts": [
+            {
+              "familyName": "Space Mono",
+              "postScriptName": "SpaceMono-Regular",
+              "isCustomFont": true,
+              "glyphCount": 23
+            }
+          ]
+        },
+        {
+          "selector": ".lv-signature-message>p",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 106
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 80.8000000002794
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 87.60000000009313
+        },
+        {
+          "url": "/assets/bricolage-grotesque-latin-standard-normal-C5Lc8Qmc.woff2",
+          "bytes": 131548,
+          "duration": 87.60000000009313
+        },
+        {
+          "url": "/assets/space-mono-latin-400-normal-Rg4St2Dn.woff2",
+          "bytes": 16520,
+          "duration": 87.10000000009313
+        },
+        {
+          "url": "/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2",
+          "bytes": 22128,
+          "duration": 87.10000000009313
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "path": "/contact",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 25
+            }
+          ]
+        },
+        {
+          "selector": ".lv-lead",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 86
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 37.299999999813735
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 37.3000000002794
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "path": "/",
+      "rendered": [
+        {
+          "selector": "h1>span",
+          "fonts": [
+            {
+              "familyName": "Bricolage Grotesque 96pt ExtraBold",
+              "postScriptName": "BricolageGrotesque-96ptExtraBold",
+              "isCustomFont": true,
+              "glyphCount": 9
+            }
+          ]
+        },
+        {
+          "selector": "h1>em",
+          "fonts": [
+            {
+              "familyName": "Instrument Serif",
+              "postScriptName": "InstrumentSerif-Italic",
+              "isCustomFont": true,
+              "glyphCount": 5
+            }
+          ]
+        },
+        {
+          "selector": ".lv-signature-eyebrow",
+          "fonts": [
+            {
+              "familyName": "Space Mono",
+              "postScriptName": "SpaceMono-Regular",
+              "isCustomFont": true,
+              "glyphCount": 23
+            }
+          ]
+        },
+        {
+          "selector": ".lv-signature-message>p",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 106
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 72
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 89.3000000002794
+        },
+        {
+          "url": "/assets/bricolage-grotesque-latin-standard-normal-C5Lc8Qmc.woff2",
+          "bytes": 131548,
+          "duration": 95.39999999990687
+        },
+        {
+          "url": "/assets/space-mono-latin-400-normal-Rg4St2Dn.woff2",
+          "bytes": 16520,
+          "duration": 94
+        },
+        {
+          "url": "/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2",
+          "bytes": 22128,
+          "duration": 95.39999999990687
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "path": "/contact",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 25
+            }
+          ]
+        },
+        {
+          "selector": ".lv-lead",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 87
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 39.60000000009313
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 40.40000000037253
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "path": "/",
+      "rendered": [
+        {
+          "selector": "h1>span",
+          "fonts": [
+            {
+              "familyName": "Bricolage Grotesque 96pt ExtraBold",
+              "postScriptName": "BricolageGrotesque-96ptExtraBold",
+              "isCustomFont": true,
+              "glyphCount": 9
+            }
+          ]
+        },
+        {
+          "selector": "h1>em",
+          "fonts": [
+            {
+              "familyName": "Instrument Serif",
+              "postScriptName": "InstrumentSerif-Italic",
+              "isCustomFont": true,
+              "glyphCount": 5
+            }
+          ]
+        },
+        {
+          "selector": ".lv-signature-eyebrow",
+          "fonts": [
+            {
+              "familyName": "Space Mono",
+              "postScriptName": "SpaceMono-Regular",
+              "isCustomFont": true,
+              "glyphCount": 23
+            }
+          ]
+        },
+        {
+          "selector": ".lv-signature-message>p",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 105
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 61
+        },
+        {
+          "url": "/assets/bricolage-grotesque-latin-standard-normal-C5Lc8Qmc.woff2",
+          "bytes": 131548,
+          "duration": 63.200000000186265
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 62.200000000186265
+        },
+        {
+          "url": "/assets/space-mono-latin-400-normal-Rg4St2Dn.woff2",
+          "bytes": 16520,
+          "duration": 69.1999999997206
+        },
+        {
+          "url": "/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2",
+          "bytes": 22128,
+          "duration": 70.20000000018626
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "path": "/contact",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 25
+            }
+          ]
+        },
+        {
+          "selector": ".lv-lead",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 87
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 46.60000000009313
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 54.799999999813735
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "path": "/",
+      "rendered": [
+        {
+          "selector": "h1>span",
+          "fonts": [
+            {
+              "familyName": "Bricolage Grotesque 96pt ExtraBold",
+              "postScriptName": "BricolageGrotesque-96ptExtraBold",
+              "isCustomFont": true,
+              "glyphCount": 9
+            }
+          ]
+        },
+        {
+          "selector": "h1>em",
+          "fonts": [
+            {
+              "familyName": "Instrument Serif",
+              "postScriptName": "InstrumentSerif-Italic",
+              "isCustomFont": true,
+              "glyphCount": 5
+            }
+          ]
+        },
+        {
+          "selector": ".lv-signature-eyebrow",
+          "fonts": [
+            {
+              "familyName": "Space Mono",
+              "postScriptName": "SpaceMono-Regular",
+              "isCustomFont": true,
+              "glyphCount": 23
+            }
+          ]
+        },
+        {
+          "selector": ".lv-signature-message>p",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 105
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 70.1999999997206
+        },
+        {
+          "url": "/assets/bricolage-grotesque-latin-standard-normal-C5Lc8Qmc.woff2",
+          "bytes": 131548,
+          "duration": 72.10000000009313
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 73.20000000018626
+        },
+        {
+          "url": "/assets/space-mono-latin-400-normal-Rg4St2Dn.woff2",
+          "bytes": 16520,
+          "duration": 73.20000000018626
+        },
+        {
+          "url": "/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2",
+          "bytes": 22128,
+          "duration": 76.70000000018626
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "path": "/contact",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 24
+            }
+          ]
+        },
+        {
+          "selector": ".lv-lead",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 86
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 42.799999999813735
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 42.799999999813735
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "path": "/",
+      "rendered": [
+        {
+          "selector": "h1>span",
+          "fonts": [
+            {
+              "familyName": "Bricolage Grotesque 96pt ExtraBold",
+              "postScriptName": "BricolageGrotesque-96ptExtraBold",
+              "isCustomFont": true,
+              "glyphCount": 9
+            }
+          ]
+        },
+        {
+          "selector": "h1>em",
+          "fonts": [
+            {
+              "familyName": "Instrument Serif",
+              "postScriptName": "InstrumentSerif-Italic",
+              "isCustomFont": true,
+              "glyphCount": 5
+            }
+          ]
+        },
+        {
+          "selector": ".lv-signature-eyebrow",
+          "fonts": [
+            {
+              "familyName": "Space Mono",
+              "postScriptName": "SpaceMono-Regular",
+              "isCustomFont": true,
+              "glyphCount": 23
+            }
+          ]
+        },
+        {
+          "selector": ".lv-signature-message>p",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 106
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 70.60000000009313
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 79.10000000009313
+        },
+        {
+          "url": "/assets/bricolage-grotesque-latin-standard-normal-C5Lc8Qmc.woff2",
+          "bytes": 131548,
+          "duration": 75.10000000009313
+        },
+        {
+          "url": "/assets/space-mono-latin-400-normal-Rg4St2Dn.woff2",
+          "bytes": 16520,
+          "duration": 79.10000000009313
+        },
+        {
+          "url": "/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2",
+          "bytes": 22128,
+          "duration": 79.1999999997206
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "path": "/contact",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 25
+            }
+          ]
+        },
+        {
+          "selector": ".lv-lead",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 86
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 39.299999999813735
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 45.5
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "path": "/",
+      "rendered": [
+        {
+          "selector": "h1>span",
+          "fonts": [
+            {
+              "familyName": "Bricolage Grotesque 96pt ExtraBold",
+              "postScriptName": "BricolageGrotesque-96ptExtraBold",
+              "isCustomFont": true,
+              "glyphCount": 9
+            }
+          ]
+        },
+        {
+          "selector": "h1>em",
+          "fonts": [
+            {
+              "familyName": "Instrument Serif",
+              "postScriptName": "InstrumentSerif-Italic",
+              "isCustomFont": true,
+              "glyphCount": 5
+            }
+          ]
+        },
+        {
+          "selector": ".lv-signature-eyebrow",
+          "fonts": [
+            {
+              "familyName": "Space Mono",
+              "postScriptName": "SpaceMono-Regular",
+              "isCustomFont": true,
+              "glyphCount": 23
+            }
+          ]
+        },
+        {
+          "selector": ".lv-signature-message>p",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 106
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 77.89999999990687
+        },
+        {
+          "url": "/assets/bricolage-grotesque-latin-standard-normal-C5Lc8Qmc.woff2",
+          "bytes": 131548,
+          "duration": 90.3000000002794
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 91.60000000009313
+        },
+        {
+          "url": "/assets/space-mono-latin-400-normal-Rg4St2Dn.woff2",
+          "bytes": 16520,
+          "duration": 91.60000000009313
+        },
+        {
+          "url": "/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2",
+          "bytes": 22128,
+          "duration": 91.60000000009313
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "path": "/contact",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 25
+            }
+          ]
+        },
+        {
+          "selector": ".lv-lead",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 87
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 31.600000000093132
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 31.799999999813735
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "path": "/",
+      "rendered": [
+        {
+          "selector": "h1>span",
+          "fonts": [
+            {
+              "familyName": "Bricolage Grotesque 96pt ExtraBold",
+              "postScriptName": "BricolageGrotesque-96ptExtraBold",
+              "isCustomFont": true,
+              "glyphCount": 9
+            }
+          ]
+        },
+        {
+          "selector": "h1>em",
+          "fonts": [
+            {
+              "familyName": "Instrument Serif",
+              "postScriptName": "InstrumentSerif-Italic",
+              "isCustomFont": true,
+              "glyphCount": 5
+            }
+          ]
+        },
+        {
+          "selector": ".lv-signature-eyebrow",
+          "fonts": [
+            {
+              "familyName": "Space Mono",
+              "postScriptName": "SpaceMono-Regular",
+              "isCustomFont": true,
+              "glyphCount": 23
+            }
+          ]
+        },
+        {
+          "selector": ".lv-signature-message>p",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 105
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 93.6999999997206
+        },
+        {
+          "url": "/assets/bricolage-grotesque-latin-standard-normal-C5Lc8Qmc.woff2",
+          "bytes": 131548,
+          "duration": 96.29999999981374
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 95.39999999990687
+        },
+        {
+          "url": "/assets/space-mono-latin-400-normal-Rg4St2Dn.woff2",
+          "bytes": 16520,
+          "duration": 95.8000000002794
+        },
+        {
+          "url": "/assets/instrument-serif-latin-400-italic-DKMiL14s.woff2",
+          "bytes": 22128,
+          "duration": 95.89999999990687
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "path": "/contact",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 25
+            }
+          ]
+        },
+        {
+          "selector": ".lv-lead",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 87
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 46.200000000186265
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 47
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    }
+  ],
+  "errors": []
+}
