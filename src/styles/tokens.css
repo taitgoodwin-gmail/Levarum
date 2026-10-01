@@ -41,8 +41,8 @@
   --wait-border: #e7d08a;
   --wait-dot: #c9a24a;
 
-  --display: 'Schibsted Grotesk', system-ui, -apple-system, sans-serif;
-  --body: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+  --display: 'Schibsted Grotesk Variable', system-ui, -apple-system, sans-serif;
+  --body: 'Instrument Sans Variable', system-ui, -apple-system, sans-serif;
 
   /* Every interactive element clears 44px, at every breakpoint. */
   --tap: 44px;

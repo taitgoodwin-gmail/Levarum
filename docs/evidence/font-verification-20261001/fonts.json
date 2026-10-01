@@ -1,0 +1,693 @@
+{
+  "results": [
+    {
+      "theme": "light",
+      "width": 320,
+      "path": "/",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 22
+            }
+          ]
+        },
+        {
+          "selector": ".lv-r2-intro",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 69
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 116.10000000009313
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 117.4000000001397
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "light",
+      "width": 320,
+      "path": "/contact",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 24
+            }
+          ]
+        },
+        {
+          "selector": ".lv-lead",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 86
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 40.800000000046566
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 42.60000000009313
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "path": "/",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 22
+            }
+          ]
+        },
+        {
+          "selector": ".lv-r2-intro",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 70
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 67.69999999995343
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 67.60000000009313
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "path": "/contact",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 25
+            }
+          ]
+        },
+        {
+          "selector": ".lv-lead",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 86
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 42.0999999998603
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 47.60000000009313
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "path": "/",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 22
+            }
+          ]
+        },
+        {
+          "selector": ".lv-r2-intro",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 71
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 66.80000000004657
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 66.20000000018626
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "path": "/contact",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 25
+            }
+          ]
+        },
+        {
+          "selector": ".lv-lead",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 87
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 60.89999999990687
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 61.5
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "path": "/",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 22
+            }
+          ]
+        },
+        {
+          "selector": ".lv-r2-intro",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 71
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 68.89999999990687
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 70
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "path": "/contact",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 25
+            }
+          ]
+        },
+        {
+          "selector": ".lv-lead",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 87
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 32.800000000046566
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 40.699999999953434
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "path": "/",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 22
+            }
+          ]
+        },
+        {
+          "selector": ".lv-r2-intro",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 69
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 47.39999999990687
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 49.800000000046566
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 320,
+      "path": "/contact",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 24
+            }
+          ]
+        },
+        {
+          "selector": ".lv-lead",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 86
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 42.39999999990687
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 42.5
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "path": "/",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 22
+            }
+          ]
+        },
+        {
+          "selector": ".lv-r2-intro",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 70
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 49.199999999953434
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 48.199999999953434
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "path": "/contact",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 25
+            }
+          ]
+        },
+        {
+          "selector": ".lv-lead",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 86
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 43
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 45.5999999998603
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "path": "/",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 22
+            }
+          ]
+        },
+        {
+          "selector": ".lv-r2-intro",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 71
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 62.0999999998603
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 62.199999999953434
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "path": "/contact",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 25
+            }
+          ]
+        },
+        {
+          "selector": ".lv-lead",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 87
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 28.100000000093132
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 29.300000000046566
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "path": "/",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 22
+            }
+          ]
+        },
+        {
+          "selector": ".lv-r2-intro",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 71
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 69.69999999995343
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 68.60000000009313
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "path": "/contact",
+      "rendered": [
+        {
+          "selector": "h1",
+          "fonts": [
+            {
+              "familyName": "Schibsted Grotesk",
+              "postScriptName": "SchibstedGrotesk-Regular",
+              "isCustomFont": true,
+              "glyphCount": 25
+            }
+          ]
+        },
+        {
+          "selector": ".lv-lead",
+          "fonts": [
+            {
+              "familyName": "Instrument Sans",
+              "postScriptName": "InstrumentSans-Regular",
+              "isCustomFont": true,
+              "glyphCount": 87
+            }
+          ]
+        }
+      ],
+      "fontResources": [
+        {
+          "url": "/assets/schibsted-grotesk-latin-wght-normal-Bb8VGrTG.woff2",
+          "bytes": 46752,
+          "duration": 42.800000000046566
+        },
+        {
+          "url": "/assets/instrument-sans-latin-wght-normal-BbzFLZTg.woff2",
+          "bytes": 30092,
+          "duration": 41.89999999990687
+        }
+      ],
+      "noExternalRequests": true,
+      "noOverflow": true
+    }
+  ],
+  "errors": []
+}

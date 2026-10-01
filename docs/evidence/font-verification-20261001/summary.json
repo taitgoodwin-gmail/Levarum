@@ -1,0 +1,73 @@
+{
+  "base": "e15cc43102b2706d71e28faf11af127fcd29df8b",
+  "branch": "codex/design-assessment-fixes-20261001",
+  "date": "2026-10-01",
+  "fontPackages": {
+    "@fontsource-variable/schibsted-grotesk": "5.3.0",
+    "@fontsource-variable/instrument-sans": "5.3.0"
+  },
+  "suites": {
+    "public-flow": {
+      "passed": true,
+      "output": "PASS: 80 responsive route/theme checks; static service Home; task-first guidance; direct contact; consent; failed/pending saves; stable retries; receipts; partner; keyboard. Saves: MOCKED."
+    },
+    "recovery": {
+      "passed": true,
+      "output": "PASS: 8 contact/partner keyboard recovery cases, repeated failures, retained input, stable retries and contact whitespace-to-valid error cleanup and help-text association. No real submissions."
+    },
+    "release-acceptance": {
+      "passed": true,
+      "output": "PASS route metadata, print, context Back/refresh and ten browser failure/retry cases. All submissions mocked."
+    },
+    "round2-contact-matrix": {
+      "passed": true,
+      "output": "PASS: 16 Home\u2192Contact maximum-content, pending/payload, privacy and receipt cases. All submissions mocked."
+    },
+    "work-in-motion": {
+      "passed": true,
+      "output": "PASS: 8 responsive/theme illustration, keyboard, content, reduced-motion and 200% text cases; 32 Axe scans (including invalid/error forms); finite motion check. No submissions."
+    },
+    "admin-negative": {
+      "passed": true,
+      "output": "PASS: 8 unconfigured fail-closed 503 guards with no-store/error-only responses; draft endpoint404. No valid owner session or private records accessed."
+    },
+    "fonts": {
+      "passed": true,
+      "output": "PASS: 16 desktop/mobile/theme Home and Contact renders use actual intended webfont glyphs; admin setup heading, local WOFF2 requests, italic/extended Latin and served licenses verified. External requests blocked throughout visual matrix."
+    }
+  },
+  "axe": {
+    "scans": 57,
+    "violations": 0
+  },
+  "unit": {
+    "tests": 33,
+    "passed": 33,
+    "failed": 0
+  },
+  "typecheck": "passed",
+  "build": "passed",
+  "boundary": "passed",
+  "fontBytes": {
+    "normalLatinRequestedOnHome": 76844,
+    "allBundledFaces": 152388
+  },
+  "licenses": [
+    {
+      "family": "schibsted-grotesk",
+      "sha256": "15222412a95d70042e66e79bfb3b985653e0693e4d41703bc131bee9c5aa1aa7",
+      "exactPackageCopy": true
+    },
+    {
+      "family": "instrument-sans",
+      "sha256": "c27a3c53c3beed7f5c26853afa15991478ff7145d3754a36b0382f84e10c0d03",
+      "exactPackageCopy": true
+    }
+  ],
+  "limitations": [
+    "Chromium local verification only; Safari/Firefox and actual assistive technology unrun.",
+    "Public submissions mocked; no live storage or valid owner sessions.",
+    "No push, PR, merge, deploy or credential/access change.",
+    "Hosted exact-font check and current field-performance assessment remain unrun."
+  ]
+}

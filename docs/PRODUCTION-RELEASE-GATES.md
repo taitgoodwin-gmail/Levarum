@@ -1,5 +1,10 @@
 # Production release gates and next actions
 
+## Intended-font verification — 2026-10-01
+
+[Font/visual review and current gate inventory](FONT-VISUAL-VERIFICATION.md) closes the earlier local font-download limitation: pinned OFL Fontsource packages now serve through Vite; actual rendered Schibsted/Instrument glyphs pass16 width/theme/page cases. All33 tests, build/typecheck/boundaries, seven local browser suites and57 Axe scans pass. Original fallback screenshots remain historical. The linked table distinguishes owner decisions/access from safe local work completed and remaining live/operational checks. No push, PR, merge, deployment or credential/access change. Library copies of selected review artifacts are separately authorized.
+
+
 Prepared 2026-09-30 against [autonomous launch stages 6–8](AUTONOMOUS-LAUNCH-PLAN.md), [operations](OPERATIONS.md), [admin acceptance](ADMIN-PLAN.md), [v2 contract](LEAD-V2-CONTRACT.md) and current source configuration. This document records decisions/evidence needed for the already approved launch scope; it does not create additional approval stages. Only owner visual approval, account access/verification, paid commitments and genuine business commitments require owner input.
 
 ## Current evidence boundary

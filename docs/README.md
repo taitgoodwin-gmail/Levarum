@@ -1,5 +1,10 @@
 # Levarum — current product and delivery baseline
 
+## Intended-font verification — 2026-10-01
+
+[Font/visual review and current gate inventory](FONT-VISUAL-VERIFICATION.md) closes the earlier local font-download limitation: pinned OFL Fontsource packages now serve through Vite; actual rendered Schibsted/Instrument glyphs pass16 width/theme/page cases. All33 tests, build/typecheck/boundaries, seven local browser suites and57 Axe scans pass. Original fallback screenshots remain historical. The linked table distinguishes owner decisions/access from safe local work completed and remaining live/operational checks. No push, PR, merge, deployment or credential/access change. Library copies of selected review artifacts are separately authorized.
+
+
 ## Current design-assessment continuation — 2026-10-01
 
 The separate local branch `codex/design-assessment-fixes-20261001` continues exact checkpoint `be7df2b` and implements Figma123:36–39: coral-ribbon Home, readable mobile diagram, both themes, keyboard examples/FAQs, synthetic worked examples and enquiry-state refinements. [Implementation, Adobe-criteria review and final evidence](DESIGN-ASSESSMENT-FIXES.md) records33 tests, typecheck/build/boundaries, six local browser suites and57 zero-violation Axe scans. Google Fonts are blocked here; screenshot typography uses declared fallbacks. Real AT, hosted/authenticated/live-storage and production checks remain open. No push, PR, merge or deployment;77/100 remains a provisional earlier assessment. This record supersedes the presentation status below, not the preserved backend/security gates.

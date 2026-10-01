@@ -1,0 +1,101 @@
+{
+  "mocked": true,
+  "results": [
+    {
+      "path": "/contact",
+      "theme": "light",
+      "width": 320,
+      "failures": 2,
+      "errorFocused": true,
+      "tabToRetry": true,
+      "retainedInput": true,
+      "stableRetryId": true,
+      "helpTextPreserved": true,
+      "whitespaceToValidRecovery": true
+    },
+    {
+      "path": "/partners",
+      "theme": "light",
+      "width": 320,
+      "failures": 2,
+      "errorFocused": true,
+      "tabToRetry": true,
+      "retainedInput": true,
+      "stableRetryId": true,
+      "helpTextPreserved": false,
+      "whitespaceToValidRecovery": false
+    },
+    {
+      "path": "/contact",
+      "theme": "light",
+      "width": 1440,
+      "failures": 2,
+      "errorFocused": true,
+      "tabToRetry": true,
+      "retainedInput": true,
+      "stableRetryId": true,
+      "helpTextPreserved": true,
+      "whitespaceToValidRecovery": true
+    },
+    {
+      "path": "/partners",
+      "theme": "light",
+      "width": 1440,
+      "failures": 2,
+      "errorFocused": true,
+      "tabToRetry": true,
+      "retainedInput": true,
+      "stableRetryId": true,
+      "helpTextPreserved": false,
+      "whitespaceToValidRecovery": false
+    },
+    {
+      "path": "/contact",
+      "theme": "dark",
+      "width": 320,
+      "failures": 2,
+      "errorFocused": true,
+      "tabToRetry": true,
+      "retainedInput": true,
+      "stableRetryId": true,
+      "helpTextPreserved": true,
+      "whitespaceToValidRecovery": true
+    },
+    {
+      "path": "/partners",
+      "theme": "dark",
+      "width": 320,
+      "failures": 2,
+      "errorFocused": true,
+      "tabToRetry": true,
+      "retainedInput": true,
+      "stableRetryId": true,
+      "helpTextPreserved": false,
+      "whitespaceToValidRecovery": false
+    },
+    {
+      "path": "/contact",
+      "theme": "dark",
+      "width": 1440,
+      "failures": 2,
+      "errorFocused": true,
+      "tabToRetry": true,
+      "retainedInput": true,
+      "stableRetryId": true,
+      "helpTextPreserved": true,
+      "whitespaceToValidRecovery": true
+    },
+    {
+      "path": "/partners",
+      "theme": "dark",
+      "width": 1440,
+      "failures": 2,
+      "errorFocused": true,
+      "tabToRetry": true,
+      "retainedInput": true,
+      "stableRetryId": true,
+      "helpTextPreserved": false,
+      "whitespaceToValidRecovery": false
+    }
+  ]
+}

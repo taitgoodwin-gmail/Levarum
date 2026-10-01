@@ -1,4 +1,13 @@
+## Creative direction handoff — 2026-10-01
+
+Owner feedback supersedes the earlier composition as a creative target. Keep this functional/font checkpoint ready for the new Figma opening and signature interaction. Do not expand the current page composition; no push, PR, merge or deployment is authorized. Continue to assess under Adobe’s five exact Design headings.
+
 # Levarum design-to-launch execution record
+
+## Intended-font verification — 2026-10-01
+
+[Font/visual review and current gate inventory](docs/FONT-VISUAL-VERIFICATION.md) closes the earlier local font-download limitation: pinned OFL Fontsource packages now serve through Vite; actual rendered Schibsted/Instrument glyphs pass16 width/theme/page cases. All33 tests, build/typecheck/boundaries, seven local browser suites and57 Axe scans pass. Original fallback screenshots remain historical. The linked table distinguishes owner decisions/access from safe local work completed and remaining live/operational checks. No push, PR, merge, deployment or credential/access change. Library copies of selected review artifacts are separately authorized.
+
 
 ## Current design-assessment continuation — 2026-10-01
 

@@ -1,0 +1,59 @@
+[
+  {
+    "family": "Schibsted Grotesk Variable",
+    "weight": 700,
+    "style": "normal",
+    "loaded": [
+      {
+        "family": "Schibsted Grotesk Variable",
+        "status": "loaded",
+        "weight": "400 900",
+        "style": "normal"
+      },
+      {
+        "family": "Schibsted Grotesk Variable",
+        "status": "loaded",
+        "weight": "400 900",
+        "style": "normal"
+      }
+    ]
+  },
+  {
+    "family": "Instrument Sans Variable",
+    "weight": 400,
+    "style": "normal",
+    "loaded": [
+      {
+        "family": "Instrument Sans Variable",
+        "status": "loaded",
+        "weight": "400 700",
+        "style": "normal"
+      },
+      {
+        "family": "Instrument Sans Variable",
+        "status": "loaded",
+        "weight": "400 700",
+        "style": "normal"
+      }
+    ]
+  },
+  {
+    "family": "Instrument Sans Variable",
+    "weight": 500,
+    "style": "italic",
+    "loaded": [
+      {
+        "family": "Instrument Sans Variable",
+        "status": "loaded",
+        "weight": "400 700",
+        "style": "italic"
+      },
+      {
+        "family": "Instrument Sans Variable",
+        "status": "loaded",
+        "weight": "400 700",
+        "style": "italic"
+      }
+    ]
+  }
+]
