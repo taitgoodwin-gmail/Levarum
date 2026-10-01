@@ -1,0 +1,93 @@
+{
+  "browser": "151.0.7922.173",
+  "results": [
+    {
+      "width": 390,
+      "reducedMotion": "no-preference",
+      "name": "start",
+      "elapsedMs": 20.09999999962747,
+      "scatteredOpacity": "1",
+      "connectedOpacity": "0",
+      "reviewOpacity": "0",
+      "focus": "02   Connected",
+      "preview": true
+    },
+    {
+      "width": 390,
+      "reducedMotion": "no-preference",
+      "name": "intermediate",
+      "elapsedMs": 465.09999999962747,
+      "scatteredOpacity": "0.449345",
+      "connectedOpacity": "0.550655",
+      "reviewOpacity": "0",
+      "focus": "02   Connected",
+      "preview": true
+    },
+    {
+      "width": 390,
+      "reducedMotion": "no-preference",
+      "name": "settled",
+      "elapsedMs": 1801.2000000001863,
+      "scatteredOpacity": "0",
+      "connectedOpacity": "1",
+      "reviewOpacity": "1",
+      "focus": "02   Connected",
+      "preview": true
+    },
+    {
+      "width": 390,
+      "reducedMotion": "reduce",
+      "name": "immediate",
+      "elapsedMs": 12,
+      "scatteredOpacity": "0",
+      "connectedOpacity": "1",
+      "reviewOpacity": "1",
+      "focus": "02   Connected",
+      "preview": true
+    },
+    {
+      "width": 1440,
+      "reducedMotion": "no-preference",
+      "name": "start",
+      "elapsedMs": 26.59999999962747,
+      "scatteredOpacity": "1",
+      "connectedOpacity": "0",
+      "reviewOpacity": "0",
+      "focus": "02   Connected",
+      "preview": true
+    },
+    {
+      "width": 1440,
+      "reducedMotion": "no-preference",
+      "name": "intermediate",
+      "elapsedMs": 457.19999999925494,
+      "scatteredOpacity": "0.516793",
+      "connectedOpacity": "0.483207",
+      "reviewOpacity": "0",
+      "focus": "02   Connected",
+      "preview": true
+    },
+    {
+      "width": 1440,
+      "reducedMotion": "no-preference",
+      "name": "settled",
+      "elapsedMs": 1801.8999999994412,
+      "scatteredOpacity": "0",
+      "connectedOpacity": "1",
+      "reviewOpacity": "1",
+      "focus": "02   Connected",
+      "preview": true
+    },
+    {
+      "width": 1440,
+      "reducedMotion": "reduce",
+      "name": "immediate",
+      "elapsedMs": 27.200000000186265,
+      "scatteredOpacity": "0",
+      "connectedOpacity": "1",
+      "reviewOpacity": "1",
+      "focus": "02   Connected",
+      "preview": true
+    }
+  ]
+}

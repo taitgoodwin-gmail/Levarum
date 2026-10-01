@@ -22,3 +22,16 @@ Passed locally: 33 unit tests; build including TypeScript and public/private bou
 Failed local checks: none. The complete CI suite runs on this pushed commit; the exact SHA and terminal result are reported in the handoff with its Actions link. CI retains authoritative browser screenshots and all suite receipts in its synthetic-browser-evidence artifact.
 
 Unrun: authenticated Vercel preview review (sign-in blocked), real assistive technology, live identity/storage/recovery and production checks. No duplicate deployment, access change, PR, merge or production replacement. Existing [launch decisions](SIGNATURE-OPENING-REVIEW.md) remain open. Parent Figma worker can sync the verified result; this change does not write Figma.
+
+## Bounded rendered-motion observation
+
+Actual local Chromium 151 playback was sampled at start (20–27ms), intermediate (457–465ms) and settled (~1802ms), at390px and1440px. The captured PNGs were visually inspected: start retains scattered artwork while the Connected control and synthetic preview are present; intermediate blends the scattered loop with straight strands and begins the enquiry/details sequence; settled shows connected strands, all labels and the human-review endpoint. The preview itself appears immediately. This is a crossfade of original artwork, not a path morph. No animation was changed for this check.
+
+| Width | Start | Intermediate | Settled | Reduced motion |
+| --- | --- | --- | --- | --- |
+|390px|[start](evidence/output-clarity-20261001/motion-390-no-preference-start.png)|[midpoint](evidence/output-clarity-20261001/motion-390-no-preference-intermediate.png)|[settled](evidence/output-clarity-20261001/motion-390-no-preference-settled.png)|[immediate](evidence/output-clarity-20261001/motion-390-reduce-immediate.png)|
+|1440px|[start](evidence/output-clarity-20261001/motion-1440-no-preference-start.png)|[midpoint](evidence/output-clarity-20261001/motion-1440-no-preference-intermediate.png)|[settled](evidence/output-clarity-20261001/motion-1440-no-preference-settled.png)|[immediate](evidence/output-clarity-20261001/motion-1440-reduce-immediate.png)|
+
+Separate automated property checks confirm intermediate connected opacity0.48–0.55, settled connected/review opacity1, immediate reduced-motion opacity1 and retained control focus. [Timestamp/property receipt](evidence/output-clarity-20261001/rendered-motion.json). Screenshot calls follow the recorded sampling timestamps, so images are bounded samples rather than frame-exact timings. Reduced motion visually presents the complete result immediately. This observation establishes rendered progression, not frame-rate performance or continuous human playback/usability validation. Existing rapid-reversal and reduced-motion regression checks also passed.
+
+Application commit `f8b9986f8161d242c60fdd7fa9a78bd96f37e2bd` passed both full CI jobs in [run36818659601](https://github.com/taitgoodwin-gmail/Levarum/actions/runs/36818659601). This later evidence-only commit changes no application or test behavior; its exact CI result is included in the final handoff.
