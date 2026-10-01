@@ -41,10 +41,15 @@ export function SignatureOpening() {
     <p className="signal input"><img src="/brand/signature-signal.svg" width="5" height="5" alt=""/>“CAN YOU HELP WITH A BOOKING?”</p>
     <p className="signal filed"><img src="/brand/signature-signal.svg" width="5" height="5" alt=""/>01 &nbsp; DETAILS FILED</p>
     <p className="signal drafted"><img src="/brand/signature-signal.svg" width="5" height="5" alt=""/>02 &nbsp; REPLY DRAFTED</p>
-    <div className="lv-signature-review"><img className="review-disc" src="/brand/signature-review-disc.svg" width="116" height="116" alt=""/><strong><span className="desktop-copy">YOU<br/>REVIEW</span><span className="mobile-copy">• YOU REVIEW &amp; SEND</span></strong><img className="review-gesture" src="/brand/signature-review-gesture.svg" width="126" height="36" alt=""/><p>Nothing sends<br className="desktop-copy"/> until you say so.</p></div>
+    <div className="lv-signature-review"><img className="review-disc" src="/brand/signature-review-disc.svg" width="116" height="116" alt=""/><span className="lv-signature-review-label mobile-copy">HUMAN APPROVAL</span><strong><span className="desktop-copy">YOU<br/>REVIEW</span><span className="mobile-copy">YOU REVIEW &amp; SEND</span></strong><img className="review-gesture" src="/brand/signature-review-gesture.svg" width="126" height="36" alt=""/><p>Nothing sends<br className="desktop-copy"/> until you say so.</p></div>
    </div>
    </div>
   </div>
+  {connected && <section className="lv-signature-result-preview" aria-labelledby="signature-result-title">
+   <p id="signature-result-title" className="lv-signature-preview-label">SYNTHETIC EXAMPLE · PREVIEW ONLY</p>
+   <div className="lv-signature-preview-grid"><div><h3>Captured details</h3><p>Help arranging a booking.</p><p><span>Still needed:</span> preferred date, time and service.</p></div><div><h3>Draft reply — awaiting your review</h3><p>“Which service do you need, and what date and time would suit you? We’ll check availability before confirming anything.”</p></div></div>
+   <p className="lv-signature-preview-boundary">No booking, quote or message is sent here.</p>
+  </section>}
   <details className="lv-signature-output"><summary>See the illustrative details and draft</summary><div><div><h3>Captured details</h3><dl><dt>Request</dt><dd>Help arranging a booking</dd><dt>Still needed</dt><dd>Preferred date, time and service</dd><dt>Next step</dt><dd>A person checks and replies</dd></dl></div><div><h3>Draft reply — for review</h3><p>“Thanks for getting in touch. Which service do you need, and what date and time would suit you? We’ll check availability before confirming anything.”</p><p className="lv-signature-boundary">A synthetic example, not a working integration. No booking, quote or message is sent here. Tools, fields, wording and approval rules are agreed before building.</p></div></div></details>
   <p className="lv-signature-disclosure">ILLUSTRATIVE WORKFLOW <span aria-hidden="true">· </span><span>NOT LIVE CUSTOMER DATA</span></p>
  </section>

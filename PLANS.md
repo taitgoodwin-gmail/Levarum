@@ -1,3 +1,7 @@
+## Connected output clarity — 2026-10-01
+
+The Connected state now exposes the existing synthetic captured-details/draft preview, and mobile human approval is a distinct readable panel. [Implementation, before/after screenshots and verification](docs/OUTPUT-CLARITY-REVIEW.md). This is the current focused refinement; existing launch and authenticated-preview gates remain open.
+
 ## Font metric reference — 2026-10-01
 
 Identical intended fonts/CSS produce different measured text advances in local Chromium 151 and CI Chromium 143. Use the pinned CI captures for Figma metrics; preserve natural wrapping. [Cause, controlled receipts and authoritative captures](docs/FONT-METRICS-RECONCILIATION.md). No application layout change.

@@ -22,11 +22,13 @@ try{
    const motions=await page.locator('.lv-signature-opening *').evaluateAll(xs=>xs.map(x=>({animation:getComputedStyle(x).animationName,duration:getComputedStyle(x).transitionDuration})))
    assert.ok(motions.every(x=>x.animation==='none'&&x.duration==='0s'))
    assert.equal(await page.locator(`.lv-signature-labels.${state?'connected':'scattered'} .signal:visible`).count(),state?3:4,'Same enquiry/details/draft objects visible on mobile and desktop')
+   assert.equal(await page.locator('.lv-signature-result-preview').count(),state?1:0,'Output preview follows selected state without disclosure')
+   if(state){assert.match(await page.locator('.lv-signature-result-preview').innerText(),/SYNTHETIC EXAMPLE.*Captured details.*preferred date, time and service.*Draft reply.*No booking, quote or message is sent here/s);assert.equal(await page.locator('.lv-signature-output').getAttribute('open'),null);if(width<1200)assert.ok(await page.getByText('HUMAN APPROVAL',{exact:true}).isVisible())}
    if(state)assert.match(await page.getByRole('status').innerText(),/Details filed.*Reply drafted.*nothing sends/s)
   }
   const output=page.locator('.lv-signature-output summary')
   await output.focus();await page.keyboard.press('Enter')
-  assert.ok(await page.getByRole('heading',{name:'Captured details',exact:true}).isVisible())
+  assert.ok(await page.locator('.lv-signature-output').getByRole('heading',{name:'Captured details',exact:true}).isVisible())
   assert.ok(await page.getByRole('heading',{name:'Draft reply — for review',exact:true}).isVisible())
   assert.match(await page.locator('.lv-signature-output').innerText(),/No booking, quote or message is sent here/)
   await page.keyboard.press('Space')
@@ -46,6 +48,7 @@ try{
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,'200% text reflow')
   await page.locator('.lv-signature-output summary').click()
   if(width<600){const fields=await page.locator('.lv-signature-output dl>*').evaluateAll(xs=>xs.map(x=>({top:x.getBoundingClientRect().top,bottom:x.getBoundingClientRect().bottom})));assert.ok(fields.every((x,i)=>i===0||x.top>=fields[i-1].bottom),'Enlarged detail fields do not overlap')}
+  const previewBox=await page.locator('.lv-signature-result-preview').boundingBox(),reviewBox=await page.locator('.lv-signature-review').boundingBox();assert.ok(previewBox.y>=reviewBox.y+reviewBox.height,'Enlarged approval and visible preview do not overlap')
   assert.equal(writes,0);results.push({theme,width,states:true,keyboard:true,reducedMotion:true,originalGeometry:true,noWrite:true,axeScans:process.env.AXE_CORE_PATH?2:0})
   await context.close()
  }
@@ -58,6 +61,7 @@ try{
  await page.getByRole('button',{name:'01 Scattered',exact:true}).click();await page.waitForTimeout(900)
  assert.equal(await page.locator('.lv-signature-strands.scattered').evaluate(el=>getComputedStyle(el).opacity),'1')
  assert.equal(await page.locator('.lv-signature-strands.connected').evaluate(el=>getComputedStyle(el).opacity),'0')
+ assert.equal(await page.locator('.lv-signature-result-preview').count(),0,'Rapid reversal removes preview with Connected state')
  assert.deepEqual(errors,[]);writeFileSync(out+'/motion.json',JSON.stringify({timing,settledAt1750ms:true,rapidReversal:true},null,2))
  console.log(`PASS ${results.length} signature responsive/theme cases, 24 Axe scans, keyboard, original vectors, reduced motion, orientation, 200% text, finite motion, rapid reversal; no submissions.`)
 }finally{writeFileSync(out+'/results.json',JSON.stringify({results,errors},null,2));await browser.close()}

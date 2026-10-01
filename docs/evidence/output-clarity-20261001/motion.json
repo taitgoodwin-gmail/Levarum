@@ -1,0 +1,9 @@
+{
+  "timing": {
+    "duration": "0.65s",
+    "delay": "1s",
+    "count": "1"
+  },
+  "settledAt1750ms": true,
+  "rapidReversal": true
+}
