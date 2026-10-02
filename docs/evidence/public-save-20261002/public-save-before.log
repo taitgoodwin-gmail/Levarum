@@ -1,0 +1,46 @@
+✖ reconciliation body stall rejects within its read budget and an unchanged retry verifies the saved record (6003.987027ms)
+✖ uncooperative write is bounded, then verified only by exact private readback (13002.502441ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 19322.771242
+
+✖ failing tests:
+
+test at tests/private-save.test.mjs:7:1
+✖ reconciliation body stall rejects within its read budget and an unchanged retry verifies the saved record (6003.987027ms)
+  AssertionError [ERR_ASSERTION]: Uncertain save must not hang or report success on an incomplete body
+  
+  'hung' !== 'rejected'
+  
+      at TestContext.<anonymous> (file:///workspace/Levarum/tests/private-save.test.mjs:17:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'hung',
+    expected: 'rejected',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/private-save.test.mjs:21:1
+✖ uncooperative write is bounded, then verified only by exact private readback (13002.502441ms)
+  AssertionError [ERR_ASSERTION]: A lost write response must reach exact-record reconciliation
+  
+  'hung' !== 'saved'
+  
+      at TestContext.<anonymous> (file:///workspace/Levarum/tests/private-save.test.mjs:25:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'hung',
+    expected: 'saved',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,8 +1,29 @@
-# Levarum public pilot
+# Levarum public experience and owner queue
 
-A short intake produces a practical Game Plan and an optional request for a
-15-minute conversation. Scheduling is handled manually by Levarum through
-hello@levarum.com. The site never claims an appointment has been booked.
+This working branch implements a browse-first React/Vite site with direct contact,
+optional task guidance and a separate authenticated owner dashboard. Visitors can
+read the offer and examples without submitting an intake. `/contact` asks for a
+work description, email and explicit consent; an optional unchecked preference
+requests a conversation. Scheduling and replies are manual through
+**hello@levarum.com**. A saved call request is not a booking.
+
+## Implemented behavior versus proposed MVP
+
+The implemented branch is not an owner-approved final MVP or proof of a production
+pilot. Main's [2 October proposed MVP and NFR contract](https://github.com/taitgoodwin-gmail/Levarum/blob/222d433aee64fe1babab3261efc0e983713ca1f3/README.md#mvp-contract)
+remains proposed for owner review. In particular:
+
+| Area | Implemented on this branch | Proposal / decision still open |
+| --- | --- | --- |
+| Customer entry | Browse first; direct contact; optional local task guidance at `/start` | Mandatory business type, hours, challenges and email before a Game Plan |
+| Value and storage | Guidance requires no save; optional consented requests save privately | Intake → stored context → Game Plan as the core mandatory sequence |
+| Owner queue | New, Contacted, Booked (calls only), Done; request details and status history | New/in-progress/waiting/closed semantics and source-intake/follow-up linkage |
+| Acceptance | Synthetic local/CI checks and dated earlier isolated-provider evidence | Owner-approved MVP and one real end-to-end production pilot |
+
+These proposals do not authorize new data collection, statuses, record linkage,
+retention, commercial claims or production activity. Main was read, not merged or
+rebased into this branch. [Requirements](docs/REQUIREMENTS.md) and
+[workflows](docs/WORKFLOWS.md) describe the implemented contracts and their limits.
 
 ## Run and check
 
@@ -15,72 +36,63 @@ npm run build
 npm run dev
 ```
 
-`npm run build` includes the prospect/operator boundary check and TypeScript.
-GitHub Actions runs the tests and build on pushes and pull requests.
+The build includes TypeScript and public/private boundary checks. GitHub Actions
+runs unit tests, the build and eleven synthetic browser suites. Browser evidence
+is not live Clerk or private-storage acceptance.
 
-## Production setup
+## Private storage and owner operation
 
-The Vite client and `api/leads.ts` deploy on Vercel. Create a **private** Blob
-store and connect it to the project. The server needs `BLOB_READ_WRITE_TOKEN`
-(or the SDK's OIDC configuration, `BLOB_STORE_ID` and platform token).
-Use `vercel env pull .env.local` for development; never commit credentials.
+Vercel serves the public app, separate admin entry and API handlers. Production
+Blob uses `BLOB_READ_WRITE_TOKEN` or configured SDK OIDC. Preview/development
+requires the dedicated `PREVIEW_READ_WRITE_TOKEN`; it must not fall back to the
+production credential. Missing storage configuration fails closed. See
+[operations](docs/OPERATIONS.md) for configuration and environment boundaries;
+never commit or publish credentials.
 
-The intake endpoint fails closed with 503 if storage is unavailable. It only
-confirms a submission after a private write succeeds. No read endpoint is public.
+`/admin` and `/admin/leads/:id` are implemented. Every API action checks the
+immutable owner ID, verified exact owner email and active Clerk session. Private
+Blob holds submission content; PostgreSQL holds the index, status and history.
+Owner detail reads, filtered inbox and bounded reconciliation support manual
+follow-up. Status changes send no email or calendar invitation. Production owner
+binding/recovery and fresh hosted authenticated acceptance remain open.
 
-The public site does not load the original operator app or localStorage inbox.
-`/api/draft` is disabled. The original design and components remain in the repo
-for future authenticated operator work, but are not in the active rendering path.
+Stored types are `leads/plan/` (email follow-up, including legacy intakes),
+`leads/call/` and `leads/partner/`. Keys contain request IDs/content hashes, not
+email addresses. An unchanged retry preserves the original record and receipt
+time. A lost write response is reconciled only against its exact known private
+key and matching submitted fields; an unconfirmed save is never reported as saved.
+There is no public read endpoint or public lead cache. `/api/draft` is disabled.
 
-## Receiving leads
+## Public contracts and protections
 
-Open this project's private Blob store in the Vercel dashboard:
+- Current contact UI requires email, work description and unchecked explicit
+  consent; it does not collect mandatory business/hours. Optional call timing is
+  accepted. Partners provide name, email, work description, contribution and consent.
+- Legacy v1 business/hours/challenge validation remains supported. V2 allows
+  omitted business/hours and requires a message or known task. Current UI requires
+  a message. See the [versioned contract](docs/LEAD-V2-CONTRACT.md).
+- Body/origin/schema/honeypot protections and a best-effort per-instance throttle
+  remain. The throttle is not distributed abuse protection.
+- Confirmation requires `saved:true` after durable write or verified exact
+  readback. Failed/uncertain requests retain input and unchanged retry identity.
+- Guidance and worked examples are local and illustrative, with no invented
+  customer proof, numerical savings or live AI execution.
+- Automatic notifications are not established by the contact address. Optional
+  notification failure does not discard a saved lead; plan email delivery and
+  calendar integration are not implemented customer promises.
 
-- `leads/plan/`: saved Game Plan intakes
-- `leads/call/`: explicit call requests, including time preferences
+## Evidence and release boundaries
 
-Open a record to retrieve the prospect's email and answers. These records are
-private: only authorized store administrators can read them. Both paths contain
-opaque request identifiers and content hashes, not email addresses.
+[Documentation index](docs/README.md), [execution record](PLANS.md),
+[verification](docs/verification.md) and [owner acceptance](docs/ADMIN-PLAN.md)
+distinguish tested, historical and unrun outcomes. The current design follows the
+selected Figma direction recorded in [UX traceability](docs/UX-REDESIGN.md);
+original ZIP/design exports are preserved provenance.
 
-For the pilot, review call requests manually and reply from **hello@levarum.com**.
-Automated email notifications are optional and are **not enabled by merely
-setting the contact email**. To enable them, set `RESEND_API_KEY` and
-`LEAD_EMAIL_FROM` to a verified sender, redeploy, and verify receipt. Notification
-failures do not discard a saved lead. The application does not email the plan;
-visitors can print or save it directly from their browser.
-
-## Behavior and protections
-
-- Required business type, hours band, at least one known challenge, valid email,
-  and explicit consent, validated on both client and server.
-- An 8 KB body limit, honeypot, origin check, and best-effort per-instance throttle.
-  Add a platform-wide rate rule before scaling traffic; an in-memory counter is
-  not a distributed rate limiter.
-- Repeat requests use the same opaque content-addressed path. A retry preserves
-  the first receipt timestamp and cannot overwrite different intake content.
-- Internal AI generation is off. No speculative hours or money savings appear.
-- No advertising tracking or persistent browser lead store in the public pilot.
-- Privacy notice and contact link are available throughout the flow.
-
-## Launch verification
-
-Before accepting traffic, verify an intake and call request from the public URL,
-then retrieve those records from private storage. Check mobile layout, invalid
-inputs, retry handling, `/privacy`, and that `/api/draft` stays disabled.
-
-The pilot is not a full CRM. Authenticated operator access, plan email delivery,
-calendar integration, automated retention, and distributed abuse controls remain
-follow-up work. Keep the private store under routine review and handle access or
-deletion requests through hello@levarum.com.
-
-## Current design migration plan
-
-The user-supplied Levarum Design System ZIP supersedes the older visual references.
-See [documentation index](docs/README.md), [requirements](docs/REQUIREMENTS.md),
-[user and operator workflows](docs/WORKFLOWS.md), and [execution plan](PLANS.md).
-These describe planned work; the pilot behavior above remains the current baseline.
-
-## Design-review preview checkpoint
-
-This branch implements the supplied marketing/intake design, working partner submissions and a separate owner dashboard entry. Production remains the earlier pilot. Admin is deliberately unavailable until the requested Clerk/Neon services and verified owner allowlist are configured. See [tested results and remaining gates](docs/verification.md) and [setup/operations](docs/OPERATIONS.md). Run `npm test`, `npm run typecheck`, and `npm run build` with Node 24.
+The working-branch preview is reviewable, not a production replacement. Before a
+real pilot, resolve owner identity/recovery, exact synthetic hosted acceptance,
+backup custody/cadence, retention/deletion treatment, manual inbox review,
+production rollback and visual review. No automated retention or complete erasure
+guarantee is claimed. See [release gates](docs/PRODUCTION-RELEASE-GATES.md) and
+[recovery scope](docs/RECOVERY-PLAN.md). Main/production and PR changes remain outside
+this checkpoint's authorization.

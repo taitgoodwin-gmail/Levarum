@@ -1,6 +1,19 @@
 # Preview verification — migration and redesign evidence
 
-This is dated evidence for the design-migration/redesign branch, not production-release acceptance. Production remains the earlier pilot. The current tested application is d3c0a824 at https://levarum-epjcu3fu0-mind-lever-gmail.vercel.app; see [current public release checks](PUBLIC-RELEASE-CHECKS.md) and [current baseline](README.md). Earlier sections below retain their own source/deployment scope, including real persistence and Lighthouse evidence. A later documentation commit does not relabel an earlier test run.
+This file retains dated migration/redesign evidence, not production-release acceptance. The older d3c0a824 evidence below belongs to that deployment. Current branch checkpoints are recorded in the [documentation index](README.md), [execution record](../PLANS.md) and dated sections; later changes do not inherit historical live-provider acceptance.
+
+## Public save deadlines and contract reconciliation — 2026-10-02
+
+Continues f358bc7 on `codex/design-assessment-fixes-20261001`. Read current main at222d433 and its referenced AugMind delivery baseline; no merge/rebase. The root README and requirements now distinguish implemented browse-first/direct-contact and owner queue behavior from proposed mandatory intake/Game Plan, alternative status/linkage semantics and real production pilot. No proposal was promoted to implementation authority.
+
+**Failed before:** two [synthetic regressions](evidence/public-save-20261002/public-save-before.log) reproduced indefinite waiting after an uncertain write: a provider stream stayed open after partial JSON, and a write promise ignored cancellation. The latter never reached exact-key readback.
+
+**Fixed:** the saver enforces its existing12-second write budget independently of provider cancellation cooperation. Its existing five-second reconciliation budget covers fetching and consuming the response body; abort cancels a stalled stream. Only an exact private-key readback matching the supplied fields confirms an uncertain write. Incomplete/missing/different content cannot confirm success. An unchanged retry preserves record bytes, original receipt time and notice version. The budgets bound saver waiting, not total request time or a provider operation that refuses cancellation. No key, payload, retention, collection, notification or commercial semantics changed.
+
+**Passed:** [50 unit/model tests](evidence/public-save-20261002/public-save-after.log), including the actual five/12-second regressions and prior save-before-success/immutable retry tests; [TypeScript/build and public-private boundary checks](evidence/public-save-20261002/public-save-build.log). Eight contact/partner keyboard recovery cases pass at320/1440px in both themes ([receipt](evidence/public-save-20261002/recovery.json)); ten failure/retry cases plus route metadata, print and contextual Back/refresh pass against the built public app ([receipt](evidence/public-save-20261002/release.json)). All browser submissions are mocked. Exact-commit CI/Ready metadata accompany this checkpoint's handoff.
+
+**Unrun:** real hosted provider stalls, live owner authentication/storage/recovery, real assistive technology and production pilot. Tests use isolated synthetic streams/records. No credentials, customer records, sharing tools, auth/access, retention or production changes were used. No new report or alternative requirements source was created.
+
 
 ## Observed results
 

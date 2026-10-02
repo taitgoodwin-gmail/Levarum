@@ -1,5 +1,9 @@
 # Requirements and acceptance criteria
 
+## Proposed MVP reconciliation — 2026-10-02
+
+[Main’s proposed MVP/NFR contract at222d433](https://github.com/taitgoodwin-gmail/Levarum/blob/222d433aee64fe1babab3261efc0e983713ca1f3/README.md#mvp-contract) is an owner-review proposal, not accepted replacement scope. The [working README](../README.md#implemented-behavior-versus-proposed-mvp) separates actual browse-first/direct-contact behavior and the implemented owner queue from mandatory business/hours/challenge intake → Game Plan, alternative queue states/linkage and a real production pilot. R01–R14/A01–A08 remain implementation traceability; proposed LVR-MVP/LVR-NFR identifiers do not close those gates or authorize new collection, retention or production actions. A source read of main does not merge its older runtime into this branch.
+
 ## Current Round2 presentation — 2026-10-01
 
 [Round2 implementation](UX-ROUND-2-IMPLEMENTATION.md) supersedes the older public presentation below: R02's primary path is Home→Contact, R04 requires a genuine description in every new UI request, R07 uses an optional unchecked call preference, and R10 omits business/hours. R03/R05 remain legacy route compatibility rather than the primary offer. R01/R12/R14 require fresh browser/design evidence for this change; older passes do not transfer automatically. Backend v1/v2 contracts and all owner/privacy requirements remain unchanged.

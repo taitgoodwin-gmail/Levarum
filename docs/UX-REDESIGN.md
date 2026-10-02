@@ -1,3 +1,7 @@
+## Public save reliability and documentation reconciliation — 2026-10-02
+
+Build/Verify increment: corrected the stale root README against implemented browse-first/direct-contact and owner queue behavior; main222d433's MVP/NFR additions remain proposals. Reproduced and fixed stalled private readback bodies and cancellation-ignoring writes using existing deadlines and exact-key reconciliation. [Regression evidence, checks and limits](verification.md#public-save-deadlines-and-contract-reconciliation--2026-10-02). No main merge, product-scope, retention, sharing or production action.
+
 ## Owner interruption and recovery — 2026-10-02
 
 Fixed HTML denial clearing and enforced existing owner/summary deadlines even when a dependency ignores cancellation. Added truthful uncertain-outcome recovery and verified stable mutation retries. [Reproductions, 48 passing tests, browser/accessibility evidence and remaining live-provider gates](ADMIN-CORRECTNESS-REVIEW.md). Retention/deletion and access policies remain unchanged.
