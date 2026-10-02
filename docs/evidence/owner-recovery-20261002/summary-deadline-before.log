@@ -1,0 +1,29 @@
+✔ authorized page summaries are bounded, ordered, minimal and never include source paths or full records (6.492538ms)
+✔ invalid paths/identities never read; absent, malformed or failed sources retain a usable indexed row (0.640036ms)
+✔ summaries use supplied partner identity or known legacy tasks and never invent absent context (0.441246ms)
+✔ admin authorization failure prevents any inbox summary read (0.520839ms)
+✖ summary deadline returns indexed fallbacks even if a storage reader ignores cancellation (106.476829ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 453.195813
+
+✖ failing tests:
+
+test at tests/inbox-summary.test.mjs:34:1
+✖ summary deadline returns indexed fallbacks even if a storage reader ignores cancellation (106.476829ms)
+  AssertionError [ERR_ASSERTION]: Deadline must settle without cooperation from the reader
+      at TestContext.<anonymous> (file:///workspace/Levarum/tests/inbox-summary.test.mjs:42:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: null,
+    operator: 'notStrictEqual',
+    diff: 'simple'
+  }

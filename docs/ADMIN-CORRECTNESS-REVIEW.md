@@ -1,3 +1,17 @@
+## Owner interruption and recovery — 2026-10-02
+
+Continues exact f9a5fa6efcd8d8884b5a9c9bedf23ce22119bf7a on the existing working branch.
+
+- HTTP 401/403 now clears private content before parsing the response body. HTML provider/proxy denials previously left request details visible. Stale-generation checks still precede denial side effects.
+- The existing 20-second owner request budget now includes token retrieval and response decoding. A dependency that ignores cancellation cannot leave the interface working indefinitely. Timeout and malformed-response messages explain uncertainty, direct the owner to refresh, and preserve the same mutation ID for an unchanged retry.
+- The inbox summary's existing four-second shared budget now settles even when a reader ignores its abort signal. Indexed rows remain available with unavailable summaries; late results cannot populate the returned page. This bounds waiting, not the lifetime of an uncooperative underlying provider operation; at most five reads start concurrently.
+
+**Failed before / passed after:** [summary deadline regression](evidence/owner-recovery-20261002/summary-deadline-before.log) and [HTML denial regression](evidence/owner-recovery-20261002/admin-recovery-before.log) reproduced on the starting implementation. Both pass after the fixes. An initial refresh assertion was corrected to await refresh completion instead of inspecting the still-visible prior detail.
+
+**Passed locally:** [48 unit/model tests](evidence/owner-recovery-20261002/owner-recovery-tests.log); [TypeScript, build and public/private import checks](evidence/owner-recovery-20261002/owner-recovery-build.log); [owner browser receipt](evidence/owner-recovery-20261002/results.json), including six width/theme cases and six Axe scans, keyboard/focus, stale responses, repeated clicks, stable retries, sign-out failure, lifecycle/session clearing, HTML 401/403, malformed mutation responses, and an actual 20-second token stall followed by refresh recovery. Visually inspected the [mobile timeout](evidence/owner-recovery-20261002/token-timeout.png) and [cleared denial](evidence/owner-recovery-20261002/non-json-denial-403.png). All records, tokens and API responses are local synthetic fixtures. Exact-SHA CI and Git-linked Ready preview results are reported in the handoff after pushing.
+
+**Unrun / release gates:** real hosted Clerk owner login/session recovery, live private storage and provider latency, actual assistive technology, production rollback and backup/restore remain unverified. No deletion protocol or marker-retention policy is enabled. Owner decisions on retention, backup custody/cadence and operational inbox review remain open. No credentials/access changes or live data actions occurred; production and PR approval remain separate.
+
 ## Four practical audit fixes — 2026-10-01
 
 Continues exact094e5fd52f2ef4746935bbbf3564a5f86e86f0f3. The focused coded audit's four findings are now addressed:

@@ -1,3 +1,7 @@
+## Owner interruption and recovery — 2026-10-02
+
+Fixed HTML denial clearing and enforced existing owner/summary deadlines even when a dependency ignores cancellation. Added truthful uncertain-outcome recovery and verified stable mutation retries. [Reproductions, 48 passing tests, browser/accessibility evidence and remaining live-provider gates](ADMIN-CORRECTNESS-REVIEW.md). Retention/deletion and access policies remain unchanged.
+
 ## Practical audit fixes — 2026-10-01
 
 Implemented authorized inbox sender/task cues from existing private records, adjacent specific field errors, a pre-interaction demo label and explicit global count scope. [Before/after evidence, bounded reads and verification](ADMIN-CORRECTNESS-REVIEW.md). No new persistent personal-data storage, branding or retention changes.

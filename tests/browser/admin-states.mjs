@@ -75,7 +75,7 @@ try{
  await page.screenshot({path:`${out}/detail-${width}-${theme}.png`})
  // Current denials clear records and prevent further reads until a new session.
  let reads=0;setHandler(route=>{reads++;return route.fulfill({status:403,json:{error:'Synthetic current session denied'}})})
- await page.evaluate(()=>window.dispatchEvent(new Event('focus')));await page.getByText('Synthetic current session denied',{exact:true}).waitFor()
+ await page.evaluate(()=>window.dispatchEvent(new Event('focus')));await page.getByText('Access denied. Sign out, then sign in again.',{exact:true}).waitFor()
  assert.equal(await page.getByText('Synthetic private fixture',{exact:true}).count(),0)
  const deniedReads=reads
  await page.evaluate(()=>window.dispatchEvent(new Event('pageshow')));await flush(page)
@@ -103,6 +103,40 @@ try{
  await page.getByRole('button',{name:'Sign out',exact:true}).click();await page.getByText('Synthetic sign-in fixture',{exact:true}).waitFor()
  assert.equal(await page.getByRole('link',{name:'View request'}).count(),0)
  results.push('empty/error recovery, account change, pagehide/pageshow, logout');await context.close()
+ // A proxy/provider can return an HTML denial instead of JSON.
+ for(const deniedStatus of [401,403]){
+ const malformed=await setup();await malformed.page.goto(`${base}/admin/leads/${id}`);await malformed.page.getByText('Synthetic private fixture',{exact:true}).waitFor()
+ malformed.setHandler(route=>route.fulfill({status:deniedStatus,contentType:'text/html',body:'<html>Synthetic denial</html>'}))
+ await malformed.page.getByRole('button',{name:'Contacted',exact:true}).click();await malformed.page.getByRole('alert').waitFor()
+ assert.equal(await malformed.page.getByText('Synthetic private fixture',{exact:true}).count(),0,'Non-JSON denial must clear private content')
+ assert.ok(await malformed.page.getByText('Access denied. Sign out, then sign in again.',{exact:true}).isVisible())
+ await malformed.page.screenshot({path:`${out}/non-json-denial-${deniedStatus}.png`})
+ results.push(`non-JSON ${deniedStatus} denial clears private data`);await malformed.context.close()
+ }
+ // A missing response body must not imply a mutation failed or succeeded.
+ const uncertain=await setup();let attempts=[]
+ uncertain.setHandler(route=>{if(route.request().method()==='POST'){attempts.push(route.request().postDataJSON());return attempts.length===1?route.fulfill({status:200,contentType:'text/html',body:'<html>synthetic invalid response</html>'}):route.fulfill({json:{saved:true,status:'Contacted',version:1}})}return route.fulfill({json:detail})})
+ await uncertain.page.goto(`${base}/admin/leads/${id}`);await uncertain.page.getByText('Synthetic private fixture',{exact:true}).waitFor()
+ await uncertain.page.getByRole('button',{name:'Contacted',exact:true}).click();await uncertain.page.getByRole('alert').waitFor()
+ assert.match(await uncertain.page.getByRole('alert').innerText(),/couldn’t read the server response.*may already have saved/s)
+ assert.equal(await uncertain.page.locator('.admin-notice').innerText(),'')
+ await uncertain.page.getByRole('button',{name:'Contacted',exact:true}).click();await uncertain.page.getByText('Request status is Contacted. No email or calendar invitation was sent.',{exact:true}).waitFor()
+ assert.equal(attempts[0].mutationId,attempts[1].mutationId)
+ results.push('malformed success response remains uncertain; unchanged mutation retry keeps ID');await uncertain.context.close()
+ // The actual 20-second budget includes provider-token retrieval, not only fetch.
+ const tokenWait=await setup();await tokenWait.page.goto(`${base}/admin/leads/${id}`);await tokenWait.page.getByText('Synthetic private fixture',{exact:true}).waitFor()
+ let tokenWaitPosts=0;tokenWait.setHandler(route=>{if(route.request().method()==='POST')tokenWaitPosts++;return route.fulfill({json:detail})})
+ await tokenWait.page.evaluate(()=>window.adminFixture.update({tokenPending:true}))
+ const started=Date.now();await tokenWait.page.getByRole('button',{name:'Contacted',exact:true}).click()
+ await tokenWait.page.getByText('We couldn’t confirm the result in time. Refresh request data before retrying; a change may already have saved.',{exact:true}).waitFor({timeout:25000})
+ assert.ok(Date.now()-started>=19000);assert.equal(tokenWaitPosts,0)
+ assert.equal(await tokenWait.page.getByText('Working…',{exact:true}).count(),0)
+ await tokenWait.page.screenshot({path:`${out}/token-timeout.png`})
+ await tokenWait.page.evaluate(()=>window.adminFixture.update({tokenPending:false}))
+ await tokenWait.page.getByRole('button',{name:'Refresh request data',exact:true}).click();await tokenWait.page.getByText('Synthetic private fixture',{exact:true}).waitFor()
+ await tokenWait.page.getByRole('alert').waitFor({state:'hidden'})
+ await tokenWait.page.getByText('Synthetic private fixture',{exact:true}).waitFor()
+ results.push('real 20-second token wait timeout, no mutation sent, refresh recovery');await tokenWait.context.close()
  // Success/reconciliation notices describe saving, never automatic communication.
  const success=await setup();let saved=false
  success.setHandler(route=>{

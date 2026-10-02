@@ -30,3 +30,16 @@ test('admin authorization failure prevents any inbox summary read',async()=>{
  await handler({method:'GET',url:'/api/admin',headers:{}},res)
  assert.equal(res.statusCode,403);assert.equal(touched,false);assert.deepEqual(res.body,{error:'Denied'})
 })
+
+test('summary deadline returns indexed fallbacks even if a storage reader ignores cancellation',async()=>{
+ const controller=new AbortController();let reads=0,release
+ const blocked=new Promise(resolve=>{release=resolve})
+ const pending=summarizeInboxRows(Array.from({length:10},(_,i)=>row(i)),async()=>{reads++;return blocked},controller.signal)
+ await new Promise(resolve=>setImmediate(resolve));assert.equal(reads,5)
+ controller.abort(new Error('synthetic deadline'))
+ const result=await Promise.race([pending,new Promise(resolve=>setTimeout(()=>resolve(null),100))])
+ release({email:'late@example.com',message:'Late synthetic content'})
+ assert.notEqual(result,null,'Deadline must settle without cooperation from the reader')
+ assert.equal(result.length,10);assert.ok(result.every(r=>r.summary===null));assert.equal(reads,5)
+ await new Promise(resolve=>setImmediate(resolve));assert.ok(result.every(r=>r.summary===null),'Late content cannot populate an already returned page')
+})

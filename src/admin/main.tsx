@@ -1,3 +1,4 @@
+import {abortable} from '../domain/abortable'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { ClerkProvider, SignIn, SignUp, useAuth, useClerk } from '@clerk/react'
@@ -43,17 +44,29 @@ function Dashboard() {
  const clear = useCallback(() => { hideContent(); pendingMutation.current=null },[hideContent])
  const api = useCallback(async <T,>(action:string, body?:unknown):Promise<T> => {
   const epoch = generation.current
-  const token = await getToken()
+  const signal=AbortSignal.timeout(20000)
+  try{
+  const token = await abortable(getToken(),signal)
   if(epoch!==generation.current)throw new Error('Request superseded')
   if (!token) { clear();setDenied(true);setBusy(false);setError('Session ended. Sign out, then sign in again.');throw new Error('Session ended. Please sign in again.') }
-  const response = await fetch(`/api/admin?${action}`, {method:body===undefined?'GET':'POST',cache:'no-store',headers:{Authorization:`Bearer ${token}`,...(body===undefined?{}:{'Content-Type':'application/json'})},body:body===undefined?undefined:JSON.stringify(body),signal:AbortSignal.timeout(20000)})
-  const data = await response.json()
+  const response = await abortable(fetch(`/api/admin?${action}`, {method:body===undefined?'GET':'POST',cache:'no-store',headers:{Authorization:`Bearer ${token}`,...(body===undefined?{}:{'Content-Type':'application/json'})},body:body===undefined?undefined:JSON.stringify(body),signal}),signal)
+  if(epoch!==generation.current)throw new Error('Request superseded')
+  if(response.status===401||response.status===403){
+   clear();setDenied(true);setBusy(false);setError('Access denied. Sign out, then sign in again.')
+   throw new Error('Access denied. Sign out, then sign in again.')
+  }
+  const data = await abortable(response.json(),signal)
   if(epoch!==generation.current)throw new Error('Request superseded')
   if (!response.ok) {
-   if(response.status===401||response.status===403){clear();setDenied(true);setBusy(false);setError(data.error||'Access denied. Please sign in again.')}
    throw new Error(data.error||'Could not complete the request. Please retry.')
   }
   return data as T
+  }catch(error){
+   if(error instanceof Error&&error.name==='TimeoutError')throw new Error('We couldn’t confirm the result in time. Refresh request data before retrying; a change may already have saved.')
+   if(error instanceof SyntaxError)throw new Error('We couldn’t read the server response. Refresh request data before retrying; a change may already have saved.')
+   if(error instanceof TypeError)throw new Error('We couldn’t connect. Check your connection, then refresh request data before retrying.')
+   throw error
+  }
  },[getToken,clear])
  useEffect(() => {clear();setDenied(false);setNotice('')},[userId,isSignedIn,clear])
  useEffect(() => {history.replaceState(null,'',`${location.pathname}?${filterQuery}${location.hash}`)},[filterQuery])

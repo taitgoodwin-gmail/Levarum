@@ -1,3 +1,4 @@
+import {abortable} from '../src/domain/abortable.ts'
 import {createHash} from 'node:crypto'
 import {PUBLIC_PAINS} from '../src/domain/public.ts'
 export function validLeadKey(key:string){return /^leads\/(plan|call|partner)\/[a-f\d-]{36}-[a-f\d]{64}\.json$/i.test(key)}
@@ -13,7 +14,7 @@ export async function summarizeInboxRows(rows:IndexedRow[],read:(key:string,sign
    results[i]={...row,summary:null}
    if(signal.aborted||!validLeadKey(key)||createHash('sha256').update(key).digest('hex')!==row.id)continue
    try{
-    const data=await read(key,signal)
+    const data=await abortable(read(key,signal),signal)
     if(!data||typeof data!=='object'||Array.isArray(data))continue
     const lead=data as Record<string,unknown>,email=short(lead.email,254),name=short(lead.name,120)
     if(!email)continue
