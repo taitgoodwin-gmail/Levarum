@@ -90,6 +90,87 @@ Acceptance:
 - the pilot result distinguishes product behavior from manual rescue;
 - the result informs the next product/commercial decision without claiming broader market validation.
 
+### Proposed technical / NFR requirements
+
+**Status:** proposed 2 October production-engineering gap pass. These requirements make production constraints explicit; they do not authorize implementation beyond the accepted pilot scope or invent numerical SLA, retention, rate, or recovery targets.
+
+**LVR-NFR-01 — Production release and configuration integrity**  
+**Gate:** required before a real production pilot.
+
+Every production release identifies the source revision/deployment, validates required production configuration before success, fails closed when a required secret/store/config value is unavailable, and has a known rollback path.
+
+Acceptance:
+- the deployed version can be tied to a specific source revision and build;
+- missing/invalid required configuration blocks the affected capability without false success;
+- secrets are not committed or exposed in public output/logs;
+- rollback to the prior verified release is documented and does not silently discard accepted lead records.
+
+**LVR-NFR-02 — Data lifecycle, access, and deletion honesty**  
+**Gate:** required before handling a real participant's data.
+
+The service records the selected retention/deletion policy for intake and call-request records and can honor an authorized access/deletion request without claiming deletion from systems or backups it cannot verify.
+
+Acceptance:
+- stored lead classes and their selected retention/deletion treatment are explicit;
+- an authorized deletion/access procedure is defined and testable;
+- private submissions remain inaccessible from public routes;
+- unavailable backup/provider deletion guarantees are stated as limits rather than assumed.
+
+**LVR-NFR-03 — Production observability without leaking customer data**  
+**Gate:** required before a real production pilot.
+
+Production-critical intake/storage paths provide enough correlated status/error evidence to distinguish validation failure, storage failure, notification failure, throttling/abuse rejection, and successful durable save without logging secrets or unnecessary submitted content.
+
+Acceptance:
+- material failure classes are distinguishable in production evidence;
+- a saved lead and a failed notification cannot be confused;
+- logs/diagnostics omit secrets and unnecessary PII;
+- monitoring/diagnostics cannot override persisted product state or fabricate success.
+
+**LVR-NFR-04 — Distributed abuse and resource protection**  
+**Gate:** required before traffic expands beyond a bounded pilot.
+
+Externally reachable mutation endpoints enforce production-effective body/origin/rate/abuse controls across instances. The existing in-memory per-instance throttle is explicitly insufficient for this gate.
+
+Acceptance:
+- distributing requests across instances cannot bypass the selected production rate/abuse rule;
+- oversize, invalid-origin, honeypot/bot, and excessive-request cases reject predictably;
+- rejected attempts create no unintended durable side effect;
+- legitimate below-policy traffic remains usable.
+
+**LVR-NFR-05 — Versioned interface and data-contract compatibility**  
+**Gate:** required before independently evolving the public API/operator retrieval path.
+
+Material changes to intake/call payload meaning, storage record shape, or independently deployed producer/consumer interfaces use an explicit compatibility/version boundary rather than silently reinterpreting old records.
+
+Acceptance:
+- supported prior records remain readable or have a tested migration path;
+- incompatible field/semantic changes are detected before release;
+- a breaking change creates an explicit successor/version or blocks deployment;
+- historical records are not silently rewritten to appear as newly collected data.
+
+**LVR-NFR-06 — Recoverability proportional to service dependence**  
+**Gate:** recovery strategy must be an explicit pilot decision; independently verified recovery is required before the service depends on stored records for repeated customer delivery.
+
+The project identifies what customer/operator data must survive a primary-store or deployment failure and tests the selected recovery approach to a fresh destination where that recovery is claimed.
+
+Acceptance:
+- required recoverable data/artifacts are named;
+- the selected backup/provider-durability boundary is explicit;
+- a claimed recovery path is verified to a fresh destination without overwriting an accepted state;
+- numeric RPO/RTO values remain decisions unless evidence/business needs justify them.
+
+**LVR-NFR-07 — Bounded timeout and degraded behavior**  
+**Gate:** required for customer-facing production flows.
+
+Customer-facing requests have explicit timeout/degraded behavior so an unavailable dependency cannot create an endless wait or false completion. Long-running/AI work, if later enabled, must not block the page request indefinitely.
+
+Acceptance:
+- storage/API dependency timeouts produce a defined honest customer/operator state;
+- a timeout never returns successful-save confirmation;
+- useful non-AI/degraded behavior remains available where the requirement calls for it;
+- numerical performance targets are added only when the journey/risk/economics justify them.
+
 ### Explicit non-goals for this MVP
 
 Unless later evidence shows they are required for the first real pilot, the MVP does not require a full CRM, automated calendar booking, a broad research hub, a large authenticated customer portal, automated plan email delivery, advertising tracking, or generalized multi-agent automation.
