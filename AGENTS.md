@@ -23,6 +23,19 @@ Before substantial product, design, engineering, AI, or release work:
 - Use current primary guidance for consequential workflow decisions. The maintained OpenAI source index is:
   https://github.com/taitgoodwin-gmail/augmind-skills#official-guidance-source-index
 
+## Code Review Rules
+
+For repository-wide code review:
+- Flag any secret, credential, private lead/customer data, or operator-only record exposed through this public repository or public route.
+- Intake success must not be returned before the intended private durable write succeeds.
+- Notification failure must not discard or falsely negate a successfully saved lead.
+- Public/admin boundaries must remain explicit: private submissions must not become publicly readable, and disabled draft/admin paths must not silently reopen.
+- A request for a conversation is not a confirmed booking. Flag wording or behavior that overstates booking, savings, ROI, timing, implementation certainty, or other unsupported outcomes.
+- For retry, storage, timeout, abuse-control, data-lifecycle, recovery, and release/configuration changes, require material negative/failure-path coverage.
+- For UI changes, compare against the specifically selected Figma target when one exists, including representative responsive and accessibility behavior; do not let a design draft redefine product scope.
+- Do not equate CI success, deployment READY, or production availability with end-to-end MVP or real-pilot acceptance.
+- Prefer bounded fixes; report unrelated findings separately rather than widening the reviewed change.
+
 ## Current execution principle
 
 The smallest useful release should prove one complete customer-to-owner outcome with minimal owner effort. Product scope, commercial terms, and acceptance criteria must be explicit before expanding optional features.
