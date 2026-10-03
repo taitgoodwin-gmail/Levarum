@@ -25,6 +25,10 @@ retention, commercial claims or production activity. Main was read, not merged o
 rebased into this branch. [Requirements](docs/REQUIREMENTS.md) and
 [workflows](docs/WORKFLOWS.md) describe the implemented contracts and their limits.
 
+## Checkable requirement counts
+
+See the [row-by-row coverage and counts](docs/REQUIREMENTS.md#requirement-coverage-counts--2026-10-03): current contract22 IDs, proposed MVP8 and proposed NFR7 counted separately. Code, test coverage, execution and owner acceptance are separate columns;60 tests and11 browser suites are not requirement counts.
+
 ## Run and check
 
 Requires Node 24.

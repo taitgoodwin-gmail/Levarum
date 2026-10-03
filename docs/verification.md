@@ -2,6 +2,10 @@
 
 This file retains dated migration/redesign evidence, not production-release acceptance. The older d3c0a824 evidence below belongs to that deployment. Current branch checkpoints are recorded in the [documentation index](README.md), [execution record](../PLANS.md) and dated sections; later changes do not inherit historical live-provider acceptance.
 
+## LEV-REQUIREMENT-COVERAGE-20261003 — documentation audit
+
+The [37-row crosswalk](REQUIREMENTS.md#requirement-coverage-counts--2026-10-03) assesses sourcebe5fe61, preserving current22 and proposed8+7 denominators. Sole writer: Codex lead on the existing working branch. Independent reviewer `/root/review_retry` recomputed totals and checked mappings; R05/R06 coverage was corrected to Partial because linked tests do not cover every task. Local validation passed: exact unique ID sets, allowed mutually exclusive labels, table totals, all relative README/requirements file links and zero inferred owner acceptance. Documentation-only diff; no runtime/test/config edits or new test execution claimed. The60-test/11-suite source evidence remains tied to [be5fe61 CI](https://github.com/taitgoodwin-gmail/Levarum/actions/runs/37152749054). Five-task browser coverage is the next READY gap; actual local PostgreSQL and hosted private verification remain blocked. No acceptance, scope, access or production decision changed.
+
 ## LVR-CI-RETRY-20261003 — workflow pins and recovery classification
 
 ### Isolated PostgreSQL harness continuation (starting cc37bff)

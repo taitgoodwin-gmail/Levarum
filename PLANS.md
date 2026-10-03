@@ -1,3 +1,7 @@
+## LEV-REQUIREMENT-COVERAGE-20261003 — requirement counts
+
+Sole writer Codex lead on existing working branch, sourcebe5fe61; gate Verify/Review. Claimed documentation-only crosswalk in existing REQUIREMENTS.md/README: current22 IDs and proposed8+7 kept separate, each with code/test/execution/acceptance classification. Source definitions preserved; no proposed scope approval. Validated all37 unique IDs, category totals and local links; independent reviewer checked counts/evidence and the R05/R06 correction is applied. State VERIFIED/REVIEWED for this documentation audit, not product acceptance. No runtime, installation, database, access, retention, main, PR or production change.
+
 ## LVR-CI-RETRY-20261003 — isolated PostgreSQL harness continuation
 
 Same work key and sole writer/branch, startingcc37bff. Gate: Verify/Review;60 aggregate tests/build and independent8-test review pass. [Evidence and reviewer scope](docs/verification.md#isolated-postgresql-harness-continuation-starting-cc37bff). Actual PostgreSQL execution remains BLOCKED: no local server/runtime is provisioned. Authorized test-only increment rejects effective-target/query and cloud-environment overrides, covers either concurrency winner, and authors empty-target/server-identity preflight plus audit-failure rollback checks. Offline assertion-oracle tests are not a database integration pass. No database connection, installation or credential/access change is authorized or performed in this increment. Independent review precedes push; full CI and preview metadata follow.
