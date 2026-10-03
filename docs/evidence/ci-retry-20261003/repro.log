@@ -1,0 +1,46 @@
+✖ contact: malformed private readback is retryable storage failure; unchanged retry confirms original bytes (13.843557ms)
+✖ partner: malformed private readback is retryable storage failure; unchanged retry confirms original bytes (1.377925ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 294.746085
+
+✖ failing tests:
+
+test at tests/private-save.test.mjs:34:41
+✖ contact: malformed private readback is retryable storage failure; unchanged retry confirms original bytes (13.843557ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  400 !== 503
+  
+      at TestContext.<anonymous> (file:///workspace/Levarum/tests/private-save.test.mjs:43:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:387:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 400,
+    expected: 503,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests/private-save.test.mjs:34:41
+✖ partner: malformed private readback is retryable storage failure; unchanged retry confirms original bytes (1.377925ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  400 !== 503
+  
+      at TestContext.<anonymous> (file:///workspace/Levarum/tests/private-save.test.mjs:43:9)
+      at async Test.run (node:internal/test_runner/test:1389:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:960:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 400,
+    expected: 503,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

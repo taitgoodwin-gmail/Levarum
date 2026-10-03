@@ -77,14 +77,17 @@ export function createPartnerHandler(deps: LeadDependencies = defaults) {
   if (++bucket.count > 10) { res.setHeader('Retry-After', '60'); return send(res, 429, { error: 'Please wait a minute' }) }
   if (buckets.size < 10000) buckets.set(key, bucket)
   if (!deps.configured()) return send(res, 503, { error: 'Intake is temporarily unavailable' })
+  let intakeValidated = false
   try {
     const lead = parseLead(await readBody(req))
+    intakeValidated = true
     await deps.save(lead)
     // Storage is the source of truth. Notification failure must never discard the lead.
     try { await deps.notify(lead) } catch { console.error('Lead saved; notification failed') }
     return send(res, 200, { saved: true, reference: lead.requestId })
   } catch (error) {
-    if (error instanceof LeadInputError || error instanceof SyntaxError) return send(res, 400, { error: 'Please check your intake details' })
+    // Provider/readback parsing failures must not blame valid visitor input.
+    if (!intakeValidated && (error instanceof LeadInputError || error instanceof SyntaxError)) return send(res, 400, { error: 'Please check your intake details' })
     console.error('Lead storage failed')
     return send(res, 503, { error: 'Could not save intake; please retry' })
   }
