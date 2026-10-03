@@ -4,6 +4,18 @@ This file retains dated migration/redesign evidence, not production-release acce
 
 ## LVR-CI-RETRY-20261003 — workflow pins and recovery classification
 
+### Isolated PostgreSQL harness continuation (starting cc37bff)
+
+Same work key, writer and branch. Test-only changes; no production module/fixture injection. The target validator rejects query parameters before driver parsing (including SSL file-read options), checks driver-effective loopback host, explicit unprivileged port and dedicated database name, and fails closed on inherited PG/application-cloud settings with a generic error that never includes credentials. No hostname resolution or connection occurs in offline tests. The integration script adds read-only server identity and empty-database preflight before application DDL and removes inbox/Blob access entirely.
+
+Either concurrent winner is now replayed unchanged. An authored test-only CHECK constraint forces the audit INSERT to fail after the status UPDATE; assertions require both row and history rollback, then success and idempotent replay using the same mutation ID after fixture removal. Eight offline tests cover malicious configuration, both winners and assertion detection of index/history leakage; they simulate the assertion inputs, not PostgreSQL transactions.
+
+Passed: [60 aggregate tests](evidence/ci-retry-20261003/harness-tests.log), [typecheck/build/boundaries](evidence/ci-retry-20261003/harness-build.log), syntax checks and final independent review by `/root/review_retry` (8/8 offline harness tests; no findings or edits). Review scope: `tests/postgres.integration.mjs`, `tests/fixtures/postgres-harness.mjs`, `tests/postgres-harness.test.mjs` relative to cc37bff. Reviewer explicitly approved target isolation, winner replay and assertion-oracle coverage while leaving SQL behavior unverified.
+
+**BLOCKED / NOT RUN:** actual PostgreSQL integration, server-side identity/empty-target preflight and SQL failure injection/rollback. No database was connected, installed or written; no credentials or settings changed. Prerequisite: an approved supported local PostgreSQL runtime with a fresh dedicated `levarum_test_*` database on an explicit loopback port, and a launch environment free of inherited driver/cloud settings. Only then run `POSTGRES_INTEGRATION_URL=<local test URL> node --test tests/postgres.integration.mjs`. Do not point it at a shared, remote or production database. CI runs offline harness tests only; a green run cannot close this integration gate.
+
+### Prior checkpoint: cc37bff
+
 Sole writer: Codex lead, `codex/design-assessment-fixes-20261001`, starting8a29675; main04a7927 read only. Applied current AGENTS review rules and AugMind delivery baseline. State: BUILDING → VERIFIED → REVIEWED locally; exact-SHA CI and preview metadata are reported in the final handoff. Ready deployment metadata is not authenticated hosted or production acceptance.
 
 Workflow reconciliation preserves both jobs, `contents: read`, working-branch push triggers, all eleven browser suites,14-day synthetic artifact retention and the existing browser timeout; adds the same15-minute bound to the unit/build job. Checkout3d3c42e5aac5ba805825da76410c181273ba90b1 (v7.0.1) and setup-node820762786026740c76f36085b0efc47a31fe5020 (v7.0.0) match main and were independently resolved against official `actions` tag refs. The branch-only upload-artifact step is pinned to official v4.6.2 ea165f8d65b6e75b540449e92b4886f43607fa02. No mutable action refs remain. No branch protections, permissions or authentication policy changed.

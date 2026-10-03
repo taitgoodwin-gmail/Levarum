@@ -1,0 +1,83 @@
+
+> levarum@0.1.0 test
+> node --test tests/*.test.mjs
+
+Lead storage failed
+✔ partner schema validates bounds, consent, enum, email and honeypot (2.950066ms)
+✔ partner save failure stays a failure; success requires durable save (1.775764ms)
+✔ owner authorization is immutable-ID based and fails closed (0.532498ms)
+✔ all admin actions authorize before touching data and disable caching (2.01845ms)
+✔ status schema rejects invalid ID, enum, versions and mutation IDs (0.721557ms)
+✔ admin mutation validates origin, content type, size and JSON before update (1.166479ms)
+✔ stale updates surface a conflict without false success (0.343204ms)
+✔ authorization checks session token policy, live revocation and verified owner email (4.784703ms)
+✔ preview Blob credentials are never used by production (0.920379ms)
+✔ missing preview credentials fail closed even when production storage is available (0.776669ms)
+✔ proposal: repeated erase, unchanged retry and stale reconciliation cannot resurrect sealed content (22.081816ms)
+✔ proposal: an already-started write reaching storage after erasure cannot replace the marker (1.099303ms)
+✔ proposal: erasure waits for an in-flight index transaction, then removes its result (0.491373ms)
+✔ proposal: reconciliation waiting behind erasure re-reads the marker instead of trusting old list metadata (0.35521ms)
+✔ proposal: failure after marker persistence is resumable and never permits the original retry (1.056376ms)
+✔ proposal: restored old content is excluded only with a current, independently preserved marker manifest (0.750263ms)
+✔ proposal boundary: discarding a marker reopens the key; a new request ID is a separate submission (0.314546ms)
+✔ proposal: call and partner retries also cannot replace sealed exact keys (3.223631ms)
+✔ deletion limitation: removing an immutable key allows an unchanged retry to recreate it (2.858891ms)
+✔ deletion limitation: even a preflight suppression check races with an in-flight write (0.306251ms)
+✔ authorized page summaries are bounded, ordered, minimal and never include source paths or full records (7.033357ms)
+✔ invalid paths/identities never read; absent, malformed or failed sources retain a usable indexed row (0.852551ms)
+✔ summaries use supplied partner identity or known legacy tasks and never invent absent context (0.395858ms)
+✔ admin authorization failure prevents any inbox summary read (0.477497ms)
+✔ summary deadline returns indexed fallbacks even if a storage reader ignores cancellation (2.330629ms)
+Lead storage failed
+✔ legacy plan and call canonical JSON and immutable paths are exactly preserved (3.611389ms)
+✔ version dispatch never downgrades supplied unsupported versions to legacy (0.96804ms)
+✔ v2 omits absent context and retains only explicitly supplied valid context (1.621709ms)
+✔ v2 requires real task or message content and enforces input bounds and exact types (1.137016ms)
+✔ v2 canonicalization ignores input order and untrusted metadata; meaningful changes separate records (1.189332ms)
+✔ both v2 contact purposes accept no prior questionnaire and return only the durable receipt (1.251555ms)
+✔ invalid v2 requests never save or notify, and rejected saves never acknowledge (2.045338ms)
+✔ v2 does not acknowledge while private save is pending (15.351731ms)
+✔ private storage preserves original receipt time and notice version after a lost response and retry (25.535832ms)
+✔ private retry reconciliation fails closed for missing or different record content (1.688293ms)
+✔ notification text tolerates optional context and retains actual free text without inventing values (0.674232ms)
+Lead storage failed
+Lead saved; notification failed
+✔ rejects empty selections, invalid email, missing consent, unknown values and honeypot (2.732812ms)
+✔ canonical requests are idempotent and cannot overwrite different personal data (1.018948ms)
+✔ confirms only after durable save and does not expose a storage URL (1.692943ms)
+✔ storage failure never reports success (1.233829ms)
+✔ notification failure does not lose a saved lead (0.458559ms)
+✔ fails closed when storage is not configured (0.479802ms)
+✔ rejects malformed, oversized, cross-origin, non-JSON and read requests (1.109039ms)
+✔ throttles repeated requests on an instance (0.874472ms)
+✔ a direct call request can be saved without a preceding plan submission (0.458418ms)
+✔ neither follow-up purpose saves or notifies without explicit consent (0.870944ms)
+✔ pending storage cannot acknowledge or notify a request before it is durable (11.590169ms)
+✔ follow-up and call remain separate records while equivalent answer retries keep their identity (0.340411ms)
+✔ PostgreSQL harness accepts only explicit loopback port and dedicated test database (3.072798ms)
+✔ PostgreSQL harness rejects inherited driver/cloud settings without exposing values (0.462638ms)
+✔ concurrency winner 0 is replayed with its exact unchanged mutation (0.255983ms)
+✔ concurrency winner 1 is replayed with its exact unchanged mutation (0.098887ms)
+✔ invalid concurrency outcomes cannot be counted as a replay pass (1.053405ms)
+✔ rollback assertion oracle detects none leakage and cleans up the failure fixture (1.059258ms)
+✔ rollback assertion oracle detects index leakage and cleans up the failure fixture (0.895967ms)
+✔ rollback assertion oracle detects history leakage and cleans up the failure fixture (0.365065ms)
+✔ reconciliation body stall rejects within its read budget and an unchanged retry verifies the saved record (5011.716842ms)
+Lead storage failed
+Lead storage failed
+✔ uncooperative write is bounded, then verified only by exact private readback (12001.88398ms)
+✔ contact: malformed private readback is retryable storage failure; unchanged retry confirms original bytes (3.388015ms)
+✔ partner: malformed private readback is retryable storage failure; unchanged retry confirms original bytes (1.72926ms)
+ℹ tests 60
+ℹ suites 0
+ℹ pass 60
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 18074.263385
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+npm notice To update run: npm install -g npm@12.2.0
+npm notice
