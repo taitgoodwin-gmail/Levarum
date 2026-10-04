@@ -1,5 +1,17 @@
 # Levarum public pilot
 
+## Go workflow setup — 3 October 2026
+
+Say **Go on Levarum** to start from the requirements and current evidence; **Continue** resumes the existing work; **Where are we?** requests status. [AGENTS.md](AGENTS.md#go--continue-operating-instruction) defines the startup and handoff. The agent handles ordinary tool choices and asks only for material unresolved decisions.
+
+Setup work key `LVR-GO-SETUP-20261003`; writer Codex lead; branch `codex/go-workflow-20261003`, based on main `04a7927d728cd97e5c7ad39bab7cd749157dd6f3`. This is a documentation setup candidate, not a replacement application branch. The shared baseline was read at augmind-skills `e4677946488b543dab641830f25a62f5c702ff6d`, baseline blob `1c68590e4bee004d9a2997d69708991f1a621cda`.
+
+**Startup reconciliation:** [MIN-26](https://linear.app/mindleverx-codex-build/issue/MIN-26) still names implementation SHA `8a29675`; the remote [implementation branch](https://github.com/taitgoodwin-gmail/Levarum/tree/codex/design-assessment-fixes-20261001) resolves to `377efe60ec96f2bae6dffc0e741fa763e33b6885` at setup. Its existing requirement coverage, execution record and verification must be read before choosing another task. This main-based checkout has no `docs/REQUIREMENTS.md` or `PLANS.md`; that absence does not mean the work is missing. The proposal below does not supersede the candidate's recorded scope decisions. [MIN-27](https://linear.app/mindleverx-codex-build/issue/MIN-27) retains outstanding live private-storage verification; neither issue is closed by this setup.
+
+**Next run:** the delivery lead should reconcile MIN-26 with the latest candidate's requirement/design evidence, identify any exact acceptance decision still needed and select authorized independent work. Verify the current writer before continuing a claimed task. No new product work is selected solely from a Todo label.
+
+**Verification boundary:** all seven candidate-branch startup files were found; scope, preservation of existing text, new relative links/anchors and diff whitespace checks passed; no app tests, live POST, private-data read, Figma acceptance or deployment verification is claimed. New-session automatic instruction discovery and unattended execution are NOT RUN. Instructions apply when this setup branch is selected or explicitly read; main and other branches do not acquire them automatically. The final setup commit is the Git history entry for this section; the remote publication receipt is returned in the task handoff. Existing product/runtime prose below is preserved.
+
 A short intake produces a practical Game Plan and an optional request for a
 15-minute conversation. Scheduling is handled manually by Levarum through
 hello@levarum.com. The site never claims an appointment has been booked.
