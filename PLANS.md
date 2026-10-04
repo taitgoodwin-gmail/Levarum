@@ -1,3 +1,9 @@
+## LVR-MVP-REVENUE-20261003 — Codex startup handoff
+
+Preparation only, 3 October 2026: remote `codex/mvp-completion-20261003` matched scope commit `30a0024`; working tree was clean. Remote design candidate remained `377efe60`, setup branch `e53dfad6`, main `04a7927`. Added startup/continuation instructions to this branch's existing AGENTS so a fresh checkout need not discover the separate setup branch on its own. Scope selection and MIN-26 linkage remain intact. No application work is started by this preparation.
+
+Earlier checks on the unchanged application source: 60 local tests passed and `npm run build` passed including TypeScript and public/private boundary checks. Dependency setup succeeded with a writable temporary npm cache after the default cache path failed. These are this workspace's historical results, not proof that a new Codex environment is configured. Fresh browser, hosted private-data, owner acceptance and production checks were not performed for this handoff. The receiving session must report its own environment readiness and source/instruction versions. This session yields application-writing ownership; reconcile any other active writer before continuing. Codex UI environment selection/new-session instruction loading cannot be verified from the available tools here.
+
 ## LVR-MVP-REVENUE-20261003 — selected scope and next work
 
 Owner instruction: “Whatever journey will get me to revenue first.” Codex selected the existing service-site/direct-enquiry path; see [canonical scope](docs/REQUIREMENTS.md#selected-revenue-first-mvp--2026-10-03). Working branch `codex/mvp-completion-20261003`, starting source `377efe60ec96f2bae6dffc0e741fa763e33b6885`; sole writer Codex. Mandatory questionnaire/Game Plan expansion is deferred. Earlier evidence/counts are preserved and no acceptance is inferred.
