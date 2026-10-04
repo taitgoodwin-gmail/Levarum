@@ -32,6 +32,10 @@ The supplied “Make work flow” opening and reversible enquiry illustration ar
 
 # Levarum — current product and delivery baseline
 
+## Isolated hosted enquiry and owner verification — 4 October 2026
+
+Fresh source82967bdd / deployment `dpl_CGhnWnHPBRYo2YBiMfCCjzMkm6aH`: real synthetic follow-up/call/partner acknowledgements, exact private readback, anonymous object denial, legitimate owner details, keyboard status/history persistence, stale-view recovery and logout/Back clearing passed. [Receipts, guidance and remaining gates](verification.md#lvr-mvp-hosted-20261004--isolated-enquiry-to-owner-verification). No application/config change, fresh local suite, general inbox acceptance, production release or final visual approval is claimed. The October3 requirement counts and earlier implementation records remain dated snapshots.
+
 ## Intended-font verification — 2026-10-01
 
 [Font/visual review and current gate inventory](FONT-VISUAL-VERIFICATION.md) closes the earlier local font-download limitation: pinned OFL Fontsource packages now serve through Vite; actual rendered Schibsted/Instrument glyphs pass16 width/theme/page cases. All33 tests, build/typecheck/boundaries, seven local browser suites and57 Axe scans pass. Original fallback screenshots remain historical. The linked table distinguishes owner decisions/access from safe local work completed and remaining live/operational checks. No push, PR, merge, deployment or credential/access change. Library copies of selected review artifacts are separately authorized.

@@ -1,0 +1,59 @@
+{
+  "source": "82967bddfc053d099eefd397a1e3f879fcd6e41d",
+  "deployment": "dpl_CGhnWnHPBRYo2YBiMfCCjzMkm6aH",
+  "mode": "real hosted UI submissions; exact private preview readback; no object listing or general inbox export",
+  "cases": [
+    {
+      "kind": "plan",
+      "hostedUiReceipt": true,
+      "exactHashMatch": true,
+      "privateReadback": true,
+      "allSubmittedFieldsMatch": true,
+      "consent": true,
+      "privacyVersion": "2026-09-30",
+      "anonymousRead": 403,
+      "ownerBrowser": {
+        "exactDetail": true,
+        "replyAddress": true,
+        "keyboardContacted": true,
+        "persistedAfterReload": true,
+        "historyVisible": true
+      }
+    },
+    {
+      "kind": "call",
+      "hostedUiReceipt": true,
+      "exactHashMatch": true,
+      "privateReadback": true,
+      "allSubmittedFieldsMatch": true,
+      "consent": true,
+      "privacyVersion": "2026-09-30",
+      "anonymousRead": 403,
+      "ownerBrowser": {
+        "exactDetail": true,
+        "replyAddress": true,
+        "keyboardContacted": true,
+        "persistedAfterReload": true,
+        "historyVisible": true
+      }
+    },
+    {
+      "kind": "partner",
+      "hostedUiReceipt": true,
+      "exactHashMatch": true,
+      "privateReadback": true,
+      "allSubmittedFieldsMatch": true,
+      "consent": true,
+      "privacyVersion": "2026-09-29",
+      "anonymousRead": 403,
+      "ownerBrowser": {
+        "exactDetail": true,
+        "replyAddress": true,
+        "keyboardContacted": true,
+        "persistedAfterReload": true,
+        "historyVisible": true
+      }
+    }
+  ],
+  "postgresVersion": "18.6 (4e955f5)"
+}

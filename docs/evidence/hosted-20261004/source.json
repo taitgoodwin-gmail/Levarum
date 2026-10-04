@@ -1,0 +1,34 @@
+{
+  "applicationCommit": "82967bddfc053d099eefd397a1e3f879fcd6e41d",
+  "deployment": "dpl_CGhnWnHPBRYo2YBiMfCCjzMkm6aH",
+  "instructions": {
+    "projectAgentsBlob": "10cf97ac7b0ab2d4c6d89d36579d5c3380fcc063",
+    "goCommit": "e53dfad6ee867f915e608e0659da2287f9160ef1",
+    "sharedBaselineCommit": "e4677946488b543dab641830f25a62f5c702ff6d"
+  },
+  "runtime": {
+    "node": "24.19.0",
+    "postgres": "18.6 (4e955f5)"
+  },
+  "blobs": {
+    "package-lock.json": "32473237b9e4edffbfb89d53ed65036d70849aa5",
+    "api/leads.ts": "816449e01834e736d49da1e03c748f5228348422",
+    "api/partners.ts": "e153447a83ecc8f6f0b3d278badb0e5ef896913b",
+    "server/private-save.ts": "968cf67d532fbc3c2c29b96971a1217347b26c67",
+    "server/admin-store.ts": "d6d82a551940d5d631cd442f48aa13cf3906332a",
+    "src/admin/main.tsx": "ade1a6abd1c3d34a94ccaeb66e49eb825e3a5b59"
+  },
+  "isolation": {
+    "readyNonProductionGitDeployment": true,
+    "providerPreviewStorePrivate": true,
+    "previewCredentialScope": [
+      "preview",
+      "development"
+    ],
+    "distinctProductionDatabaseHost": true,
+    "productionDatabaseConnected": false,
+    "resendProjectAndSharedKeyAbsent": true,
+    "sharingToolsCalled": false
+  },
+  "freshLocalUnitBuild": false
+}

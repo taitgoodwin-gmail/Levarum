@@ -1,0 +1,76 @@
+{
+  "source": "82967bddfc053d099eefd397a1e3f879fcd6e41d",
+  "deployment": "dpl_CGhnWnHPBRYo2YBiMfCCjzMkm6aH",
+  "method": "Observed real existing-session browser UI; no fixture API responses",
+  "ownerSignIn": "Existing verified owner signed back in through Google/Clerk",
+  "detailKinds": [
+    "plan",
+    "call",
+    "partner"
+  ],
+  "replyAddressMatches": true,
+  "consentVisible": true,
+  "bookedOnlyCall": true,
+  "keyboardContactedKinds": [
+    "plan",
+    "call",
+    "partner"
+  ],
+  "reloadStatusHistoryKinds": [
+    "plan",
+    "call",
+    "partner"
+  ],
+  "staleCallView": {
+    "acceptedFirst": true,
+    "rejectedSecond": true,
+    "keyboardRefreshRecovered": true
+  },
+  "measuredLayouts": [
+    {
+      "kind": "call",
+      "width": 320,
+      "theme": "light",
+      "horizontalOverflow": false
+    },
+    {
+      "kind": "partner",
+      "width": 320,
+      "theme": "dark",
+      "horizontalOverflow": false
+    },
+    {
+      "kind": "partner",
+      "width": 1440,
+      "theme": "dark",
+      "horizontalOverflow": false
+    }
+  ],
+  "logout": {
+    "signIn": true,
+    "backSignIn": true,
+    "backPrivateContentAbsent": true,
+    "otherTabPrivateContentAbsent": true,
+    "reloadSignIn": true
+  },
+  "notRun": [
+    "general inbox filters",
+    "reconciliation",
+    "valid non-owner session",
+    "expired bearer",
+    "pre-logout JWT replay",
+    "manual assistive technology",
+    "full width/theme matrix",
+    "production"
+  ],
+  "selectorCorrections": [
+    "History text contains doubled spaces; observed AX state verified refresh.",
+    "Measured actual width before claiming desktop coverage."
+  ],
+  "cleanup": {
+    "viewportReset": true,
+    "createdBrowserTabsClosed": true,
+    "temporaryProviderConfigRemoved": true,
+    "cloudSyntheticRecordsRetained": 6
+  }
+}

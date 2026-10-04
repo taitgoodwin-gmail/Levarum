@@ -2,6 +2,10 @@
 
 Current baseline: 2026-09-30. The separate admin application, Clerk development account, Neon index/history and isolated private Blob are implemented. The owner has verified taitgoodwin@gmail.com and is bound by immutable server-only ID. This supersedes [historical provider proposals](archive/2026-09-30-pre-redesign/ADMIN-PLAN.md). Production setup is separate and remains gated.
 
+## Current hosted continuation — 4 October 2026
+
+Exact application source82967bdd / deployment `dpl_CGhnWnHPBRYo2YBiMfCCjzMkm6aH` now has fresh isolated hosted follow-up/call/partner saves, exact private readback and legitimate owner detail/status/reload checks. The owner signed back in normally; a stale second view recovered through refresh, and logout/Back/cross-tab/reload cleared fixture content. [Actual execution scopes and receipts](verification.md#lvr-mvp-hosted-20261004--isolated-enquiry-to-owner-verification) supersede the earlier “fresh owner walkthrough pending” statement for these checked detail states only. General inbox/filter/reconciliation, valid non-owner/expired/revoked-bearer replay, production identity/recovery, operations and visual/accessibility acceptance remain open. The dated table below is retained as its 30 September baseline, not silently relabeled.
+
 ## Authorization and privacy invariants
 
 Every /api/admin action verifies a bearer Clerk session token with authorized parties, immutable ADMIN_OWNER_USER_ID, active online session and verified exact primary owner email. Missing/invalid session is denied; authenticated non-owner is denied; incomplete configuration fails closed. Client navigation and enrollment email restrictions are not authorization. Secrets stay server-side. Public customers do not need accounts.

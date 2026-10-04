@@ -1,0 +1,60 @@
+{
+  "source": "82967bddfc053d099eefd397a1e3f879fcd6e41d",
+  "mode": "local actual handlers with isolated remote preview providers; not hosted HTTP or Clerk",
+  "cases": [
+    {
+      "kind": "plan",
+      "privateExactRead": true,
+      "anonymousRead": 403,
+      "unchangedRetry": true,
+      "receivedAtPreserved": true,
+      "indexRows": 1,
+      "detailRead": true,
+      "idempotentReplay": true,
+      "statusHistoryEvents": 1,
+      "secondConnectionRead": true,
+      "bookedRestriction": "rejected",
+      "concurrency": {
+        "successfulUpdates": 1,
+        "rejectedUpdates": 1,
+        "rejectionStatus": 409
+      }
+    },
+    {
+      "kind": "call",
+      "privateExactRead": true,
+      "anonymousRead": 403,
+      "unchangedRetry": true,
+      "receivedAtPreserved": true,
+      "indexRows": 1,
+      "detailRead": true,
+      "idempotentReplay": true,
+      "statusHistoryEvents": 1,
+      "secondConnectionRead": true,
+      "bookedRestriction": "not exercised",
+      "concurrency": {
+        "successfulUpdates": 1,
+        "rejectedUpdates": 1,
+        "rejectionStatus": 409
+      }
+    },
+    {
+      "kind": "partner",
+      "privateExactRead": true,
+      "anonymousRead": 403,
+      "unchangedRetry": true,
+      "receivedAtPreserved": true,
+      "indexRows": 1,
+      "detailRead": true,
+      "idempotentReplay": true,
+      "statusHistoryEvents": 1,
+      "secondConnectionRead": true,
+      "bookedRestriction": "rejected",
+      "concurrency": {
+        "successfulUpdates": 1,
+        "rejectedUpdates": 1,
+        "rejectionStatus": 409
+      }
+    }
+  ]
+}
