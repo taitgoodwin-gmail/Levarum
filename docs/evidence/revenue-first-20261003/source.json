@@ -1,0 +1,17 @@
+{
+  "startingCommit": "d25bb0ee9d4d41be770b404bbf6d8560c4802421",
+  "codeAndTestBlobs": {
+    "src/prospect/useSubmission.ts": "4d82aeb6e17970ea13090b0e09d55fd5283d655a",
+    "tests/browser/submission-body.mjs": "43ba1bd32a4ce334fe537e8f7b9601b9091f4651",
+    "tests/browser/admin-states.mjs": "7125aedc2f1ffba3a4abe1f058dd691c39d7c44d",
+    ".github/workflows/check.yml": "2854ff7d6c69a780350ca8ac6d36d4c2cff8fe5b"
+  },
+  "runtime": {
+    "node": "v24.19.0",
+    "npm": "11.6.2",
+    "playwright": "1.57.0",
+    "chromium": "143.0.7499.4",
+    "axe": "4.13.0"
+  },
+  "limits": "Local synthetic verification only; no hosted provider, customer or production access."
+}

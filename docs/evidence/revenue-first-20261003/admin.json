@@ -1,0 +1,107 @@
+{
+  "results": [
+    "late stale denial ignored",
+    "recognizable independent senders/tasks, unavailable fallback and explicit global counts",
+    {
+      "kind": "plan",
+      "manualReplyContext": true,
+      "noInventedQuestionnaire": true,
+      "callOnlyBooked": true,
+      "statusAndHistoryReload": true,
+      "filtersRetained": true,
+      "limits": "Synthetic provider/API; no real persistence or reply"
+    },
+    {
+      "kind": "call",
+      "manualReplyContext": true,
+      "noInventedQuestionnaire": true,
+      "callOnlyBooked": true,
+      "statusAndHistoryReload": true,
+      "filtersRetained": true,
+      "limits": "Synthetic provider/API; no real persistence or reply"
+    },
+    {
+      "kind": "partner",
+      "manualReplyContext": true,
+      "noInventedQuestionnaire": true,
+      "callOnlyBooked": true,
+      "statusAndHistoryReload": true,
+      "filtersRetained": true,
+      "limits": "Synthetic provider/API; no real persistence or reply"
+    },
+    {
+      "width": 320,
+      "theme": "light",
+      "loading": true,
+      "retry": true,
+      "conflict": true,
+      "focus": true,
+      "denial": true,
+      "logoutFailure": true,
+      "axeScans": 1
+    },
+    {
+      "width": 320,
+      "theme": "dark",
+      "loading": true,
+      "retry": true,
+      "conflict": true,
+      "focus": true,
+      "denial": true,
+      "logoutFailure": true,
+      "axeScans": 1
+    },
+    {
+      "width": 390,
+      "theme": "light",
+      "loading": true,
+      "retry": true,
+      "conflict": true,
+      "focus": true,
+      "denial": true,
+      "logoutFailure": true,
+      "axeScans": 1
+    },
+    {
+      "width": 390,
+      "theme": "dark",
+      "loading": true,
+      "retry": true,
+      "conflict": true,
+      "focus": true,
+      "denial": true,
+      "logoutFailure": true,
+      "axeScans": 1
+    },
+    {
+      "width": 1440,
+      "theme": "light",
+      "loading": true,
+      "retry": true,
+      "conflict": true,
+      "focus": true,
+      "denial": true,
+      "logoutFailure": true,
+      "axeScans": 1
+    },
+    {
+      "width": 1440,
+      "theme": "dark",
+      "loading": true,
+      "retry": true,
+      "conflict": true,
+      "focus": true,
+      "denial": true,
+      "logoutFailure": true,
+      "axeScans": 1
+    },
+    "empty/error recovery, account change, pagehide/pageshow, logout",
+    "non-JSON 401 denial clears private data",
+    "non-JSON 403 denial clears private data",
+    "malformed success response remains uncertain; unchanged mutation retry keeps ID",
+    "real 20-second token wait timeout, no mutation sent, refresh recovery",
+    "keyboard successful mutation, partial reconciliation, missing-token denial"
+  ],
+  "errors": [],
+  "limits": "Synthetic provider and API responses; not live authentication or storage verification."
+}

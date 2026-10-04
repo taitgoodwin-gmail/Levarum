@@ -1,0 +1,30 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+
++ [
++   'AssertionError [ERR_ASSERTION]: A stalled response body needs honest retry copy, not a raw browser exception',
++   'AssertionError [ERR_ASSERTION]: A stalled response body needs honest retry copy, not a raw browser exception',
++   'AssertionError [ERR_ASSERTION]: A stalled response body needs honest retry copy, not a raw browser exception',
++   'AssertionError [ERR_ASSERTION]: A stalled response body needs honest retry copy, not a raw browser exception'
++ ]
+- []
+
+    at file:///Users/tag-mba-2066/Documents/Codex/2026-10-03/help-me-continue-levarum-toward-its/work/Levarum/tests/browser/submission-body.mjs:87:9 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [
+    'AssertionError [ERR_ASSERTION]: A stalled response body needs honest retry copy, not a raw browser exception',
+    'AssertionError [ERR_ASSERTION]: A stalled response body needs honest retry copy, not a raw browser exception',
+    'AssertionError [ERR_ASSERTION]: A stalled response body needs honest retry copy, not a raw browser exception',
+    'AssertionError [ERR_ASSERTION]: A stalled response body needs honest retry copy, not a raw browser exception'
+  ],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

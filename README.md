@@ -45,7 +45,7 @@ npm run dev
 ```
 
 The build includes TypeScript and public/private boundary checks. GitHub Actions
-runs unit tests, the build and eleven synthetic browser suites. Browser evidence
+runs unit tests, the build and twelve synthetic browser suites. Browser evidence
 is not live Clerk or private-storage acceptance.
 
 ## Private storage and owner operation

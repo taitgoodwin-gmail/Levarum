@@ -64,7 +64,7 @@ jobs:
           # Keep all suites running after an individual failure so the artifact contains the full outcome.
           status=0
           set +e
-          for suite in public-flow recovery release-acceptance round2-contact-matrix work-in-motion fonts signature font-metrics admin-states practical-forms; do
+          for suite in public-flow recovery release-acceptance round2-contact-matrix work-in-motion fonts signature font-metrics admin-states practical-forms submission-body; do
             mkdir -p "$OUT/$suite"
             TEST_OUT="$OUT/$suite" node "tests/browser/$suite.mjs" 2>&1 | tee "$OUT/$suite.log"
             result=${PIPESTATUS[0]}

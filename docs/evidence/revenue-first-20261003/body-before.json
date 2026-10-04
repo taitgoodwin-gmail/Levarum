@@ -1,0 +1,34 @@
+{
+  "results": [
+    {
+      "path": "/contact",
+      "theme": "light",
+      "width": 320,
+      "elapsed": 20534,
+      "error": "The user aborted a request."
+    },
+    {
+      "path": "/contact",
+      "theme": "dark",
+      "width": 1440,
+      "elapsed": 20534,
+      "error": "The user aborted a request."
+    },
+    {
+      "path": "/partners",
+      "theme": "light",
+      "width": 320,
+      "elapsed": 20419,
+      "error": "The user aborted a request."
+    },
+    {
+      "path": "/partners",
+      "theme": "dark",
+      "width": 1440,
+      "elapsed": 20560,
+      "error": "The user aborted a request."
+    }
+  ],
+  "errors": [],
+  "limits": "Built UI with synthetic localhost responses. No real saving or provider access."
+}

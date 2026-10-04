@@ -1,0 +1,78 @@
+
+> levarum@0.1.0 test
+> node --test tests/*.test.mjs
+
+Lead storage failed
+✔ partner schema validates bounds, consent, enum, email and honeypot (1.908917ms)
+✔ partner save failure stays a failure; success requires durable save (0.649583ms)
+✔ owner authorization is immutable-ID based and fails closed (0.153375ms)
+✔ all admin actions authorize before touching data and disable caching (0.962333ms)
+✔ status schema rejects invalid ID, enum, versions and mutation IDs (0.78525ms)
+✔ admin mutation validates origin, content type, size and JSON before update (0.60475ms)
+✔ stale updates surface a conflict without false success (0.256583ms)
+✔ authorization checks session token policy, live revocation and verified owner email (4.876333ms)
+✔ preview Blob credentials are never used by production (0.472709ms)
+✔ missing preview credentials fail closed even when production storage is available (0.560625ms)
+✔ proposal: repeated erase, unchanged retry and stale reconciliation cannot resurrect sealed content (12.162708ms)
+✔ proposal: an already-started write reaching storage after erasure cannot replace the marker (0.921875ms)
+✔ proposal: erasure waits for an in-flight index transaction, then removes its result (0.282583ms)
+✔ proposal: reconciliation waiting behind erasure re-reads the marker instead of trusting old list metadata (0.21425ms)
+✔ proposal: failure after marker persistence is resumable and never permits the original retry (0.64175ms)
+✔ proposal: restored old content is excluded only with a current, independently preserved marker manifest (0.386167ms)
+✔ proposal boundary: discarding a marker reopens the key; a new request ID is a separate submission (0.132833ms)
+✔ proposal: call and partner retries also cannot replace sealed exact keys (1.905875ms)
+✔ deletion limitation: removing an immutable key allows an unchanged retry to recreate it (2.561416ms)
+✔ deletion limitation: even a preflight suppression check races with an in-flight write (0.074625ms)
+✔ authorized page summaries are bounded, ordered, minimal and never include source paths or full records (9.007625ms)
+✔ invalid paths/identities never read; absent, malformed or failed sources retain a usable indexed row (0.35175ms)
+✔ summaries use supplied partner identity or known legacy tasks and never invent absent context (0.161666ms)
+✔ admin authorization failure prevents any inbox summary read (0.378542ms)
+✔ summary deadline returns indexed fallbacks even if a storage reader ignores cancellation (3.824667ms)
+Lead storage failed
+✔ legacy plan and call canonical JSON and immutable paths are exactly preserved (1.737417ms)
+✔ version dispatch never downgrades supplied unsupported versions to legacy (0.491584ms)
+✔ v2 omits absent context and retains only explicitly supplied valid context (0.848958ms)
+✔ v2 requires real task or message content and enforces input bounds and exact types (0.299375ms)
+✔ v2 canonicalization ignores input order and untrusted metadata; meaningful changes separate records (0.247959ms)
+✔ both v2 contact purposes accept no prior questionnaire and return only the durable receipt (0.386875ms)
+✔ invalid v2 requests never save or notify, and rejected saves never acknowledge (0.448916ms)
+✔ v2 does not acknowledge while private save is pending (4.615042ms)
+✔ private storage preserves original receipt time and notice version after a lost response and retry (7.096125ms)
+✔ private retry reconciliation fails closed for missing or different record content (0.475291ms)
+✔ notification text tolerates optional context and retains actual free text without inventing values (0.172458ms)
+Lead storage failed
+Lead saved; notification failed
+✔ rejects empty selections, invalid email, missing consent, unknown values and honeypot (0.83425ms)
+✔ canonical requests are idempotent and cannot overwrite different personal data (0.226959ms)
+✔ confirms only after durable save and does not expose a storage URL (0.422833ms)
+✔ storage failure never reports success (0.292583ms)
+✔ notification failure does not lose a saved lead (0.098666ms)
+✔ fails closed when storage is not configured (0.054333ms)
+✔ rejects malformed, oversized, cross-origin, non-JSON and read requests (0.122583ms)
+✔ throttles repeated requests on an instance (0.198833ms)
+✔ a direct call request can be saved without a preceding plan submission (0.085666ms)
+✔ neither follow-up purpose saves or notifies without explicit consent (0.399375ms)
+✔ pending storage cannot acknowledge or notify a request before it is durable (7.907958ms)
+✔ follow-up and call remain separate records while equivalent answer retries keep their identity (0.139541ms)
+✔ PostgreSQL harness accepts only explicit loopback port and dedicated test database (2.599542ms)
+✔ PostgreSQL harness rejects inherited driver/cloud settings without exposing values (0.273334ms)
+✔ concurrency winner 0 is replayed with its exact unchanged mutation (0.26775ms)
+✔ concurrency winner 1 is replayed with its exact unchanged mutation (0.052625ms)
+✔ invalid concurrency outcomes cannot be counted as a replay pass (0.98975ms)
+✔ rollback assertion oracle detects none leakage and cleans up the failure fixture (0.639541ms)
+✔ rollback assertion oracle detects index leakage and cleans up the failure fixture (0.769917ms)
+✔ rollback assertion oracle detects history leakage and cleans up the failure fixture (0.155459ms)
+✔ reconciliation body stall rejects within its read budget and an unchanged retry verifies the saved record (5009.897959ms)
+Lead storage failed
+Lead storage failed
+✔ uncooperative write is bounded, then verified only by exact private readback (12004.302375ms)
+✔ contact: malformed private readback is retryable storage failure; unchanged retry confirms original bytes (4.797666ms)
+✔ partner: malformed private readback is retryable storage failure; unchanged retry confirms original bytes (1.536458ms)
+ℹ tests 60
+ℹ suites 0
+ℹ pass 60
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 17260.878125

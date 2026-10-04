@@ -48,6 +48,45 @@ try{
  assert.match(await identify.page.locator('.admin-counts').innerText(),/12/)
  assert.ok(await identify.page.getByText('All indexed requests · counts include every type and status, regardless of filters.',{exact:true}).isVisible())
  results.push('recognizable independent senders/tasks, unavailable fallback and explicit global counts');await identify.context.close()
+ // Revenue-first follow-up: every saved request type supplies enough genuine
+ // context for a manual reply, with call-only booking and retained inbox filters.
+ for(const kind of ['plan','call','partner']){
+  const followup=await setup(390,'light')
+  let current={...row,kind},events=[]
+  const email=`synthetic-${kind}@example.com`
+  const lead=kind==='partner'?{name:'Synthetic partner',email,craft:'Synthetic implementation experience',contribution:'Building the automations',consent:true}:{schemaVersion:2,email,message:'Synthetic direct enquiry about repeat data entry',pains:[],preferences:kind==='call'?'Synthetic weekday mornings':'',consent:true}
+  followup.setHandler(route=>{
+   if(route.request().method()==='POST'){
+    const body=route.request().postDataJSON()
+    assert.equal(body.id,current.id);assert.equal(body.version,current.version);assert.equal(body.status,'Contacted')
+    events=[{old_status:current.status,new_status:body.status,actor:'synthetic-owner',created_at:'2026-10-03T12:00:00Z',version:current.version+1}]
+    current={...current,status:body.status,version:current.version+1}
+    return route.fulfill({json:{saved:true,status:current.status,version:current.version}})
+   }
+   return route.fulfill({json:route.request().url().includes('action=detail')?{record:current,lead,events}:{...inbox,leads:[current]}})
+  })
+  try{
+   await followup.page.goto(`${base}/admin?kind=${kind}&status=New`)
+   await followup.page.getByRole('link',{name:'View request',exact:true}).click()
+   await followup.page.getByText(email,{exact:true}).waitFor()
+   assert.equal(await followup.page.getByRole('button',{name:'Booked',exact:true}).count(),kind==='call'?1:0)
+   assert.equal(await followup.page.getByRole('link',{name:'Reply by email',exact:true}).getAttribute('href'),`mailto:${encodeURIComponent(email)}`)
+   assert.equal(await followup.page.getByText('Given',{exact:true}).count(),1)
+   assert.equal(await followup.page.getByText('Business type',{exact:true}).count(),0)
+   assert.equal(await followup.page.getByText('Weekly hours on admin',{exact:true}).count(),0)
+   assert.ok(await followup.page.getByText(kind==='partner'?lead.craft:lead.message,{exact:true}).isVisible())
+   await followup.page.getByRole('button',{name:'Contacted',exact:true}).focus();await followup.page.keyboard.press('Enter')
+   await followup.page.getByText('Request status is Contacted. No email or calendar invitation was sent.',{exact:true}).waitFor()
+   await followup.page.reload()
+   await followup.page.getByText('New → Contacted',{exact:false}).waitFor()
+   assert.ok(await followup.page.getByRole('button',{name:'Contacted',exact:true}).isDisabled())
+   await followup.page.getByRole('link',{name:'← Back to requests',exact:true}).click()
+   await followup.page.getByLabel('Request type').waitFor()
+   assert.equal(await followup.page.getByLabel('Request type').inputValue(),kind)
+   assert.equal(await followup.page.getByLabel('Status').inputValue(),'New')
+   results.push({kind,manualReplyContext:true,noInventedQuestionnaire:true,callOnlyBooked:true,statusAndHistoryReload:true,filtersRetained:true,limits:'Synthetic provider/API; no real persistence or reply'})
+  }finally{await followup.context.close()}
+ }
  for(const width of [320,390,1440])for(const theme of ['light','dark']){
  const {page,context,setHandler}=await setup(width,theme)
  await page.goto(`${base}/admin`);await page.getByRole('link',{name:'View request'}).waitFor()

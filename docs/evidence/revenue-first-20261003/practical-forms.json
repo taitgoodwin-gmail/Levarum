@@ -1,0 +1,34 @@
+[
+  {
+    "width": 390,
+    "theme": "light",
+    "adjacentErrors": true,
+    "groupClearing": true,
+    "stableRetry": true,
+    "axeScans": 1
+  },
+  {
+    "width": 390,
+    "theme": "dark",
+    "adjacentErrors": true,
+    "groupClearing": true,
+    "stableRetry": true,
+    "axeScans": 1
+  },
+  {
+    "width": 1440,
+    "theme": "light",
+    "adjacentErrors": true,
+    "groupClearing": true,
+    "stableRetry": true,
+    "axeScans": 1
+  },
+  {
+    "width": 1440,
+    "theme": "dark",
+    "adjacentErrors": true,
+    "groupClearing": true,
+    "stableRetry": true,
+    "axeScans": 1
+  }
+]

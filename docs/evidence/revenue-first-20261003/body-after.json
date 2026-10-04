@@ -1,0 +1,54 @@
+{
+  "results": [
+    {
+      "path": "/contact",
+      "theme": "light",
+      "width": 320,
+      "elapsed": 20433,
+      "error": "We couldn’t confirm your request was received. Your details are still here. Please try again.",
+      "retainedInputAndConsent": true,
+      "noFalseReceipt": true,
+      "stableRetryBody": true,
+      "keyboardRecovery": true,
+      "noOverflow": true
+    },
+    {
+      "path": "/contact",
+      "theme": "dark",
+      "width": 1440,
+      "elapsed": 20446,
+      "error": "We couldn’t confirm your request was received. Your details are still here. Please try again.",
+      "retainedInputAndConsent": true,
+      "noFalseReceipt": true,
+      "stableRetryBody": true,
+      "keyboardRecovery": true,
+      "noOverflow": true
+    },
+    {
+      "path": "/partners",
+      "theme": "light",
+      "width": 320,
+      "elapsed": 20443,
+      "error": "We couldn’t confirm your request was received. Your details are still here. Please try again.",
+      "retainedInputAndConsent": true,
+      "noFalseReceipt": true,
+      "stableRetryBody": true,
+      "keyboardRecovery": true,
+      "noOverflow": true
+    },
+    {
+      "path": "/partners",
+      "theme": "dark",
+      "width": 1440,
+      "elapsed": 20443,
+      "error": "We couldn’t confirm your request was received. Your details are still here. Please try again.",
+      "retainedInputAndConsent": true,
+      "noFalseReceipt": true,
+      "stableRetryBody": true,
+      "keyboardRecovery": true,
+      "noOverflow": true
+    }
+  ],
+  "errors": [],
+  "limits": "Built UI with synthetic localhost responses. No real saving or provider access."
+}

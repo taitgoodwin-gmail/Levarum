@@ -1,0 +1,22 @@
+[
+  {
+    "suite": "public-flow",
+    "code": 0
+  },
+  {
+    "suite": "recovery",
+    "code": 0
+  },
+  {
+    "suite": "release-acceptance",
+    "code": 0
+  },
+  {
+    "suite": "round2-contact-matrix",
+    "code": 0
+  },
+  {
+    "suite": "practical-forms",
+    "code": 0
+  }
+]

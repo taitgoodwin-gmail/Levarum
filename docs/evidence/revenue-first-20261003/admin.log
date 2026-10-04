@@ -1,0 +1,1 @@
+PASS isolated admin UI: stale responses, six width/theme cases, loading/error/retry/conflict, focus, denial, account change, lifecycle and logout; synthetic provider/API only
