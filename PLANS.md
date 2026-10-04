@@ -1,3 +1,9 @@
+## LVR-MVP-REVENUE-20261003 — selected scope and next work
+
+Owner instruction: “Whatever journey will get me to revenue first.” Codex selected the existing service-site/direct-enquiry path; see [canonical scope](docs/REQUIREMENTS.md#selected-revenue-first-mvp--2026-10-03). Working branch `codex/mvp-completion-20261003`, starting source `377efe60ec96f2bae6dffc0e741fa763e33b6885`; sole writer Codex. Mandatory questionnaire/Game Plan expansion is deferred. Earlier evidence/counts are preserved and no acceptance is inferred.
+
+Execution priority: verify the primary contact/failure/receipt path and owner workflow, resolve demonstrated defects, then present the exact candidate and remaining release gates. Optional guidance coverage is compatibility work, not a new sales funnel. Existing hosted private-data checks remain NOT RUN/BLOCKED until their authorized isolated access is available. Owner operating cadence, final visual acceptance and production release remain explicit outstanding decisions; journey selection alone closes none of them. No customer outreach or paid commitment is implied.
+
 ## LEV-REQUIREMENT-COVERAGE-20261003 — requirement counts
 
 Sole writer Codex lead on existing working branch, sourcebe5fe61; gate Verify/Review. Claimed documentation-only crosswalk in existing REQUIREMENTS.md/README: current22 IDs and proposed8+7 kept separate, each with code/test/execution/acceptance classification. Source definitions preserved; no proposed scope approval. Validated all37 unique IDs, category totals and local links; independent reviewer checked counts/evidence and the R05/R06 correction is applied. State VERIFIED/REVIEWED for this documentation audit, not product acceptance. No runtime, installation, database, access, retention, main, PR or production change.

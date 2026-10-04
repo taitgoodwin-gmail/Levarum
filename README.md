@@ -7,13 +7,17 @@ work description, email and explicit consent; an optional unchecked preference
 requests a conversation. Scheduling and replies are manual through
 **hello@levarum.com**. A saved call request is not a booking.
 
-## Implemented behavior versus proposed MVP
+## Selected MVP journey
+
+The owner delegated selection to prioritize first revenue on 3 October 2026. The selected path is **examples → contact → saved acknowledgement → private owner follow-up → separately agreed paid work**. [Scope and acceptance boundary](docs/REQUIREMENTS.md#selected-revenue-first-mvp--2026-10-03) is authoritative for this continuation. The mandatory questionnaire/Game Plan alternative is deferred; `/start` remains optional compatibility. This decision does not establish conversion, final design acceptance or production readiness.
+
+## Implemented behavior versus deferred alternative
 
 The implemented branch is not an owner-approved final MVP or proof of a production
 pilot. Main's [2 October proposed MVP and NFR contract](https://github.com/taitgoodwin-gmail/Levarum/blob/222d433aee64fe1babab3261efc0e983713ca1f3/README.md#mvp-contract)
-remains proposed for owner review. In particular:
+is deferred by the journey decision above. The comparison remains useful as history:
 
-| Area | Implemented on this branch | Proposal / decision still open |
+| Area | Implemented on this branch | Deferred proposal / acceptance boundary |
 | --- | --- | --- |
 | Customer entry | Browse first; direct contact; optional local task guidance at `/start` | Mandatory business type, hours, challenges and email before a Game Plan |
 | Value and storage | Guidance requires no save; optional consented requests save privately | Intake → stored context → Game Plan as the core mandatory sequence |

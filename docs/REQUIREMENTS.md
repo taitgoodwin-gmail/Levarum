@@ -1,5 +1,15 @@
 # Requirements and acceptance criteria
 
+## Selected revenue-first MVP — 2026-10-03
+
+The owner delegated the journey choice with “Whatever journey will get me to revenue first.” The selected scope is the existing service-site path: **understand the offer and examples → describe the work and consent to contact → privately saved acknowledgement → owner retrieves and follows up → agree a paid piece of work separately**. This is a delivery choice to shorten the path to a sales conversation, not evidence of conversion or a revenue guarantee.
+
+Use R01–R14 with the Round2 amendments and A01–A08 as the implementation baseline. Home → Contact is primary. Preserve `/start` as optional compatibility; do not make it a prerequisite or expand it into a generated assessment. Defer the proposed mandatory business/hours questionnaire, gated Game Plan, printable-plan deliverable and replacement queue semantics on main. Preserve compatible historical records/API clients. Existing New/Contacted/Booked (calls only)/Done statuses remain.
+
+MVP acceptance requires an understandable offer, working contact and honest retry/receipt behavior, private owner retrieval and a workable manual follow-up routine, with the existing privacy/auth/recovery/release checks. Automated quotes, checkout, calendar booking and plan delivery are not required for this scope. Pricing and customer commitments are agreed by the owner; this decision sets neither.
+
+This resolves journey selection only. It does not accept the current design, mark requirement rows passed, authorize production or close hosted private-data checks. The dated crosswalk below remains historical evidence at its named revision; its proposed rows are not additional implementation scope. Revenue learning begins with actual enquiries, conversations and agreed paid work, recorded in existing work/evidence records without public customer data. Review observed friction after each completed slice or pilot; change requirements deliberately when evidence warrants it.
+
 ## Requirement coverage counts — 2026-10-03
 
 Work key `LEV-REQUIREMENT-COVERAGE-20261003`; writer Codex lead on `codex/design-assessment-fixes-20261001`; gate Verify/Review. **Source snapshot: be5fe61db0653b63b4d8cf14684b4a659627c803.** Main04a7927 and shared delivery guidance were read, not merged. This crosswalk assesses the actual active `src/main.tsx` → `src/App.tsx` runtime, not historical unmounted PilotApp/ProspectApp/operator components.

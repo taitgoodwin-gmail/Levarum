@@ -1,5 +1,9 @@
 # User and operator journeys
 
+## Revenue-first journey selection — 2026-10-03
+
+[Selected MVP scope](REQUIREMENTS.md#selected-revenue-first-mvp--2026-10-03): W01 → direct W03 → W05 is the primary acquisition and follow-up path. The owner follows up personally and agrees scope and price before paid delivery; the site does not close a sale or collect payment. W02 remains optional compatibility. The dated sections below preserve earlier mechanics; the Round2 description requirement and omission of business/hours override their older field descriptions. Private saving, failure recovery and existing release gates remain required.
+
 ## Current Round2 journey — 2026-10-01
 
 Home shows three practical examples, three engagement steps and four visible answers. Tell us what you need opens Contact directly; See examples scrolls within Home. Contact requires a genuine work description and email, offers an optional call checkbox and requires deliberate consent. Private saving, retained failure/retry, no automatic delivery and unbooked call receipts remain unchanged. Existing `/start` guidance/contextual Back remains compatible, with a required description at contact. [Implementation evidence](UX-ROUND-2-IMPLEMENTATION.md) supersedes older W01/W03 presentation details below; W04–W07 private/partner/release responsibilities remain in force.
