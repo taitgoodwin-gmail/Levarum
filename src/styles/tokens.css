@@ -1,37 +1,18 @@
-/*
- * Levarum brand tokens.
- *
- * The rule that governs the orange: if it is decoration use --ember, if it is
- * words someone has to read use --ember-deep. --ember is not contrast-safe for
- * small text and must never carry copy.
- *
- * One burnt-orange spark, a charcoal line, a warm-white page. One spark per
- * screen: resist scattering ember.
- */
+/* Public brand values from the selected Levarum Figma file. */
 :root {
-  /* Reading ground. Long copy sits on white, never on the warm tint. */
   --white: #ffffff;
-  /* Secondary surfaces and quiet cards, small doses only. */
-  --warm: #fbf6f2;
-  /* Primary text and dark sections. */
-  --charcoal: #1a1a1a;
-  /* Secondary text and captions. 6.9:1 on white. */
-  --ink: #5c5a56;
-  /* Dividers and borders. */
-  --hairline: #e9e6e1;
-  /* The heavier hairline, for dashed slots and quiet outlines. */
-  --hairline-strong: #d8d3cc;
-  /* The single spark: the mark, dots, accent rules, large display moments. */
-  --ember: #d4622a;
-  /* The text-safe orange: eyebrows, labels, links, any orange to be read. */
-  --ember-deep: #b5511f;
-  /* On charcoal sections only. */
-  --warm-offwhite: #ede6d6;
-  --muted: #b9b6b1;
-  --dark-field: #242422;
-  --dark-field-border: #3a3a38;
-  /* The board the frames sit on. */
-  --canvas: #e4e0da;
+  --warm: #f8f5ec;
+  --charcoal: #262d4d;
+  --ink: #687087;
+  --hairline: #e5e5e8;
+  --hairline-strong: #d8dbe5;
+  --ember: #cdbb88;
+  --ember-deep: #262d4d;
+  --warm-offwhite: #f4f0e4;
+  --muted: #9da3b5;
+  --dark-field: #202740;
+  --dark-field-border: #4e5265;
+  --canvas: #f5f5f6;
   /* Status colours, used only in the operator console. */
   --go: #1a7a4c;
   --go-bg: #eaf5ef;
@@ -41,9 +22,7 @@
   --wait-border: #e7d08a;
   --wait-dot: #c9a24a;
 
-  --display: 'Schibsted Grotesk', system-ui, -apple-system, sans-serif;
-  --body: 'Instrument Sans', system-ui, -apple-system, sans-serif;
-
-  /* Every interactive element clears 44px, at every breakpoint. */
+  --display: 'Quicksand', system-ui, sans-serif;
+  --body: 'Quicksand', system-ui, sans-serif;
   --tap: 44px;
 }

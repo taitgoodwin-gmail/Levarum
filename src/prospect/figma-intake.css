@@ -1,0 +1,70 @@
+.lv-shell { --lv-navy: #262d4d; --lv-slate: #687087; --lv-gold: #cdbb88; --lv-white: #fff; --lv-ground: #f5f5f6; --lv-cream: #f8f5ec; --lv-trust: #f4f0e4; --lv-line: #e5e5e8; --lv-dark: #202740; --lv-footer-text: #9da3b5; --lv-marker: #ece4ce; display:flex; flex-direction:column; min-height:100dvh; background:var(--lv-ground); color:var(--lv-navy); font-family:Quicksand,system-ui,sans-serif; font-weight:300; font-size:16px; line-height:24px; letter-spacing:1px; }
+.lv-shell p,.lv-shell h1,.lv-shell h2 { margin:0; }
+.lv-shell button,.lv-shell input,.lv-shell select,.lv-shell textarea { font:inherit; color:inherit; }
+.lv-shell button { cursor:pointer; }
+.lv-shell a { color:inherit; }
+.lv-shell :focus-visible { outline:2px solid var(--lv-navy); outline-offset:4px; }
+.lv-shell h1 { font-size:48px; line-height:66px; font-weight:400; }
+.lv-shell h2 { font-size:24px; line-height:32px; font-weight:400; text-transform:uppercase; }
+.lv-header { min-height:72px; padding:14px 5%; background:var(--lv-white); border-bottom:1px solid var(--lv-line); display:flex; justify-content:space-between; align-items:center; gap:20px; }
+.lv-brand { background:none; border:0; padding:4px 0; font-size:24px!important; line-height:32px; font-weight:400!important; }
+.lv-header nav { display:flex; gap:12px; align-items:center; color:var(--lv-slate); font-size:14px; line-height:20px; }
+.lv-header a { text-decoration:none; min-height:44px; display:flex; align-items:center; }
+.lv-workspace { flex:1; width:100%; max-width:1440px; margin:auto; padding:52px max(32px,8.333%); display:grid; grid-template-columns:400px minmax(0,680px); gap:72px; align-items:center; }
+.lv-introduction { display:flex; flex-direction:column; gap:32px; min-width:0; }
+.lv-progress { display:flex; flex-direction:column; gap:12px; }
+.lv-progress-labels { display:flex; justify-content:space-between; gap:8px; font-size:14px; line-height:20px; }
+.lv-progress-labels span:last-child { color:var(--lv-slate); }
+.lv-track { display:flex; gap:8px; }
+.lv-track span { height:6px; border-radius:999px; background:var(--lv-line); flex:1; }
+.lv-track .is-complete { background:var(--lv-gold); }
+.lv-editorial { display:flex; flex-direction:column; gap:20px; }
+.lv-secondary { color:var(--lv-slate); }
+.lv-small,.lv-eyebrow,.lv-trust,.lv-guidance { font-size:14px; line-height:20px; }
+.lv-trust { background:var(--lv-trust); padding:14px 18px; border-radius:4px; display:flex; gap:12px; align-items:center; }
+.lv-trust img { flex-shrink:0; }
+.lv-guidance { border-top:1px solid var(--lv-line); padding-top:24px; display:grid; gap:10px; }
+.lv-paper { background:var(--lv-white); padding:32px; border:1px solid var(--lv-line); border-radius:4px; box-shadow:0 14px 36px rgba(23,29,53,.09); display:flex; flex-direction:column; gap:24px; min-width:0; }
+.lv-question { display:flex; flex-direction:column; gap:16px; }
+.lv-choices { display:grid; gap:10px; }
+.lv-choices--grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.lv-choice { display:flex; align-items:center; gap:16px; min-height:64px; border:1px solid var(--lv-line); border-radius:4px; padding:16px 18px; background:var(--lv-white); text-align:left; }
+.lv-choice[aria-checked=true],.lv-choice[aria-pressed=true] { background:var(--lv-cream); border:2px solid var(--lv-gold); padding:15px 17px; }
+.lv-choice-copy { min-width:0; flex:1; overflow-wrap:break-word; }
+.lv-marker { width:28px; height:28px; flex:none; }
+.lv-marker--selected { border-radius:50%; background:var(--lv-marker); display:flex; align-items:center; justify-content:center; }
+.lv-selected-icon { background:var(--lv-white); width:16px; height:16px; position:relative; display:block; }
+.lv-circle { position:absolute; inset:0; }
+.lv-check { position:absolute; top:4.5px; left:4px; }
+.lv-selected-label { font-size:12px; line-height:20px; }
+.lv-actions { display:flex; justify-content:space-between; align-items:center; gap:24px; }
+.lv-primary { display:grid; gap:8px; justify-items:end; }
+.lv-button { padding:8px 16px; min-height:44px; border:1px solid var(--lv-gold); border-radius:2px; background:var(--lv-gold); color:var(--lv-navy); font-weight:400!important; }
+.lv-button--quiet { background:var(--lv-white); }
+.lv-button:disabled { cursor:wait; }
+.lv-build { display:flex; flex-direction:column; gap:24px; min-width:0; }
+.lv-sentence { text-transform:none!important; font-size:36px!important; line-height:48px!important; margin-bottom:12px!important; }
+.lv-output-grid,.lv-plan-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+.lv-output { padding:24px; min-height:150px; background:var(--lv-white); border:1px solid var(--lv-line); border-radius:4px; display:flex; flex-direction:column; gap:16px; }
+.lv-point { display:flex; justify-content:space-between; gap:12px; }
+.lv-plan-workspace { flex:1; width:100%; max-width:1440px; margin:auto; padding:44px max(32px,8.333%); display:flex; flex-direction:column; gap:28px; }
+.lv-plan-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:32px; }
+.lv-plan-heading>div { max-width:760px; display:grid; gap:10px; }
+.lv-plan-section { padding:28px; background:var(--lv-white); border:1px solid var(--lv-line); border-radius:4px; display:flex; flex-direction:column; gap:16px; }
+.lv-result { background:var(--lv-cream); padding:18px; display:grid; gap:12px; border-radius:4px; }
+.lv-result ul { margin:0; padding-left:22px; }
+.lv-footer { background:var(--lv-dark); color:var(--lv-footer-text); padding:16px 5%; display:flex; align-items:center; justify-content:space-between; gap:24px; min-height:64px; font-size:14px; line-height:20px; }
+.lv-footer button { background:none; border:0; padding:8px 0; min-height:44px; color:var(--lv-white); }
+.lv-footer>div { display:flex; align-items:center; gap:24px; flex-wrap:wrap; }
+.lv-footer :focus-visible { outline-color:var(--lv-white); }
+.lv-contact { width:100%; max-width:680px; margin:0 auto; }
+.lv-contact form { display:flex; flex-direction:column; gap:12px; }
+.lv-contact input:not([type=checkbox]),.lv-contact select,.lv-contact textarea { width:100%; border:1px solid var(--lv-slate); border-radius:4px; padding:12px; background:var(--lv-white); min-height:44px; }
+.lv-consent { display:flex; align-items:flex-start; gap:12px; }
+.lv-consent input { width:20px; height:20px; flex:none; accent-color:var(--lv-navy); }
+.lv-trap { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+.lv-error { color:var(--lv-navy); border-left:3px solid var(--lv-navy); padding:8px 12px; font-weight:400; }
+@media(max-width:1199px) { .lv-workspace { grid-template-columns:1fr; padding:40px; gap:32px; } .lv-introduction { max-width:680px; width:100%; margin:auto; } .lv-paper,.lv-build { max-width:680px; width:100%; margin:auto; } .lv-plan-workspace { padding:40px; } }
+@media(max-width:599px) { .lv-header { padding:12px 20px; flex-wrap:wrap; gap:4px; } .lv-header nav { gap:8px; flex-wrap:wrap; } .lv-workspace,.lv-plan-workspace { padding:32px 24px; } .lv-shell h1 { font-size:36px; line-height:48px; } .lv-shell h2 { font-size:22px; line-height:30px; } .lv-paper { padding:20px; } .lv-choices--grid,.lv-output-grid,.lv-plan-grid { grid-template-columns:1fr; } .lv-choice { gap:12px; padding:16px 14px; } .lv-choice[aria-checked=true],.lv-choice[aria-pressed=true] { padding:15px 13px; } .lv-selected-label { font-size:10px; } .lv-actions,.lv-plan-heading { align-items:stretch; flex-wrap:wrap; gap:16px; } .lv-actions>.lv-primary { margin-left:auto; } .lv-output,.lv-plan-section { padding:20px; } .lv-point { font-size:12px; } .lv-footer { padding:16px 24px; flex-wrap:wrap; gap:8px; } .lv-footer>div { gap:12px; } .lv-footer>div span { width:100%; } }
+@media(prefers-reduced-motion:no-preference) { .lv-workspace,.lv-plan-workspace { animation:lv-enter .3s ease-out; } .lv-choice { transition:background .15s ease-out,border-color .15s ease-out; } @keyframes lv-enter { from { opacity:.4; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } } }
+@media print { .lv-header,.lv-footer,.lv-button { display:none; } .lv-shell { background:var(--lv-white); } .lv-plan-workspace { padding:0; } .lv-plan-section { break-inside:avoid; } }

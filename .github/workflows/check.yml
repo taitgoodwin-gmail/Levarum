@@ -27,3 +27,7 @@ jobs:
         run: npm test
       - name: Build and boundary-check
         run: npm run build
+      - name: Install browser
+        run: npx playwright install --with-deps chromium
+      - name: Check intake flow and assets
+        run: npm run test:browser

@@ -1,5 +1,17 @@
 # Levarum public pilot
 
+## Selected Figma intake release
+
+Release branch: `feat/figma-intake-launch`. Visual source: [Levarum intake](https://www.figma.com/design/Zi1nn0L1xyQTGuIpxtGl0n?node-id=2019-20198).
+
+The prepared client uses the Figma navy, gold, cream and Quicksand typography. It starts at step 1; business and workload are single-choice groups, recurring jobs are independent multi-select toggles, and Back/Continue/logo preserve in-memory answers. Step 3 opens the plan without collecting contact data. Refresh starts a fresh intake; answers are not stored in the browser.
+
+The plan fills priorities and discovery questions from the selected jobs. Hours and money display “Not estimated from these answers.” The qualitative workload choices cannot honestly be converted to numeric hours or savings. The optional call form asks for actual weekly hours, email and consent, and uses the existing private `/api/leads` contract. It confirms only after `saved: true`. “Book a 15-min call” becomes “Request a 15-min call” to preserve the existing manual scheduling boundary. The header return link restarts the intake at `/`; this release does not port the Figma marketing homepage.
+
+Verification: `npm test`, `npm run build`, and `npm run test:browser`. Browser cases cover desktop (1440px), tablet (800px), mobile (400px), single/multiple selection, deselection, forward/back navigation, answer persistence, logo navigation, keyboard/focus, rendered contrast, overflow and submission failures. Browser submission responses are mocked; these checks do not prove production storage or owner receipt.
+
+Release blocker: original Figma SVG asset downloads return HTTP 403 under the current cloud network policy. The asset-load test fails until all five original assets are downloaded into `public/figma/`. Do not merge or promote this release while that check fails. Preview and production browser verification, plus an actual private-storage round trip, remain NOT RUN. Production has not been changed by this release preparation. Preserve the previous production deployment as the rollback target when this release is shipped.
+
 A short intake produces a practical Game Plan and an optional request for a
 15-minute conversation. Scheduling is handled manually by Levarum through
 hello@levarum.com. The site never claims an appointment has been booked.
