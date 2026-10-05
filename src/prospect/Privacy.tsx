@@ -3,9 +3,9 @@ import './prospect.css'
 export function Privacy() {
   return <main className="p-frame pilot-privacy">
     <a href="/">← Levarum</a><h1>Privacy notice</h1>
-    <p>Effective September 29, 2026. Levarum helps small businesses identify repetitive work and discuss practical improvements.</p>
+    <p>Effective October 5, 2026. Levarum helps small businesses identify repetitive work and discuss practical improvements.</p>
     <h2>What we collect</h2>
-    <p>When you save a Game Plan or request a call, we collect your email address, business type, reported back-office hours, selected challenges, and any call preferences you choose to provide.</p>
+    <p>When you save a Game Plan or request a call, we collect your email address, business type, reported weekly workload, selected challenges, and any call preferences you choose to provide. Earlier intakes may contain a weekly back-office-hours band instead of a qualitative workload answer.</p>
     <h2>How we use it</h2>
     <p>We use these details to review your intake and respond to your request. Submitting this form does not subscribe you to a marketing list. We do not sell your submission.</p>
     <h2>Storage and service providers</h2>
