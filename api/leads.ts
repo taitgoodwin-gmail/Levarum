@@ -36,7 +36,7 @@ async function notify(lead: Lead) {
     body: JSON.stringify({
       from: process.env.LEAD_EMAIL_FROM, to: ['hello@levarum.com'], reply_to: lead.email,
       subject: lead.intent === 'call' ? 'Levarum: new call request' : 'Levarum: new Game Plan intake',
-      text: `Email: ${lead.email}\nBusiness: ${lead.business}\nHours: ${lead.hours}\nChallenges: ${lead.pains.join(', ')}\nPreferences: ${lead.preferences || 'Not supplied'}\nReference: ${lead.requestId}`,
+      text: `Email: ${lead.email}\nBusiness: ${lead.business}\n${'workload' in lead ? `Workload: ${lead.workload}` : `Hours: ${lead.hours}`}\nChallenges: ${lead.pains.join(', ')}\nPreferences: ${lead.preferences || 'Not supplied'}\nReference: ${lead.requestId}`,
     }),
   })
   if (!response.ok) throw new Error('Notification failed')
@@ -50,7 +50,7 @@ type LeadDependencies = {
 const defaults: LeadDependencies = {
   configured: () => Boolean(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID),
   save: async lead => {
-    await put(leadPath(lead), JSON.stringify({ ...lead, receivedAt: new Date().toISOString(), privacyVersion: '2026-09-29' }), {
+    await put(leadPath(lead), JSON.stringify({ ...lead, receivedAt: new Date().toISOString(), privacyVersion: 'workload' in lead ? '2026-10-05' : '2026-09-29' }), {
       access: 'private', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true,
       abortSignal: AbortSignal.timeout(12000),
     })

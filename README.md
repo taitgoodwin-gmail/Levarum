@@ -1,5 +1,27 @@
 # Levarum public pilot
 
+## Selected Figma intake release
+
+Release branch: `feat/figma-intake-launch`. Visual source: [Levarum intake](https://www.figma.com/design/Zi1nn0L1xyQTGuIpxtGl0n?node-id=2019-20198).
+
+The prepared client uses the Figma navy, gold, cream and Quicksand typography. It starts at step 1; business and workload are single-choice groups, recurring jobs are independent multi-select toggles, and Back/Continue/logo/header-return navigation preserve in-memory answers. Required-choice errors appear beside their groups, with focus on the first unanswered choice. Step 3 opens the plan without collecting contact data. Refresh starts a fresh intake; answers are not stored in the browser.
+
+The plan fills priorities and discovery questions from the selected jobs. Hours and money display “Not estimated from these answers.” The qualitative workload choices cannot honestly be converted to numeric hours or savings. The optional call form asks for email and consent and submits the selected qualitative workload through schema version 3 of the private `/api/leads` contract. It does not convert workload into numeric hours or ask the same question again. Legacy numeric-hours payloads retain their normalized shape and content-addressed storage keys. Unknown explicit schema versions and mixed hours/workload payloads are rejected. It confirms only after `saved: true`. “Book a 15-min call” becomes “Request a 15-min call” to preserve the existing manual scheduling boundary. The header return link returns to step 1 without clearing in-memory answers; this release does not port the Figma marketing homepage.
+
+Verification: `npm test`, `npm run build`, and `npm run test:browser`. Browser cases cover desktop (1440px), tablet (800px), mobile (400px), single/multiple selection, deselection, forward/back navigation, answer persistence, logo navigation, keyboard/focus, rendered contrast, overflow and submission failures. Browser submission responses are mocked; these checks do not prove production storage or owner receipt.
+
+Release blocker: original Figma SVG asset downloads return HTTP 403 under the current cloud network policy. The asset-load test fails until all five original assets are downloaded into `public/figma/`. Do not merge or promote this release while that check fails. Preview and production browser verification, plus an actual private-storage round trip, remain NOT RUN. Production has not been changed by this release preparation. Preserve the previous production deployment as the rollback target when this release is shipped.
+
+### Completion checkpoint — 5 October 2026
+
+Active work remains PR #8. The owner selected this Figma file and authorized production launch after required checks pass. Linear MIN-26 now records that direction; the earlier direct-enquiry journey and alternate Figma file are historical for this intake work.
+
+Implemented in this increment: adjacent choice validation/focus, header-return answer preservation, schema-3 qualitative-workload capture without fabricated numeric hours, and honest retry errors for malformed/unconfirmed/offline responses. Twelve API/contract cases passed with `npm test` on Node 24; build, TypeScript and boundary checks passed. The privacy notice describes qualitative workload capture, and schema-3 receipts record its 2026-10-05 version; legacy receipt labeling remains unchanged. Fifteen browser flow cases passed across 1440/800/400px using Chromium with mocked submissions. A subsequent full browser run returned 15 PASS / 3 FAIL; all three failures are missing original assets. The flow-only result does not establish asset loading or full release readiness. Production storage/readback, final visual parity and production pilot remain NOT RUN for this candidate.
+
+The older `codex/mvp-completion-20261003` source at `3607dc2` contains an authenticated Clerk/PostgreSQL operator queue, immutable private saving/retry reconciliation, and historical isolated hosted evidence. It is a separate implementation candidate, not part of PR #8 or production. Reuse requires a bounded integration and fresh verification; its past results are not evidence for this candidate. Preserve its existing record/status compatibility rather than invent a replacement queue.
+
+Still open: approved preview → email/consent → durable plan intake → full plan journey; the call/confirmation visual layout; prioritization/first-fix honesty; original SVG downloads; operator integration; repository/release controls; production configuration, storage/retrieval and rollback checks. Plan email delivery versus browser-only wording, unsupported cost/estimate wording, retention/deletion/recovery policy and homepage scope remain owner decisions. No selected policy, emailed-plan behavior or production acceptance is implied.
+
 A short intake produces a practical Game Plan and an optional request for a
 15-minute conversation. Scheduling is handled manually by Levarum through
 hello@levarum.com. The site never claims an appointment has been booked.
