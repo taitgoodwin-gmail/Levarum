@@ -183,6 +183,29 @@ For every consequential implementation issue, use:
 The approved visual target may live in Figma, but Figma does not redefine product scope by itself. If requirements, Figma, code, and production disagree, classify the mismatch and update the correct source deliberately rather than allowing silent drift.
 
 
+## Daily intelligence and improvement
+
+**Work key:** `levarum-intelligence-loop`. The owner-directed routine works from this repository and updates existing files only. README is the product/operating baseline; AGENTS.md and its shared delivery baseline govern execution. Historical Drive material is reference, not a competing working authority. Keep private customer/operator records out of this public repository.
+
+A chat-attached scheduled task is configured for 12:15 a.m. America/New_York daily, within the owner's midnight–6:07 a.m. Eastern window. Mondays include a deeper review. This is a configured schedule, not evidence of a successful unattended run. Local execution requires the computer on and the app available. Check Eastern time between stages and stop new work before 6:07; a prompt cutoff is not an enforceable scheduler timeout.
+
+Execution order:
+1. Read current requirements, decisions, open PRs/issues and prior evidence; distinguish main/production from unmerged candidates.
+2. Gather changed competitor, customer-problem and official vendor sources; prioritize material changes and rotate deeper freshness checks.
+3. Validate and deduplicate evidence; assess customer value, offering differentiation, effort and delivery risk before proposing scope.
+4. Inspect accessible UI/UX and real customer-to-owner journeys against existing requirement IDs and the selected design target.
+5. Update existing research/status/requirements sections with evidence-backed proposals; preserve approved decisions and unrelated content.
+6. Verify consistency and committed content through readback; use a branch/PR for protected main.
+7. Notify only for meaningful findings, material updates, failures or required owner decisions.
+
+Each actionable finding records its source URL, retrieved/publication dates where available, observed change, confidence/limitations, customer impact, requirement mapping, acceptance test, dependencies and disposition. A vendor claim or attractive competitor feature does not prove demand or justify implementation. Record coverage failures and NOT RUN tests; partial coverage must not produce an all-clear.
+
+Reuse the existing branch/PR for this work key while open; check state before mutations to avoid duplicates. Keep run evidence in this section or the existing execution record rather than creating daily documents/logs. Requirement proposals do not authorize new scope, pricing, spending, customer contact, production-data processing or release. Review the first three scheduled runs and adjust sources/cadence based on useful findings and owner effort.
+
+**Manual pilot on 6 October 2026:** repository discovery, current AGENTS/README retrieval and protected-main detection passed. The selected connection resolves to repository owner `taitgoodwin-gmail`. The pilot caught stale Drive/Squarespace instructions; current repo guidance specifies React/Vite on Vercel. Existing draft [PR #8](https://github.com/taitgoodwin-gmail/Levarum/pull/8) separately reports blocked design assets and unrun production/pilot checks; those statuses are recorded PR evidence, not new runtime verification. This documentation pilot tests existing-file persistence and reviewability. Full market coverage, live UI/runtime checks, independent review and unattended execution remain NOT RUN.
+
+Guidance: [OpenAI scheduled tasks](https://learn.chatgpt.com/docs/automations) recommends durable instructions, accessible context, testing and reviewing initial runs; [GitHub file editing](https://docs.github.com/en/repositories/working-with-files/managing-files/editing-files) recommends branch/PR review for default-branch changes. Readback proves saved content, not product acceptance.
+
 ## Run and check
 
 Requires Node 24.
