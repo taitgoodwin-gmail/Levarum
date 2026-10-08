@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import leadHandler from './api/leads.ts'
+import releaseHandler from './api/release.ts'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
@@ -11,6 +12,7 @@ export default defineConfig(({ mode }) => {
     name: 'pilot-api',
     configureServer(server) {
       server.middlewares.use('/api/leads', (req, res) => { void leadHandler(req, res) })
+      server.middlewares.use('/api/release', (req, res) => { releaseHandler(req, res) })
       server.middlewares.use('/api/draft', (_req, res) => { res.statusCode = 404; res.end('Not found') })
     },
   }] }

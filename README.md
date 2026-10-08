@@ -252,3 +252,50 @@ The pilot is not a full CRM. Authenticated operator access, plan email delivery,
 calendar integration, automated retention, and distributed abuse controls remain
 follow-up work. Keep the private store under routine review and handle access or
 deletion requests through hello@levarum.com.
+
+## Release, data, and recovery gates (8 October 2026)
+
+The production intake requires a private Blob configuration and Vercel's source
+revision and deployment ID. `/api/release` reports only those two non-secret
+identifiers and returns 503 when either is unavailable. Enable Vercel's system
+environment variables and compare the endpoint with the deployment before
+accepting traffic. Missing identity blocks a production intake; a passing build
+alone does not verify production configuration. This follows [Vercel's system
+variable reference](https://vercel.com/docs/environment-variables/system-environment-variables)
+(checked 8 October 2026).
+
+For a bad release, identify the last verified deployment, use `vercel rollback`
+and verify the restored journey and lead retrieval. Rollback changes routing; it
+does not undo or delete saved lead records. The exact rollback target and hosted
+result remain NOT RUN until a production release exists. [Vercel's rollback
+guide](https://vercel.com/docs/deployments/rollback-production-deployment)
+was checked 8 October 2026.
+
+Private data classes are: plan/intake answers and email; call-request answers,
+preferences and email; future assessment choice, fee stated and answer; future
+two-week minute counts; and operator status/history if the queue is deployed.
+The five-owner printed-test log stays in the owner's private Drive, outside the
+website store. No automatic retention period has been selected, so handling a
+real participant's data is BLOCKED until the owner selects and records one.
+For an access/deletion request, verify the requester through a known contact
+channel, enumerate matching private Blob records and any queue index/status
+rows, then review the intended set before acting. Export only to the verified
+requester. Delete the selected Blob records and matching index/status rows,
+re-list and re-read to verify primary-store removal, and record exceptions. Do
+not claim deletion from provider backups or logs without provider evidence.
+This procedure has not been exercised with private records. [Vercel Blob
+storage](https://vercel.com/docs/vercel-blob) was checked 8 October 2026; it
+is not evidence of an independently restored backup.
+
+Existing unversioned intake records retain their v1 meaning and content-addressed
+keys. An explicit unknown `schemaVersion` is rejected. PR #8 proposes version 3
+with qualitative workload; reconcile that contract before merging either change.
+There is no automatic migration or rewriting of historical records.
+
+For the bounded pilot, the current recoverability boundary is the provider's
+primary private Blob store (and PostgreSQL for queue status if deployed). No
+independent backup or fresh-destination restoration has been verified, so no
+recovery guarantee is claimed. Before repeated customer delivery depends on
+these records, select a private backup destination, test a restore to a fresh
+store/database without overwriting accepted state, and record the result. Numeric
+RPO/RTO targets remain undecided.
