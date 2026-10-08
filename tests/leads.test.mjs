@@ -60,3 +60,24 @@ test('throttles repeated requests on an instance', async () => {
     assert.equal(res.statusCode, i < 10 ? 200 : 429)
   }
 })
+test('production origin and declared body limits reject before durable writes', async () => {
+  const prior = { env: process.env.VERCEL_ENV, origins: process.env.PUBLIC_ALLOWED_ORIGINS }
+  process.env.VERCEL_ENV = 'production'; process.env.PUBLIC_ALLOWED_ORIGINS = 'https://levarum.example'
+  let writes = 0
+  const handler = createLeadHandler(deps({ save: async () => { writes++ } }))
+  try {
+    const missing = response(); await handler(request(valid(), { headers: { host: 'levarum.example', 'content-type': 'application/json' } }), missing)
+    assert.equal(missing.statusCode, 403)
+    const foreign = response(); await handler(request(valid(), { headers: { host: 'levarum.example', origin: 'https://other.example', 'content-type': 'application/json' } }), foreign)
+    assert.equal(foreign.statusCode, 403)
+    const oversize = response(); await handler(request(valid(), { headers: { host: 'levarum.example', origin: 'https://levarum.example', 'content-type': 'application/json', 'content-length': '9000' } }), oversize)
+    assert.equal(oversize.statusCode, 413)
+    assert.equal(writes, 0)
+    const allowed = response(); await handler(request(valid(), { headers: { host: 'levarum.example', origin: 'https://levarum.example', 'content-type': 'application/json' } }), allowed)
+    assert.equal(allowed.statusCode, 200)
+    assert.equal(writes, 1)
+  } finally {
+    if (prior.env === undefined) delete process.env.VERCEL_ENV; else process.env.VERCEL_ENV = prior.env
+    if (prior.origins === undefined) delete process.env.PUBLIC_ALLOWED_ORIGINS; else process.env.PUBLIC_ALLOWED_ORIGINS = prior.origins
+  }
+})

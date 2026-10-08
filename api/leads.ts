@@ -62,9 +62,18 @@ export function createLeadHandler(deps: LeadDependencies = defaults) {
  return async function handler(req: IncomingMessage & { body?: unknown }, res: ServerResponse) {
   if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return send(res, 405, { error: 'Use POST' }) }
   if (!req.headers['content-type']?.startsWith('application/json')) return send(res, 415, { error: 'Use application/json' })
+  const length = Number(req.headers['content-length'])
+  if (Number.isFinite(length) && length > MAX_BYTES) return send(res, 413, { error: 'Request too large' })
   const origin = req.headers.origin
+  const production = process.env.VERCEL_ENV === 'production'
+  const allowedOrigins = (process.env.PUBLIC_ALLOWED_ORIGINS ?? '').split(',').map(value => value.trim()).filter(Boolean)
+  if (production && !allowedOrigins.length) return send(res, 503, { error: 'Intake is temporarily unavailable' })
+  if (production && !origin) return send(res, 403, { error: 'Origin required' })
   if (origin) {
-    try { if (new URL(origin).host !== req.headers.host) return send(res, 403, { error: 'Origin not allowed' }) }
+    try {
+      const parsed = new URL(origin)
+      if ((allowedOrigins.length && !allowedOrigins.includes(parsed.origin)) || (!allowedOrigins.length && parsed.host !== req.headers.host)) return send(res, 403, { error: 'Origin not allowed' })
+    }
     catch { return send(res, 403, { error: 'Origin not allowed' }) }
   }
   // Best-effort per-instance throttle; configure a platform-wide rule before scaling traffic.
