@@ -11,6 +11,7 @@ export interface Lead {
   hours: HoursBand
   pains: PainId[]
   preferences: string
+  sourceRequestId?: string
   consent: true
 }
 export function parseLead(body: unknown): Lead {
@@ -26,7 +27,8 @@ export function parseLead(body: unknown): Lead {
   if (b.consent !== true) throw new LeadInputError('Consent is required')
   if (b.website) throw new LeadInputError('Invalid request')
   if (typeof b.preferences !== 'string' || b.preferences.length > 500) throw new LeadInputError('Preferences must be 500 characters or less')
-  return { requestId: b.requestId, intent: b.intent, email, business: b.business, hours: b.hours as HoursBand, pains: [...new Set(b.pains as PainId[])].sort(), preferences: b.intent === 'call' ? b.preferences.trim() : '', consent: true }
+  if (b.sourceRequestId !== undefined && (b.intent !== 'call' || typeof b.sourceRequestId !== 'string' || !/^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$/i.test(b.sourceRequestId))) throw new LeadInputError('Invalid source request')
+  return { requestId: b.requestId, intent: b.intent, email, business: b.business, hours: b.hours as HoursBand, pains: [...new Set(b.pains as PainId[])].sort(), preferences: b.intent === 'call' ? b.preferences.trim() : '', consent: true, ...(b.sourceRequestId ? {sourceRequestId:b.sourceRequestId as string} : {}) }
 }
 
 // The digest prevents the same request ID being used to overwrite a different lead.

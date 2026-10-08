@@ -14,13 +14,17 @@
     "build:designs": "node scripts/build-design-gallery.mjs"
   },
   "dependencies": {
+    "@clerk/backend": "^3.23.1",
+    "@clerk/react": "^6.17.7",
     "@vercel/blob": "^2.8.0",
+    "pg": "^8.23.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.71.0",
     "@types/node": "^22.10.0",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.0.0",

@@ -2,6 +2,7 @@ import type { IncomingMessage, ServerResponse } from 'node:http'
 import { createHash } from 'node:crypto'
 import { put } from '@vercel/blob'
 import { LeadInputError, leadPath, parseLead, type Lead } from '../server/leads.ts'
+import { indexLead } from '../server/admin-store.ts'
 
 const MAX_BYTES = 8 * 1024
 
@@ -45,6 +46,7 @@ async function notify(lead: Lead) {
 type LeadDependencies = {
   configured: () => boolean
   save: (lead: Lead) => Promise<void>
+  index: (key: string) => Promise<unknown>
   notify: (lead: Lead) => Promise<void>
 }
 const defaults: LeadDependencies = {
@@ -56,6 +58,7 @@ const defaults: LeadDependencies = {
     })
   },
   notify,
+  index: indexLead,
 }
 export function createLeadHandler(deps: LeadDependencies = defaults) {
  const buckets = new Map<string, { count: number; until: number }>()
@@ -79,6 +82,7 @@ export function createLeadHandler(deps: LeadDependencies = defaults) {
   try {
     const lead = parseLead(await readBody(req))
     await deps.save(lead)
+    try { await deps.index(leadPath(lead)) } catch { console.error('Lead saved; queue indexing failed') }
     // Storage is the source of truth. Notification failure must never discard the lead.
     try { await deps.notify(lead) } catch { console.error('Lead saved; notification failed') }
     return send(res, 200, { saved: true, reference: lead.requestId })

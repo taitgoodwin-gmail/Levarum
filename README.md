@@ -207,13 +207,28 @@ Use `vercel env pull .env.local` for development; never commit credentials.
 The intake endpoint fails closed with 503 if storage is unavailable. It only
 confirms a submission after a private write succeeds. No read endpoint is public.
 
-The public site does not load the original operator app or localStorage inbox.
-`/api/draft` is disabled. The original design and components remain in the repo
-for future authenticated operator work, but are not in the active rendering path.
+The public site does not load the original localStorage operator inbox.
+`/api/draft` is disabled. The separate `/admin` entry uses Clerk sign-in and
+server-verified owner identity for private retrieval. Configure
+`CLERK_SECRET_KEY`, `VITE_CLERK_PUBLISHABLE_KEY`, `ADMIN_OWNER_USER_ID`,
+`ADMIN_OWNER_EMAIL` (the owner's verified primary email),
+`ADMIN_ALLOWED_ORIGINS` (exact origins), and `DATABASE_URL` in the deployment.
+Preview environments also need a dedicated `PREVIEW_READ_WRITE_TOKEN`.
+Missing configuration closes the queue. Do not put secrets in Vite-prefixed
+variables other than Clerk's public publishable key.
 
 ## Receiving leads
 
-Open this project's private Blob store in the Vercel dashboard:
+The private `/admin` queue indexes saved Blob records in PostgreSQL and shows
+new, in-progress, waiting, and closed work. New saves attempt immediate
+indexing; an authorized operator can use **Find saved requests** to reconcile
+an indexing failure or earlier records. The original private Blob is still the
+source submission. Call requests made through the live path carry the source
+intake's request ID; earlier unlinked records display only their own context.
+The queue's status events are separate from the original submission. Production
+owner authentication and private-store retrieval remain to be verified.
+
+The same records are available to authorized store administrators in Vercel:
 
 - `leads/plan/`: saved Game Plan intakes
 - `leads/call/`: explicit call requests, including time preferences
@@ -248,7 +263,7 @@ Before accepting traffic, verify an intake and call request from the public URL,
 then retrieve those records from private storage. Check mobile layout, invalid
 inputs, retry handling, `/privacy`, and that `/api/draft` stays disabled.
 
-The pilot is not a full CRM. Authenticated operator access, plan email delivery,
-calendar integration, automated retention, and distributed abuse controls remain
-follow-up work. Keep the private store under routine review and handle access or
-deletion requests through hello@levarum.com.
+The pilot is not a full CRM. Plan email delivery, calendar integration,
+automated retention, and distributed abuse controls remain follow-up work.
+Keep the private store under routine review and handle access or deletion
+requests through hello@levarum.com.
