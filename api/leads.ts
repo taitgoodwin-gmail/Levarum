@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import { createHash } from 'node:crypto'
+import { createHash, randomUUID } from 'node:crypto'
 import { put } from '@vercel/blob'
 import { LeadInputError, leadPath, parseLead, type Lead } from '../server/leads.ts'
 
@@ -60,12 +60,15 @@ const defaults: LeadDependencies = {
 export function createLeadHandler(deps: LeadDependencies = defaults) {
  const buckets = new Map<string, { count: number; until: number }>()
  return async function handler(req: IncomingMessage & { body?: unknown }, res: ServerResponse) {
-  if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return send(res, 405, { error: 'Use POST' }) }
-  if (!req.headers['content-type']?.startsWith('application/json')) return send(res, 415, { error: 'Use application/json' })
+  const trace = randomUUID()
+  res.setHeader('X-Levarum-Request', trace)
+  const record = (event: string, reference?: string) => console.info(JSON.stringify({ event, trace, ...(reference ? { reference } : {}) }))
+  if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); record('method_rejected'); return send(res, 405, { error: 'Use POST', code: 'method_rejected' }) }
+  if (!req.headers['content-type']?.startsWith('application/json')) { record('media_rejected'); return send(res, 415, { error: 'Use application/json', code: 'media_rejected' }) }
   const origin = req.headers.origin
   if (origin) {
-    try { if (new URL(origin).host !== req.headers.host) return send(res, 403, { error: 'Origin not allowed' }) }
-    catch { return send(res, 403, { error: 'Origin not allowed' }) }
+    try { if (new URL(origin).host !== req.headers.host) { record('origin_rejected'); return send(res, 403, { error: 'Origin not allowed', code: 'origin_rejected' }) } }
+    catch { record('origin_rejected'); return send(res, 403, { error: 'Origin not allowed', code: 'origin_rejected' }) }
   }
   // Best-effort per-instance throttle; configure a platform-wide rule before scaling traffic.
   const now = Date.now()
@@ -73,19 +76,21 @@ export function createLeadHandler(deps: LeadDependencies = defaults) {
   const ip = req.headers['x-vercel-forwarded-for'] ?? req.socket.remoteAddress ?? 'unknown'
   const key = createHash('sha256').update(String(ip)).digest('hex')
   const bucket = buckets.get(key) ?? { count: 0, until: now + 60000 }
-  if (++bucket.count > 10) { res.setHeader('Retry-After', '60'); return send(res, 429, { error: 'Please wait a minute' }) }
+  if (++bucket.count > 10) { res.setHeader('Retry-After', '60'); record('throttled'); return send(res, 429, { error: 'Please wait a minute', code: 'throttled' }) }
   if (buckets.size < 10000) buckets.set(key, bucket)
-  if (!deps.configured()) return send(res, 503, { error: 'Intake is temporarily unavailable' })
+  if (!deps.configured()) { record('configuration_unavailable'); return send(res, 503, { error: 'Intake is temporarily unavailable', code: 'configuration_unavailable' }) }
   try {
     const lead = parseLead(await readBody(req))
     await deps.save(lead)
     // Storage is the source of truth. Notification failure must never discard the lead.
-    try { await deps.notify(lead) } catch { console.error('Lead saved; notification failed') }
+    try { await deps.notify(lead) } catch { record('notification_failed', lead.requestId) }
+    record('saved', lead.requestId)
     return send(res, 200, { saved: true, reference: lead.requestId })
   } catch (error) {
-    if (error instanceof LeadInputError || error instanceof SyntaxError) return send(res, 400, { error: 'Please check your intake details' })
-    console.error('Lead storage failed')
-    return send(res, 503, { error: 'Could not save intake; please retry' })
+    if (error instanceof LeadInputError || error instanceof SyntaxError) { record('validation_rejected'); return send(res, 400, { error: 'Please check your intake details', code: 'validation_rejected' }) }
+    const timeout = error instanceof Error && (error.name === 'TimeoutError' || error.name === 'AbortError')
+    record(timeout ? 'storage_timeout' : 'storage_failed')
+    return send(res, 503, { error: 'Could not confirm your intake was saved; please retry with the same details', code: timeout ? 'storage_timeout' : 'storage_failed' })
   }
 }
 

@@ -35,6 +35,16 @@ test('storage failure never reports success', async () => {
   const res = response()
   await createLeadHandler(deps({ save: async () => { throw new Error('offline') } }))(request(valid()), res)
   assert.equal(res.statusCode, 503); assert.notEqual(res.body.saved, true)
+  assert.equal(res.body.code, 'storage_failed')
+})
+test('storage timeout gives a traceable failure without a saved receipt', async () => {
+  const res = response()
+  const timeout = new Error('storage timeout'); timeout.name = 'TimeoutError'
+  await createLeadHandler(deps({ save: async () => { throw timeout } }))(request(valid()), res)
+  assert.equal(res.statusCode, 503)
+  assert.equal(res.body.code, 'storage_timeout')
+  assert.equal(typeof res.headers['X-Levarum-Request'], 'string')
+  assert.notEqual(res.body.saved, true)
 })
 test('notification failure does not lose a saved lead', async () => {
   const res = response()

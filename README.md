@@ -238,6 +238,11 @@ visitors can print or save it directly from their browser.
   not a distributed rate limiter.
 - Repeat requests use the same opaque content-addressed path. A retry can update
   the receipt timestamp but cannot overwrite different intake content.
+- Intake responses carry a request trace header. Server diagnostics distinguish
+  validation, origin, throttling, configuration, storage timeout/failure,
+  notification failure, and durable save using trace and opaque request IDs;
+  they do not log submitted answers or secrets. A storage timeout returns no
+  saved confirmation, and an unchanged retry uses the same content-addressed key.
 - Internal AI generation is off. No speculative hours or money savings appear.
 - No advertising tracking or persistent browser lead store in the public pilot.
 - Privacy notice and contact link are available throughout the flow.
