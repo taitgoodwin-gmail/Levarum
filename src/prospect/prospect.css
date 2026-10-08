@@ -1143,4 +1143,8 @@
 .pilot-frame .p-step-count { max-width: 145px; text-align: right; }
 .pilot-privacy { margin: 32px auto; }
 .pilot-privacy h2 { font-size: 22px; margin-top: 28px; }
-@media print { .pilot-frame button, .pilot-footer { display: none; } .p-canvas, .p-frame { background: white; box-shadow: none; } }
+@media print {
+  .pilot-frame button { display: none; }
+  .pilot-footer p, .pilot-footer span, .pilot-footer a[href="/privacy"] { display: none; }
+  .p-canvas, .p-frame { background: white; box-shadow: none; }
+}
