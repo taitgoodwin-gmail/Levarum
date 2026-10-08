@@ -7,7 +7,7 @@ hello@levarum.com. The site never claims an appointment has been booked.
 
 ## MVP contract
 
-**Status:** accepted by the owner for build on 7 October 2026. Updated that day to the v4 offering spec (owner decisions 1 to 7; the spec is in the owner's Drive, "Levarum_Offering spec (decisions, requirements, metrics)_2026-10-07_v4"). Requirements marked **Changed** or **New** are not yet implemented. Build order: LVR-MVP-01, 03 and 09 wait for the five-owner test (LVR-MVP-10); everything else may start now. This section defines the smallest complete Levarum release to validate with a real pilot. Existing implemented behavior is not automatically accepted merely because it exists.
+**Status:** accepted by the owner for build on 7 October 2026 and amended by the owner on 8 October 2026 to replace the printed LVR-MVP-10 test with a moderated digital prototype test. The 7 October v4 offering spec (owner decisions 1 to 7) remains decision background; this README is the current contract. Requirements marked **Changed** or **New** are not yet implemented. Build order: LVR-MVP-01, the remaining LVR-MVP-03 scope and LVR-MVP-09 wait for the digital test (LVR-MVP-10); the LVR-MVP-03 print fix and other ready increments may proceed. This section defines the smallest complete Levarum release to validate with a real pilot. Existing implemented behavior is not automatically accepted merely because it exists.
 
 ### Core user journey
 
@@ -99,7 +99,7 @@ Acceptance:
 - **Changed:** the pilot has two stages, each with its own done-check: stage 1 is the website journey end to end with one real owner; stage 2 is that owner's first build and the start of Operate (LVR-MVP-13, 14);
 - **Changed:** the participant is a home-services or trades owner;
 - **Changed:** the pilot does not open until LVR-MVP-10 has run;
-- **Changed:** the pilot record adds the participant's answer to "What would you do next with this?" and the two-week minute count (LVR-MVP-12).
+- **Changed:** the pilot record adds the participant's observed next action, their answer to "What would you do next with this?", and the two-week minute count (LVR-MVP-12).
 
 **LVR-MVP-09 — Offer the paid Hand-Off Assessment at the next-step screen** (**New**)
 
@@ -114,16 +114,18 @@ Acceptance:
 - no payment is taken on the site in the pilot; the confirmation states that Levarum will follow up with the fee and that nothing is booked or charged yet;
 - no hours or dollar savings figure appears anywhere in the offer copy.
 
-**LVR-MVP-10 — Run the five-owner printed-list test before the pilot opens** (**New**)
+**LVR-MVP-10 — Run a moderated digital journey test before the pilot opens** (**Changed**)
 
-Five real home-services or trades owners are each handed the printed list and asked one question: "What would you do next with this?"
+Five real home-services or trades owners use a clickable digital prototype of the proposed journey before the production pilot opens. The journey starts with one job, shows an immediate first move and what to check first, then presents the required Hand-Off List details and an honest next step. The moderator observes what each owner understands and does, without completing a real enquiry.
 
 Acceptance:
-- five owners, none known to Levarum or MindLeverX as a prior client, each with a recorded business type and ticked challenges;
-- each answer recorded verbatim and coded "call you", "nothing", or "I already have this in [named tool]";
-- the log is kept as one row per owner in a private Google Sheet in the owner's own Levarum Drive folder, never in the website store;
-- the pilot (LVR-MVP-08) does not open until all five records exist;
-- the result is reported as counts, with no claim beyond the five.
+- five owners, none known to Levarum or MindLeverX as a prior client, each with a recorded business type, selected job or challenge, and existing paid tools;
+- each owner attempts the same realistic tasks on a representative mobile or desktop viewport: choose one job, explain the first move and the "check first" advice, identify what their existing tool may already do, find the next step, and say what they would actually do;
+- the moderator records observed actions, where the owner hesitates or misunderstands, the answer to "What would you do next with this?" verbatim, and whether that answer points to contacting Levarum, using a named existing tool, or taking no action; the code does not replace the verbatim answer;
+- prototype content distinguishes vendor claims from verified capability, does not invent the owner's tool configuration, and includes the LVR-MVP-03 limits, counting method, next step and contact address; no price, savings number, real enquiry or production submission is shown or sent;
+- the log is kept as one record per owner in a private Google Sheet in the owner's own Levarum Drive folder, never in the website store; no names or contact details are required in that log;
+- before opening the LVR-MVP-08 pilot, all five sessions are completed and the owner records a decision on the journey: proceed, revise and retest a material confusion, or stop. The decision cites observed behavior and the production gates still open;
+- results are reported as counts and examples from these five owners only. No response threshold alone establishes demand, willingness to pay, or a paid-only funnel.
 
 **LVR-MVP-11 — Withdrawn**
 
@@ -201,7 +203,7 @@ The service records the selected retention/deletion policy for intake and call-r
 
 Acceptance:
 - stored lead classes and their selected retention/deletion treatment are explicit;
-- **Changed:** the classes added by LVR-MVP-09 and 12 (assessment choice with fee stated and answer, minute counts) are in the explicit retention list; the five-owner test log (LVR-MVP-10) is kept outside the website store;
+- **Changed:** the classes added by LVR-MVP-09 and 12 (assessment choice with fee stated and answer, minute counts) are in the explicit retention list; the five-owner digital-test log (LVR-MVP-10) is kept outside the website store;
 - an authorized deletion/access procedure is defined and testable;
 - private submissions remain inaccessible from public routes;
 - unavailable backup/provider deletion guarantees are stated as limits rather than assumed.
