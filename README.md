@@ -1,16 +1,17 @@
 # Levarum public pilot
 
-A short intake produces a practical Game Plan and an optional request for a
-15-minute conversation. Scheduling is handled manually by Levarum through
+A short intake produces a practical Hand-Off List and an optional request for a
+15-minute conversation. The live site still calls the list a "Game Plan" until the
+LVR-MVP-03 change below ships. Scheduling is handled manually by Levarum through
 hello@levarum.com. The site never claims an appointment has been booked.
 
 ## MVP contract
 
-**Status:** proposed baseline for owner review and implementation traceability. This section defines the smallest complete Levarum release to validate with a real pilot. Existing implemented behavior is not automatically accepted merely because it exists.
+**Status:** accepted by the owner for build on 7 October 2026 and amended by the owner on 8 October 2026 to replace the printed LVR-MVP-10 test with a moderated digital prototype test. The 7 October v4 offering spec (owner decisions 1 to 7) remains decision background; this README is the current contract. Requirements marked **Changed** or **New** are not yet implemented. Build order: LVR-MVP-01, the remaining LVR-MVP-03 scope and LVR-MVP-09 wait for the digital test (LVR-MVP-10); the LVR-MVP-03 print fix and other ready increments may proceed. This section defines the smallest complete Levarum release to validate with a real pilot. Existing implemented behavior is not automatically accepted merely because it exists.
 
 ### Core user journey
 
-Small-business owner → provides minimum business context and consent → receives a useful Game Plan → optionally requests help → request is durably stored → Levarum can retrieve and act on it → the user receives an honest confirmation of what happened and what did not happen.
+Small-business owner → provides minimum business context and consent → receives a useful Hand-Off List → optionally requests help → request is durably stored → Levarum can retrieve and act on it → the user receives an honest confirmation of what happened and what did not happen.
 
 ### MVP requirements
 
@@ -21,7 +22,9 @@ A small-business owner can provide the minimum information needed to identify re
 Acceptance:
 - business type, weekly back-office-hours band, at least one challenge, valid email, and explicit consent are collected;
 - missing or invalid required data is rejected clearly;
-- the flow works without requiring an account or payment.
+- the flow works without requiring an account or payment;
+- **Changed:** the intake also asks which paid tools the owner runs and whether each tool's AI or reminder feature is switched on, which two systems they retype things between, and whether the phone is answered live;
+- **Changed:** clinic, legal and accounting selections receive an honest "not in our first version" message.
 
 **LVR-MVP-02 — Persist the intake safely**
 
@@ -34,13 +37,16 @@ Acceptance:
 
 **LVR-MVP-03 — Deliver immediate customer value**
 
-After a valid intake, the customer receives a useful, understandable Game Plan tied to the submitted challenges.
+After a valid intake, the customer receives a useful, understandable Hand-Off List tied to the submitted challenges. **Changed:** the artefact is renamed from "Game Plan".
 
 Acceptance:
 - the plan identifies concrete opportunities or next questions;
 - it does not invent savings, ROI, delivery timing, or implementation certainty;
 - the customer can print or save the plan;
-- degraded/AI-unavailable behavior remains useful and honestly labeled when AI is used.
+- degraded/AI-unavailable behavior remains useful and honestly labeled when AI is used;
+- **Changed:** for each selected challenge the list shows what the owner's existing tool already says it does (named tool, as the vendor's own claim), what Levarum would build, what Levarum will not automate, and how the time would be counted;
+- **Changed:** no numeric hours or dollar figure appears on the prospect surface in any mode; the `lo`/`hi` values in `src/domain/pains.ts` are removed or fenced behind a documented operator-only flag with a source note;
+- **Changed:** the printed or saved list keeps the next step and the contact address (the current print rule hides both).
 
 **LVR-MVP-04 — Provide an honest next step**
 
@@ -59,7 +65,8 @@ Acceptance:
 - production records are accessible only to authorized operators;
 - the operator can distinguish new, in-progress, waiting, and closed work;
 - the source intake and follow-up context remain traceable;
-- no public read endpoint exposes private submissions.
+- no public read endpoint exposes private submissions;
+- **Changed:** the new fields from LVR-MVP-09 (assessment choice, fee stated, yes or no) and LVR-MVP-12 (minute counts) render in the operator view.
 
 **LVR-MVP-06 — Handle failures and retries deliberately**
 
@@ -76,11 +83,11 @@ Acceptance:
 The complete core journey is usable on the agreed desktop and mobile viewport set and supports basic keyboard and accessibility expectations.
 
 Acceptance:
-- intake, Game Plan, call request, confirmation, privacy, and error states are verified at representative desktop and mobile sizes;
+- **Changed:** intake, Hand-Off List, the assessment step (LVR-MVP-09), call request, confirmation, privacy, and error states are verified at representative desktop and mobile sizes;
 - focus order and keyboard completion work for the core journey;
 - no critical content or action is clipped, hidden, or unreachable.
 
-**LVR-MVP-08 — Complete one real production pilot**
+**LVR-MVP-08 — Complete one real production pilot** (**Changed:** two stages)
 
 One real participant can complete the end-to-end journey in production and Levarum can receive, process, and respond using the intended operating process.
 
@@ -88,11 +95,95 @@ Acceptance:
 - production submission and retrieval are verified end to end;
 - customer and operator assistance, defects, elapsed effort, and exceptions are recorded;
 - the pilot result distinguishes product behavior from manual rescue;
-- the result informs the next product/commercial decision without claiming broader market validation.
+- the result informs the next product/commercial decision without claiming broader market validation;
+- **Changed:** the pilot has two stages, each with its own done-check: stage 1 is the website journey end to end with one real owner; stage 2 is that owner's first build and the start of Operate (LVR-MVP-13, 14);
+- **Changed:** the participant is a home-services or trades owner;
+- **Changed:** the pilot does not open until LVR-MVP-10 has run;
+- **Changed:** the pilot record adds the participant's observed next action, their answer to "What would you do next with this?", and the two-week minute count (LVR-MVP-12).
+
+**LVR-MVP-09 — Offer the paid Hand-Off Assessment at the next-step screen** (**New**)
+
+After the Hand-Off List, the owner can request the credited, fixed-fee Hand-Off Assessment as an alternative to, or alongside, the free 15-minute call, and the choice is stored.
+
+Acceptance:
+- the assessment is described by what the owner receives (the report's contents) and by its turnaround;
+- no fee, price band or billing rule, including the credit-against-build rule, appears on the site (owner rule, 7 October 2026: the site does not give the details of how Levarum bills); the screen says the assessment is a paid step and that Levarum gives the fee in the follow-up, before the owner commits to anything;
+- there is no setting to show the fee on the site;
+- the owner's choice (free call, assessment, both, neither) is stored on the call-request record as one field;
+- after the follow-up, the operator records on the same record the fee stated and whether the owner said yes or no;
+- no payment is taken on the site in the pilot; the confirmation states that Levarum will follow up with the fee and that nothing is booked or charged yet;
+- no hours or dollar savings figure appears anywhere in the offer copy.
+
+**LVR-MVP-10 — Run a moderated digital journey test before the pilot opens** (**Changed**)
+
+Five real home-services or trades owners use a clickable digital prototype of the proposed journey before the production pilot opens. The journey starts with one job, shows an immediate first move and what to check first, then presents the required Hand-Off List details and an honest next step. The moderator observes what each owner understands and does, without completing a real enquiry.
+
+Acceptance:
+- five owners, none known to Levarum or MindLeverX as a prior client, each with a recorded business type, selected job or challenge, and existing paid tools;
+- each owner attempts the same realistic tasks on a representative mobile or desktop viewport: choose one job, explain the first move and the "check first" advice, identify what their existing tool may already do, find the next step, and say what they would actually do;
+- the moderator records observed actions, where the owner hesitates or misunderstands, the answer to "What would you do next with this?" verbatim, and whether that answer points to contacting Levarum, using a named existing tool, or taking no action; the code does not replace the verbatim answer;
+- prototype content distinguishes vendor claims from verified capability, does not invent the owner's tool configuration, and includes the LVR-MVP-03 limits, counting method, next step and contact address; no price, savings number, real enquiry or production submission is shown or sent;
+- the log is kept as one record per owner in a private Google Sheet in the owner's own Levarum Drive folder, never in the website store; no names or contact details are required in that log;
+- before opening the LVR-MVP-08 pilot, all five sessions are completed and the owner records a decision on the journey: proceed, revise and retest a material confusion, or stop. The decision cites observed behavior and the production gates still open;
+- results are reported as counts and examples from these five owners only. No response threshold alone establishes demand, willingness to pay, or a paid-only funnel.
+
+**LVR-MVP-11 — Withdrawn**
+
+Withdrawn by the owner on 7 October 2026, before it was built. It asked for a public page carrying the refusal list and the ownership statement. The public site does not set out how Levarum runs its business or how it bills. The number is not reused.
+
+**LVR-MVP-12 — Publish the counting method and count before claiming** (**New**)
+
+Levarum publishes how it counts time saved and writes no number for any client until a two-week count of the owner's minutes on one task has been taken.
+
+Acceptance:
+- the method page states what is counted, over what period, and what is not counted;
+- the pilot record stores the owner's intake hours band and the counted minutes side by side;
+- any figure later shown to a prospect prints its assumptions next to it;
+- the `lo`/`hi` bands are not used as inputs to any displayed figure.
+
+**LVR-MVP-13 — Deliver the pilot build inside client-owned accounts with the review step and consent controls** (**New**)
+
+The first build runs in the client's own accounts, holds no credentials, card data or PHI in Levarum's store, starts in approval mode, and carries the disclosure and opt-out controls.
+
+Acceptance:
+- the client is the sender of record for every outbound message; Levarum holds no sending account in its own name for that client;
+- every sending step is in approval mode at handoff, and a written list records which steps the owner has released;
+- any SMS step passes every SMS consent item (S1 to S15 in spec section 11) before a text is sent;
+- email steps lead with the transactional content and carry the client's name, postal address and opt-out where the message is commercial;
+- conversational interactions carry an "automated assistant" label;
+- no card number, CVV or PHI enters any Levarum-controlled system; payment is by hosted link only;
+- a signed data-processing addendum is in place before data moves;
+- at handoff the client holds all credentials and a one-page "who fixes what" sheet.
+
+**LVR-MVP-14 — Attach Operate to every Assessment and every build** (**New**)
+
+Operate (run, watch, fix) is required with every build for a first period of three months; the Operate scope and monthly price are stated in every Assessment report and on every build quote.
+
+Acceptance:
+- the Assessment report uses one fixed template whose fourth heading is "What we would run for you each month";
+- the report is drafted from the owner's intake answers and reviewed by a person before it is sent;
+- every build quote shows the Operate scope, the monthly price, the length of the first period and that the owner can stop when it ends;
+- each lead workflow exists as one build template that is configured, not rebuilt, for each client;
+- the monthly offer is made only after the Assessment has mapped the business, never before;
+- no monthly price or other billing term appears on the public site.
+
+**LVR-MVP-15 — Partner names, logos and commissions** (**New**)
+
+Levarum may show the logos of the technologies it works with under a label such as "Representative technologies", follows each vendor's brand rules, claims no partnership or title the vendor has not given it, and takes no commission from any vendor it names.
+
+Acceptance:
+- logos appear only under a "Representative technologies" (or similar) label, never as "partners"; the four named for now are RingCentral, Zapier, Anthropic and OpenAI (owner decision, 7 October 2026: permission is held);
+- each logo or badge is used only as that vendor's brand rules allow, with written approval where required;
+- the word "partner" and any badge appear only where the vendor's program gives Levarum that title or badge; Levarum never says it is authorized, certified, approved or endorsed by a vendor unless the vendor's program gives it that title;
+- no "Powered by Claude" claim appears until a build runs on Claude;
+- Levarum takes no commission, referral fee or other payment from any vendor whose product it names;
+- the Hand-Off List starts with what the owner's existing tool already says it does;
+- the client holds the vendor account; Levarum refers or sets up and does not resell seats in its own name unless the agreement says it may;
+- for each vendor, a record is kept of who gave permission and when, the brand rules read, and each approval received.
 
 ### Proposed technical / NFR requirements
 
-**Status:** proposed 2 October production-engineering gap pass. These requirements make production constraints explicit; they do not authorize implementation beyond the accepted pilot scope or invent numerical SLA, retention, rate, or recovery targets.
+**Status:** written in the 2 October production-engineering gap pass; accepted by the owner for build on 7 October 2026, each within its own gate. These requirements make production constraints explicit; they do not authorize implementation beyond the accepted pilot scope or invent numerical SLA, retention, rate, or recovery targets.
 
 **LVR-NFR-01 — Production release and configuration integrity**  
 **Gate:** required before a real production pilot.
@@ -112,6 +203,7 @@ The service records the selected retention/deletion policy for intake and call-r
 
 Acceptance:
 - stored lead classes and their selected retention/deletion treatment are explicit;
+- **Changed:** the classes added by LVR-MVP-09 and 12 (assessment choice with fee stated and answer, minute counts) are in the explicit retention list; the five-owner digital-test log (LVR-MVP-10) is kept outside the website store;
 - an authorized deletion/access procedure is defined and testable;
 - private submissions remain inaccessible from public routes;
 - unavailable backup/provider deletion guarantees are stated as limits rather than assumed.
@@ -181,7 +273,6 @@ For every consequential implementation issue, use:
 **Requirement ID → approved user-journey/UI target → acceptance test → implementation issue → code/PR → verification evidence → production result.**
 
 The approved visual target may live in Figma, but Figma does not redefine product scope by itself. If requirements, Figma, code, and production disagree, classify the mismatch and update the correct source deliberately rather than allowing silent drift.
-
 
 ## Run and check
 
