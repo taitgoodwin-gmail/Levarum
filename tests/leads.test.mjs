@@ -24,6 +24,14 @@ test('canonical requests are idempotent and cannot overwrite different personal 
   assert.notEqual(leadPath(parseLead(input)), leadPath(parseLead({ ...input, email: 'other@example.com' })))
   assert.ok(!leadPath(parseLead(input)).includes('@'))
 })
+test('unversioned historical payloads remain stable and unsupported versions fail closed', () => {
+  const input = valid()
+  const historical = parseLead(input)
+  assert.equal(Object.hasOwn(historical, 'schemaVersion'), false)
+  assert.equal(leadPath(historical), leadPath(parseLead(input)))
+  assert.throws(() => parseLead({ ...input, schemaVersion: 3 }))
+  assert.throws(() => parseLead({ ...input, schemaVersion: 999 }))
+})
 test('confirms only after durable save and does not expose a storage URL', async () => {
   let saved = false
   const handler = createLeadHandler(deps({ save: async () => { saved = true } }))

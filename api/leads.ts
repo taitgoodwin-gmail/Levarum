@@ -2,6 +2,7 @@ import type { IncomingMessage, ServerResponse } from 'node:http'
 import { createHash } from 'node:crypto'
 import { put } from '@vercel/blob'
 import { LeadInputError, leadPath, parseLead, type Lead } from '../server/leads.ts'
+import { releaseConfigured } from '../server/release.ts'
 
 const MAX_BYTES = 8 * 1024
 
@@ -48,7 +49,7 @@ type LeadDependencies = {
   notify: (lead: Lead) => Promise<void>
 }
 const defaults: LeadDependencies = {
-  configured: () => Boolean(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID),
+  configured: () => Boolean(process.env.BLOB_READ_WRITE_TOKEN || process.env.BLOB_STORE_ID) && releaseConfigured(),
   save: async lead => {
     await put(leadPath(lead), JSON.stringify({ ...lead, receivedAt: new Date().toISOString(), privacyVersion: '2026-09-29' }), {
       access: 'private', contentType: 'application/json', addRandomSuffix: false, allowOverwrite: true,
