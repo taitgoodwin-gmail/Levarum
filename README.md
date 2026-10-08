@@ -252,3 +252,26 @@ The pilot is not a full CRM. Authenticated operator access, plan email delivery,
 calendar integration, automated retention, and distributed abuse controls remain
 follow-up work. Keep the private store under routine review and handle access or
 deletion requests through hello@levarum.com.
+
+## Device and abuse gate — 8 October 2026
+
+Synthetic localhost checks at 390 × 844 and 1440 × 900 reached intake, Game Plan,
+call request, confirmation, and privacy. A separate local check exercised the
+unavailable-storage error with retained answers. At both widths, DOM checks found
+no horizontal overflow. A keyboard Tab from the wordmark reached the business
+selector. These are sampled browser checks, not full accessibility conformance
+or production verification. The LVR-MVP-07 assessment step remains BLOCKED
+until LVR-MVP-09 is built after the five-owner test. The current prospect intake
+and list still display numeric hours bands, a known mismatch with the accepted
+LVR-MVP-03 boundary; that deferred change must be verified before pilot release.
+
+Set `PUBLIC_ALLOWED_ORIGINS` to the exact production site origin(s). Missing
+production configuration, an absent/foreign Origin, or an oversize declared
+body fails before a private write. The existing per-instance throttle is only a
+bounded-pilot backstop. Before traffic expands, select and publish a Vercel WAF
+rate rule for the externally reachable mutation route, then verify that requests
+spread across instances are limited while legitimate traffic succeeds. No WAF
+rule or production distributed-rate test is claimed here. [Vercel's WAF rate
+limiting guidance](https://vercel.com/docs/vercel-firewall/vercel-waf/rate-limiting)
+was checked 8 October 2026. Its counting policy and any cost impact must be
+selected before enabling the rule.
