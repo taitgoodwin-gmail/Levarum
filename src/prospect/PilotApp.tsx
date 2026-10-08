@@ -33,7 +33,7 @@ export function PilotApp() {
       const response = await fetch('/api/leads', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         signal: AbortSignal.timeout(20000),
-        body: JSON.stringify({ requestId: requestIds.current[intent], intent, business, hours, pains, email: email.trim(), preferences: intent === 'call' ? preferences : '', consent, website }),
+        body: JSON.stringify({ requestId: requestIds.current[intent], intent, business, hours, pains, email: email.trim(), preferences: intent === 'call' ? preferences : '', ...(intent === 'call' ? {sourceRequestId: requestIds.current.plan} : {}), consent, website }),
       })
       if (!response.ok) throw new Error(response.status === 429 ? 'Please wait a minute before trying again.' : 'We could not confirm your request. Please try again or email hello@levarum.com.')
       const result = await response.json()

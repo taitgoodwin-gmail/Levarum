@@ -11,7 +11,7 @@ function response() {
 function request(body, options = {}) {
   return { method: 'POST', headers: { host: 'localhost:5173', origin: 'http://localhost:5173', 'content-type': 'application/json' }, socket: { remoteAddress: '127.0.0.1' }, body, ...options }
 }
-const deps = (overrides = {}) => ({ configured: () => true, save: async () => {}, notify: async () => {}, ...overrides })
+const deps = (overrides = {}) => ({ configured: () => true, save: async () => {}, index: async () => {}, notify: async () => {}, ...overrides })
 
 test('rejects empty selections, invalid email, missing consent, unknown values and honeypot', () => {
   for (const patch of [{ pains: [] }, { email: 'a@b.com other' }, { consent: false }, { business: 'other' }, { hours: 'hundreds' }, { website: 'bot' }, { preferences: 'x'.repeat(501) }]) {
@@ -40,6 +40,18 @@ test('notification failure does not lose a saved lead', async () => {
   const res = response()
   await createLeadHandler(deps({ notify: async () => { throw new Error('offline') } }))(request(valid()), res)
   assert.equal(res.statusCode, 200); assert.equal(res.body.saved, true)
+})
+test('queue indexing failure preserves a durably saved intake', async () => {
+  const res = response()
+  await createLeadHandler(deps({ index: async () => { throw new Error('index offline') } }))(request(valid()), res)
+  assert.equal(res.statusCode, 200); assert.equal(res.body.saved, true)
+})
+test('call request keeps the source intake reference without changing legacy records', () => {
+  const sourceRequestId = randomUUID()
+  const linked = parseLead({ ...valid(), intent: 'call', sourceRequestId })
+  assert.equal(linked.sourceRequestId, sourceRequestId)
+  assert.equal(parseLead(valid()).sourceRequestId, undefined)
+  assert.throws(() => parseLead({ ...valid(), sourceRequestId }))
 })
 test('fails closed when storage is not configured', async () => {
   const res = response(); await createLeadHandler(deps({ configured: () => false }))(request(valid()), res)
