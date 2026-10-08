@@ -47,7 +47,14 @@ export async function readDetail(id:string){
   if(sourceRows.rows.length===1){
    const linked=sourceRows.rows[0]
    const sourceBlob=await get(linked.source_key,{token:blobToken(),access:'private',useCache:false})
-   if(sourceBlob?.statusCode===200){const {source_key:_,...sourceRecord}=linked;source={record:sourceRecord,lead:await new Response(sourceBlob.stream).json()}}
+   if(sourceBlob?.statusCode===200){
+    const sourceLead=await new Response(sourceBlob.stream).json() as Record<string,unknown>
+    // A caller may name an arbitrary UUID; only show it as a linked intake
+    // when the independently saved contact address matches this request.
+    if(typeof sourceLead.email==='string'&&sourceLead.email.toLowerCase()===lead.email){
+     const {source_key:_,...sourceRecord}=linked;source={record:sourceRecord,lead:sourceLead}
+    }
+   }
   }
  }
  const {source_key:_,...record}=rows[0];return {record,lead,source,events:events.rows}
